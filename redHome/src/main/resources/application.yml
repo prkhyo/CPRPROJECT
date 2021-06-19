@@ -1,0 +1,15 @@
+
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/CPRPROJECT
+    username: CPRPROJECT
+    password: CPRPROJECT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+#  type-aliases-package: com.CPR.redHome.dto.**
+#  configuration:
+#    map-underscore-to-camel-case: true
