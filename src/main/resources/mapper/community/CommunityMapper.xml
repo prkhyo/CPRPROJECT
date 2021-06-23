@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.community.CommunityMapper">
+
+
+    <sql id ="search" >
+
+        <if test="type == 'search_title'">
+            quest_title like '%'||'${keyword}'||'%' and
+        </if>
+        <if test="type == 'search_contents'">
+            quest_contents like '%'||'${keyword}'||'%' and
+        </if>
+        <if test="type == 'search_id'">
+            member_id like '%'||'${keyword}'||'%' and
+        </if>
+    </sql>
+
+
+
+
+    <select id="selectCommunityTotalCnt" resultType="java.lang.Integer" >
+      select count(*)
+      from community
+
+
+    </select>
+
+
+   <!-- LIMIT의 첫 번째 파라미터는 시작 위치(몇 번째 데이터부터 가지고 올 것인지)를 지정하고,
+    두 번째 파라미터는 시작 위치를 기준으로 가지고 올 데이터의 개수를 지정-->
+    <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" parameterType="java.util.HashMap" >
+
+        select  community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState
+        from community
+        order by community_id desc
+        limit #{firstRecordIndex}, #{recordsPerPage}
+
+    </select>
+
+
+
+
+
+
+</mapper>
