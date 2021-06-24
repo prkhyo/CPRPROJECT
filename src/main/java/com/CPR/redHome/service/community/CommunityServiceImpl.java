@@ -19,8 +19,8 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     @Override
-    public int countAllCommunities() {
-        int CommunityCnt = communityMapper.selectCommunityTotalCnt();
+    public int countAllCommunities(HashMap<String,Object> map) {
+        int CommunityCnt = communityMapper.selectCommunityTotalCnt(map);
         return CommunityCnt;
     }
 

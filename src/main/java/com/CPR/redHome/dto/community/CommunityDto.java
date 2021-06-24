@@ -30,4 +30,6 @@ public class CommunityDto  {
 
     private String communityState;
 
+    private Long communityHit;
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface CommunityMapper {
 
     //총 커뮤니티 글 수 가져오기
-  int selectCommunityTotalCnt();
+  int selectCommunityTotalCnt(HashMap<String,Object> map);
 
    //전체 커뮤니티 글 가져오기
   List<CommunityDto> selectAllCommunities(HashMap<String,Object> map);

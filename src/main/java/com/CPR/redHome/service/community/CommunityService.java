@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommunityService {
 
 
-    int countAllCommunities();
+    int countAllCommunities(HashMap<String,Object> map);
 
     List<CommunityDto> getCommunityList(HashMap<String,Object> map);
 

@@ -24,28 +24,24 @@ public class CommunityController {
 
 
     @GetMapping("/community/list")
-    public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model/*, @ModelAttribute String reply, @ModelAttribute String orderType */) {
+    public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType) {
        /* @ModelAttribute를 이용하면 파라미터로 전달받은 객체를 자동으로 뷰까지 전달*/
 
         List<CommunityDto> communityList = Collections.emptyList();
 
-        int communityTotalCnt = communityService.countAllCommunities();
+
 
         Pagination pagination = new Pagination(criteria);
-        pagination.setTotalRecordCount(communityTotalCnt);
+
 
 
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("recordsPerPage",criteria.getRecordsPerPage());
         map.put("firstRecordIndex",pagination.getFirstRecordIndex());
+        map.put("reply", reply);
 
-       /* map.put("orderType",orderType);
-        map.put("reply",reply);
-        map.put("pageNum",cri.getPageNum());
-        map.put("amount",cri.getAmount());
-        map.put("type",cri.getType());
-        map.put("keyword",cri.getKeyword());*/
-
+        int communityTotalCnt = communityService.countAllCommunities(map);
+        pagination.setTotalRecordCount(communityTotalCnt);
 
       if(communityTotalCnt > 0){
           communityList = communityService.getCommunityList(map);
@@ -57,8 +53,7 @@ public class CommunityController {
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
-        model.addAttribute("orderType","newCommunity");//
-        model.addAttribute("reply","replyState_all");//
+
 
         return "community/community_list";
     }
