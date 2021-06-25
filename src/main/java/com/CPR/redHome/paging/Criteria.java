@@ -34,21 +34,6 @@ public class Criteria {
     }
 
 
-    //Criteria 클래스의 멤버 변수들을 쿼리 스트링(Query String) 형태로 반환하는 메서드
-    public String makeQueryString(int pageNo) {
-
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .queryParam("currentPageNo", pageNo)
-                .queryParam("recordsPerPage", recordsPerPage)
-                .queryParam("pageSize", pageSize)
-                .queryParam("searchType", searchType)
-                .queryParam("searchKeyword", searchKeyword)
-                .build()
-                .encode();
-
-        return uriComponents.toUriString();
-    }
-
 
 
 }

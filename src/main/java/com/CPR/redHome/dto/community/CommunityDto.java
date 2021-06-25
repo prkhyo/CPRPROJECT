@@ -32,4 +32,9 @@ public class CommunityDto  {
 
     private Long communityHit;
 
+
+
+    /*조인 시 사용*/
+    private Long ccommentId;
+
 }

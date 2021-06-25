@@ -69,7 +69,7 @@
                     <a class="filter-select__list_newCommunity sort"  th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newCommunity')}"  id="activeList" onmouseover="newCommunityFocus()">최신순</a>
                     </li>
                     <li class="filter-select__list__entry" >
-                    <a class="filter-select__list_newComment sort" th:href="@{/community/list(currentPageNo=1, reply='replyState_all', orderType='newComment')}" id="notactiveList1" onmouseover="newCommentFocus()">최근 답변순</a>
+                    <a class="filter-select__list_newComment sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newComment')}" id="notactiveList1" onmouseover="newCommentFocus()">최근 답변순</a>
                     </li>
                     <li class="filter-select__list__entry" >
                         <a class="filter-select__list_mostPopular sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='mostPopular')}" id="notactiveList2" onmouseover="mostPopularFocus()">인기순</a>
@@ -80,10 +80,10 @@
 
         <div class="questions-filter__actions">
             <th:block th:if="${reply == 'not_yet'}">
-                    <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/community/list(currentPageNo=1, reply='replyState_all')}" style="color: white; background-color: #ed4a4a; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 질문</button>
+                    <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/community/list(currentPageNo=1, reply='replyState_all', orderType =${orderType})}" style="color: white; background-color: #ed4a4a; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 질문</button>
             </th:block>
             <th:block th:if="${reply != 'not_yet'}">
-                    <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/community/list(currentPageNo=1, reply='not_yet')}" onclick="reply(this)">답변을 기다리는 질문</button>
+                    <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/community/list(currentPageNo=1, reply='not_yet', orderType =${orderType})}" onclick="reply(this)">답변을 기다리는 질문</button>
             </th:block>
             <button class="questions-filter__actions__new-question btn btn-priority btn-sm" href="/question">질문하기</button>
         </div>

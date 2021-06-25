@@ -29,11 +29,6 @@ public class CommunityServiceImpl implements CommunityService {
 
         List<CommunityDto> communityList = communityMapper.selectAllCommunities(map);
 
-       /* String orderType = (String) map.get("orderType");
-        if (orderType.equals("newAnswer")) {
-           // communityList = boardRepository.getBoardPagingNewAnswer(map);
-            System.out.println("최근 답변순 정렬");
-        }*/
 
         return communityList;
     }

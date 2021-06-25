@@ -36,8 +36,18 @@
     두 번째 파라미터는 시작 위치를 기준으로 가지고 올 데이터의 개수를 지정-->
     <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" parameterType="java.util.HashMap" >
 
-        select  community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
-        from community
+        select  community.community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
+        <if test="orderType == 'newComment'">, comments.comment_id as ccommentId </if>
+        <choose>
+            <when test="orderType == 'newComment'">
+                from community left outer join comments
+                on comments.community_id = community.community_id
+            </when>
+            <otherwise>
+                from community
+            </otherwise>
+        </choose>
+
         <where>
             <choose>
                 <when test='reply == "not_yet"'>
@@ -49,7 +59,16 @@
             </choose>
         </where>
 
-        order by community_id desc
+        <if test='orderType != "newComment" and orderType != "mostPopular"'>
+            order by community.community_id desc
+        </if>
+        <if test='orderType == "mostPopular"'>
+            order by community_hit desc
+        </if>
+        <if test='orderType == "newComment"'>
+            order by comments.comment_id desc
+        </if>
+
         limit #{firstRecordIndex}, #{recordsPerPage}
 
     </select>
