@@ -7,9 +7,12 @@ spring:
     username: CPRPROJECT
     password: CPRPROJECT
     driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
 
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
-#  type-aliases-package: com.CPR.redHome.dto.**
+#  type-aliases-package: com.CPR.redHome.dto.**.*
+
 #  configuration:
-#    map-underscore-to-camel-case: true
+#  map-underscore-to-camel-case: true

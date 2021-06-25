@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/community/community_list.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+
+<div id="questions-index-page">
+    <section id="questions-header">
+        <div class="container">
+            <div class="questions-header__title">
+                <h1 class="text-heading-1 text-black bold">질문과 답변</h1>
+                <p class="text-caption-1">레드홈 인테리어 고수들과 전문가들에게 조언을 받으세요.</p>
+            </div>
+            <form id="questions-header__form" class="sticky-top"
+                  action="/board" accept-charset="utf-8" method="get">
+                <input name="utf8" type="hidden" value="✓">
+                <div class="sticky-content">
+                    <div class="questions-header__form__wrap row">
+                        <div class="questions-header__form__search col">
+                            <div class="questions-header__form__search__input">
+                                <select id="questionCategory_filters"  name="type"  onchange="" >
+                                    <option class="filter-select__list__entry"  value="" selected >선택하세요</option>
+                                    <option class="filter-select__list__entry" value="search_title" th:text="제목"/>
+                                    <option class="filter-select__list__entry" value="search_contents" th:text="내용"/>
+                                    <option class="filter-select__list__entry" value="search_id" th:text="아이디"/>
+                                </select>
+                                <img src="/img/redhome_search.PNG"
+                                     style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn">
+                                <input type="text" name="searchKeyword"
+                                       id="questions-header__form__search" th:attr="value=${criteria.searchKeyword}"
+                                       class="form-control" placeholder="궁금한 것을 검색해보세요."
+                                       autocomplete="off"/>
+                                <input type="hidden" name="currentPageNo" th:attr="value=${criteria.currentPageNo}">
+                                <input type="hidden" name="recordsPerPage" th:attr="value=${criteria.recordsPerPage}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+<section id="questions-filter" class="sticky-top" >
+    <div class="questions-filter__content container">
+        <div class="questions-filter__filters">
+            <div class="filter-select" id="questions-filter-sort" data-modal-id="questions-filter-sort-modal">
+                <dl class="filter-select__header" role="button">
+                    <dt class="filter-select__header__name">
+                        정렬<span class="icon icon-pointer-angle-down-dark-sm"></span>
+                    </dt>
+                    <th:block th:if="${orderType != 'mostPopular' }">
+                        <dd class="filter-select__header__value" th:text="${orderType != 'newComment'}?'최신순': '최근 답변순'"></dd>
+                    </th:block>
+                    <th:block th:if="${orderType == 'mostPopular' }">
+                        <dd class="filter-select__header__value" th:text="인기순"></dd>
+                    </th:block>
+
+                </dl>
+                <ul class="filter-select__list" >
+                    <li class="filter-select__list__entry active" >
+                    <a class="filter-select__list_newCommunity sort"  th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newCommunity')}"  id="activeList" onmouseover="newCommunityFocus()">최신순</a>
+                    </li>
+                    <li class="filter-select__list__entry" >
+                    <a class="filter-select__list_newComment sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newComment')}" id="notactiveList1" onmouseover="newCommentFocus()">최근 답변순</a>
+                    </li>
+                    <li class="filter-select__list__entry" >
+                        <a class="filter-select__list_mostPopular sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='mostPopular')}" id="notactiveList2" onmouseover="mostPopularFocus()">인기순</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="questions-filter__actions">
+            <th:block th:if="${reply == 'not_yet'}">
+                    <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/community/list(currentPageNo=1, reply='replyState_all', orderType =${orderType})}" style="color: white; background-color: #ed4a4a; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 질문</button>
+            </th:block>
+            <th:block th:if="${reply != 'not_yet'}">
+                    <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/community/list(currentPageNo=1, reply='not_yet', orderType =${orderType})}" onclick="reply(this)">답변을 기다리는 질문</button>
+            </th:block>
+            <button class="questions-filter__actions__new-question btn btn-priority btn-sm" href="/question">질문하기</button>
+        </div>
+
+
+
+
+    </div>
+    </div>
+</section>
+
+
+
+
+<section id="questions-notice-list" class="container">
+    <ol class="questions-notice-list__list">
+        <li class="questions-notice-list__list__entry">
+            <a href="#" style="text-decoration: none;">
+                <span class="title text-body-1" >📢 &nbsp 레드홈 공지사항</span>
+            </a>
+        </li>
+        <li class="questions-notice-list__list__entry">
+            <a href="/faq?questionType=all" style="text-decoration: none;">
+                <span class="title text-body-1"  >📢 &nbsp FAQ&nbsp(자주 묻는 질문) </span>
+            </a>
+        </li>
+    </ol>
+</section>
+
+
+
+
+
+<section id="questions-list" class="container">
+    <th:block th:each= "community : ${communityList}" >
+        <a class="questions-item__link" href="${community.communityId}" >
+            <article class="questions-item">
+                <th:block th:if="${community.communityImg ne null }">
+                    <div class="questions-item__image">
+                        <div class="image-wrap square">
+                            <img th:src="@{${'/img/community/uploadCommunityImg/'+community.communityImg}}">
+                        </div>
+                    </div>
+                </th:block>
+
+
+                        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="'<'+ ${community.communityId} + '> '+ ${community.communityTitle}"></h1>
+                        <p class="questions-item__content text-caption-1" th:text="${community.communityContents}"></p>
+                <footer class="questions-item__footer">
+            <span class="questions-item__footer__author">
+                <span class="questions-item__footer__author__content text-caption-1" th:text="${community.memberId}"></span>
+            </span>
+                    <span class="questions-item__footer__meta text-caption-1">
+              <time datetime="2021-05-04T13:16:13+09:00" class="questions-item__footer__date text-gray" th:text="${community.communityCreatedDate}"></time>
+              <!--<span class="questions-item__footer__comments text-gray" th:text="${community.communityState}"></span>-->
+              <span class="questions-item__footer__comments text-gray">
+                댓글
+              <span class="questions-item__footer__comments__content ">0</span>
+              </span>
+              <span class="questions-item__footer__views text-gray">
+                  조회
+                <span class="questions-item__footer__views__content" th:text="${community.communityHit}"></span>
+              </span>
+              </span>
+
+                </footer>
+            </article>
+        </a>
+        </th:block>
+</section>
+
+
+
+
+<div class="paging">
+    <ul class="pagination">
+        <!--이전  버튼-->
+        <th:block th:if="${pageMaker.hasPreviousPage}">
+            <li class="page-item">
+                <a class ="page-link" id="Previous"  th:href="@{/community/list(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType})}" tabindex="-1">Prev</a>
+            </li>
+        </th:block>
+
+
+
+       <!--페이지 번호-->
+        <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
+        <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
+            th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
+            <a class ="page-link" id="pageNum"  th:href="@{/community/list(currentPageNo=${page}, reply=${reply},orderType=${orderType})}" th:text="${page}" ></a>
+        </li>
+        </th:block>
+
+
+        <!--다음 버튼-->
+        <th:block th:if="${pageMaker.hasNextPage}">
+            <li class="page-item" >
+                <a class ="page-link" id="Next" th:href="@{/community/list(currentPageNo=${pageMaker.lastPage} + 1, reply=${reply},orderType=${orderType} )}"  tabindex="-1">Next</a>
+            </li>
+        </th:block>
+
+    </ul>
+</div>
+
+<!--페이지 이동을 a태그로 처리하지 않고 form  태그로 처리-->
+<form id='actionForm' name="actionForm" action="/community/list" method='get'>
+    <input type='hidden' id='form_page' name='page' th:attr="value=${criteria.currentPageNo}" >
+    <input type='hidden' id='form_recordsPerPage'  name='recordsPerPage' th:attr="value=${criteria.recordsPerPage}">
+    <input type='hidden' id='form_reply' name='reply' th:attr="value=${reply}">
+    <input type='hidden' id='form_orderType' name='orderType' th:attr="value=${orderType}">
+    <input type='hidden' id='form_searchType' name='searchType' th:attr="value=${criteria.searchType}">
+    <input type='hidden' id='form_searchKeyword' name='searchKeyword' th:attr="value=${criteria.searchKeyword}">
+</form>
+
+
+
+<script>
+
+    function reply(obj){
+
+        var reply = document.getElementsByClassName("set-reply")[0].id;
+        var href = document.getElementById(reply).getAttribute('href');
+        location.href=href;
+
+    }
+
+    $(".filter-select__header").click(function (){
+        $(".filter-select__list").css({visibility: "visible",
+            opacity: 1, transform: "none",top:"400px",left:"290px"
+        });
+        $(".filter-select__header").dblclick(function () {
+            $(".filter-select__list").css({visibility: "hidden",
+                opacity: 0
+            });
+        });
+    });
+
+  function newCommunityFocus(){
+      var sort = document.getElementsByClassName("sort")[0].id;
+          document.getElementById(sort).style.backgroundColor='#ed4a4a';
+          document.getElementById(sort).style.color='white';
+
+
+      document.getElementById(sort).addEventListener('mouseout', function (){
+
+          if(sort == 'activeList'){
+              document.getElementById(sort).style.backgroundColor='white';
+              document.getElementById(sort).style.color='#ed4a4a';
+
+
+          }else{
+              document.getElementById(sort).style.backgroundColor='white';
+              document.getElementById(sort).style.color='#424242';
+          }
+
+      });
+
+  }
+
+    function newCommentFocus(){
+        var sort = document.getElementsByClassName("sort")[1].id;
+        document.getElementById(sort).style.backgroundColor='#ed4a4a';
+        document.getElementById(sort).style.color='white';
+
+
+        document.getElementById(sort).addEventListener('mouseout', function (){
+
+            if(sort == 'activeList'){
+                document.getElementById(sort).style.backgroundColor='white';
+                document.getElementById(sort).style.color='#ed4a4a';
+
+
+            }else{
+                document.getElementById(sort).style.backgroundColor='white';
+                document.getElementById(sort).style.color='#424242';
+            }
+
+        });
+
+    }
+
+
+
+    function mostPopularFocus(){
+        var sort = document.getElementsByClassName("sort")[2].id;
+        document.getElementById(sort).style.backgroundColor='#ed4a4a';
+        document.getElementById(sort).style.color='white';
+
+
+        document.getElementById(sort).addEventListener('mouseout', function (){
+
+            if(sort == 'activeList'){
+                document.getElementById(sort).style.backgroundColor='white';
+                document.getElementById(sort).style.color='#ed4a4a';
+
+
+            }else{
+                document.getElementById(sort).style.backgroundColor='white';
+                document.getElementById(sort).style.color='#424242';
+            }
+
+        });
+
+    }
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
