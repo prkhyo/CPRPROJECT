@@ -52,6 +52,9 @@ public class CartController {
     public String itemsPayment(@RequestParam(value = "delete", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId){
 
         log.info("payment Id = " + ids);
+        log.info("member Id = " + memberId);
+
+        
         if (ids != null) {
             for (String idStr : ids) {
                 Long id = Long.parseLong(idStr);
