@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.CPR.redHome.mapper.cart.CartMapper">
+
+    <select id="getCartList" resultType="cartDto">
+
+        select
+            m.member_id as memberId
+             ,m2.name as name
+             ,p.product_img as img
+             ,p.product_price as price
+             ,c.product_quantity as qty
+             ,p.product_title as title
+             ,p.product_delivery_charge as deliveryCharge
+             ,c.shopping_cart_id as cartId
+
+        from shopping_cart as c
+
+                 join member m on c.member_id = m.member_id
+                 join product p on c.product_id = p.product_id
+                 join member m2 on p.member_id = m2.member_id
+        where c.member_id = #{memberId}
+
+
+    </select>
+
+
+    <delete id="cartDelete" parameterType="Long">
+
+        delete from shopping_cart where shopping_cart_id = #{cartId}
+
+    </delete>
+
+
+
+
+</mapper>
