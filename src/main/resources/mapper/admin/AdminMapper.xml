@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.CPR.redHome.mapper.admin.AdminMapper">
+
+    <select id="selectAllMember" resultType="com.CPR.redHome.dto.member.MemberDto">
+
+    select
+            member_id as memberId
+            ,account_id as accountId
+            ,member_password as memberPassword
+            ,name as name
+            ,telephone as telephone
+            ,email as email
+            ,created_date as createdDate
+            ,address as address
+            ,birthdate as birthdate
+            ,point as point
+            ,role as role
+            ,grade_id as gradeId
+        from member
+    </select>
+
+</mapper>

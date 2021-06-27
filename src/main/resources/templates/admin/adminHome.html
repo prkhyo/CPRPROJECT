@@ -1,0 +1,14 @@
+<div th:replace="/admin/layout/header.html :: header"></div>
+
+<div class="adminLogin">
+<!--<c:if test="${admin eq null}">-->
+    <h2>관리자 로그인</h2>
+    <form action="/adminlogin" method="post">
+        ID:<input type="text" name="id">
+        PWD:<input type="password" name="password">
+        <input type="submit">
+    </form>
+<!--</c:if>-->
+</div>
+
+<div th:replace="/admin/layout/footer.html :: footer"></div>

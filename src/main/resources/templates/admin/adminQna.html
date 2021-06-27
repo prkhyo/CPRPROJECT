@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        function searchBtn(){
+            var query = document.getElementById("query").value;
+            var query2 = document.getElementById("query2").value;
+            var data = document.getElementById("search").value;
+            console.log("query : " + query + ", query2 : " + query2 + ", data : " + data);
+            // location.href = "/admin_qna?query=" + query + "&query2=" + query2 +"&data=" + data;
+        }
+
+        function  writeAnswer(quest_num) {
+            location.href = "/answer?quest_num=" + quest_num + "&adminLogin=true";
+
+        }
+    </script>
+</head>
+<body>
+<div th:replace="/admin/layout/header.html :: header"></div>
+
+<div class="container">
+    <h2>문의관리페이지</h2>
+    <br><br>
+    <div>
+        <select name="query" id="query">
+            <option selected value="" >선택해주세요</option>
+            <option value="문의번호">문의번호</option>
+            <option value="제목">제목</option>
+            <option value="내용">내용</option>
+            <option value="문의날짜">문의날짜</option>
+            <option value="문의카테고리번호">문의카테고리번호</option>
+            <option value="아이디">아이디</option>
+        </select>
+        <select name="query2" id="query2">
+            <option selected value="" >답변상태</option>
+            <option value="답변대기">답변대기</option>
+            <option value="답변완료">답변완료</option>
+        </select>
+        <input type="text" name="search" id="search">
+        <button onclick="searchBtn()">검색</button>
+        <button onclick="registProduct()">등록</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>문의번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>사진</th>
+            <th>비밀번호</th>
+            <th>문의날짜</th>
+            <th>답변상태</th>
+            <th>문의카테고리번호</th>
+            <th>아이디</th>
+            <th>수정</th>
+            <th>삭제</th>
+            <th>답변</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${quests}" var="quest" >
+            <tr>
+                <td>${quest.quest_num}</td>
+                <td>${quest.quest_title}</td>
+                <td>${quest.quest_contents}</td>
+                <td>${quest.quest_img}</td>
+                <td>${quest.quest_pwd}</td>
+                <td>${quest.quest_date}</td>
+                <td>${quest.quest_state}</td>
+                <td>${quest.quest_category_num}</td>
+                <td>${quest.member_id}</td>
+                <td><button onclick="editProduct(${quest.quest_num})">수정</button></td>
+                <td><button onclick="deleteProduct(${quest.quest_num})">삭제</button></td>
+                <c:choose>
+                    <c:when test="${quest.quest_state eq '답변대기'}">
+                        <td><button onclick="writeAnswer(${quest.quest_num})">답변</button></td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><button onclick="alert('이미 답변완료된 문의입니다')">답변</button></td>
+                    </c:otherwise>
+                </c:choose>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
