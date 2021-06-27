@@ -19,7 +19,7 @@
 
 
 
-    <select id="selectCommunityTotalCnt" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    <select id="selectCommunityTotalCnt" resultType="java.lang.Integer" >
       select count(*)
       from community
       <where>
@@ -34,7 +34,7 @@
 
    <!-- LIMIT의 첫 번째 파라미터는 시작 위치(몇 번째 데이터부터 가지고 올 것인지)를 지정하고,
     두 번째 파라미터는 시작 위치를 기준으로 가지고 올 데이터의 개수를 지정-->
-    <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" parameterType="java.util.HashMap" >
+    <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" >
 
         select  community.community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
         <if test="orderType == 'newComment'">, comments.comment_id as ccommentId </if>
@@ -68,6 +68,8 @@
         <if test='orderType == "newComment"'>
             order by comments.comment_id desc
         </if>
+
+
 
         limit #{firstRecordIndex}, #{recordsPerPage}
 
