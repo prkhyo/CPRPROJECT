@@ -20,8 +20,8 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public int countAllCommunities(String reply, String searchType, String searchKeyword) {
-        int CommunityCnt = communityMapper.selectCommunityTotalCnt(reply, searchType, searchKeyword);
-        return CommunityCnt;
+        int communityCnt = communityMapper.selectCommunityTotalCnt(reply, searchType, searchKeyword);
+        return communityCnt;
     }
 
     @Override
@@ -30,8 +30,17 @@ public class CommunityServiceImpl implements CommunityService {
         List<CommunityDto> communityList = communityMapper.selectAllCommunities(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
 
 
+        //특정 커뮤니티 글에 대한 총 코멘트 수 가져와서 초기화
+        for(int i = 0; i <communityList.size(); i++) {
+            Long id = communityList.get(i).getCommunityId();
+            int commentsCnt = communityMapper.selectCommentsCnt(id);
+            communityList.get(i).setCommentCnt(commentsCnt);
+
+        }
+
         return communityList;
     }
+
 
 
 }

@@ -37,4 +37,7 @@ public class CommunityDto  {
     /*조인 시 사용*/
     private Long ccommentId;
 
+    /*특정 커뮤니트 글에 대한 답글 수 구할 때 사용*/
+    private  int commentCnt;
+
 }

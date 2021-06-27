@@ -18,4 +18,9 @@ public interface CommunityMapper {
   List<CommunityDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex,
                                           @RequestParam String searchType, @RequestParam String searchKeyword);
 
+   //특정 커뮤니티 글에 대한 총 코멘트 수 가져오기
+    int selectCommentsCnt(Long communityId);
+
+
+
 }

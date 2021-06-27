@@ -89,6 +89,13 @@
 
 
 
+    <select id="selectCommentsCnt"  resultType="java.lang.Integer" parameterType="java.lang.Long">
+         select count(*)
+         from comments
+         where community_id = ${communityId}
+
+    </select>
+
 
 
 
