@@ -19,4 +19,8 @@ public interface CartMapper {
     // 장바구니에서 결제창 요청 시
     List<OrderDto> getPayment(List<String> ids);
 
+    //memberId 조회
+    int findMemberId(Long id);
+
+
 }

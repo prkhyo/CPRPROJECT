@@ -39,5 +39,10 @@ public class CartServiceImpl implements CartService {
 
         return cartMapper.getPayment(ids);
     }
+
+    @Override
+    public int findMemberId(Long memberId) {
+        return 0;
+    }
 }
 

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Alias("orders")
-public class OrderDto {
+public class OrderDto extends CartDto {
 
     private Long orderId;
     private Long memberId;
@@ -19,11 +19,14 @@ public class OrderDto {
 
     private Integer currentPoint;
     private Integer usedPoint;
-    private Integer discountRate;
+    private Integer accumulationRate;
 
     private String phoneNumber;
-    private String address;
-    private String memberName;
+    private String address1;
+    private String address2;
+    private String address3;
+    private String address4;
+    private String receiver;
     private String orderRequest;
 
 }

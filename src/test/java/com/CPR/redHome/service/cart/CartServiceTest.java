@@ -28,16 +28,30 @@ class CartServiceTest {
         ids.add("28");
         ids.add("29");
 
+        System.out.println(cartMapper.getPayment(ids));
         //when
         cartMapper.getPayment(ids);
 
 
         // then
 
-        Assertions.assertThat(ids.get(0)).isEqualTo("27");
+        Assertions.assertThat(ids.get(0)).isEqualTo("28");
 
+    }
+
+    @Test
+    @DisplayName("memberId  조회 ")
+    public void testFindMemberId() {
+
+        List<String> ids = new ArrayList<>();
+        ids.add("28");
+        ids.add("29");
+        System.out.println("asd  " + Long.parseLong(ids.get(0)));
+
+        System.out.println(cartMapper.findMemberId(Long.parseLong(ids.get(0))));
 
 
     }
+
 
 }

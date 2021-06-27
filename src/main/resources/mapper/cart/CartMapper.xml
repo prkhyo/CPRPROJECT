@@ -7,15 +7,14 @@
 
     <select id="getCartList" resultType="cartDto">
 
-        select
-            m.member_id as memberId
-             ,m2.name as name
-             ,p.product_img as img
-             ,p.product_price as price
-             ,c.product_quantity as qty
-             ,p.product_title as title
-             ,p.product_delivery_charge as deliveryCharge
-             ,c.shopping_cart_id as cartId
+        select m.member_id               as memberId
+             , m2.name                   as name
+             , p.product_img             as img
+             , p.product_price           as price
+             , c.product_quantity        as qty
+             , p.product_title           as title
+             , p.product_delivery_charge as deliveryCharge
+             , c.shopping_cart_id        as cartId
 
         from shopping_cart as c
 
@@ -30,33 +29,34 @@
 
     <delete id="cartDelete" parameterType="Long">
 
-        delete from shopping_cart where shopping_cart_id = #{cartId}
+        delete
+        from shopping_cart
+        where shopping_cart_id = #{cartId}
 
     </delete>
 
 
-    <select id="getPayment" resultType="orders"  >
+    <select id="getPayment" resultType="orders">
 
         select
 
-            c.shopping_cart_id as cartId ,
-            c.member_id as memberId,
-            p.product_title as title,
-            p.product_price as price,
-            p.product_img as img,
-            p.product_delivery_charge as deliveryCharge,
-            m2.name as name,
+        c.shopping_cart_id as cartId ,
+        c.member_id as memberId,
+        p.product_title as title,
+        p.product_price as price,
+        p.product_img as img,
+        p.product_delivery_charge as deliveryCharge,
+        m2.name as name,
 
-            c.product_quantity as qty,
-            m.point as currentPoint,
-            g.discount_rate as discountRate
+        c.product_quantity as qty,
+        m.point as currentPoint,
+        g.accumulation_rate as accumulationRate
 
         from shopping_cart as c
-                 join member m on c.member_id = m.member_id
-                 join grade g on m.grade_id = g.grade_id
-                 join product p on c.product_id = p.product_id
-                 join member m2 on p.member_id = m2.member_id
-
+        join member m on c.member_id = m.member_id
+        join grade g on m.grade_id = g.grade_id
+        join product p on c.product_id = p.product_id
+        join member m2 on p.member_id = m2.member_id
 
 
         where shopping_cart_id IN
@@ -66,7 +66,14 @@
 
     </select>
 
+    <select id="findMemberId" resultType="orders">
 
+        select member_id as memberId
+        from shopping_cart
+        where shopping_cart_id = #{cartId}
+
+
+    </select>
 
 
 </mapper>

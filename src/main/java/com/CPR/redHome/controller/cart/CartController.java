@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Parser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +21,13 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/cart/{memberId}")
-    public String getCart(@PathVariable(value = "memberId", required = false) Long memberId, Model model) {
+    @GetMapping("/cart")
+    public String getCart(Long memberId, Model model) {
         List<CartDto> cartDtos = new ArrayList<>();
 
         // 임시 memberId
+        memberId = 1L;
+
         cartDtos = cartService.getCartList(memberId);
 
 
@@ -51,30 +54,14 @@ public class CartController {
     }
 
     @RequestMapping("/cart/payment")
-    public String getPayment(@RequestParam("selectNo") List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId, Model model) throws Exception {
+    public String getPayment(@RequestParam(value = "selectNo",required = false) List<String> ids,@ModelAttribute OrderDto orderDto, Model model) throws Exception {
 
         log.info("payment Id = " + ids);
-        log.info("member Id = " + memberId);
-
-        log.info("type  check : " + ids.getClass().getName());
-
-/*        HashMap<String, Object> map = new HashMap<>();
-        map.put("ids", ids);
-        map.put("memberId", memberId);*/
-
-
-        log.info("test xml = " + cartService.getPayment(ids));
-
-//        model.addAttribute("orderDetail", )
-
+        log.info("memberId = " + cartService.findMemberId(Long.parseLong(ids.get(0))));
+//        model.addAttribute("point", );
+        model.addAttribute("orderDetail", cartService.getPayment(ids));
 
         return "carts/payment";
     }
 
-/*    @PostMapping("/cart/payment")
-    public String payItems(@RequestParam("selectNo") List<String> ids) {
-
-
-        return "redirect:/cart/" + 1;
-    }*/
 }
