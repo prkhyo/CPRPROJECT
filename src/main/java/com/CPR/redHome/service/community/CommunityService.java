@@ -9,9 +9,9 @@ import java.util.List;
 public interface CommunityService {
 
 
-    int countAllCommunities(String reply);
+    int countAllCommunities(String reply, String searchType, String searchKeyword);
 
-    List<CommunityDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex);
+    List<CommunityDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex, String searchType, String searchKeyword);
 
 
 }

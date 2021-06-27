@@ -29,8 +29,13 @@ public class CommunityController {
 
         List<CommunityDto> communityList = Collections.emptyList();
 
-        int communityTotalCnt = communityService.countAllCommunities(reply);
+        String searchType = criteria.getSearchType();
+        String searchKeyword = criteria.getSearchKeyword();
 
+        System.out.println("searchType:"+ searchType); //
+        System.out.println("searchKeyword:"+ searchKeyword);//
+        int communityTotalCnt = communityService.countAllCommunities(reply, searchType, searchKeyword);
+         System.out.println("총 개수:"+ communityTotalCnt);//
 
         Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
 
@@ -38,7 +43,7 @@ public class CommunityController {
         int recordsPerPage = criteria.getRecordsPerPage();
 
       if(communityTotalCnt > 0){
-          communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex);
+          communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
        }
 
 
