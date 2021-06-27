@@ -30,7 +30,7 @@
                                     <option class="filter-select__list__entry" value="search_memberId" th:text="아이디" th:selected="${criteria.searchType == 'search_memberId'}"/>
                                 </select>
                                 <img src="/img/redhome_search.PNG"
-                                     style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn" onclick="document.getElementById('questions-header__form').submit()">
+                                     style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn" onclick="search()">
                                 <input type="text" name="searchKeyword"
                                        id="questions-header__form__search" th:attr="value=${criteria.searchKeyword}"
                                        class="form-control" placeholder="궁금한 것을 검색해보세요."
@@ -194,8 +194,8 @@
 
     function reply(){
 
-        var reply = document.getElementsByClassName("set-reply")[0].id;
-        var href = document.getElementById(reply).getAttribute('href');
+        let reply = document.getElementsByClassName("set-reply")[0].id;
+        let href = document.getElementById(reply).getAttribute('href');
         location.href=href;
 
     }
@@ -212,7 +212,7 @@
     });
 
   function newCommunityFocus(){
-      var sort = document.getElementsByClassName("sort")[0].id;
+      let sort = document.getElementsByClassName("sort")[0].id;
           document.getElementById(sort).style.backgroundColor='#ed4a4a';
           document.getElementById(sort).style.color='white';
 
@@ -234,7 +234,7 @@
   }
 
     function newCommentFocus(){
-        var sort = document.getElementsByClassName("sort")[1].id;
+        let sort = document.getElementsByClassName("sort")[1].id;
         document.getElementById(sort).style.backgroundColor='#ed4a4a';
         document.getElementById(sort).style.color='white';
 
@@ -258,7 +258,7 @@
 
 
     function mostPopularFocus(){
-        var sort = document.getElementsByClassName("sort")[2].id;
+        let sort = document.getElementsByClassName("sort")[2].id;
         document.getElementById(sort).style.backgroundColor='#ed4a4a';
         document.getElementById(sort).style.color='white';
 
@@ -280,7 +280,24 @@
     }
 
 
+   function search(){
 
+     let type = document.getElementById('questionCategory_filters').value;
+     let keyword = document.getElementById('questions-header__form__search').value;
+
+     if((type == null || type =='')&&(keyword == null || keyword == '')) {
+         alert('검색 종류와 검색 키워드를 입력해 주세요.');
+         return false;
+     }else if(type == null || type ==''){
+         alert('검색 종류를 선택해 주세요.');
+         return false;
+     }else if(keyword == null || keyword == ''){
+         alert('검색 키워드를 입력해 주세요.');
+         return false;
+     }
+
+       document.getElementById('questions-header__form').submit()
+   }
 
 
 
