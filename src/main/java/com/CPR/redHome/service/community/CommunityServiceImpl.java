@@ -19,15 +19,15 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     @Override
-    public int countAllCommunities(String reply) {
-        int CommunityCnt = communityMapper.selectCommunityTotalCnt(reply);
+    public int countAllCommunities(String reply, String searchType, String searchKeyword) {
+        int CommunityCnt = communityMapper.selectCommunityTotalCnt(reply, searchType, searchKeyword);
         return CommunityCnt;
     }
 
     @Override
-    public List<CommunityDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex) {
+    public List<CommunityDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex, String searchType, String searchKeyword) {
 
-        List<CommunityDto> communityList = communityMapper.selectAllCommunities(reply, orderType, recordsPerPage, firstRecordIndex);
+        List<CommunityDto> communityList = communityMapper.selectAllCommunities(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
 
 
         return communityList;

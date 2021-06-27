@@ -12,9 +12,10 @@ import java.util.List;
 public interface CommunityMapper {
 
     //총 커뮤니티 글 수 가져오기
-  int selectCommunityTotalCnt(@RequestParam String reply);
+  int selectCommunityTotalCnt(@RequestParam String reply, @RequestParam String searchType, @RequestParam String searchKeyword);
 
    //전체 커뮤니티 글 가져오기
-  List<CommunityDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex);
+  List<CommunityDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex,
+                                          @RequestParam String searchType, @RequestParam String searchKeyword);
 
 }

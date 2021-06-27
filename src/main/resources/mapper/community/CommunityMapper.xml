@@ -4,15 +4,15 @@
 
 
     <sql id ="search" >
+        <if test="searchType == 'search_communityTitle'">
+            community_title like CONCAT('%',#{searchKeyword},'%')
 
-        <if test="type == 'search_title'">
-            quest_title like '%'||'${keyword}'||'%' and
         </if>
-        <if test="type == 'search_contents'">
-            quest_contents like '%'||'${keyword}'||'%' and
+        <if test="searchType == 'search_communityContents'">
+            community_contents like CONCAT('%',#{searchKeyword},'%')
         </if>
-        <if test="type == 'search_id'">
-            member_id like '%'||'${keyword}'||'%' and
+        <if test="searchType == 'search_memberId'">
+            member_id like CONCAT('%',#{searchKeyword},'%')
         </if>
     </sql>
 
@@ -23,9 +23,16 @@
       select count(*)
       from community
       <where>
-         <if test='reply == "not_yet"'>
+        <if test="searchType != null">
+         <include refid="search"></include>
+         </if>
+
+         <if test="searchType != null  and reply =='not_yet'">and</if>
+
+          <if test="reply == 'not_yet'">
              community_state = '답변대기'
          </if>
+
       </where>
 
 
@@ -49,14 +56,19 @@
         </choose>
 
         <where>
-            <choose>
-                <when test='reply == "not_yet"'>
-                    community_state = '답변대기'
-                </when>
-                <otherwise>
 
-                </otherwise>
-            </choose>
+
+            <if test="searchType != null">
+                <include refid="search"></include>
+            </if>
+
+            <if test="searchType != null and reply =='not_yet'">and</if>
+
+            <if test="reply == 'not_yet'">
+                community_state = '답변대기'
+            </if>
+
+
         </where>
 
         <if test='orderType != "newComment" and orderType != "mostPopular"'>
