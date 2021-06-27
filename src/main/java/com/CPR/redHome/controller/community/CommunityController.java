@@ -29,28 +29,17 @@ public class CommunityController {
 
         List<CommunityDto> communityList = Collections.emptyList();
 
-        System.out.println("cri:"+criteria);
+        int communityTotalCnt = communityService.countAllCommunities(reply);
 
 
-        HashMap<String,Object> map = new HashMap<String,Object>();
-        map.put("reply", reply);
+        Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
 
-        Pagination pagination = new Pagination(criteria);
-        int communityTotalCnt = communityService.countAllCommunities(map);
-        pagination.setTotalRecordCount(communityTotalCnt);
-
-        map.put("recordsPerPage",criteria.getRecordsPerPage());
-        map.put("firstRecordIndex",pagination.getFirstRecordIndex());
-        map.put("orderType",orderType);
-
-
-
+        int firstRecordIndex = pagination.getFirstRecordIndex();
+        int recordsPerPage = criteria.getRecordsPerPage();
 
       if(communityTotalCnt > 0){
-          communityList = communityService.getCommunityList(map);
+          communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex);
        }
-
-        System.out.println(communityList);//
 
 
         model.addAttribute("communityList", communityList);
