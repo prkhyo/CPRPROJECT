@@ -47,8 +47,11 @@ public class CommunityController {
        }
 
 
+
+
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
+
 
 
 
