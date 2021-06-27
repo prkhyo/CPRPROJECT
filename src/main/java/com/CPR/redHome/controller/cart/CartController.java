@@ -1,6 +1,7 @@
 package com.CPR.redHome.controller.cart;
 
 import com.CPR.redHome.dto.cart.CartDto;
+import com.CPR.redHome.dto.cart.OrderDto;
 import com.CPR.redHome.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,7 @@ public class CartController {
     }
 
     @PostMapping("/cart/delete")
-    public String deleteCart(@RequestParam(value = "delete", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId) {
+    public String deleteCart(@RequestParam(value = "selectNo", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId) {
 
         log.info("cart Id = " + ids);
         if (ids != null) {
@@ -49,21 +51,30 @@ public class CartController {
     }
 
     @RequestMapping("/cart/payment")
-    public String itemsPayment(@RequestParam(value = "delete", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId){
+    public String getPayment(@RequestParam("selectNo") List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId, Model model) throws Exception {
 
         log.info("payment Id = " + ids);
         log.info("member Id = " + memberId);
 
-        
-        if (ids != null) {
-            for (String idStr : ids) {
-                Long id = Long.parseLong(idStr);
-                cartService.cartDelete(id);
-            }
+        log.info("type  check : " + ids.getClass().getName());
 
-        }
+/*        HashMap<String, Object> map = new HashMap<>();
+        map.put("ids", ids);
+        map.put("memberId", memberId);*/
+
+
+        log.info("test xml = " + cartService.getPayment(ids));
+
+//        model.addAttribute("orderDetail", )
 
 
         return "carts/payment";
     }
+
+/*    @PostMapping("/cart/payment")
+    public String payItems(@RequestParam("selectNo") List<String> ids) {
+
+
+        return "redirect:/cart/" + 1;
+    }*/
 }

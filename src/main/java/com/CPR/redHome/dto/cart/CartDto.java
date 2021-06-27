@@ -19,10 +19,9 @@ public class CartDto {
 // 상품 정보
     private String title;
     private String img;
-    private int price;
-    private int qty;
-    private int deliveryCharge;
-
+    private Integer price;
+    private Integer qty;
+    private Integer deliveryCharge;
 
 // 회원 정보
     private String name;

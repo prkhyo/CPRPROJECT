@@ -19,9 +19,9 @@ String.prototype.format = function(){
 
 function checkSelectAll() {
     // 전체 체크박스
-    const checkboxes = document.querySelectorAll('input[name="delete"]');
+    const checkboxes = document.querySelectorAll('input[name="selectNo"]');
     // 선택된 체크박스
-    const checked = document.querySelectorAll('input[name="delete"]:checked');
+    const checked = document.querySelectorAll('input[name="selectNo"]:checked');
     // select all 체크박스
     const selectAll = document.querySelector('input[name="selectall"]');
 
@@ -35,7 +35,7 @@ function checkSelectAll() {
 
 function selectAll(selectAll) {
     const checkboxes
-        = document.getElementsByName('delete');
+        = document.getElementsByName('selectNo');
 
     checkboxes.forEach((checkbox) => {
         checkbox.checked = selectAll.checked
@@ -99,12 +99,6 @@ function totalPrice(){
 */
 
 }
-
-
-
-
-
-
 
 
 totalPrice();
