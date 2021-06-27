@@ -139,7 +139,9 @@
               <!--<span class="questions-item__footer__comments text-gray" th:text="${community.communityState}"></span>-->
               <span class="questions-item__footer__comments text-gray">
                 댓글
-              <span class="questions-item__footer__comments__content " th:text="${community.commentCnt}"/>
+              <span class="questions-item__footer__comments__content " th:text="${community.commentCnt}" th:style="${community.commentCnt > 0 ? 'color:#ed4a4a;':''}" th:styleappend="${community.commentCnt > 0 ? 'font-weight: bold;':''}"/>
+
+
               </span>
               <span class="questions-item__footer__views text-gray" >
                   조회
