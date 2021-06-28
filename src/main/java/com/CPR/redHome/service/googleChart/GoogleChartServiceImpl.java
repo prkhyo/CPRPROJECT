@@ -1,7 +1,7 @@
 package com.CPR.redHome.service.googleChart;
 
 import com.CPR.redHome.dto.member.MemberDto;
-import com.CPR.redHome.service.admin.AdminService;
+import com.CPR.redHome.service.admin.member.MemberAdminService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class GoogleChartServiceImpl implements GoogleChartService{
 
-    private final AdminService adminService;
+    private final MemberAdminService adminService;
 
     @Override
     public JSONObject getChartData() {
