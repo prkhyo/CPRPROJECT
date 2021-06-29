@@ -98,5 +98,29 @@
 
 
 
+    <select id="selectCommunity" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.community.CommunityDto">
+
+        select community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit  as communityHit
+        from community
+        where community_id = ${value}
+
+    </select>
+
+
+    <select id="selectComments" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.community.CommentsDto">
+
+        select comment_id as commentId,  community_id as communityId,  comment_contents as commentContents, comment_created_date as commentCreatedDate, member_id as memberId
+        from comments
+        where community_id = ${communityId}
+
+    </select>
+
+    <update id="updateCommunityHitCnt" parameterType="java.lang.Long">
+
+       update community set community_hit = community_hit + 1 where community_id = ${communityId}
+
+    </update>
+
+
 
 </mapper>

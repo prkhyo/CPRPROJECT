@@ -20,4 +20,6 @@ public class CommentsDto {
 
     private LocalDateTime commentCreatedDate;
 
+    private Long memberId;
+
 }
