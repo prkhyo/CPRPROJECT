@@ -75,4 +75,13 @@ public class CommunityController {
         return "community/community_detail";
     }
 
+
+    @GetMapping("/community/community_delete")
+    public String communityDelete(@RequestParam Long communityId){
+
+        communityService.deleteCommunity(communityId);
+
+        return "redirect:/community/list";
+    }
+
 }

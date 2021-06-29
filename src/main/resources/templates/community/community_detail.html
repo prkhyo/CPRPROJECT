@@ -67,20 +67,9 @@
                 <div class="header_btn">
                     <!--수정, 삭제는 현재 로그인 된 아이디와 해당 문의글의 작성 아이디가 같을 때만 보이게 처리할 것-->
                     <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a href="#">수정</a></button>
-                    <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a href="#">삭제</a></button>
+                    <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a th:href="@{/community/community_delete(communityId=${community.communityId})}">삭제</a></button>
                     <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
                 </div>
-
-                <!--페이지 이동을 a태그로 처리하지 않고 form  태그로 처리-->
-                <form id='actionForm' action="/board" method='get'>
-                    <input type='hidden' name='pageNum' value='${cri.pageNum}'>
-                    <input type='hidden' name='amount' value='${cri.amount}'>
-                    <input type='hidden' name='reply' value='${reply}'>
-                    <input type='hidden' name='quest_num' value='${question.quest_num}'>
-                    <input type='hidden' name='orderType' value='${orderType}'>
-                    <input type='hidden' name='type' value='${cri.type}'>
-                    <input type='hidden' name='keyword' value='${cri.keyword}'>
-                </form>
 
             </footer>
 
@@ -120,6 +109,8 @@
                                     </p>
                                     <footer class="comment-feed__item__footer">
                                         <time class="comment-feed__item__footer__time" th:text="${comment.commentCreatedDate}"/>
+                                        <button class="comment-feed__item__footer__reply-btn" type="button">답글 달기</button>
+                                        <button class="comment-feed__item__footer__delete-btn" type="button">삭제</button>
                                     </footer>
 
                                 </article>
@@ -136,7 +127,7 @@
     <aside class="qna-detail-aside qna-detail__aside">
         <div class="qna-detail-aside__section">
             <h2 class="qna-detail-aside__section__header">궁금한 것 물어보세요!</h2>
-            <button class="button button--color-blue button--size-60 button--shape-4 qna-detail-aside__section__new-question-button" type="button">질문하러 가기</button>
+            <a class="button button--color-blue button--size-60 button--shape-4 qna-detail-aside__section__new-question-button" type="button" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문하러 가기</a>
         </div>
     </aside>
 

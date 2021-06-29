@@ -471,7 +471,47 @@ li {
 }
 
 
-/*궁금한 것을 물어보세요*/
+
+.comment-feed__item__footer__reply-btn, .comment-feed__item__footer__delete-btn  {
+    background: none;
+    border: none;
+    color: rgb(117, 117, 117);
+    padding: 0;
+    font-size: 13px;
+    font-weight: inherit;
+    font-family: inherit;
+}
+
+
+
+
+
+.comment-feed__item__footer__time::after{
+    display: inline-block;
+    color: rgb(189, 189, 189);
+    content: "·";
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0px 5px;
+
+}
+
+
+.comment-feed__item__footer__reply-btn::after{
+    display: inline-block;
+    color: rgb(189, 189, 189);
+    content: "·";
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0px 5px;
+
+}
+
+
+
+
+
+    /*궁금한 것을 물어보세요*/
 
 .qna-detail__aside {
     margin: 30px 20% 30px 20%;
