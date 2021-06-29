@@ -24,7 +24,7 @@ public class MemberAdminController {
     }
 
     // 전체 회원 조회
-    @GetMapping("/adminMember")
+    @GetMapping("/admin/member")
     public String adminMember(Model model){
         List<MemberDto> memberDtos = memberAdminService.selectAllMember();
         model.addAttribute("memberDtos", memberDtos);
@@ -32,30 +32,30 @@ public class MemberAdminController {
     }
 
     // 멤버페이지 통계
-    @GetMapping("/adminMember/chart")
-    public String adminMemberChart(Model model) {
-        model.addAttribute("selectMemberByAge",memberAdminService.selectMemberByAge());
-        return "admin/testChart";
+    @GetMapping("admin/member/chart")
+    public String adminMemberChart() {
+        return "admin/Chart";
     }
+
 
 
 
 
     // =================== 아래 추후 분리 예정 ===================
     // 상품페이지 조회
-    @GetMapping("/adminProduct")
+    @GetMapping("/admin/product")
     public String adminProduct(){
         return "admin/adminProduct";
     }
 
     // 주문 페이지 조회
-    @GetMapping("/adminOrder")
+    @GetMapping("/admin/order")
     public String adminOrder(){
         return "admin/adminOrder";
     }
 
     // 문의 페이지 조회
-    @GetMapping("/adminQna")
+    @GetMapping("/admin/qna")
     public String adminQna(){
         return "admin/adminQna";
     }

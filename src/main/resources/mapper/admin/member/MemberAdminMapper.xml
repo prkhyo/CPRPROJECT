@@ -22,13 +22,13 @@
     </select>
 
     <!-- 나이대 별 회원 조회 -->
-    <select id="selectMemberByAge" resultType="map">
+    <select id="selectMemberByAge" resultType="java.util.LinkedHashMap">
         SELECT
-            COUNT(case when age BETWEEN 10 and 19 then 1 end) as "10s",
-            COUNT(case when age BETWEEN 20 and 29 then 1 end) as "20s",
-            COUNT(case when age BETWEEN 30 and 39 then 1 end) as "30s",
-            COUNT(case when age BETWEEN 40 and 49 then 1 end) as "40s",
-            COUNT(case when age BETWEEN 50 and 59 then 1 end) as "50s",
+            COUNT(case when age BETWEEN 10 and 19 then 1 end) as "10대",
+            COUNT(case when age BETWEEN 20 and 29 then 1 end) as "20대",
+            COUNT(case when age BETWEEN 30 and 39 then 1 end) as "30대",
+            COUNT(case when age BETWEEN 40 and 49 then 1 end) as "40대",
+            COUNT(case when age BETWEEN 50 and 59 then 1 end) as "50대",
             COUNT(case when age > 60 then 1 end) as "60s"
         FROM (SELECT substr(NOW(),1,4)-substr(birthdate,1,4)+1 age from member) T
     </select>

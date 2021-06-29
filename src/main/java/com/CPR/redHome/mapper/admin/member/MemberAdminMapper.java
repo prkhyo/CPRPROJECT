@@ -3,6 +3,7 @@ package com.CPR.redHome.mapper.admin.member;
 import com.CPR.redHome.dto.member.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,6 @@ public interface MemberAdminMapper {
     List<MemberDto> selectAllMember();
 
     // 나이대 별 멤버 수 조회
-    Map<String, Integer> selectMemberByAge();
+    LinkedHashMap<String, Integer> selectMemberByAge();
 
 }
