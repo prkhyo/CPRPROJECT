@@ -20,5 +20,7 @@ public interface CommunityService {
 
     void updateCommunityHitCnt(Long communityId);
 
+    void deleteCommunity(Long communityId);
+
 
 }

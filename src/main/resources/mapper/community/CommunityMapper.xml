@@ -122,5 +122,12 @@
     </update>
 
 
+    <delete id="deleteCommunity" parameterType="java.lang.Long">
+
+       delete from community where community_id = ${communityId}
+
+    </delete>
+
+
 
 </mapper>

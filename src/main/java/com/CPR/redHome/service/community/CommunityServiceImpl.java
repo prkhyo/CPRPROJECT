@@ -63,5 +63,10 @@ public class CommunityServiceImpl implements CommunityService {
         communityMapper.updateCommunityHitCnt(communityId);
     }
 
+    @Override
+    public void deleteCommunity(Long communityId) {
+        communityMapper.deleteCommunity(communityId);
+    }
+
 
 }
