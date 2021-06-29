@@ -1,5 +1,6 @@
 package com.CPR.redHome.service.community;
 
+import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.community.CommunityDto;
 import com.CPR.redHome.mapper.community.CommunityMapper;
 import com.CPR.redHome.paging.Criteria;
@@ -41,6 +42,26 @@ public class CommunityServiceImpl implements CommunityService {
         return communityList;
     }
 
+    @Override
+    public CommunityDto selectCommunity(Long communityId) {
+
+        CommunityDto communityDto = communityMapper.selectCommunity(communityId);
+
+        return communityDto;
+    }
+
+    @Override
+    public List<CommentsDto> selectComments(Long communityId) {
+
+        List<CommentsDto> commentsList = communityMapper.selectComments(communityId);
+
+        return commentsList;
+    }
+
+    @Override
+    public void updateCommunityHitCnt(Long communityId) {
+        communityMapper.updateCommunityHitCnt(communityId);
+    }
 
 
 }

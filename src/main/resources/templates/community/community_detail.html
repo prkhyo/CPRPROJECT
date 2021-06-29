@@ -1,10 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/community/community_detail.css">
 </head>
 <body>
+
+
+<main class="qna-detail">
+    <article class="qna-detail__container container">
+        <section class="qna-detail__container__content">
+            <header class="qna-detail__content__header-container">
+
+                <div class="qna-detail__content__header-top">
+                    <a class="qna-detail__content__header-subtitle" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문과 답변</a>
+                </div>
+                <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle}"></h1>
+                <address class="qna-detail-author qna-detail__content__header-author-section">
+                    <a class="qna-detail-author__profile-link" href="/users/11237952">
+                        <div class="qna-detail-author__profile-link__image">
+                            <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">
+                        </div>
+                        <div class="qna-detail-author__profile-link__summary">
+                            <div class="qna-detail-author__profile-link__summary-section">
+                                <span class="qna-detail-author__profile-link__summary-nickname" th:text="${community.memberId}"></span>
+                            </div>
+                        </div>
+                    </a>
+                </address>
+            </header>
+            <section class="qna-detail__content__body">
+                <th:block th:if="${community.communityImg ne null}">
+                    <img th:src="@{${'/img/community/uploadCommunityImg/'+community.communityImg}}">
+                </th:block>
+                <p th:text="${community.communityContents}"></p>
+            </section>
+
+            <footer class="qna-detail__footer">
+
+                <aside class="qna-detail-actions qna-detail__footer__action-group">
+                    <div class="drop-down qna-detail-actions__wrapper">
+                        <button class="button button--color-gray-14-inverted button--size-30 button--shape-round qna-detail-actions__action" type="button">
+                            <svg class="qna-detail-actions__action__icon" aria-label="공유하기" width="28" height="28" viewBox="0 0 28 28" preserveAspectRatio="xMidYMid meet">
+                                <g fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-124 -11)">
+                                        <path d="M124 11h28v28h-28z"></path>
+                                        <g stroke="#757575" transform="translate(126 12)">
+                                            <circle cx="5" cy="13" r="4.5"></circle>
+                                            <circle cx="19" cy="21" r="4.5"></circle>
+                                            <circle cx="19" cy="5" r="4.5"></circle>
+                                            <path stroke-linecap="square" d="M8.5 10.5l6-4M8.5 15.5l6 4"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <span class="qna-detail-actions__action__label">공유</span>
+                        </button>
+                    </div>
+                </aside>
+                <div class="qna-detail__footer__metadata">
+                    <time class="qna-detail_time" th:text="${community.communityCreatedDate}"></time>
+                    <span>조회<span class="qna-detail__footer__metadata-view-count-value" th:text="${community.communityHit}"></span></span>
+                </div>
+
+                <div class="header_btn">
+                    <!--수정, 삭제는 현재 로그인 된 아이디와 해당 문의글의 작성 아이디가 같을 때만 보이게 처리할 것-->
+                    <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a href="#">수정</a></button>
+                    <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a href="#">삭제</a></button>
+                    <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
+                </div>
+
+                <!--페이지 이동을 a태그로 처리하지 않고 form  태그로 처리-->
+                <form id='actionForm' action="/board" method='get'>
+                    <input type='hidden' name='pageNum' value='${cri.pageNum}'>
+                    <input type='hidden' name='amount' value='${cri.amount}'>
+                    <input type='hidden' name='reply' value='${reply}'>
+                    <input type='hidden' name='quest_num' value='${question.quest_num}'>
+                    <input type='hidden' name='orderType' value='${orderType}'>
+                    <input type='hidden' name='type' value='${cri.type}'>
+                    <input type='hidden' name='keyword' value='${cri.keyword}'>
+                </form>
+
+            </footer>
+
+
+            <section class="qna-detail__comment-section">
+                <section class="comment-feed">
+                    <h1 class="comment-feed__header">답변</h1>
+
+                        <form class="comment-feed__form" id="comment-feed__form" action="/answer/insert" method="post">
+                            <div class="comment-feed__form__user">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
+                            </div>
+                            <div class="comment-feed__form__input">
+                                <div class="comment-feed__form__content">
+                                    <div class="comment-content-input">
+                                        <input type="text" name="answer_contents" id="answer_contents"class="comment-content-input__text comment-feed__form__content__text"/>
+                                    </div>
+                                </div>
+                                <div class="comment-feed__form__actions">
+                                    <button class="comment-feed__form__submit" id="commentBtn" type="button">등록</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="communityId" th:value="${community.communityId}">
+                        </form>
+
+                    <th:block th:if="${commentsList ne null}">
+                        <th:block th:each= "comment : ${commentsList}" >
+                        <ul class="comment-feed__list">
+                            <li class="comment-feed__list__item">
+                                <article class="comment-feed__item">
+                                    <p class="comment-feed__item__content">
+                                        <a href="/users/13759551" class="comment-feed__item__content__author">
+                                            <img class="comment-feed__item__content__author__image" alt="${answer.admin_id}" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
+                                            <span class="comment-feed__item__content__author__name" th:text="${comment.memberId}"/>
+                                        </a>
+                                        <span class="comment-feed__item__content__content" th:text="${comment.commentContents}"/>
+                                    </p>
+                                    <footer class="comment-feed__item__footer">
+                                        <time class="comment-feed__item__footer__time" th:text="${comment.commentCreatedDate}"/>
+                                    </footer>
+
+                                </article>
+                            </li>
+                        </ul>
+                        </th:block>
+                    </th:block>
+
+                </section>
+            </section>
+        </section>
+    </article>
+
+    <aside class="qna-detail-aside qna-detail__aside">
+        <div class="qna-detail-aside__section">
+            <h2 class="qna-detail-aside__section__header">궁금한 것 물어보세요!</h2>
+            <button class="button button--color-blue button--size-60 button--shape-4 qna-detail-aside__section__new-question-button" type="button">질문하러 가기</button>
+        </div>
+    </aside>
+
+</main>
+
+
+
+
+
+
+<script>
+
+
+
+</script>
 
 </body>
 </html>

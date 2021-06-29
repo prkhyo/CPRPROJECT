@@ -117,7 +117,7 @@
 
 <section id="questions-list" class="container">
     <th:block th:each= "community : ${communityList}" >
-        <a class="questions-item__link" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  >
+        <a class="questions-item__link" th:href="@{/community/detail(communityId=${community.communityId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  >
             <article class="questions-item">
                 <th:block th:if="${community.communityImg ne null }">
                     <div class="questions-item__image">
