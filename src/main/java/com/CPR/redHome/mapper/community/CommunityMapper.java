@@ -26,13 +26,22 @@ public interface CommunityMapper {
     CommunityDto selectCommunity(Long communityId);
 
     //특정 커뮤니티 글에 대한 전체 코멘트 가져오기
-    List<CommentsDto> selectComments(Long communityId);
+    List<CommentsDto> selectAllComments(Long communityId);
 
     //커뮤니티 글 조회수 증가
     void updateCommunityHitCnt(Long communityId);
 
     //특정 커뮤니티 삭제
     void deleteCommunity(Long communityId);
+    
+    //코멘트 등록
+    void insertComment(@RequestParam("comment") CommentsDto commentsDto);
+
+    //커뮤니티 글 답변상태 완료로 변경
+    void updateCommunityStateComplete(Long communityId);
+
+    //커뮤니티 글 답변상태 대기로 변경
+    void updateCommunityStateWait(Long communityId);
 
 
 

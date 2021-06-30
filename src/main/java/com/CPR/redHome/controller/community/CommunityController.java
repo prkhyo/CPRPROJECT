@@ -8,13 +8,12 @@ import com.CPR.redHome.service.community.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,10 +66,11 @@ public class CommunityController {
         communityService.updateCommunityHitCnt(communityId);
 
         CommunityDto communityDto = communityService.selectCommunity(communityId);
-        List<CommentsDto> commentsList = communityService.selectComments(communityId);
+        List<CommentsDto> commentsList = communityService.selectAllComments(communityId);
 
         model.addAttribute("community", communityDto );
         model.addAttribute("commentsList", commentsList);
+
 
         return "community/community_detail";
     }
@@ -82,6 +82,38 @@ public class CommunityController {
         communityService.deleteCommunity(communityId);
 
         return "redirect:/community/list";
+    }
+
+
+
+    @PostMapping("/community/commentInsert")
+    @ResponseBody
+    public Map<String, Object> commentInsert(@RequestParam Map<String, Object> param ){
+
+        System.out.println(param);
+
+         Long communityId = Long.parseLong(String.valueOf(param.get("communityId")));
+         String commentContents = (String) param.get("commentContents");
+
+
+        CommentsDto commentsDto = new CommentsDto();
+         commentsDto.setCommunityId(communityId);
+         commentsDto.setCommentContents(commentContents);
+         commentsDto.setMemberId(3L); /*여기다는 현재 세션에 로그인 된 아이디로 넣어주기*/
+
+
+          try {
+              communityService.insertComment(commentsDto);
+              param.put("result","success");
+              System.out.println("insert 성공");
+          }catch (Exception e){
+              e.printStackTrace();
+              param.put("result","fail");
+              System.out.println("insert 실패");
+          }
+
+         return  param;
+
     }
 
 }

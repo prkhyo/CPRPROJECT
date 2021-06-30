@@ -51,9 +51,15 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommentsDto> selectComments(Long communityId) {
+    public List<CommentsDto> selectAllComments(Long communityId) {
 
-        List<CommentsDto> commentsList = communityMapper.selectComments(communityId);
+        List<CommentsDto> commentsList = communityMapper.selectAllComments(communityId);
+
+        if(commentsList == null){
+            communityMapper.updateCommunityStateWait(communityId);
+        }else{
+            communityMapper.updateCommunityStateComplete(communityId);
+        }
 
         return commentsList;
     }
@@ -66,6 +72,11 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void deleteCommunity(Long communityId) {
         communityMapper.deleteCommunity(communityId);
+    }
+
+    @Override
+    public void insertComment(CommentsDto commentsDto) {
+        communityMapper.insertComment(commentsDto);
     }
 
 

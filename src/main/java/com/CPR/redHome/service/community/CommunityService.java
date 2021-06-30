@@ -3,6 +3,7 @@ package com.CPR.redHome.service.community;
 import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.community.CommunityDto;
 import com.CPR.redHome.paging.Criteria;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +17,15 @@ public interface CommunityService {
 
     CommunityDto selectCommunity(Long communityId);
 
-    List<CommentsDto> selectComments(Long communityId);
+    List<CommentsDto> selectAllComments(Long communityId);
 
     void updateCommunityHitCnt(Long communityId);
 
     void deleteCommunity(Long communityId);
+
+    void insertComment(CommentsDto commentsDto);
+
+
 
 
 }

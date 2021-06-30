@@ -107,7 +107,7 @@
     </select>
 
 
-    <select id="selectComments" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.community.CommentsDto">
+    <select id="selectAllComments" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.community.CommentsDto">
 
         select comment_id as commentId,  community_id as communityId,  comment_contents as commentContents, comment_created_date as commentCreatedDate, member_id as memberId
         from comments
@@ -129,5 +129,22 @@
     </delete>
 
 
+    <insert id="insertComment" parameterType="com.CPR.redHome.dto.community.CommentsDto">
+
+        insert into comments(community_id, comment_contents, member_id)values(${communityId}, #{commentContents}, ${memberId})
+
+    </insert>
+
+    <update id="updateCommunityStateComplete" parameterType="java.lang.Long">
+
+        update community set community_state = '답변완료' where community_id = ${communityId}
+
+    </update>
+
+    <update id="updateCommunityStateWait" parameterType="java.lang.Long">
+
+        update community set community_state = '답변대기' where community_id = ${communityId}
+
+    </update>
 
 </mapper>

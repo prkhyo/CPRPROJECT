@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/css/community/community_detail.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -16,7 +17,7 @@
                 <div class="qna-detail__content__header-top">
                     <a class="qna-detail__content__header-subtitle" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문과 답변</a>
                 </div>
-                <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle}"></h1>
+                <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle +' <' + community.communityState+ '>'}"></h1>
                 <address class="qna-detail-author qna-detail__content__header-author-section">
                     <a class="qna-detail-author__profile-link" href="/users/11237952">
                         <div class="qna-detail-author__profile-link__image">
@@ -77,22 +78,26 @@
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
                     <h1 class="comment-feed__header">답변</h1>
-
-                        <form class="comment-feed__form" id="comment-feed__form" action="/answer/insert" method="post">
+                        <form class="comment-feed__form" id="comment-feed__form" onsubmit="commemntInsert_CheckForm(this); return false;">
                             <div class="comment-feed__form__user">
                                 <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
                             </div>
                             <div class="comment-feed__form__input">
                                 <div class="comment-feed__form__content">
                                     <div class="comment-content-input">
-                                        <input type="text" name="answer_contents" id="answer_contents"class="comment-content-input__text comment-feed__form__content__text"/>
+                                        <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text"/>
                                     </div>
                                 </div>
                                 <div class="comment-feed__form__actions">
-                                    <button class="comment-feed__form__submit" id="commentBtn" type="button">등록</button>
+                                    <input class="comment-feed__form__submit" id="commentBtn" type="submit"  value="등록"/>
                                 </div>
                             </div>
                             <input type="hidden" name="communityId" th:value="${community.communityId}">
+                            <input type="hidden" name="reply" th:value="${reply}">
+                            <input type="hidden" name="orderType" th:value="${orderType}">
+                            <input type="hidden" name="currentPageNo" th:value="${criteria.currentPageNo}">
+                            <input type="hidden" name="searchType" th:value="${criteria.searchType}">
+                            <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
                         </form>
 
                     <th:block th:if="${commentsList ne null}">
@@ -118,7 +123,6 @@
                         </ul>
                         </th:block>
                     </th:block>
-
                 </section>
             </section>
         </section>
@@ -131,6 +135,9 @@
         </div>
     </aside>
 
+
+
+
 </main>
 
 
@@ -139,6 +146,42 @@
 
 
 <script>
+
+    function commemntInsert_CheckForm(form){
+
+        let community_Id = form.communityId.value.trim();
+        let comment_Contents = form.commentContents.value.trim();
+
+
+     if(comment_Contents == null || comment_Contents == ''){
+         alert('답글을 입력해주세요.');
+         form.commentContents.focus();
+         return;
+
+     }
+        let commentBean = {
+            communityId: community_Id,
+            commentContents : comment_Contents,
+            reply: form.reply.value,
+            orderType: form.orderType.value,
+            currentPageNo: form.currentPageNo.value,
+            searchType: form.searchType.value,
+            searchKeyword: form.searchKeyword.value
+
+        };
+
+     $.post(
+         '/community/commentInsert',
+          commentBean,
+         function(data){
+             location.reload();
+         },
+         'json'
+     );
+        form.communityId.value = '';
+    }
+
+
 
 
 
