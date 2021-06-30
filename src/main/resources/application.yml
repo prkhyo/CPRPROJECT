@@ -9,6 +9,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
 
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
