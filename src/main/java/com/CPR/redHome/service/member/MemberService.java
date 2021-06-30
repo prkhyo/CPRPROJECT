@@ -11,7 +11,7 @@ public interface MemberService {
 
 
     //회원가입시
-    
+    void joinMember(MemberDto memberDto);
 
 
 }

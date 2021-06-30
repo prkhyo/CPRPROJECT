@@ -31,11 +31,10 @@ public class MemberServiceImpl implements MemberService{
             return member;
     }
 
-
-
-
-
-
+    @Override
+    public void joinMember(MemberDto memberDto) {
+        memberMapper.joinMember(memberDto);
+    }
 
 
 }
