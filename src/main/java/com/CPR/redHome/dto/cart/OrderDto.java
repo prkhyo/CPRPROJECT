@@ -13,19 +13,20 @@ import java.util.List;
 @Alias("orders")
 public class OrderDto extends CartDto {
 
-    private Long orderId;
+    private String orderId;
     private Long memberId;
+    private Long productId;
     private Long gradeId;
 
     private Integer currentPoint;
     private Integer usedPoint;
+    private Integer price;
     private Integer accumulationRate;
+    private Integer deliveryCharge;
 
     private String phoneNumber;
-    private String address1;
-    private String address2;
-    private String address3;
-    private String address4;
+    private String accountId;
+    private String address;
     private String receiver;
     private String orderRequest;
 

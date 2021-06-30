@@ -22,5 +22,8 @@ public interface CartMapper {
     //memberId 조회
     int findMemberId(Long id);
 
+    // 주문 결제 후 주문내역 추가
+    int insertOrders(List<OrderDto> orderDto);
+
 
 }

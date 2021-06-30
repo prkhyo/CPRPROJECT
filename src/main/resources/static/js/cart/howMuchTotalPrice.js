@@ -1,3 +1,5 @@
+
+// 숫자 format 설정
 Number.prototype.format = function (){
     if(this==0) return 0;
 
@@ -54,7 +56,6 @@ function totalPrice(){
     let totalLength = total.length;
 
     const sellerName = document.querySelectorAll('.sellerName');
-    console.log(sellerName[0].outerText);
 
     // 전체 금액 [ 상품금액, 배송비, 할인금액 및 총 결재금액] : 오른쪽
     let productTotalPrice = document.querySelector('.productTotalPrice');

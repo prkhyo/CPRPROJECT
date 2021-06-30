@@ -42,7 +42,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int findMemberId(Long memberId) {
-        return 0;
+
+        return cartMapper.findMemberId(memberId);
+    }
+
+    @Override
+    public int insertOrders(List<OrderDto> orderDto) {
+
+        log.info("::::::::  결제 후 내역 추가 ::::::::");
+
+        return cartMapper.insertOrders(orderDto);
     }
 }
 

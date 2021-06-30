@@ -48,7 +48,7 @@ class CartServiceTest {
         ids.add("29");
         System.out.println("asd  " + Long.parseLong(ids.get(0)));
 
-        System.out.println(cartMapper.findMemberId(Long.parseLong(ids.get(0))));
+        System.out.println("wowowowowo = " + cartMapper.findMemberId(Long.parseLong(ids.get(0))));
 
 
     }

@@ -5,6 +5,7 @@ import com.CPR.redHome.dto.cart.OrderDto;
 import com.CPR.redHome.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
+
 
     @GetMapping("/cart")
     public String getCart(Long memberId, Model model) {
@@ -54,14 +56,30 @@ public class CartController {
     }
 
     @RequestMapping("/cart/payment")
-    public String getPayment(@RequestParam(value = "selectNo",required = false) List<String> ids,@ModelAttribute OrderDto orderDto, Model model) throws Exception {
+    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws Exception {
 
         log.info("payment Id = " + ids);
         log.info("memberId = " + cartService.findMemberId(Long.parseLong(ids.get(0))));
-//        model.addAttribute("point", );
+
+        model.addAttribute("point", cartService.findMemberId(Long.parseLong(ids.get(0))));
         model.addAttribute("orderDetail", cartService.getPayment(ids));
 
         return "carts/payment";
     }
 
+    /*    @PostMapping("/cart/test")
+        public void test(@RequestBody OrderDto orderDto) {
+            log.info("여기로 전달 되려나 테스트   " + orderDto);
+            System.out.println("imp_uid = " + orderDto);
+
+        }*/
+    @PostMapping("/cart/test")
+    @ResponseStatus(HttpStatus.OK)
+    public void test(@RequestBody List<OrderDto> orderDto) {
+
+        log.info("여기로 전달 되려나 테스트   " + orderDto);
+
+        cartService.insertOrders(orderDto);
+
+    }
 }

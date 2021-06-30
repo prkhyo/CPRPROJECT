@@ -42,7 +42,10 @@
 
         c.shopping_cart_id as cartId ,
         c.member_id as memberId,
+        m.account_id as accountId,
         p.product_title as title,
+        m.grade_id as gradeId,
+        p.product_id as productId,
         p.product_price as price,
         p.product_img as img,
         p.product_delivery_charge as deliveryCharge,
@@ -66,14 +69,45 @@
 
     </select>
 
-    <select id="findMemberId" resultType="orders">
+    <select id="findMemberId" resultType="int">
 
-        select member_id as memberId
-        from shopping_cart
-        where shopping_cart_id = #{cartId}
+        select  m.point as currentPoint
+        from shopping_cart c
+                 join member m on m.member_id = c.member_id
+        where c.shopping_cart_id = #{memberId}
 
 
     </select>
+
+    <insert id="insertOrders"  parameterType="java.util.List">
+        insert into orders (
+            order_number,
+            member_id,
+            product_id,
+            order_receiver,
+            order_unit_price,
+            order_delivery_charge,
+            order_point_used,
+            order_request,
+            order_address
+        ) values
+
+
+        <foreach collection="list" item="item" separator="," >
+                 (
+                     #{item.orderId},
+                     #{item.memberId},
+                     #{item.productId},
+                     #{item.receiver},
+                     #{item.price},
+                     #{item.deliveryCharge},
+                     #{item.usedPoint},
+                     #{item.orderRequest},
+                     #{item.address}
+                 )
+        </foreach>
+
+    </insert>
 
 
 </mapper>

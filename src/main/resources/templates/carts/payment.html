@@ -109,7 +109,7 @@
 
 <div class="layout">
 
-    <form th:object="${orderDto}" method="post">
+    <form method="post">
         <main class="_3z82S">
             <div class="p0PrG">
                 <header class="_3pPzh">주문/결제</header>
@@ -123,7 +123,7 @@
                             <div class="BenKu">
                                 <div class="_10zXy">받는 사람</div>
                                 <div class="_3cYTk">
-                                    <input class="_3ASDR _1qwAY _2Zb2k receiver" th:field="*{receiver}" name="recipient"
+                                    <input class="_3ASDR _1qwAY _2Zb2k receiver"   name="recipient"
                                            maxlength="10" value="">
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                 <div class="_3cYTk">
                                     <div class="_2Z2K1">
                                         <div class="UYZ4Z">
-                                            <input class="_3ASDR _1qwAY _2Zb2k phone" th:field="*{phoneNumber}"
+                                            <input class="_3ASDR _1qwAY _2Zb2k phone"
                                                    type="tel" placeholder="입력해주세요" size="1"
                                                    maxlength="9" value="">
                                         </div>
@@ -147,24 +147,24 @@
                                             <button class="_1eWD8 _2wuTD _3VwZT _1h-CO" type="button"
                                                     onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
                                             </button>
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI "
-                                                   th:field="*{address1}" type="text"
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add1 "
+                                                    type="text"
                                                    id="sample4_postcode" placeholder="우편번호">
                                         </div>
-                                        <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI"
-                                                   th:field="*{address2}" type="text"
+                                        <div class="_3cYTk" style="margin-bottom: 10px">
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add2"
+                                                    type="text"
                                                    id="sample4_roadAddress" placeholder="도로명주소">
                                         </div>
                                         <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI"
-                                                   th:field="*{address3}" type="text"
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add3 "
+                                                    type="hidden"
                                                    id="sample4_jibunAddress" placeholder="지번주소">
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
                                         <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k" type="text" id="sample4_detailAddress"
-                                                   th:field="*{address4}"
+                                            <input class="_3ASDR _1qwAY _2Zb2k add4" type="text" id="sample4_detailAddress"
+
                                                    placeholder="상세주소">
                                         </div>
 
@@ -172,26 +172,20 @@
                                 </div>
 
                             </div>
-                        </div>
-                            <div class="_10zXy _2klPP">요청 사항</div>
-                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">
-
-                            <div class="_3cYTk Ap00Z">
-                                <div class="_3Bt8k">
-                                    <select class="_3ASDR _1qwAY _3K8Q8" th:field="*{orderRequest}">
-                                        <option value="0">배송시 요청사항을 선택해주세요</option>
-                                        <option value="1">부재시 문앞에 놓아주세요</option>
-                                        <option value="2">배송전에 미리 연락주세요</option>
-                                        <option value="3">부재시 경비실에 맡겨 주세요</option>
-                                        <option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
-                                        <option value="5">직접입력</option>
-                                    </select>
-                                    <svg width="1em" height="1em" viewBox="0 0 10 10" fill="currentColor" class="IgBXR">
-                                        <path d="M0 3l5 5 5-5z"></path>
-                                    </svg>
+                            <div class="BenKu">
+                                <div class="_10zXy">요청사항</div>
+                                <div class="_3cYTk">
+                                    <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient" placeholder="요청사항을 입력해 주세요"
+                                           maxlength="10" value="">
                                 </div>
                             </div>
+
                         </div>
+<!--                        <div class="_10zXy _2klPP">요청 사항</div>-->
+<!--                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">-->
+
+
+<!--                        </div>-->
                     </div>
                 </section>
 
@@ -200,17 +194,23 @@
                         <div class="_3Pp8n">주문상품</div>
                         <div class="_1_5Vk"></div>
                     </div>
-                    <div class="bbqwt" th:each="data : ${orderDetail}">
-                        <section class="checkout-container _1NTS-" >
+                    <div class="bbqwt">
+                        <section class="checkout-container _1NTS-" th:each="data : ${orderDetail}">
+                            <input class="accountId" type="hidden" th:value="${data.accountId}">
+                            <input class="productId" type="hidden" th:value="${data.productId}">
+                            <input class="memberId" type="hidden" th:value="${data.memberId}">
+                            <input class="gradeId" type="hidden" th:value="${data.gradeId}">
                             <div class="_3KPKx">
                                 <div class="_2uYBI">
                                     <div class="XVdGS">
-                                        업체명 : <div class="_3-gF9">[[${data.name}]]</div>
-                                        <div class="_3YZco">[[${data.deliveryCharge}]]</div> 원
+                                        업체명 :
+                                        <div class="_3-gF9">[[${data.name}]]</div>
+                                        <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span></div>
+                                        원
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="_2CuPx"  >
+                                    <div class="_2CuPx">
                                         <picture>
                                             <source type="image/webp"
                                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=72&amp;h=72&amp;c=c&amp;webp=1"
@@ -221,14 +221,15 @@
                                         </picture>
 
                                         <div class="_5cZyM">
-                                             <div class="_1rZ6t"> [[${data.title}]]</div>
+
+                                            <div class="_1rZ6t"> [[${data.title}]]</div>
 
                                             <div class="_3_Emc">
-                                                단가 : <span class="_2_p5n"> [[${data.price}]]</span> 원
+                                                단가 : <span class="_2_p5n unitPrice"> [[${data.price}]]</span> 원
                                                 <div class="_2T03R"></div>
-                                                수량 : <span class="_1Dwy0"> [[${data.qty}]]</span>
+                                                수량 : <span class="_1Dwy0 qty"> [[${data.qty}]]</span>
                                                 <div class="_2T03R"></div>
-                                                총 금액 : <span class="_1Dwy0"> [[${data.price * data.qty}]]</span>
+                                                총 금액 : <span class="_1Dwy0 totalPrice"> [[${data.price * data.qty}]]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -247,13 +248,13 @@
                     <div class="bbqwt">
                         <div class="checkout-container _2UZdB">
                             <div class="_2E4tc">
-                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ" name="mileageCost" type="tel" pattern="\d*"
-                                        th:value="0">
-                                <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" disabled="" type="button">전액사용
+                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel" pattern="\d*"
+                                       th:value="0">
+                                <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
                                 </button>
                             </div>
                             <div class="_4hX3z">사용 가능 포인트
-                                <span class="_3HMkK">[[${data[0].currentPoint}]] </span> P
+                                <span class="_3HMkK havePoint">[[${point}]] </span> P
                             </div>
                         </div>
                     </div>
@@ -270,27 +271,23 @@
                                 <div class="_1BWlf">
                                     <div class="_1yha3">결제금액</div>
                                     <div class="_3CAac">
-                                        <div class="_2SFk1">총 상품 금액</div>
-                                        <div class="_3IGoe _3k3pP">388,800원</div>
+                                        <div class="_2SFk1 ">총 상품 금액</div>
+                                        <div class="_3IGoe _3k3pP"><span class="productTotalSum" >0</span>원</div>
                                     </div>
                                     <div class="_3CAac">
                                         <div class="_2SFk1">배송비</div>
-                                        <div class="_3IGoe">0원</div>
-                                    </div>
-                                    <div class="_3CAac">
-                                        <div class="_2SFk1">쿠폰 사용</div>
-                                        <div class="_3IGoe">0원</div>
+                                        <div class="_3IGoe"><span class="number deliveryTotalCharge">0</span>원</div>
                                     </div>
                                     <div class="_3CAac">
                                         <div class="_2SFk1">포인트 사용</div>
-                                        <div class="_3IGoe">0원</div>
+                                        <div class="_3IGoe ">-<span class="totalPoint"></span>원</div>
                                     </div>
                                     <div class="_1Nffa">
                                         <div class="_2CIyZ">최종 결제 금액</div>
                                         <div class="_1TYIO">
-                                            <span class="kUAhq">388,800</span>&nbsp;원
+                                            <span class="kUAhq finalPrice"></span>&nbsp;원
                                             <div class="_3bTpP">
-                                                <span class="_11DAx">1,167 P</span>&nbsp;적립 예정
+                                                <span class="_11DAx addPoint">22</span>P&nbsp;적립 예정
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +316,8 @@
                                     <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
                                 </div>
                             </div>
-                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" type="button">388,800원 결제하기</button>
+                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>
+<!--                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="payment()" type="button">결제하기</button>-->
                         </div>
                     </div>
                 </div>
@@ -468,5 +466,13 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/js/cart/addressapi.js"></script>
+<script src="/js/cart/payAPI.js"></script>
+<script src="/js/cart/paymentTotalPrice.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+
 
 </html>
