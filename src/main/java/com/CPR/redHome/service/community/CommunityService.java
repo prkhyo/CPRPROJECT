@@ -17,13 +17,15 @@ public interface CommunityService {
 
     CommunityDto selectCommunity(Long communityId);
 
-    List<CommentsDto> selectAllComments(Long communityId);
+    List<CommentsDto> selectAllComments(Long communityId, int recordsPerPage, int firstRecordIndex);
 
     void updateCommunityHitCnt(Long communityId);
 
     void deleteCommunity(Long communityId);
 
     void insertComment(CommentsDto commentsDto);
+
+    int countAllComments(Long communityId);
 
 
 

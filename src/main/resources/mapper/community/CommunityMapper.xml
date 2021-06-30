@@ -43,7 +43,10 @@
     두 번째 파라미터는 시작 위치를 기준으로 가지고 올 데이터의 개수를 지정-->
     <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" >
 
-        select  community.community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
+        <if test="orderType == 'newComment'"> select * from( </if>
+
+
+        select  community.community_id as communityId, community.member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
         <if test="orderType == 'newComment'">, comments.comment_id as ccommentId </if>
         <choose>
             <when test="orderType == 'newComment'">
@@ -81,9 +84,12 @@
             order by comments.comment_id desc
         </if>
 
-
+        <if test="orderType == 'newComment'">)a group by a.communityId </if>
 
         limit #{firstRecordIndex}, #{recordsPerPage}
+
+
+
 
     </select>
 
@@ -107,11 +113,12 @@
     </select>
 
 
-    <select id="selectAllComments" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.community.CommentsDto">
+    <select id="selectAllComments"  resultType="com.CPR.redHome.dto.community.CommentsDto">
 
         select comment_id as commentId,  community_id as communityId,  comment_contents as commentContents, comment_created_date as commentCreatedDate, member_id as memberId
         from comments
-        where community_id = ${communityId}
+        where community_id = #{communityId}
+        limit #{firstRecordIndex}, #{recordsPerPage}
 
     </select>
 

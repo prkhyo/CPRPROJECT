@@ -117,7 +117,7 @@
 
 <section id="questions-list" class="container">
     <th:block th:each= "community : ${communityList}" >
-        <a class="questions-item__link" th:href="@{/community/detail(communityId=${community.communityId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  >
+        <a class="questions-item__link" th:href="@{/community/detail(communityId=${community.communityId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >
             <article class="questions-item">
                 <th:block th:if="${community.communityImg ne null }">
                     <div class="questions-item__image">
@@ -173,7 +173,7 @@
         <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
         <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
             th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-            <a class ="page-link" id="pageNum"  th:href="@{/community/list(currentPageNo=${page}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page}" ></a>
+            <a class ="page-link" id="pageNum"  th:href="@{/community/list(currentPageNo=${page}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
         </li>
         </th:block>
 

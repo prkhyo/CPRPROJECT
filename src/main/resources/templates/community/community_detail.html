@@ -15,7 +15,7 @@
             <header class="qna-detail__content__header-container">
 
                 <div class="qna-detail__content__header-top">
-                    <a class="qna-detail__content__header-subtitle" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문과 답변</a>
+                    <a class="qna-detail__content__header-subtitle" th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문과 답변</a>
                 </div>
                 <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle +' <' + community.communityState+ '>'}"></h1>
                 <address class="qna-detail-author qna-detail__content__header-author-section">
@@ -69,39 +69,40 @@
                     <!--수정, 삭제는 현재 로그인 된 아이디와 해당 문의글의 작성 아이디가 같을 때만 보이게 처리할 것-->
                     <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a href="#">수정</a></button>
                     <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a th:href="@{/community/community_delete(communityId=${community.communityId})}">삭제</a></button>
-                    <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
+                    <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
                 </div>
 
             </footer>
 
 
+
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
                     <h1 class="comment-feed__header">답변</h1>
-                        <form class="comment-feed__form" id="comment-feed__form" onsubmit="commemntInsert_CheckForm(this); return false;">
-                            <div class="comment-feed__form__user">
-                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
-                            </div>
-                            <div class="comment-feed__form__input">
-                                <div class="comment-feed__form__content">
-                                    <div class="comment-content-input">
-                                        <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text"/>
-                                    </div>
-                                </div>
-                                <div class="comment-feed__form__actions">
-                                    <input class="comment-feed__form__submit" id="commentBtn" type="submit"  value="등록"/>
+                    <form class="comment-feed__form" id="comment-feed__form" onsubmit="commemntInsert_CheckForm(this); return false;">
+                        <div class="comment-feed__form__user">
+                            <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
+                        </div>
+                        <div class="comment-feed__form__input">
+                            <div class="comment-feed__form__content">
+                                <div class="comment-content-input">
+                                    <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text"/>
                                 </div>
                             </div>
-                            <input type="hidden" name="communityId" th:value="${community.communityId}">
-                            <input type="hidden" name="reply" th:value="${reply}">
-                            <input type="hidden" name="orderType" th:value="${orderType}">
-                            <input type="hidden" name="currentPageNo" th:value="${criteria.currentPageNo}">
-                            <input type="hidden" name="searchType" th:value="${criteria.searchType}">
-                            <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
-                        </form>
+                            <div class="comment-feed__form__actions">
+                                <input class="comment-feed__form__submit" id="commentBtn" type="submit"  value="등록"/>
+                            </div>
+                        </div>
+                        <input type="hidden" name="communityId" th:value="${community.communityId}">
+                        <input type="hidden" name="reply" th:value="${reply}">
+                        <input type="hidden" name="orderType" th:value="${orderType}">
+                        <input type="hidden" name="currentPageNo" th:value="${currentPageNo}">
+                        <input type="hidden" name="searchType" th:value="${criteria.searchType}">
+                        <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
+                    </form>
 
-                    <th:block th:if="${commentsList ne null}">
-                        <th:block th:each= "comment : ${commentsList}" >
+
+                    <th:block th:each= "comment : ${commentsList}" >
                         <ul class="comment-feed__list">
                             <li class="comment-feed__list__item">
                                 <article class="comment-feed__item">
@@ -121,17 +122,64 @@
                                 </article>
                             </li>
                         </ul>
-                        </th:block>
                     </th:block>
+
                 </section>
             </section>
+
+
+            <div class="paging">
+                <ul class="pagination">
+                    <!--이전  버튼-->
+                    <th:block th:if="${commentPageMaker.hasPreviousPage}">
+                        <li class="page-item">
+                            <a class ="page-link" id="Previous"  th:href="@{/community/detail(communityId=${community.communityId},commentCurrentPage=${commentPageMaker.firstPage - 1}, currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
+                        </li>
+                    </th:block>
+
+
+
+                    <!--페이지 번호-->
+                    <th:block th:each="page: ${#numbers.sequence(commentPageMaker.firstPage, commentPageMaker.lastPage)}">
+                        <li class="page-item" th:classappend="${commentCurrentPage == page} ?'active':''"
+                            th:attr="id=${commentCurrentPage == page} ? 'pageActive' : 'pageNoActive'" >
+                            <a class ="page-link" id="pageNum"  th:href="@{/community/detail(communityId=${community.communityId},commentCurrentPage=${page},currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
+                        </li>
+                    </th:block>
+
+
+                    <!--다음 버튼-->
+                    <th:block th:if="${commentPageMaker.hasNextPage}">
+                        <li class="page-item" >
+                            <a class ="page-link" id="Next" th:href="@{/community/detail(communityId=${community.communityId},commentCurrentPage=${commentPageMaker.lastPage + 1}, currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  tabindex="-1">Next</a>
+                        </li>
+                    </th:block>
+
+
+                    <!--paging 로직 ajax로 바꿀 때 사용할 예정-->
+                    <form name="commentPagingForm" id="commentPagingForm" onsubmit="commentPaging_CheckForm(this); return false;">
+                        <input type="hidden" name="communityId" th:value="${community.communityId}">
+                        <input type="hidden" name="reply" th:value="${reply}">
+                        <input type="hidden" name="orderType" th:value="${orderType}">
+                        <input type="hidden" name="currentPageNo" th:value="${currentPageNo}">
+                        <input type="hidden" name="commentCurrentPage" th:value="${commentCurrentPage}">
+                        <input type="hidden" name="searchType" th:value="${criteria.searchType}">
+                        <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
+
+                    </form>
+
+                </ul>
+            </div>
+
+
+        <!-- 하단-->
         </section>
     </article>
 
     <aside class="qna-detail-aside qna-detail__aside">
         <div class="qna-detail-aside__section">
             <h2 class="qna-detail-aside__section__header">궁금한 것 물어보세요!</h2>
-            <a class="button button--color-blue button--size-60 button--shape-4 qna-detail-aside__section__new-question-button" type="button" th:href="@{/community/list(currentPageNo=${criteria.currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문하러 가기</a>
+            <a class="button button--color-blue button--size-60 button--shape-4 qna-detail-aside__section__new-question-button" type="button" th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문하러 가기</a>
         </div>
     </aside>
 
@@ -181,6 +229,31 @@
         form.communityId.value = '';
     }
 
+
+    /*paging 로직 ajax로 바꿀 때 사용할 예정*/
+    function commentPaging_CheckForm(form){
+
+
+        let commentPagingBean = {
+            communityId: community_Id,
+            reply: form.reply.value,
+            orderType: form.orderType.value,
+            currentPageNo: form.currentPageNo.value,
+            searchType: form.searchType.value,
+            searchKeyword: form.searchKeyword.value,
+            commentCurrentPage: form.commentCurrentPage.value
+        };
+
+        $.post(
+            '/community/commentPaging',
+            commentPagingBean,
+            function(data){
+                location.reload();
+            },
+            'json'
+        );
+
+    }
 
 
 

@@ -26,7 +26,7 @@ public interface CommunityMapper {
     CommunityDto selectCommunity(Long communityId);
 
     //특정 커뮤니티 글에 대한 전체 코멘트 가져오기
-    List<CommentsDto> selectAllComments(Long communityId);
+    List<CommentsDto> selectAllComments(@RequestParam Long communityId, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex);
 
     //커뮤니티 글 조회수 증가
     void updateCommunityHitCnt(Long communityId);
