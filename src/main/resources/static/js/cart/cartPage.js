@@ -1,7 +1,6 @@
-
 // 숫자 format 설정
-Number.prototype.format = function (){
-    if(this==0) return 0;
+Number.prototype.format = function () {
+    if (this == 0) return 0;
 
     let reg = /(^[+-]?\d+)(\d{3})/;
     let n = (this + '');
@@ -11,14 +10,14 @@ Number.prototype.format = function (){
     return n;
 };
 
-String.prototype.format = function(){
+String.prototype.format = function () {
     var num = parseFloat(this);
-    if( isNaN(num) ) return "0";
+    if (isNaN(num)) return "0";
 
     return num.format();
 };
 
-
+// 체크박스
 function checkSelectAll() {
     // 전체 체크박스
     const checkboxes = document.querySelectorAll('input[name="selectNo"]');
@@ -45,9 +44,8 @@ function selectAll(selectAll) {
 }
 
 
-
-
-function totalPrice(){
+// 상품 금액 계산
+function totalPrice() {
     // 유닛 금액 [ 총 상품금액, 배송비] : 왼쪽
     let total = document.querySelectorAll('.totalSum');
     let deliveryCharge = document.querySelectorAll('.delivery');
@@ -68,7 +66,7 @@ function totalPrice(){
     let deliveryTotal = 0;
 
     // 상품 전체 금액 계산
-    for(i =0; i < totalLength; i++){
+    for (i = 0; i < totalLength; i++) {
         // 가변 금액 적용
         productTotal += parseInt(total[i].outerText);
         deliveryTotal += parseInt(deliveryCharge[i].outerText);
@@ -81,25 +79,12 @@ function totalPrice(){
 
     }
 
-
     // 총 상품 금액 지정 및 포멧 적용
     productTotalPrice.innerText = parseInt(productTotal).format();
     deliveryChargeTotal.innerText = parseInt(deliveryTotal).format();
     totalPayment.innerText = parseInt(productTotal + deliveryTotal).format();
-
-/*    // 같은 판매자일 경우 배송비는 한번만 결제
-    for (i = 0; i < totalLength - 1; i++) {
-        if(sellerName[i].outerText == sellerName[i+1].outerText){
-            console.log("true");
-            deliveryChargeTotal.innerText
-
-        }else {
-            console.log("false");
-        }
-    }
-*/
-
 }
+
 
 
 totalPrice();

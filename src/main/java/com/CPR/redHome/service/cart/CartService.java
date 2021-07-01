@@ -13,7 +13,7 @@ public interface CartService {
     List<CartDto> getCartList(Long memberId);
 
     //장바구니 선택 삭제
-    int cartDelete(Long id);
+    int cartDelete(List<OrderDto> orderDto);
 
     // 장바구니에서 결제창 요청 시
     List<OrderDto> getPayment(List<String> ids);

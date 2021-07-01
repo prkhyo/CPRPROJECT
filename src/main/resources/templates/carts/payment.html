@@ -9,6 +9,9 @@
 
 
 </head>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script src="/js/cart/addressapi.js"></script>
 <body>
 <header class="layout-navigation-bar">
     <div class="layout-navigation-primary-wrap">
@@ -109,8 +112,9 @@
 
 <div class="layout">
 
-    <form method="post">
+
         <main class="_3z82S">
+
             <div class="p0PrG">
                 <header class="_3pPzh">주문/결제</header>
                 <section class="_3oseG">
@@ -123,7 +127,7 @@
                             <div class="BenKu">
                                 <div class="_10zXy">받는 사람</div>
                                 <div class="_3cYTk">
-                                    <input class="_3ASDR _1qwAY _2Zb2k receiver"   name="recipient"
+                                    <input class="_3ASDR _1qwAY _2Zb2k receiver" name="recipient"
                                            maxlength="10" value="">
                                 </div>
                             </div>
@@ -148,22 +152,23 @@
                                                     onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
                                             </button>
                                             <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add1 "
-                                                    type="text"
+                                                   type="text"
                                                    id="sample4_postcode" placeholder="우편번호">
                                         </div>
                                         <div class="_3cYTk" style="margin-bottom: 10px">
                                             <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add2"
-                                                    type="text"
+                                                   type="text"
                                                    id="sample4_roadAddress" placeholder="도로명주소">
                                         </div>
                                         <div class="_3cYTk">
                                             <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add3 "
-                                                    type="hidden"
+                                                   type="hidden"
                                                    id="sample4_jibunAddress" placeholder="지번주소">
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
                                         <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k add4" type="text" id="sample4_detailAddress"
+                                            <input class="_3ASDR _1qwAY _2Zb2k add4" type="text"
+                                                   id="sample4_detailAddress"
 
                                                    placeholder="상세주소">
                                         </div>
@@ -175,17 +180,18 @@
                             <div class="BenKu">
                                 <div class="_10zXy">요청사항</div>
                                 <div class="_3cYTk">
-                                    <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient" placeholder="요청사항을 입력해 주세요"
+                                    <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient"
+                                           placeholder="요청사항을 입력해 주세요"
                                            maxlength="10" value="">
                                 </div>
                             </div>
 
                         </div>
-<!--                        <div class="_10zXy _2klPP">요청 사항</div>-->
-<!--                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">-->
+                        <!--                        <div class="_10zXy _2klPP">요청 사항</div>-->
+                        <!--                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">-->
 
 
-<!--                        </div>-->
+                        <!--                        </div>-->
                     </div>
                 </section>
 
@@ -200,12 +206,15 @@
                             <input class="productId" type="hidden" th:value="${data.productId}">
                             <input class="memberId" type="hidden" th:value="${data.memberId}">
                             <input class="gradeId" type="hidden" th:value="${data.gradeId}">
+                            <input class="email" type="hidden" th:value="${data.email}">
+                            <input class="name" type="hidden" th:value="${data.name}">
                             <div class="_3KPKx">
                                 <div class="_2uYBI">
                                     <div class="XVdGS">
                                         업체명 :
                                         <div class="_3-gF9">[[${data.name}]]</div>
-                                        <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span></div>
+                                        <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span>
+                                        </div>
                                         원
                                     </div>
                                 </div>
@@ -229,7 +238,8 @@
                                                 <div class="_2T03R"></div>
                                                 수량 : <span class="_1Dwy0 qty"> [[${data.qty}]]</span>
                                                 <div class="_2T03R"></div>
-                                                총 금액 : <span class="_1Dwy0 totalPrice"> [[${data.price * data.qty}]]</span>
+                                                총 금액 : <span
+                                                    class="_1Dwy0 totalPrice"> [[${data.price * data.qty}]]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -248,7 +258,8 @@
                     <div class="bbqwt">
                         <div class="checkout-container _2UZdB">
                             <div class="_2E4tc">
-                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel" pattern="\d*"
+                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel"
+                                       pattern="\d*"
                                        th:value="0">
                                 <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
                                 </button>
@@ -272,7 +283,7 @@
                                     <div class="_1yha3">결제금액</div>
                                     <div class="_3CAac">
                                         <div class="_2SFk1 ">총 상품 금액</div>
-                                        <div class="_3IGoe _3k3pP"><span class="productTotalSum" >0</span>원</div>
+                                        <div class="_3IGoe _3k3pP"><span class="productTotalSum">0</span>원</div>
                                     </div>
                                     <div class="_3CAac">
                                         <div class="_2SFk1">배송비</div>
@@ -293,16 +304,10 @@
                                     </div>
                                 </div>
                                 <div class="_1WDOn">
-                                    <label for="checkout-agree" class="_2bgXR">
-                                        <div class="_3zqA8 _3FRhK">
-                                            <input type="checkbox" class="_3UImz" id="checkout-agree" name="isAgree"
-                                                   value="">
-                                            <span class="_2mDYR">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path
-                                                    fill="currentColor"
-                                                    d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg>
-                                        </span>
-                                        </div>
+                                    <label  class="_2bgXR">
+
+                                        <input type="checkbox" style="margin:5px" name="selectCheck()" onclick='selectCheck()'>
+
                                         <div class="_2Db2x">아래 내용에 모두 동의합니다. (필수)</div>
                                     </label>
                                     <div class="" style="overflow: hidden;"></div>
@@ -316,15 +321,28 @@
                                     <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
                                 </div>
                             </div>
-                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>
-<!--                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="payment()" type="button">결제하기</button>-->
+                            <!--                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="asd()" type="button">결제하기</button>-->
+                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">결제하기</button>
                         </div>
                     </div>
                 </div>
             </section>
+
         </main>
-    </form>
+
 </div>
+</body>
+
+<script src="/js/cart/pgAPI.js"></script>
+<script src="/js/cart/paymentTotalPrice.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+</html>
+
+
 <!--        footer 시작-->
 <footer class="layout-footer">
     <div class="layout-footer__content">
@@ -462,17 +480,4 @@
     </div>
 </footer>
 
-</body>
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="/js/cart/addressapi.js"></script>
-<script src="/js/cart/payAPI.js"></script>
-<script src="/js/cart/paymentTotalPrice.js"></script>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
-
-
-
-</html>

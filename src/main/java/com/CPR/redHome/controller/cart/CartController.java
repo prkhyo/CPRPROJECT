@@ -38,6 +38,7 @@ public class CartController {
         return "carts/cart";
     }
 
+/*
     @PostMapping("/cart/delete")
     public String deleteCart(@RequestParam(value = "selectNo", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId) {
 
@@ -54,9 +55,19 @@ public class CartController {
 
         return "redirect:/cart/" + memberId;
     }
+*/
+
+    @PostMapping("/cart/delete")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCart(@RequestBody List<OrderDto> OrderDto) {
+
+        log.info("cartDto = " + OrderDto);
+        cartService.cartDelete(OrderDto);
+    }
+
 
     @RequestMapping("/cart/payment")
-    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws Exception {
+    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws NullPointerException {
 
         log.info("payment Id = " + ids);
         log.info("memberId = " + cartService.findMemberId(Long.parseLong(ids.get(0))));
@@ -67,19 +78,16 @@ public class CartController {
         return "carts/payment";
     }
 
-    /*    @PostMapping("/cart/test")
-        public void test(@RequestBody OrderDto orderDto) {
-            log.info("여기로 전달 되려나 테스트   " + orderDto);
-            System.out.println("imp_uid = " + orderDto);
 
-        }*/
     @PostMapping("/cart/test")
     @ResponseStatus(HttpStatus.OK)
     public void test(@RequestBody List<OrderDto> orderDto) {
 
-        log.info("여기로 전달 되려나 테스트   " + orderDto);
-
+        // 결제 내역에 추가
         cartService.insertOrders(orderDto);
+        // 결제 완료로 인해 카트에서 제거
+        cartService.cartDelete(orderDto);
+
 
     }
 }

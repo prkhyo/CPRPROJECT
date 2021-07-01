@@ -26,10 +26,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int cartDelete(Long id) {
+    public int cartDelete(List<OrderDto> orderDto) {
 
-        log.info("삭제되는cart id = " + id);
-        return cartMapper.cartDelete(id);
+        log.info("삭제되는cart id = " + orderDto);
+        return cartMapper.cartDelete(orderDto);
     }
 
     @Override

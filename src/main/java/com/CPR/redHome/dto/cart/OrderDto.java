@@ -29,5 +29,6 @@ public class OrderDto extends CartDto {
     private String address;
     private String receiver;
     private String orderRequest;
+    private String email;
 
 }

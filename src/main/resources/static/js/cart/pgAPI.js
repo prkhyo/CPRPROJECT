@@ -1,15 +1,24 @@
 
+
 function payment() {
     let receiver = document.querySelectorAll('.receiver')[0].value;
     let phone = document.querySelectorAll('.phone')[0].value;
     let add1 = document.querySelectorAll('.add1')[0].value;
+    let email = document.querySelectorAll('.email')[0].value;
+    let name = document.querySelectorAll('.name')[0].value;
+    let finalPrice = document.querySelectorAll('.finalPrice')[0].outerText;
 
-    if (receiver == "") {
-        alert("받는 사람을 입력해 주세요.")
+    let  check = document.querySelector('input[name="selectCheck()"]');
+    let  checked = document.querySelector('input[name="selectCheck()"]:checked');
+
+    if(check !==  checked){
+        alert("동의 해주세용 ")
+    }else if (receiver == "") {
+        alert("받는 사람을 입력해 주세요.");
     } else if (phone == "") {
-        alert("연락처를  입력해 주세요.")
+        alert("연락처를  입력해 주세요.");
     } else if (add1 == "") {
-        alert("주소를 입력해 주세요.")
+        alert("주소를 입력해 주세요.");
 
     } else {
         var IMP = window.IMP;
@@ -18,17 +27,17 @@ function payment() {
             pg: 'html5_inicis',
             pay_method: 'card',
             merchant_uid: 'merchant_' + new Date().getTime(),
-            name: 'redHome', //결제창에서 보여질 이름
-            amount: 100, //실제 결제되는 가격
-            buyer_email: 'hanry18@asd.com',
-            buyer_name: 'test 한성준',
-            buyer_tel: 'tel',
+            name: 'REDHOME(가구판매)', //결제창에서 보여질 이름
+            amount: finalPrice, //실제 결제되는 가격
+            buyer_email: email,
+            buyer_name: name,
+            buyer_tel: phone,
         }, function (rsp) { // callback
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
 
                 dataSend();
-                // location.href = "/cart";
+                location.href = "/cart";
 
 
             } else {

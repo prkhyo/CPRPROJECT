@@ -31,7 +31,11 @@
 
         delete
         from shopping_cart
-        where shopping_cart_id = #{cartId}
+
+        where shopping_cart_id =
+        <foreach collection="list" item="item" separator="and" >
+            #{item.cartId}
+        </foreach>
 
     </delete>
 
@@ -45,6 +49,7 @@
         m.account_id as accountId,
         p.product_title as title,
         m.grade_id as gradeId,
+        m.email as email,
         p.product_id as productId,
         p.product_price as price,
         p.product_img as img,

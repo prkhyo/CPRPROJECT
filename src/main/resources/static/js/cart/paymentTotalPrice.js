@@ -27,6 +27,8 @@ function calculatePrice(point) {
     let deliveryTotalCharge = document.querySelector('.deliveryTotalCharge');
     let pointTotalUse = document.querySelectorAll('.totalPoint');
 
+
+
     // 초기 값
     let total = 0;
     let delivery = 0;
@@ -60,10 +62,22 @@ function pointUse() {
     let usedPoint = document.querySelectorAll('.usedPoint')[0].value;
     // 보유 포인트
     let havePoint = document.querySelectorAll('.havePoint')[0].outerText;
+    // 최종금액
+    let finalPrice = document.querySelectorAll('.finalPrice')[0].outerText;
 
     if (havePoint - usedPoint < 0) {
         alert("사용 포인트가 보유 포인트 보다 적습니다.")
 
+    }else if (usedPoint > finalPrice) {
+        alert("결제금액을 오버합니다.")
+
+        document.querySelectorAll('.usedPoint')[0].innerText = finalPrice.format();
+        // 잔여 포인트 변경
+        document.querySelectorAll('.havePoint')[0].outerText = (havePoint - usedPoint).format();
+        // 포인트 적용
+        document.querySelectorAll('.totalPoint')[0].outerText = finalPrice.format();
+
+        calculatePrice(finalPrice);
     } else {
         // 잔여 포인트 변경
         document.querySelectorAll('.havePoint')[0].outerText = (havePoint - usedPoint).format();
