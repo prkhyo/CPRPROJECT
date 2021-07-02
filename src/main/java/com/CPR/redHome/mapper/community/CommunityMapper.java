@@ -43,6 +43,8 @@ public interface CommunityMapper {
     //커뮤니티 글 답변상태 대기로 변경
     void updateCommunityStateWait(Long communityId);
 
+    //특정 코멘트 삭제
+    void deleteComment(Long commentId);
 
 
 }

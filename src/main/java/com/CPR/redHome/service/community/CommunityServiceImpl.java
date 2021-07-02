@@ -34,7 +34,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 
         //특정 커뮤니티 글에 대한 총 코멘트 수 가져와서 초기화
-        for(int i = 0; i <communityList.size(); i++) {
+        for (int i = 0; i < communityList.size(); i++) {
             Long id = communityList.get(i).getCommunityId();
             int commentsCnt = communityMapper.selectCommentsCnt(id);
             communityList.get(i).setCommentCnt(commentsCnt);
@@ -57,9 +57,9 @@ public class CommunityServiceImpl implements CommunityService {
 
         List<CommentsDto> commentsList = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
 
-        if(commentsList == null){
+        if (commentsList == null) {
             communityMapper.updateCommunityStateWait(communityId);
-        }else{
+        } else {
             communityMapper.updateCommunityStateComplete(communityId);
         }
 
@@ -88,39 +88,41 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
 
+    public Pagination setCommentPagingData(Long communityId, Criteria criteria, int commentCurrentPage, int commentTotalCnt) {
+
+        this.criteria = criteria;
+
+        criteria.setCurrentPageNo(commentCurrentPage);
+        Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
+
+        this.pagination = pagination;
 
 
-   public Pagination  setCommentPagingData(Long communityId, Criteria criteria, int commentCurrentPage, int commentTotalCnt ){
-
-       this.criteria = criteria;
-
-       criteria.setCurrentPageNo(commentCurrentPage);
-       Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
-
-       this.pagination = pagination;
+        return pagination;
+    }
 
 
-       return pagination;
-   }
+    public List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId) {
 
+        List<CommentsDto> commentlist = Collections.emptyList();
 
-   public List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId){
+        criteria.setCurrentPageNo(commentCurrentPage);
+        Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
+        this.pagination = pagination;
 
-       List<CommentsDto> commentlist = Collections.emptyList();
+        int recordsPerPage = criteria.getRecordsPerPage();
+        int firstRecordIndex = pagination.getFirstRecordIndex();
 
-       criteria.setCurrentPageNo(commentCurrentPage);
-       Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
-       this.pagination = pagination;
+        if (commentTotalCnt > 0) {
+            commentlist = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
+        }
+        return commentlist;
 
-       int recordsPerPage = criteria.getRecordsPerPage();
-       int firstRecordIndex = pagination.getFirstRecordIndex();
+    }
 
-       if(commentTotalCnt > 0) {
-           commentlist = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
-       }
-       return commentlist;
+    @Override
+    public void deleteComment(Long commentId) {
+        communityMapper.deleteComment(commentId);
 
-   }
-
-
+    }
 }

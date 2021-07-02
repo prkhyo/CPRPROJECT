@@ -211,7 +211,10 @@
                       comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
                       comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;">답글 달기</button>';
                       comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
-                      comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;">삭제</button></footer></article></li>';
+                      comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
+                      comments += this.commentId;
+                      comments += ')">삭제</button></footer></article></li>';
+
                       $(".comment-feed__list").html(comments);
 
                   });
@@ -266,7 +269,20 @@
 
     }
 
+    function commentDelete(commentId){
+       let url = '/community/commentDelete/'+ commentId;
 
+        $.post({
+            url: url,
+            dataType: 'json',
+            success: function(result){
+                getCommentList();
+            },
+            error: function(error){
+                console.log("에러: "+error);
+            }
+        });
+    }
 
 
 

@@ -32,5 +32,6 @@ public interface CommunityService {
 
     List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId);
 
+    void deleteComment(Long commentId);
 
 }

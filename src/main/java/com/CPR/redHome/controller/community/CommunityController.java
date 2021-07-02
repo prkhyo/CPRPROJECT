@@ -143,6 +143,23 @@ public class CommunityController {
     }
 
 
+  @PostMapping("/community/commentDelete/{commentId}")
+  @ResponseBody
+  public Map<String, Object> commentDelete(@PathVariable Long commentId){
+      Map<String, Object> map = new HashMap<String, Object>();
+       try {
+           communityService.deleteComment(commentId);
+           map.put("result","success");
+           System.out.println("delete 성공");
+
+       }catch (Exception e){
+           e.printStackTrace();
+           map.put("result","fail");
+           System.out.println("delete 실패");
+       }
+
+      return map;
+  }
 
 
 

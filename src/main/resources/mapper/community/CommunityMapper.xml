@@ -155,4 +155,10 @@
 
     </update>
 
+    <delete id="deleteComment" parameterType="java.lang.Long">
+
+        delete from comments where comment_id = ${commentId}
+
+    </delete>
+
 </mapper>
