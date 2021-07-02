@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/css/community/community_detail.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 
@@ -79,7 +80,7 @@
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
                     <h1 class="comment-feed__header">답변</h1>
-                    <form class="comment-feed__form" id="comment-feed__form" onsubmit="commemntInsert_CheckForm(this); return false;">
+                    <form class="comment-feed__form" id="comment-feed__form" name="commentForm" onsubmit="commemntInsert_CheckForm(this); return false;">
                         <div class="comment-feed__form__user">
                             <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
                         </div>
@@ -89,7 +90,7 @@
                                     <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text"/>
                                 </div>
                             </div>
-                            <div class="comment-feed__form__actions">
+                            <div class="comment-feed__form__actions" >
                                 <input class="comment-feed__form__submit" id="commentBtn" type="submit"  value="등록"/>
                             </div>
                         </div>
@@ -99,30 +100,13 @@
                         <input type="hidden" name="currentPageNo" th:value="${currentPageNo}">
                         <input type="hidden" name="searchType" th:value="${criteria.searchType}">
                         <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
+                        <input type="hidden" name="commentCurrentPage" th:value="${commentCurrentPage}">
                     </form>
 
 
-                    <th:block th:each= "comment : ${commentsList}" >
-                        <ul class="comment-feed__list">
-                            <li class="comment-feed__list__item">
-                                <article class="comment-feed__item">
-                                    <p class="comment-feed__item__content">
-                                        <a href="/users/13759551" class="comment-feed__item__content__author">
-                                            <img class="comment-feed__item__content__author__image" alt="${answer.admin_id}" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
-                                            <span class="comment-feed__item__content__author__name" th:text="${comment.memberId}"/>
-                                        </a>
-                                        <span class="comment-feed__item__content__content" th:text="${comment.commentContents}"/>
-                                    </p>
-                                    <footer class="comment-feed__item__footer">
-                                        <time class="comment-feed__item__footer__time" th:text="${comment.commentCreatedDate}"/>
-                                        <button class="comment-feed__item__footer__reply-btn" type="button">답글 달기</button>
-                                        <button class="comment-feed__item__footer__delete-btn" type="button">삭제</button>
-                                    </footer>
 
-                                </article>
-                            </li>
-                        </ul>
-                    </th:block>
+                      <ul class="comment-feed__list"></ul>
+
 
                 </section>
             </section>
@@ -156,18 +140,6 @@
                     </th:block>
 
 
-                    <!--paging 로직 ajax로 바꿀 때 사용할 예정-->
-                    <form name="commentPagingForm" id="commentPagingForm" onsubmit="commentPaging_CheckForm(this); return false;">
-                        <input type="hidden" name="communityId" th:value="${community.communityId}">
-                        <input type="hidden" name="reply" th:value="${reply}">
-                        <input type="hidden" name="orderType" th:value="${orderType}">
-                        <input type="hidden" name="currentPageNo" th:value="${currentPageNo}">
-                        <input type="hidden" name="commentCurrentPage" th:value="${commentCurrentPage}">
-                        <input type="hidden" name="searchType" th:value="${criteria.searchType}">
-                        <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
-
-                    </form>
-
                 </ul>
             </div>
 
@@ -195,11 +167,70 @@
 
 <script>
 
+
+
+
+    $(document).ready(function(){
+        getCommentList();
+    });
+
+    function getCommentList(){
+
+      let communityId = document.commentForm.communityId.value;
+      let commentCurrentPage = document.commentForm.commentCurrentPage.value;
+        let commentbean ={
+          commentCurrentPage: commentCurrentPage
+      };
+      let url =  '/community/commentlist/'+communityId;
+
+
+      $.post(
+           url,
+           commentbean,
+          function(result) {
+              let comments = "";
+              if (result.length < 1) {
+                  comments = "등록된 댓글이 없습니다.";
+              } else {
+                  $(result).each(function () {
+
+                      comments += '<li className="comment-feed__list__item">';
+                      comments += '<article className="comment-feed__item">';
+                      comments += '<p className="comment-feed__item__content">';
+                      comments += '<a href="/users/13759551" className="comment-feed__item__content__author" style=" color: #424242; font-weight: 700; font-size: 15px; margin-top: 10px; margin-right: 5px;">';
+                      comments += '<img className="comment-feed__item__content__author__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36"';
+                      comments += ' srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" style="width: 30px; height: 30px; margin-right: 10px; border-radius: 100%; background-color: #dbdbdb; float: left; margin-top: 5px;"></img>';
+                      comments += '<span className="comment-feed__item__content__author__name">';
+                      comments +=  this.memberId;
+                      comments += '</span></a><span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
+                      comments +=  this.commentContents;
+                      comments += '</span></p><footer className="comment-feed__item__footer">';
+                      comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold; margin-left: 40px; color: #757575; font-size: 14px;" >';
+                      comments +=  this.commentCreatedDate;
+                      comments += '</time>';
+                      comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
+                      comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;">답글 달기</button>';
+                      comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
+                      comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;">삭제</button></footer></article></li>';
+                      $(".comment-feed__list").html(comments);
+
+                  });
+              }
+
+          },
+          'json'
+      );
+
+    }
+
+
+
+
     function commemntInsert_CheckForm(form){
 
         let community_Id = form.communityId.value.trim();
         let comment_Contents = form.commentContents.value.trim();
-
+        let member_Id = 3;
 
      if(comment_Contents == null || comment_Contents == ''){
          alert('답글을 입력해주세요.');
@@ -217,48 +248,31 @@
             searchKeyword: form.searchKeyword.value
 
         };
+      let url_data = '/community/commentInsert/' + community_Id +'/'+ member_Id +'/'+ comment_Contents;
 
-     $.post(
-         '/community/commentInsert',
-          commentBean,
-         function(data){
-             location.reload();
+     $.post({
+         url: url_data,
+         data: commentBean,
+         dataType: 'json',
+         success: function (result) {
+             getCommentList();
+             form.commentContents.value = '';
+
          },
-         'json'
-     );
-        form.communityId.value = '';
-    }
-
-
-    /*paging 로직 ajax로 바꿀 때 사용할 예정*/
-    function commentPaging_CheckForm(form){
-
-
-        let commentPagingBean = {
-            communityId: community_Id,
-            reply: form.reply.value,
-            orderType: form.orderType.value,
-            currentPageNo: form.currentPageNo.value,
-            searchType: form.searchType.value,
-            searchKeyword: form.searchKeyword.value,
-            commentCurrentPage: form.commentCurrentPage.value
-        };
-
-        $.post(
-            '/community/commentPaging',
-            commentPagingBean,
-            function(data){
-                location.reload();
-            },
-            'json'
-        );
+         error: function (error) {
+             console.log("에러 :" + error);
+         }
+     });
 
     }
+
+
 
 
 
 
 </script>
+
 
 </body>
 </html>

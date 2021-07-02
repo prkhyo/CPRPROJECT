@@ -17,6 +17,8 @@ import java.util.List;
 public class CommunityServiceImpl implements CommunityService {
 
     private final CommunityMapper communityMapper;
+    Criteria criteria;
+    Pagination pagination;
 
 
     @Override
@@ -79,11 +81,46 @@ public class CommunityServiceImpl implements CommunityService {
         communityMapper.insertComment(commentsDto);
     }
 
-    @Override
+    @Override //
     public int countAllComments(Long communityId) {
         int commentsCnt = communityMapper.selectCommentsCnt(communityId);
         return commentsCnt;
     }
+
+
+
+
+   public Pagination  setCommentPagingData(Long communityId, Criteria criteria, int commentCurrentPage, int commentTotalCnt ){
+
+       this.criteria = criteria;
+
+       criteria.setCurrentPageNo(commentCurrentPage);
+       Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
+
+       this.pagination = pagination;
+
+
+       return pagination;
+   }
+
+
+   public List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId){
+
+       List<CommentsDto> commentlist = Collections.emptyList();
+
+       criteria.setCurrentPageNo(commentCurrentPage);
+       Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
+       this.pagination = pagination;
+
+       int recordsPerPage = criteria.getRecordsPerPage();
+       int firstRecordIndex = pagination.getFirstRecordIndex();
+
+       if(commentTotalCnt > 0) {
+           commentlist = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
+       }
+       return commentlist;
+
+   }
 
 
 }

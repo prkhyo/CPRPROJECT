@@ -485,7 +485,7 @@ li {
 
 
 
-
+/*
 .comment-feed__item__footer__time::after{
     display: inline-block;
     color: rgb(189, 189, 189);
@@ -494,10 +494,10 @@ li {
     font-weight: 400;
     margin: 0px 5px;
 
-}
+}*/
 
 
-.comment-feed__item__footer__reply-btn::after{
+/*.comment-feed__item__footer__reply-btn::after{
     display: inline-block;
     color: rgb(189, 189, 189);
     content: "¡¤";
@@ -505,9 +505,16 @@ li {
     font-weight: 400;
     margin: 0px 5px;
 
+}*/
+
+
+.comment-feed__form__actions{
+    margin-bottom: 30px;
 }
 
-
+article{
+    margin-bottom: 20px;
+}
 
 
 

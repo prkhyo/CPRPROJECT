@@ -118,6 +118,7 @@
         select comment_id as commentId,  community_id as communityId,  comment_contents as commentContents, comment_created_date as commentCreatedDate, member_id as memberId
         from comments
         where community_id = #{communityId}
+        order by comment_id desc
         limit #{firstRecordIndex}, #{recordsPerPage}
 
     </select>

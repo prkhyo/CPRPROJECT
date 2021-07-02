@@ -3,6 +3,7 @@ package com.CPR.redHome.service.community;
 import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.community.CommunityDto;
 import com.CPR.redHome.paging.Criteria;
+import com.CPR.redHome.paging.Pagination;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public interface CommunityService {
 
     CommunityDto selectCommunity(Long communityId);
 
-    List<CommentsDto> selectAllComments(Long communityId, int recordsPerPage, int firstRecordIndex);
+    List<CommentsDto> selectAllComments(Long communityId, int recordsPerPage, int firstRecordIndex); //지금까지는서비스단에서 굳이 필요없음
 
     void updateCommunityHitCnt(Long communityId);
 
@@ -27,7 +28,9 @@ public interface CommunityService {
 
     int countAllComments(Long communityId);
 
+    Pagination setCommentPagingData(Long communityId, Criteria criteria, int commentCurrentPage, int commentTotalCnt);
 
+    List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId);
 
 
 }

@@ -72,26 +72,12 @@ public class CommunityController {
 
         CommunityDto communityDto = communityService.selectCommunity(communityId);
 
-        List<CommentsDto> commentsList = Collections.emptyList();
-
         int commentTotalCnt = communityService.countAllComments(communityId);
-
-        criteria.setCurrentPageNo(commentCurrentPage);
-        Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
-
-
-        int firstRecordIndex = pagination.getFirstRecordIndex();
-        int recordsPerPage = criteria.getRecordsPerPage();
-
-        if(commentTotalCnt > 0){
-            commentsList =  communityService.selectAllComments(communityId,recordsPerPage, firstRecordIndex);
-        }
+        Pagination pagination = communityService.setCommentPagingData(communityId, criteria, commentCurrentPage, commentTotalCnt);
 
         model.addAttribute("community", communityDto );
-        model.addAttribute("commentsList", commentsList);
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
-
 
 
 
@@ -109,34 +95,61 @@ public class CommunityController {
 
 
 
-    @PostMapping("/community/commentInsert")
+    @PostMapping("/community/commentInsert/{communityId}/{memberId}/{commentContents}")
     @ResponseBody
-    public Map<String, Object> commentInsert(@RequestParam Map<String, Object> param ){
-
-        System.out.println(param);
-
-         Long communityId = Long.parseLong(String.valueOf(param.get("communityId")));
-         String commentContents = (String) param.get("commentContents");
+    public Map<String, Object> commentInsert(@PathVariable Long communityId, @PathVariable Long memberId, @PathVariable String commentContents){
 
 
-        CommentsDto commentsDto = new CommentsDto();
-         commentsDto.setCommunityId(communityId);
-         commentsDto.setCommentContents(commentContents);
-         commentsDto.setMemberId(3L); /*여기다는 현재 세션에 로그인 된 아이디로 넣어주기*/
-
+        Map<String, Object> map = new HashMap<String, Object>();
 
           try {
+
+              CommentsDto commentsDto = new CommentsDto();
+              commentsDto.setCommunityId(communityId);
+              commentsDto.setCommentContents(commentContents);
+              commentsDto.setMemberId(memberId); /*여기다는 현재 세션에 로그인 된 아이디로 넣어주기*/
               communityService.insertComment(commentsDto);
-              param.put("result","success");
+              map.put("result","success");
+
               System.out.println("insert 성공");
+
           }catch (Exception e){
               e.printStackTrace();
-              param.put("result","fail");
+              map.put("result","fail");
+
               System.out.println("insert 실패");
           }
 
-         return  param;
+
+
+         return  map;
 
     }
 
+
+
+    @PostMapping("/community/commentlist/{communityId}")
+    @ResponseBody
+    public List<CommentsDto> commentList(@PathVariable Long communityId, @RequestParam int commentCurrentPage ){
+
+
+        int commentTotalCnt = communityService.countAllComments(communityId);
+
+        List<CommentsDto> commentlist = communityService.updateCommentPagingData(commentCurrentPage, commentTotalCnt, communityId);
+
+
+
+        return commentlist;
+    }
+
+
+
+
+
+
+
+
 }
+
+
+
