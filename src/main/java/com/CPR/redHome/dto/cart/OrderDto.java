@@ -15,6 +15,7 @@ public class OrderDto extends CartDto {
 
     private String orderId;
     private Long memberId;
+    private Long cartId;
     private Long productId;
     private Long gradeId;
 
@@ -23,6 +24,7 @@ public class OrderDto extends CartDto {
     private Integer price;
     private Integer accumulationRate;
     private Integer deliveryCharge;
+    private Integer totalPoint;
 
     private String phoneNumber;
     private String accountId;

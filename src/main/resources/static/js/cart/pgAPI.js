@@ -69,10 +69,12 @@ function dataSend() {
     let unitPrice = document.querySelectorAll('.unitPrice');
     let qty = document.querySelectorAll('.qty');
     let productId = document.querySelectorAll('.productId');
+    let cartId = document.querySelectorAll('.cartId');
     let accountId = document.querySelectorAll('.accountId')[0].value;
     let memberId = document.querySelectorAll('.memberId')[0].value;
-    let point = document.querySelectorAll('.usedPoint')[0].value;
+    let usedPoint = document.querySelectorAll('.usedPoint')[0].value;
     let deliveryCharge = document.querySelectorAll('.deliveryCharge');
+    // let totalPoint = document.querySelectorAll('.totalPoint');
 
     // 주문번호 orderId 생성을 위한 날짜 함수
     const today = new Date();
@@ -86,7 +88,7 @@ function dataSend() {
     // 주문번호 생성
     let orderId = memberId + "" + year + "" + month + "" + date + "-" + hours + "" + minutes + "" + seconds
 
-    console.log()
+    console.log("totalPoint = " + usedPoint)
 
 
     // json값 만들기 위한 배열 객체 생성
@@ -100,18 +102,23 @@ function dataSend() {
         data.accountId = accountId;
         data.memberId = memberId;
         data.productId = parseInt(productId[i].value);
+        data.cartId = parseInt(cartId[i].value);
         data.receiver = receiver;
         data.phoneNumber = phone;
         data.orderRequest = request;
         data.deliveryCharge = deliveryCharge[i].outerText;
+        // data.totalPoint = totalPoint[0].outerText;
         data.price = parseInt(unitPrice[i].outerText);
         data.qty = parseInt(qty[i].outerText);
-        data.usedPoint = parseInt(point / unitPrice.length);
+        data.usedPoint = parseInt(Math.round(usedPoint / unitPrice.length));
+        data.totalPoint = parseInt(usedPoint);
 
         forJson.push(data);
     }
 
+    console.log(forJson)
     const jsonData = JSON.stringify(forJson);
+
     ajax(jsonData)
 
 }
@@ -125,5 +132,6 @@ function ajax(data) {
     httpRequest.open("POST", "/cart/test");
     httpRequest.setRequestHeader("Content-Type", "application/json");
     httpRequest.send(data);
+    location.reload();
 
 }

@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public int cartDelete(List<OrderDto> orderDto) {
 
-        log.info("삭제되는cart id = " + orderDto);
+        log.info("삭제되는 cart id = " + orderDto);
         return cartMapper.cartDelete(orderDto);
     }
 
@@ -52,6 +52,15 @@ public class CartServiceImpl implements CartService {
         log.info("::::::::  결제 후 내역 추가 ::::::::");
 
         return cartMapper.insertOrders(orderDto);
+    }
+
+
+    @Override
+    public int deductedPoint(OrderDto orderDto) {
+
+        log.info("[service]" + orderDto.getMemberId()+ "번 회원님이 [ "+orderDto.getTotalPoint() +" ] 포인트를 사용하셨습니다.");
+
+        return cartMapper.deductedPoint(orderDto);
     }
 }
 

@@ -27,13 +27,11 @@
     </select>
 
 
-    <delete id="cartDelete" parameterType="Long">
+    <delete id="cartDelete"  parameterType="java.util.List">
 
-        delete
-        from shopping_cart
+        delete from shopping_cart where shopping_cart_id in
 
-        where shopping_cart_id =
-        <foreach collection="list" item="item" separator="and" >
+        <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item.cartId}
         </foreach>
 
@@ -113,6 +111,12 @@
         </foreach>
 
     </insert>
+
+    <update id="deductedPoint" parameterType="orders">
+
+        update member as b, (select point from member  where member_id = ${memberId} ) as a
+        set b.point = a.point - ${totalPoint} where b.member_id = ${memberId};
+    </update>
 
 
 </mapper>

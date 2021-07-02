@@ -24,4 +24,7 @@ public interface CartService {
     // 주문 결제 후 주문내역 추가
     int insertOrders(List<OrderDto> orderDto);
 
+    // 포인트 차감
+    int deductedPoint(OrderDto orderDto);
+
 }

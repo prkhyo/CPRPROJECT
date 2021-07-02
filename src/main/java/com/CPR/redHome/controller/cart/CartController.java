@@ -38,25 +38,6 @@ public class CartController {
         return "carts/cart";
     }
 
-/*
-    @PostMapping("/cart/delete")
-    public String deleteCart(@RequestParam(value = "selectNo", required = false) List<String> ids, @RequestParam(value = "memberId", required = false) Long memberId) {
-
-        log.info("cart Id = " + ids);
-        if (ids != null) {
-            for (String idStr : ids) {
-                Long id = Long.parseLong(idStr);
-                cartService.cartDelete(id);
-            }
-
-        } else {
-            return "redirect:/cart/" + memberId;
-        }
-
-        return "redirect:/cart/" + memberId;
-    }
-*/
-
     @PostMapping("/cart/delete")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCart(@RequestBody List<OrderDto> OrderDto) {
@@ -70,7 +51,6 @@ public class CartController {
     public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws NullPointerException {
 
         log.info("payment Id = " + ids);
-        log.info("memberId = " + cartService.findMemberId(Long.parseLong(ids.get(0))));
 
         model.addAttribute("point", cartService.findMemberId(Long.parseLong(ids.get(0))));
         model.addAttribute("orderDetail", cartService.getPayment(ids));
@@ -87,6 +67,17 @@ public class CartController {
         cartService.insertOrders(orderDto);
         // 결제 완료로 인해 카트에서 제거
         cartService.cartDelete(orderDto);
+
+        // 포인트 차감
+        OrderDto orderDtos = new OrderDto();
+
+        Long memberId = orderDto.get(1).getMemberId();
+        Integer totalPoint = orderDto.get(1).getTotalPoint() ;
+
+        orderDtos.setMemberId(memberId);
+        orderDtos.setTotalPoint(totalPoint);
+
+        cartService.deductedPoint(orderDtos);
 
 
     }
