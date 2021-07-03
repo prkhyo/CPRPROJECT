@@ -36,7 +36,7 @@ public class MemberJoinDto {
     @NotEmpty(message = "주소를 입력해주세요")
     private String address;
 
-    @Pattern(regexp = "^\\d{6}$", message = "생년월일 형식에 맞지 않습니다.")
+    @Pattern(regexp = "^\\d{8}$", message = "생년월일 형식에 맞지 않습니다.")
     @NotEmpty(message = "생년월일을 입력해주세요")
     private String birthdate;
 }

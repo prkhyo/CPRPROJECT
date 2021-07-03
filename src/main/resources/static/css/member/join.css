@@ -1,6 +1,7 @@
 @charset "EUC-KR";
 
 .field-error {
+    margin-top: 10px;
     border-color: #dc3545;
     color: #dc3545;
 }

@@ -2,6 +2,8 @@ package com.CPR.redHome.controller.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.member.MemberJoinDto;
+import com.CPR.redHome.dto.member.MemberLoginDto;
+import com.CPR.redHome.dto.member.SessionUser;
 import com.CPR.redHome.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,14 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.lang.reflect.Member;
 
 @Slf4j
 @Controller
@@ -25,27 +28,72 @@ public class MemberController {
 
     final private MemberService memberService;
 
+
+    @GetMapping("/")
+    public String home(HttpServletRequest request,Model model){
+
+        HttpSession session = request.getSession(false);
+
+
+        if(session==null){
+        return "redirect:/login";
+        }
+        MemberDto loginMember = (MemberDto) session.getAttribute(SessionUser.LOGIN_MEMBER);
+
+        if(loginMember==null){
+            return "member/login";
+        }
+
+        model.addAttribute("member",loginMember);
+        return "mainTest";
+    }
+
+
+
     //로그인 창 띄우기
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
         log.info("<==========로그인 창 입니다============>");
+        model.addAttribute("memberLoginDto",new MemberLoginDto());
         return "member/login";
     }
 
-    //로그인 입력값 전송
     @PostMapping("/login")
-    public String loginMember(HttpSession request, Model model, @RequestParam("id") String memberId, @RequestParam("password") String memberPassword) {
+    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request){
 
-        MemberDto member = memberService.selectMemberByAccountIdAndPassword(memberId, memberPassword);
 
-        if (member == null) {
+        log.info("login!!{}",loginData.getAccountId());
+
+        if(bindingResult.hasErrors()){
             return "member/login";
-        } else {
-            request.setAttribute("member", member);
-            request.setMaxInactiveInterval(600);
-            return "redirect:main";
         }
+        MemberDto loginMember = memberService.selectMemberByAccountIdAndPassword
+                (loginData.getAccountId(), loginData.getMemberPassword());
+        log.info("login={}",loginMember);
+
+        if(loginMember==null){
+            bindingResult.reject("loginFail","아이디 또는 비밀번호가 맞지 않습니다.");
+            return "member/login";
+        }
+        //성공처리
+
+        //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+        HttpSession session = request.getSession(true);
+        //세션에 로그인 회원 정보 보관
+        session.setAttribute(SessionUser.LOGIN_MEMBER, loginMember);
+        return "redirect:/";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        //세션을 삭제한다.
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
 
     @GetMapping("/join")
     public String joinForm(Model model){
@@ -73,7 +121,7 @@ public class MemberController {
         memberDto.setAddress(member.getAddress());
         memberDto.setBirthdate(member.getBirthdate());
 
-        memberService.
+        memberService.joinMember(memberDto);
 
         return "member/login";
     }
