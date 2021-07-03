@@ -729,3 +729,59 @@ article{
 
 }
 
+
+/*°øÀ¯ Ã¢*/
+
+.share-drop-down__content {
+    position: relative;
+   /* display: block;*/
+    margin: 0 -1px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 -1px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 260px;
+
+}
+
+
+
+.popout--cross-dir-1{
+    display: block;
+    transform: translateX(-50%);
+
+
+}
+
+.popout--axis-1.popout--dir-2.popout--cross-dir-1 .share-drop-down:after {
+    margin-left: 0;
+    transform: translateX(-50%);
+}
+
+.popout--axis-1.popout--dir-2 .share-drop-down:after {
+    content: "";
+    position: relative;
+   display: block;
+    border-style: solid;
+    margin: 0 1px;
+    border-width: 0 9px 9px;
+    border-color: transparent transparent #fff;
+    width: 0px;
+    top: -80px;
+    left: 128px;
+
+}
+
+.share-list__button {
+    margin: 0 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 0;
+    transition: opacity .1s;
+    cursor: pointer;
+}
+
