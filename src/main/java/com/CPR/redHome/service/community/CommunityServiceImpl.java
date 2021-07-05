@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-@Log4j2
 @Service
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService {
@@ -30,8 +29,6 @@ public class CommunityServiceImpl implements CommunityService {
     public List<CommunityDto> getCommunityList(HashMap<String,Object> map) {
 
         List<CommunityDto> communityList = communityMapper.selectAllCommunities(map);
-
-        log.info("asdasd  " + map);
 
         return communityList;
     }
