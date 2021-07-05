@@ -88,7 +88,7 @@ function dataSend() {
     // 주문번호 생성
     let orderId = memberId + "" + year + "" + month + "" + date + "-" + hours + "" + minutes + "" + seconds
 
-    console.log("totalPoint = " + usedPoint)
+    console.log("나누기를 하자~! = " + usedPoint / unitPrice.length)
 
 
     // json값 만들기 위한 배열 객체 생성
@@ -100,7 +100,7 @@ function dataSend() {
         data.orderId = orderId;
         data.address = add4;
         data.accountId = accountId;
-        data.memberId = memberId;
+        data.memberId = parseFloat(memberId);
         data.productId = parseInt(productId[i].value);
         data.cartId = parseInt(cartId[i].value);
         data.receiver = receiver;
@@ -110,7 +110,7 @@ function dataSend() {
         // data.totalPoint = totalPoint[0].outerText;
         data.price = parseInt(unitPrice[i].outerText);
         data.qty = parseInt(qty[i].outerText);
-        data.usedPoint = parseInt(Math.round(usedPoint / unitPrice.length));
+        data.usedPoint = parseFloat(usedPoint / unitPrice.length);
         data.totalPoint = parseInt(usedPoint);
 
         forJson.push(data);

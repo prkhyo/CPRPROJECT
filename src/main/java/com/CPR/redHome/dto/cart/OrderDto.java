@@ -20,10 +20,11 @@ public class OrderDto extends CartDto {
     private Long gradeId;
 
     private Integer currentPoint;
-    private Integer usedPoint;
+    private Double usedPoint;
     private Integer price;
     private Integer accumulationRate;
     private Integer deliveryCharge;
+    private Integer qty;
     private Integer totalPoint;
 
     private String phoneNumber;

@@ -58,8 +58,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public int deductedPoint(OrderDto orderDto) {
 
-        log.info("[service]" + orderDto.getMemberId()+ "번 회원님이 [ "+orderDto.getTotalPoint() +" ] 포인트를 사용하셨습니다.");
-
+        log.info("::::::: 포인트 차감 및 제품 보유 수량 감소 합니당  :::::");
         return cartMapper.deductedPoint(orderDto);
     }
 }

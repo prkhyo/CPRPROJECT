@@ -32,7 +32,6 @@ public class CartController {
 
         cartDtos = cartService.getCartList(memberId);
 
-
         model.addAttribute("carts", cartDtos);
 
         return "carts/cart";
@@ -62,23 +61,18 @@ public class CartController {
     @PostMapping("/cart/test")
     @ResponseStatus(HttpStatus.OK)
     public void test(@RequestBody List<OrderDto> orderDto) {
+//        OrderDto orderDtos = new OrderDto();
 
         // 결제 내역에 추가
         cartService.insertOrders(orderDto);
         // 결제 완료로 인해 카트에서 제거
         cartService.cartDelete(orderDto);
 
-        // 포인트 차감
-        OrderDto orderDtos = new OrderDto();
+        log.info("이렇게 넘어오나?" + orderDto);
 
-        Long memberId = orderDto.get(1).getMemberId();
-        Integer totalPoint = orderDto.get(1).getTotalPoint() ;
+        // 포인트 차감 및 제품 보유 수량 감소
 
-        orderDtos.setMemberId(memberId);
-        orderDtos.setTotalPoint(totalPoint);
-
-        cartService.deductedPoint(orderDtos);
-
-
+        orderDto.forEach(orderDtos ->  cartService.deductedPoint(orderDtos));
+        
     }
 }

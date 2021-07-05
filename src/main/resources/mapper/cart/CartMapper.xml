@@ -114,8 +114,12 @@
 
     <update id="deductedPoint" parameterType="orders">
 
-        update member as b, (select point from member  where member_id = ${memberId} ) as a
-        set b.point = a.point - ${totalPoint} where b.member_id = ${memberId};
+
+            update member as b, (select point from member where member_id = ${memberId} ) as a, product as p
+            set b.point = a.point - ${usedPoint} , p.product_quantity = p.product_quantity - ${qty}
+            where p.product_id = ${productId} and b.member_id = ${memberId}
+
+
     </update>
 
 
