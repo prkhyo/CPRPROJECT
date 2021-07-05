@@ -62,6 +62,7 @@ function dataSend() {
     let add3 = document.querySelectorAll('.add4')[0].value;
     let add4 = add1 + " " + add2 + " " + add3;
     let request = document.querySelectorAll('.request')[0].value;
+    let addPoints = document.querySelectorAll('.addPoint');
 
 
 
@@ -88,7 +89,6 @@ function dataSend() {
     // 주문번호 생성
     let orderId = memberId + "" + year + "" + month + "" + date + "-" + hours + "" + minutes + "" + seconds
 
-    console.log("나누기를 하자~! = " + usedPoint / unitPrice.length)
 
 
     // json값 만들기 위한 배열 객체 생성
@@ -112,11 +112,11 @@ function dataSend() {
         data.qty = parseInt(qty[i].outerText);
         data.usedPoint = parseFloat(usedPoint / unitPrice.length);
         data.totalPoint = parseInt(usedPoint);
+        data.addPoint =  parseInt(addPoints[0].outerText);
 
         forJson.push(data);
     }
 
-    console.log(forJson)
     const jsonData = JSON.stringify(forJson);
 
     ajax(jsonData)

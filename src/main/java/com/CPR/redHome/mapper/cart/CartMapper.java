@@ -29,7 +29,8 @@ public interface CartMapper {
     // 포인트 차감
     int deductedPoint(OrderDto orderDto);
 
-
+    // 포인트누적
+    int addPoint(OrderDto orderDto);
 
 
 }

@@ -25,14 +25,11 @@ public class CartController {
 
     @GetMapping("/cart")
     public String getCart(Long memberId, Model model) {
-        List<CartDto> cartDtos = new ArrayList<>();
 
         // 임시 memberId
         memberId = 1L;
 
-        cartDtos = cartService.getCartList(memberId);
-
-        model.addAttribute("carts", cartDtos);
+        model.addAttribute("carts", cartService.getCartList(memberId));
 
         return "carts/cart";
     }
@@ -61,18 +58,23 @@ public class CartController {
     @PostMapping("/cart/test")
     @ResponseStatus(HttpStatus.OK)
     public void test(@RequestBody List<OrderDto> orderDto) {
-//        OrderDto orderDtos = new OrderDto();
+        OrderDto forPoint = new OrderDto();
 
         // 결제 내역에 추가
         cartService.insertOrders(orderDto);
         // 결제 완료로 인해 카트에서 제거
         cartService.cartDelete(orderDto);
 
-        log.info("이렇게 넘어오나?" + orderDto);
-
         // 포인트 차감 및 제품 보유 수량 감소
-
         orderDto.forEach(orderDtos ->  cartService.deductedPoint(orderDtos));
-        
+
+        //적립 포인트
+        Long memberId = orderDto.get(0).getMemberId();
+        Integer point = orderDto.get(0).getAddPoint();
+
+        forPoint.setAddPoint(point);
+        forPoint.setMemberId(memberId);
+
+        cartService.addPoint(forPoint);
     }
 }

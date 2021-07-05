@@ -14,13 +14,12 @@ public class CartDto {
     private Long cartId;
     private Long memberId;
     private Long productId;
-    private Long productQuantity;
 
 // 상품 정보
     private String title;
     private String img;
     private Integer price;
-    private Integer qty;
+    private Integer quantity;
     private Integer deliveryCharge;
 
 // 회원 정보

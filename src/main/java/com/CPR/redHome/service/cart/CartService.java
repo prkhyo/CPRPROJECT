@@ -3,6 +3,7 @@ package com.CPR.redHome.service.cart;
 
 import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.cart.OrderDto;
+import org.springframework.core.annotation.Order;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,5 +27,8 @@ public interface CartService {
 
     // 포인트 차감
     int deductedPoint(OrderDto orderDto);
+
+    // 포인트누적
+    int addPoint(OrderDto orderDto);
 
 }

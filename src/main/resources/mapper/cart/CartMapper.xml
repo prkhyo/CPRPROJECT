@@ -11,7 +11,7 @@
              , m2.name                   as name
              , p.product_img             as img
              , p.product_price           as price
-             , c.product_quantity        as qty
+             , c.product_quantity        as quantity
              , p.product_title           as title
              , p.product_delivery_charge as deliveryCharge
              , c.shopping_cart_id        as cartId
@@ -38,7 +38,7 @@
     </delete>
 
 
-    <select id="getPayment" resultType="orders">
+    <select id="getPayment" resultType="orderDto">
 
         select
 
@@ -54,7 +54,7 @@
         p.product_delivery_charge as deliveryCharge,
         m2.name as name,
 
-        c.product_quantity as qty,
+        c.product_quantity as quantity,
         m.point as currentPoint,
         g.accumulation_rate as accumulationRate
 
@@ -112,15 +112,21 @@
 
     </insert>
 
-    <update id="deductedPoint" parameterType="orders">
+    <update id="deductedPoint" parameterType="orderDto">
 
 
             update member as b, (select point from member where member_id = ${memberId} ) as a, product as p
-            set b.point = a.point - ${usedPoint} , p.product_quantity = p.product_quantity - ${qty}
+            set b.point = a.point - ${usedPoint} , p.product_quantity = p.product_quantity - ${quantity}
             where p.product_id = ${productId} and b.member_id = ${memberId}
 
 
     </update>
 
+    <update id="addPoint" parameterType="orderDto">
+        update member
+        set point = point + ${addPoint}
+        where member_id = ${memberId}
+
+    </update>
 
 </mapper>
