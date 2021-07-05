@@ -35,7 +35,7 @@
             </header>
             <section class="qna-detail__content__body">
                 <th:block th:if="${community.communityImg ne null}">
-                    <img th:src="@{${'/img/community/uploadCommunityImg/'+community.communityImg}}">
+                    <img th:src="@{${'/fileUpload/community/uploadCommunityImg/'+community.communityImg}}">
                 </th:block>
                 <p th:text="${community.communityContents}"></p>
             </section>
@@ -437,7 +437,7 @@
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        alert("URL이 복사되었습니다.")
+        alert("클립보드에 복사되었습니다.")
     }
 
 

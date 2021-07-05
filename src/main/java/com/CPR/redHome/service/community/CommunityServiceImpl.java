@@ -6,11 +6,17 @@ import com.CPR.redHome.mapper.community.CommunityMapper;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -123,6 +129,32 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void deleteComment(Long commentId) {
         communityMapper.deleteComment(commentId);
+
+    }
+
+    @Override
+    public void insertCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+
+
+        String filename=null;
+        if( !file.isEmpty() ) {
+
+            String originalFileName = file.getOriginalFilename();
+            String ext = FilenameUtils.getExtension(originalFileName); //확장자
+
+            UUID uuid = UUID.randomUUID(); //UUID 구하기
+            filename = uuid+"."+ext;
+
+            file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
+
+            communityDto.setCommunityImg(filename);
+        }
+
+        System.out.println(communityDto); //test
+
+        communityMapper.insertCommunity(communityDto);
+
+
 
     }
 }

@@ -161,4 +161,25 @@
 
     </delete>
 
+
+    <insert id="insertCommunity" parameterType="com.CPR.redHome.dto.community.CommunityDto" >
+
+        insert into community(community_title, community_contents, community_state, community_hit, member_id
+
+        <if test="communityImg != null">
+            , community_img
+        </if>
+
+        )values(#{communityTitle}, #{communityContents}, '답변대기', 0, ${memberId}
+
+
+        <if test="communityImg != null">
+           , #{communityImg}
+        </if>
+
+        )
+
+    </insert>
+
+
 </mapper>

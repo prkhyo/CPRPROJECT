@@ -26,6 +26,11 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //apache-lang3
+	implementation 'commons-io:commons-io:2.6'
+	implementation 'org.apache.commons:commons-text:1.6'
+
 }
 
 test {

@@ -6,10 +6,13 @@ import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.community.CommunityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j2
 /*@RequestMapping("/community")*/
 public class CommunityController {
 
@@ -161,9 +165,36 @@ public class CommunityController {
       return map;
   }
 
+    @GetMapping("/community/add")
+    public String communityAddPage() {
+
+        return "community/community_add";
+
+    }
+
+    @PostMapping("/community/add/communityInsert")
+    public String communityInsert(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
+
+        CommunityDto communityDto = new CommunityDto();
+        communityDto.setCommunityTitle(communityTitle);
+        communityDto.setCommunityContents(communityContents);
+        communityDto.setMemberId(3L); //현재 세션에 로그인 된 아이디로 변경할 예정
+
+
+        try {
+        communityService.insertCommunity(communityDto, file, request);
+
+        }catch (Exception e){
+             e.printStackTrace();
+
+        }
 
 
 
+        return "redirect:/community/list";
+
+
+    }
 
 
 }

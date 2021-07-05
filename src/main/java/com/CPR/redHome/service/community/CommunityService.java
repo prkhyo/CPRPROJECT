@@ -5,7 +5,10 @@ import com.CPR.redHome.dto.community.CommunityDto;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,5 +36,7 @@ public interface CommunityService {
     List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId);
 
     void deleteComment(Long commentId);
+
+    void insertCommunity(CommunityDto communityDto, MultipartFile File, HttpServletRequest request) throws IOException;
 
 }

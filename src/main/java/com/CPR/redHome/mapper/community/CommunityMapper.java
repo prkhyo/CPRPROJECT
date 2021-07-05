@@ -31,7 +31,7 @@ public interface CommunityMapper {
     //커뮤니티 글 조회수 증가
     void updateCommunityHitCnt(Long communityId);
 
-    //특정 커뮤니티 삭제
+    //특정 커뮤니티 글 삭제
     void deleteCommunity(Long communityId);
     
     //코멘트 등록
@@ -46,5 +46,7 @@ public interface CommunityMapper {
     //특정 코멘트 삭제
     void deleteComment(Long commentId);
 
+    //커뮤니티 글 등록
+    void insertCommunity(CommunityDto communityDto);
 
 }
