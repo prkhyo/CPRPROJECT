@@ -5,6 +5,7 @@ import com.CPR.redHome.mapper.community.CommunityMapper;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -28,7 +29,6 @@ public class CommunityServiceImpl implements CommunityService {
     public List<CommunityDto> getCommunityList(HashMap<String,Object> map) {
 
         List<CommunityDto> communityList = communityMapper.selectAllCommunities(map);
-
 
         return communityList;
     }
