@@ -37,6 +37,8 @@ public interface CommunityService {
 
     void deleteComment(Long commentId);
 
-    void insertCommunity(CommunityDto communityDto, MultipartFile File, HttpServletRequest request) throws IOException;
+    void insertCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IOException;
+
+    void modifyCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IOException;
 
 }

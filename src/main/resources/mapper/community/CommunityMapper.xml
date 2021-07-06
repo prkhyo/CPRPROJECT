@@ -182,4 +182,22 @@
     </insert>
 
 
+    <update id="modifyCommunity" parameterType="com.CPR.redHome.dto.community.CommunityDto">
+
+        update community
+        set community_title = #{communityTitle},
+            community_contents = #{communityContents}
+
+        <if test="communityImg != null">
+            , community_img = #{communityImg}
+        </if>
+
+        where community_id = ${communityId}
+
+
+
+
+    </update>
+
+
 </mapper>

@@ -8,9 +8,6 @@
     <script type="text/javascript">
 
 
-
-
-
         $(document).ready(function(){
             var fileTarget = $('.filebox .upload-hidden');
 
@@ -45,7 +42,7 @@
 
 <main role="main">
     <div class="question-form container">
-        <form id="question-form" name="communityInsertForm" class="new_question" action="/community/add/communityInsert"
+        <form id="question-form" name="communityInsertForm" class="new_question" action="/community/communityInsert"
               accept-charset="UTF-8" method="post" enctype="multipart/form-data" onsubmit="communityInsertSubmit(this); return false;">
             <input name="utf8" type="hidden" value="✓">
             <input type="hidden" name="authenticity_token"

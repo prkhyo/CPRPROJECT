@@ -49,4 +49,6 @@ public interface CommunityMapper {
     //커뮤니티 글 등록
     void insertCommunity(CommunityDto communityDto);
 
+    //커뮤니티 글 수정
+    void modifyCommunity(CommunityDto communityDto);
 }

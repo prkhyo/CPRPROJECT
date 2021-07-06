@@ -157,4 +157,25 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     }
+
+    @Override
+    public void modifyCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+
+        String filename=null;
+        if( !file.isEmpty() ) {
+
+            String originalFileName = file.getOriginalFilename();
+            String ext = FilenameUtils.getExtension(originalFileName); //확장자
+
+            UUID uuid = UUID.randomUUID(); //UUID 구하기
+            filename = uuid+"."+ext;
+
+            file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
+
+            communityDto.setCommunityImg(filename);
+        }
+
+        communityMapper.modifyCommunity(communityDto);
+
+    }
 }

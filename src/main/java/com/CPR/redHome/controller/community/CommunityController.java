@@ -89,7 +89,7 @@ public class CommunityController {
     }
 
 
-    @GetMapping("/community/community_delete")
+    @GetMapping("/community/communityDelete")
     public String communityDelete(@RequestParam Long communityId){
 
         communityService.deleteCommunity(communityId);
@@ -172,7 +172,7 @@ public class CommunityController {
 
     }
 
-    @PostMapping("/community/add/communityInsert")
+    @PostMapping("/community/communityInsert")
     public String communityInsert(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
 
         CommunityDto communityDto = new CommunityDto();
@@ -195,6 +195,43 @@ public class CommunityController {
 
 
     }
+
+    @GetMapping("/community/edit")
+    public String communityEditPage(Long communityId, Model model) {
+
+
+        CommunityDto communityDto = communityService.selectCommunity(communityId);
+        System.out.println(communityDto);
+
+        model.addAttribute("community", communityDto);
+
+        return "community/community_edit";
+
+    }
+
+    @PostMapping("/community/communityModify")
+    public String communityModify(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, Long communityId,  HttpServletRequest request){
+
+        CommunityDto communityDto = new CommunityDto();
+        communityDto.setCommunityTitle(communityTitle);
+        communityDto.setCommunityContents(communityContents);
+        communityDto.setCommunityId(communityId);
+
+
+        try {
+            communityService.modifyCommunity(communityDto, file, request);
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+
+        return "redirect:/community/list";
+    }
+
+
+
 
 
 }

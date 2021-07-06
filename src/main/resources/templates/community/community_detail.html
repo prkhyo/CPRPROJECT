@@ -112,8 +112,8 @@
 
                 <div class="header_btn">
                     <!--수정, 삭제는 현재 로그인 된 아이디와 해당 문의글의 작성 아이디가 같을 때만 보이게 처리할 것-->
-                    <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a href="#">수정</a></button>
-                    <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a th:href="@{/community/community_delete(communityId=${community.communityId})}">삭제</a></button>
+                    <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a th:href="@{/community/edit(communityId=${community.communityId})}">수정</a></button>
+                    <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a th:href="@{/community/communityDelete(communityId=${community.communityId})}">삭제</a></button>
                     <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
                 </div>
 
