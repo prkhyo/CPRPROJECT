@@ -383,6 +383,17 @@
     font-weight: 700;
 }
 
+.user-sign-up__check {
+    background-color: #ed4a4a;
+    color: #fff;
+    width: 20%;
+    text-align: center;
+    padding: 26px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+}
 .user-sign-up__sign-in {
     color: #424242;
     font-size: 15px;

@@ -29,18 +29,6 @@ public class MemberController {
     final private MemberService memberService;
 
 
-    @GetMapping("/")
-    public String home(@SessionAttribute(name = SessionUser.LOGIN_MEMBER,required = false)MemberDto loginMember, Model model){
-
-        if(loginMember==null){
-            return "member/login";
-        }
-
-        model.addAttribute("member",loginMember);
-        return "mainTest";
-    }
-
-
 
     //로그인 창 띄우기
     @GetMapping("/login")
