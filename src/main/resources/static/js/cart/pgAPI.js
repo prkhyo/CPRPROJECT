@@ -129,7 +129,7 @@ function ajax(data) {
     // console.log("data   " + data);
 
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open("POST", "/cart/test");
+    httpRequest.open("POST", "/cart/payments");
     httpRequest.setRequestHeader("Content-Type", "application/json");
     httpRequest.send(data);
     location.reload();

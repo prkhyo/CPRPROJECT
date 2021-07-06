@@ -55,7 +55,7 @@ public class CartController {
     }
 
 
-    @PostMapping("/cart/test")
+    @PostMapping("/cart/payments")
     @ResponseStatus(HttpStatus.OK)
     public void test(@RequestBody List<OrderDto> orderDto) {
         OrderDto forPoint = new OrderDto();
