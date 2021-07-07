@@ -63,7 +63,7 @@ public class UploadController {
             String originalName = uploadFile.getOriginalFilename();
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
-            log.info("fileName : " + fileName);
+            log.info("fileName 1 : " + fileName);
 
             //날짜 폴더 생성
             String folderPath = makeFolder();
@@ -73,6 +73,8 @@ public class UploadController {
 
             //저장할 파일 이름 중간에 "-" 를 이용해서 구분
             String savaName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+
+            log.info("savaName 1 : " + savaName);
 
             Path savePath = Paths.get(savaName);
 
@@ -104,10 +106,10 @@ public class UploadController {
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
-            log.info("fileName :" + srcFileName);
+            log.info("fileName 2 :" + srcFileName);
 
             File file = new File(uploadPath + File.separator + srcFileName);
-            log.info("file : " + file);
+            log.info("display file : " + file);
 
             HttpHeaders header = new HttpHeaders();
 
@@ -141,6 +143,9 @@ public class UploadController {
     @PostMapping("/removeFile")
     public ResponseEntity<Boolean> removeFile(String fileName) {
         String srcFileName = null;
+
+        log.info("이건 뭐야ㅕ  = " + fileName);
+
         try {
             srcFileName = URLDecoder.decode(fileName, "UTF-8");
             File file = new File(uploadPath + File.separator + srcFileName);

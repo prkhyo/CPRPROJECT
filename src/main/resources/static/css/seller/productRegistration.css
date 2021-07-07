@@ -34,6 +34,7 @@
 
 }
 
+
 .main-title{
     font-size: 20px;
     font-weight: bold;
@@ -72,9 +73,18 @@
 }
 
 
+.removeBtn {
+    border: 0;
+    outline: #35c5f0;
+    background-color: transparent ;
+
+
+}
+
+
 /*ÀüÃ¼*/
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend,select, input, textarea, p, blockquote, th, td {
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend,select, input, p, blockquote, th, td {
     margin: 0;
     padding: 0;
 }
