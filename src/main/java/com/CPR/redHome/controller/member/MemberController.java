@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,14 +63,16 @@ public class MemberController {
         return "redirect:/";
     }
 
+
+    //로그아웃시 세션 삭제
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        //세션을 삭제한다.
+
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate();
+            session.invalidate();//세션 삭제
         }
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 

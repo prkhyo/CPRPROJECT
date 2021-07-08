@@ -39,10 +39,20 @@
                     <a class="layout-navigation-primary__menu__item noDeco" href="/board">
                         공지사항
                     </a>
-                    <a class="layout-navigation-primary__menu__item noDeco" href="/board" th:text="|로그인: ${SessionUser.accountId}|">
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/board" th:unless="${SessionUser}==null" th:text="|로그인: ${SessionUser.accountId}|">
                         사용자
                     </a>
                 </nav>
+                <div class="drop-down layout-navigation-bar-upload-button">
+                    <form th:unless="${SessionUser}==null"  th:action="@{/logout}" method="post" >
+                    <button class="layout-navigation-bar-upload-button__button" type="submit" th:method="post" th:action="@{/logout}">
+                        로그아웃
+                    </button>
+                    </form>
+                    <a th:if="${SessionUser}==null" class="layout-navigation-bar-upload-button__button" type="button" th:href="@{/login}" th:text="로그인">
+                    </a>
+                </div>
+
                 <div class="layout-navigation-primary__right">
                     <div class="layout-navigation-bar-search">
                         <div class="layout-navigation-search">

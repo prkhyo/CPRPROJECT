@@ -15,11 +15,12 @@ public class MainController {
     @GetMapping("/")
     public String home(@SessionAttribute(name = SessionUser.LOGIN_MEMBER,required = false) MemberDto loginMember, Model model){
 
-        if(loginMember==null){
-            return "redirect:/login";
-        }
 
         model.addAttribute("SessionUser",loginMember);
         return "main";
     }
+
 }
+
+
+

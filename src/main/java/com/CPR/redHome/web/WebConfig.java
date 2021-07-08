@@ -2,8 +2,6 @@ package com.CPR.redHome.web;
 
 import com.CPR.redHome.web.interceptor.LogInterceptor;
 import com.CPR.redHome.web.interceptor.LoginCheckInterceptor;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/login","/logout","/join",
-                        "/css/**","/img/**","/js/**","/*.jpg","/error");
+                        "/css/**/**.css","js/**","/img/**/**","/error");
     }
 
 
