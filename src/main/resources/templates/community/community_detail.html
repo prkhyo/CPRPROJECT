@@ -19,7 +19,7 @@
                 <div class="qna-detail__content__header-top">
                     <a class="qna-detail__content__header-subtitle" th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">질문과 답변</a>
                 </div>
-                <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle +' <' + community.communityState+ '>'}"></h1>
+                <h1 class="qna-detail__content__header-title" th:text="${community.communityTitle}"></h1>
                 <address class="qna-detail-author qna-detail__content__header-author-section">
                     <a class="qna-detail-author__profile-link" href="/users/11237952">
                         <div class="qna-detail-author__profile-link__image">
@@ -106,7 +106,7 @@
                     <!---->
                 </aside>
                 <div class="qna-detail__footer__metadata">
-                    <time class="qna-detail_time" th:text="${community.communityCreatedDate}"></time>
+                    <time class="qna-detail_time" th:text="${#temporals.format(community.communityCreatedDate,'yyyy-MM-dd HH:mm:ss') }"></time>
                     <span>조회<span class="qna-detail__footer__metadata-view-count-value" th:text="${community.communityHit}"></span></span>
                 </div>
 
@@ -158,7 +158,7 @@
             </section>
 
 
-            <div class="paging">
+            <div class="paging" id="paging">
                 <ul class="pagination">
                     <!--이전  버튼-->
                     <th:block th:if="${commentPageMaker.hasPreviousPage}">
@@ -215,6 +215,38 @@
 
 
 
+   function commentTocomment(commentMemberID){
+
+    let memberTag = ' @'+commentMemberID+': ';
+    document.getElementById("commentContents").value= memberTag;
+
+   }
+
+
+   function commentMemberIdExtraction(content){
+
+       let position = content.indexOf(':');
+       if(position != -1){
+           let memberId_ = content.substring(0, position+1);
+           return memberId_;
+       }else{
+           return '';
+       }
+
+   }
+
+   function commentContentExtraction(content){
+
+       let position = content.indexOf(':');
+       if(position != -1){
+           let context_ = content.substring(position+1);
+           return context_;
+       }else{
+           return content;
+       }
+
+
+   }
 
 
 
@@ -229,31 +261,6 @@
     function hideShare(){
         let share =  document.getElementById("shareSns");
         share.style.visibility='hidden';
-    }
-
-
-
-
-    function commentTocomment(commentId){
-        let comment='';
-        comment +='<form className = "comment-feed__form" id = "comment-feed__form" name = "commentForm" onSubmit = "commemntInsert_CheckForm(this); return false;" >';
-        comment +='<div className = "comment-feed__form__user" >';
-        comment +='<img src = "https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36"';
-        comment += 'srcSet = "https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" ></img></div>';
-        comment += '<div className="comment-feed__form__input">';
-        comment += '<div className="comment-feed__form__content">';
-        comment += '<div className="comment-content-input">';
-        comment += '<input type="text" name="commentContents" id="commentContents"';
-        comment += 'className="comment-content-input__text comment-feed__form__content__text"/>';
-        comment += '<a className="comment-content-input__text__mention" href="/users/13738327">@prkhyo</a>&nbsp;</div></div>';
-        comment += '<div className="comment-feed__form__actions">';
-        comment += '<input className="comment-feed__form__submit" id="commentBtn" type="submit" value="등록"/></div></div> </form>';
-
-
-        let id = '#'+ commentId;
-        alert(id);
-      $(id).html(comment);
-
     }
 
 
@@ -282,9 +289,15 @@
           function(result) {
               let comments = "";
               if (result.length < 1) {
-                  comments = "등록된 댓글이 없습니다.";
+                  comments = "<p style='margin-left: 40%; color: #424242;'>등록된 댓글이 없습니다.</p>";
+
+                  $(".comment-feed__list").html(comments);
               } else {
                   $(result).each(function () {
+
+                      dateFormatChange(this.commentCreatedDate);
+                      let member__= commentMemberIdExtraction(this.commentContents);
+                      let content__= commentContentExtraction(this.commentContents);
 
                       comments += '<li className="comment-feed__list__item">';
                       comments += '<article className="comment-feed__item">';
@@ -294,15 +307,20 @@
                       comments += ' srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" style="width: 30px; height: 30px; margin-right: 10px; border-radius: 100%; background-color: #dbdbdb; float: left; margin-top: 5px; margin-bottom: 50px;"></img>';
                       comments += '<span className="comment-feed__item__content__author__name">';
                       comments +=  this.memberId;
-                      comments += '</span></a><span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
-                      comments +=  this.commentContents;
+                      comments += '</span></a>';
+                      comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
+                      comments += '<span style="color: #424242;  background-color: #FFB6C1;">';
+                      comments +=  member__;
+                      comments += '</span><span>';
+                      comments +=  content__
+                      comments += '</span>'
                       comments += '</span></p><footer className="comment-feed__item__footer">';
                       comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold;  color: #757575; font-size: 14px;" >';
-                      comments +=  this.commentCreatedDate;
+                      comments +=  dateFormatChange(this.commentCreatedDate);
                       comments += '</time>';
                       comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
                       comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentTocomment(';
-                      comments += this.commentId;
+                      comments += this.memberId;
                       comments += ')">답글 달기</button>';
                       comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
                       comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
@@ -316,6 +334,8 @@
 
                       $(".comment-feed__list").html(comments);
 
+
+
                   });
               }
 
@@ -325,6 +345,16 @@
 
     }
 
+
+
+
+
+    function dateFormatChange(date){
+      let date1 = date.split('T')[0];
+      let date2 = date.split('T')[1];
+      let dateResult = date1 + ' ' + date2;
+      return dateResult;
+    }
 
 
 
@@ -359,16 +389,20 @@
          success: function (result) {
              getCommentList();
              form.commentContents.value = '';
+             $('#paging').load('community_detail.html');
+
 
          },
          error: function (error) {
              console.log("에러 :" + error);
          }
      });
+        location.reload();
 
     }
 
     function commentDelete(commentId){
+        alert('삭제');
        let url = '/community/commentDelete/'+ commentId;
 
         $.post({
@@ -376,11 +410,15 @@
             dataType: 'json',
             success: function(result){
                 getCommentList();
+
             },
             error: function(error){
                 console.log("에러: "+error);
             }
         });
+
+        location.reload();
+
     }
 
 

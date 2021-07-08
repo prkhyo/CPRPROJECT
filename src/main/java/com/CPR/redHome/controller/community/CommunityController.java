@@ -124,8 +124,6 @@ public class CommunityController {
               System.out.println("insert 실패");
           }
 
-
-
          return  map;
 
     }
@@ -141,6 +139,12 @@ public class CommunityController {
 
         List<CommentsDto> commentlist = communityService.updateCommentPagingData(commentCurrentPage, commentTotalCnt, communityId);
 
+
+        if(commentlist.size() < 1 ){
+            communityService.updateCommunityStateWait(communityId);
+        }else{
+            communityService.updateCommunityStateComplete(communityId);
+        }
 
 
         return commentlist;

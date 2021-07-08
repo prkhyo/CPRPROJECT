@@ -87,6 +87,16 @@ public class CommunityServiceImpl implements CommunityService {
         communityMapper.insertComment(commentsDto);
     }
 
+    @Override
+    public void updateCommunityStateComplete(Long communityId) {
+        communityMapper.updateCommunityStateComplete(communityId);
+    }
+
+    @Override
+    public void updateCommunityStateWait(Long communityId) {
+     communityMapper.updateCommunityStateWait(communityId);
+    }
+
     @Override //
     public int countAllComments(Long communityId) {
         int commentsCnt = communityMapper.selectCommentsCnt(communityId);
@@ -109,19 +119,22 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     public List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId) {
-
+        
         List<CommentsDto> commentlist = Collections.emptyList();
 
         criteria.setCurrentPageNo(commentCurrentPage);
         Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
         this.pagination = pagination;
+        System.out.println("계싼");
 
         int recordsPerPage = criteria.getRecordsPerPage();
         int firstRecordIndex = pagination.getFirstRecordIndex();
 
         if (commentTotalCnt > 0) {
             commentlist = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
+
         }
+
         return commentlist;
 
     }

@@ -83,7 +83,7 @@
             <th:block th:if="${reply != 'not_yet'}">
                     <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/community/list(currentPageNo=1, reply='not_yet', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" onclick="reply(this)">답변을 기다리는 질문</button>
             </th:block>
-            <button class="questions-filter__actions__new-question btn btn-priority btn-sm" href="/question">질문하기</button>
+            <button class="questions-filter__actions__new-question btn btn-priority btn-sm"  onclick="location.href='/community/add'">질문하기</button>
         </div>
 
 
@@ -135,7 +135,7 @@
                 <span class="questions-item__footer__author__content text-caption-1" th:text="${community.memberId}"></span>
             </span>
                     <span class="questions-item__footer__meta text-caption-1">
-              <time datetime="2021-05-04T13:16:13+09:00" class="questions-item__footer__date text-gray" th:text="${community.communityCreatedDate}"></time>
+              <time datetime="2021-05-04T13:16:13+09:00" class="questions-item__footer__date text-gray" th:text="${#temporals.format(community.communityCreatedDate,'yyyy-MM-dd HH:mm:ss') }"></time>
               <!--<span class="questions-item__footer__comments text-gray" th:text="${community.communityState}"></span>-->
               <span class="questions-item__footer__comments text-gray">
                 댓글

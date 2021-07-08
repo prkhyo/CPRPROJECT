@@ -29,6 +29,10 @@ public interface CommunityService {
 
     void insertComment(CommentsDto commentsDto);
 
+    void updateCommunityStateComplete(Long communityId);
+
+    void updateCommunityStateWait(Long communityId);
+
     int countAllComments(Long communityId);
 
     Pagination setCommentPagingData(Long communityId, Criteria criteria, int commentCurrentPage, int commentTotalCnt);
