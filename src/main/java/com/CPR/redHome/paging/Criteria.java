@@ -24,10 +24,10 @@ public class Criteria {
     private int pageSize;
 
     //검색 키워드
-    private String searchKeyword;  //search_title,search_contents, search_id
+    private String searchKeyword;
 
     //검색 유형
-    private String searchType;
+    private String searchType;   //search_communityTitle,  search_communityContents,  search_memberId
 
 
 
