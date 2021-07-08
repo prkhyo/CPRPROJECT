@@ -131,7 +131,7 @@
                         <div class="comment-feed__form__input">
                             <div class="comment-feed__form__content">
                                 <div class="comment-content-input">
-                                    <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text"/>
+                                    <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"/>
                                 </div>
                             </div>
                             <div class="comment-feed__form__actions" >
@@ -212,6 +212,20 @@
 
 
 <script>
+
+
+    function characterCheck(obj){
+
+         //정규 표현식
+         //허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
+        var regExp = /[\{\}\[\]\/,;|\)*~`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+        if( regExp.test(obj.value) ){
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+
+        }
+    }
 
 
 
@@ -309,7 +323,7 @@
                       comments +=  this.memberId;
                       comments += '</span></a>';
                       comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
-                      comments += '<span style="color: #424242;  background-color: #FFB6C1;">';
+                      comments += '<span style="color: #424242;  background-color: #FFB6C1; " >';
                       comments +=  member__;
                       comments += '</span><span>';
                       comments +=  content__

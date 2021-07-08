@@ -411,6 +411,28 @@ fieldset, img {
 
 }
 
+
+#annulationBtn{
+    padding: .5em .75em;
+    color: #ed4a4a;
+    font-size: inherit;
+    border: 1px solid #dbdbdb;
+    height: 38px;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 1px;
+
+}
+
+
+
+
+
+
 /* named upload */
 .filebox .upload-name {
     padding: .5em .75em;
@@ -423,7 +445,7 @@ fieldset, img {
     -webkit-appearance: none; /* 네이티브 외형 감추기 */
     -moz-appearance: none;
     appearance: none;
-    width: 53%;
+    width: 49%;
     margin-left: 20%;
 }
 

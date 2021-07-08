@@ -214,12 +214,14 @@ public class CommunityController {
     }
 
     @PostMapping("/community/communityModify")
-    public String communityModify(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, Long communityId,  HttpServletRequest request){
+    public String communityModify(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, Long communityId,  HttpServletRequest request,
+                                  @RequestParam(value="fileAnnulation", required = false, defaultValue ="false")String fileAnnulation){
 
         CommunityDto communityDto = new CommunityDto();
         communityDto.setCommunityTitle(communityTitle);
         communityDto.setCommunityContents(communityContents);
         communityDto.setCommunityId(communityId);
+        communityDto.setFileAnnulation(fileAnnulation);
 
 
         try {

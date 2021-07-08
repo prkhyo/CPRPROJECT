@@ -191,6 +191,9 @@
         <if test="communityImg != null">
             , community_img = #{communityImg}
         </if>
+        <if test="fileAnnulation == 'true'">
+            , community_img = null
+        </if>
 
         where community_id = ${communityId}
 

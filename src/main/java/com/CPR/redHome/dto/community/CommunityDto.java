@@ -40,4 +40,7 @@ public class CommunityDto  {
     /*특정 커뮤니트 글에 대한 답글 수 구할 때 사용*/
     private  int commentCnt;
 
+    /*커뮤니티 글 수정 시 업로드 한 파일 취소 여부 파악할 때 사용*/
+    private String fileAnnulation;
+
 }
