@@ -84,29 +84,16 @@
 
     <insert id="insertOrders"  parameterType="java.util.List">
         insert into orders (
-            order_number,
-            member_id,
-            product_id,
-            order_receiver,
-            order_unit_price,
-            order_delivery_charge,
-            order_point_used,
-            order_request,
-            order_address
-        ) values
+            order_number,            member_id,            product_id,            order_receiver,
+            order_unit_price,            order_delivery_charge,            order_point_used,
+            order_request,            order_address        ) values
 
 
         <foreach collection="list" item="item" separator="," >
                  (
-                     #{item.orderId},
-                     #{item.memberId},
-                     #{item.productId},
-                     #{item.receiver},
-                     #{item.price},
-                     #{item.deliveryCharge},
-                     #{item.usedPoint},
-                     #{item.orderRequest},
-                     #{item.address}
+                     #{item.orderId},                #{item.memberId},                     #{item.productId},
+                  #{item.receiver},                     #{item.price},                     #{item.deliveryCharge},
+                  #{item.usedPoint},                     #{item.orderRequest},                     #{item.address}
                  )
         </foreach>
 

@@ -1,6 +1,6 @@
 package com.CPR.redHome.controller.common;
 
-import com.CPR.redHome.dto.seller.ProductRegistrationDto;
+import com.CPR.redHome.dto.common.ImageUploadDto;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +34,7 @@ public class UploadController {
     private String uploadPath;
 
     /*
-     파일 저장 시 다음과 같은 사항으 고려해야한다
+     파일 저장 시 다음과 같은 사항을 고려해야한다
 
      1. 업로드 된 확장자가 이미지만 가능하도록 검사( 첨부파일 을 이용한 원격 셀)
         - 'shell script' 파일 등을 업로드해서 공격하는 기법이 있기에 파일을 저장하는 순간에도 검사하는 과정이 필요
@@ -47,9 +47,9 @@ public class UploadController {
 
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<ProductRegistrationDto>> uploadFile(MultipartFile[] uploadFiles) {
+    public ResponseEntity<List<ImageUploadDto>> uploadFile(MultipartFile[] uploadFiles) {
 
-        List<ProductRegistrationDto> registDtoList = new ArrayList<>();
+        List<ImageUploadDto> registDtoList = new ArrayList<>();
 
         for (MultipartFile uploadFile : uploadFiles) {
 
@@ -90,7 +90,7 @@ public class UploadController {
                 //섬네일 생성
                 Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 200, 200);
 
-                registDtoList.add(new ProductRegistrationDto(fileName, uuid, folderPath));
+                registDtoList.add(new ImageUploadDto(fileName, uuid, folderPath));
 
             } catch (IOException e) {
 

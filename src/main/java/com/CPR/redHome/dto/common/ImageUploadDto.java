@@ -1,4 +1,4 @@
-package com.CPR.redHome.dto.seller;
+package com.CPR.redHome.dto.common;
 
 import lombok.*;
 import org.apache.ibatis.type.Alias;
@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 
 @Data
 @AllArgsConstructor
-public class ProductRegistrationDto implements Serializable {
+public class ImageUploadDto implements Serializable {
 
     private String fileName;
     private String uuid;

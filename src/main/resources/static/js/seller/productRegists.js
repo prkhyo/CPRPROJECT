@@ -1,5 +1,3 @@
-
-
 let delBtn = document.getElementById('registBtn').addEventListener('click',
     function (e) {
 
@@ -11,44 +9,103 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
         const deliveryCharge = document.getElementById('deliveryCharge');
         const quantity = document.getElementById('quantity');
         const description = document.getElementById('description');
-
-
-        console.log(category.options[category.selectedIndex].value)
-        console.log(theme.options[theme.selectedIndex].value)
-        console.log(title.value)
-        console.log(price.value)
-        console.log(deliveryCharge.value)
-        console.log(quantity.value)
-        console.log(description.value)
-        console.log(setImageURL[0].imageURL)
+        const imageURLS = setImageURL;
 
 
 
 
+        /*        // 공백은 안된다구요! 채워주세요!!
+                if (title.value == "") {
+                    e.preventDefault();
+                    alert("상품 제목을 입력해 주세요 ")
+                }else if (price.value == "") {
+                    e.preventDefault();
+                    alert("상품 제목을 입력해 주세요 ")
+                }else if (deliveryCharge.value == "") {
+                    e.preventDefault();
+                    alert("상품 제목을 입력해 주세요 ")
+                }else if (quantity.value == "") {
+                    e.preventDefault();
+                    alert("상품 제목을 입력해 주세요 ")
+                }else if (description.value == "") {
+                    e.preventDefault();
+                    alert("상품 제목을 입력해 주세요 ");
 
-        let forJson = new Array();
+                }else {*/
 
-        for (let i = 0; i < checkId.length; i++) {
-            let data = new Object();
-            if (document.getElementsByName("selectNo")[i].checked == true) {
-                data.cartId = checkId[i].value;
-                forJson.push(data);
+        // json 배열 생성
+        let registProductJson = new Array();
+
+        //배열 => json type
+        let productRegistObject = new Object();
+
+        if (setImageURL.length == 0) {
+            console.log("no have image");
+
+            productRegistObject.categoryNo = category.options[category.selectedIndex].value;
+            productRegistObject.themeNo = theme.options[theme.selectedIndex].value;
+            productRegistObject.title = title.value;
+            productRegistObject.price = price.value;
+            productRegistObject.deliveryCharge = deliveryCharge.value;
+            productRegistObject.totalQuantity = quantity.value;
+            productRegistObject.description = description.value;
+
+            registProductJson.push(productRegistObject);
+
+        } else {
+            console.log("have photos");
+
+
+            console.log("setImageURL.length  = " + setImageURL.length);
+            for (let i = 0; i < setImageURL.length; i++) {
+                console.log(" i = " + i)
+
+                console.log(" ㅂ  =" + imageURLS[0].imageURL);
+                console.log(" ㅈ  =" + imageURLS[1].imageURL);
+                console.log(" ㅁ  =" + imageURLS[i].imageURL);
+
+                productRegistObject.imageUrls = imageURLS[i].imageURL;
+                productRegistObject.thumbnailUrls = imageURLS[i].thumbnailURL;
+                productRegistObject.categoryNo = category.options[category.selectedIndex].value;
+                productRegistObject.themeNo = theme.options[theme.selectedIndex].value;
+                productRegistObject.title = title.value;
+                productRegistObject.price = price.value;
+                productRegistObject.deliveryCharge = deliveryCharge.value;
+                productRegistObject.totalQuantity = quantity.value;
+                productRegistObject.description = description.value;
+
+
+                registProductJson.push(productRegistObject);
             }
         }
-        if (forJson == "") {
-            e.preventDefault();
-            alert("제거 할 물품을 선택해 주세요")
-        } else if(confirm("선택한 상품을 제거 하시겠습니까?")){
-            const jsonData = JSON.stringify(forJson);
-            e.preventDefault();
-            ajax(jsonData, "POST", "/cart/delete");
 
-        }else{
-            alert("취소 되었습니다.");
-            e.preventDefault();
-        }
+        console.log("productRegistObject = " + registProductJson);
+        //  배열 json 변경
+        const jsonData = JSON.stringify(registProductJson);
+        console.log("jsonData  = " + jsonData);
+
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.open("POST", "/product/regist", true);
+        httpRequest.setRequestHeader("Content-Type", "application/json");
+        httpRequest.send(jsonData);  //위에서 json으로 변경한 뒤에 controller로 보냄!!!!!!!!!
+
+        httpRequest.onreadystatechange = function () {
+            // In local files, status is 0 upon success in Mozilla Firefox
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                var status = httpRequest.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
+                    // The request has been completed successfully
+                    console.log(httpRequest.responseText);
+                    // window.location.href = '/cart';
+                } else {
+                    // Oh no! There has been an error with the request!
+                }
+            }
+        };
+
+
+        // }
     });
-
 
 
 //  server로 값 전달
@@ -61,12 +118,12 @@ function ajax(data, method, url) {
 
     httpRequest.onreadystatechange = function () {
         // In local files, status is 0 upon success in Mozilla Firefox
-        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
             var status = httpRequest.status;
             if (status === 0 || (status >= 200 && status < 400)) {
                 // The request has been completed successfully
                 console.log(httpRequest.responseText);
-                location.reload();
+                // window.location.href = '/cart';
             } else {
                 // Oh no! There has been an error with the request!
             }
