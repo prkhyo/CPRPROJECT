@@ -28,30 +28,31 @@ public class MemberController {
     final private MemberService memberService;
 
 
-
     //로그인 창 띄우기
     @GetMapping("/login")
     public String login(Model model) {
+
         log.info("<==========로그인 창 입니다============>");
-        model.addAttribute("memberLoginDto",new MemberLoginDto());
+
+
+        model.addAttribute("memberLoginDto", new MemberLoginDto());
         return "member/login";
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request){
+    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request) {
 
+        log.info("login!!{}", loginData.getAccountId());
 
-        log.info("login!!{}",loginData.getAccountId());
-
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "member/login";
         }
         MemberDto loginMember = memberService.selectMemberByAccountIdAndPassword
                 (loginData.getAccountId(), loginData.getMemberPassword());
-        log.info("login={}",loginMember);
+        log.info("login={}", loginMember);
 
-        if(loginMember==null){
-            bindingResult.reject("loginFail","아이디 또는 비밀번호가 맞지 않습니다.");
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "member/login";
         }
         //성공처리
@@ -69,26 +70,28 @@ public class MemberController {
     public String logout(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
+
+        //세션 삭제
         if (session != null) {
-            session.invalidate();//세션 삭제
+            session.invalidate();
         }
         return "redirect:/login";
     }
 
 
     @GetMapping("/join")
-    public String joinForm(Model model){
-        model.addAttribute("member",new MemberJoinDto());
+    public String joinForm(Model model) {
+        model.addAttribute("member", new MemberJoinDto());
 
         return "member/join";
     }
 
     @PostMapping("/join")
     public String joinMember(@Validated @ModelAttribute("member") MemberJoinDto member,
-                             BindingResult bindingResult, RedirectAttributes redirectAttributes){
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         //
-        if(bindingResult.hasErrors()){
-            log.info("errors={}",bindingResult);
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
             return "member/join";
         }
 
