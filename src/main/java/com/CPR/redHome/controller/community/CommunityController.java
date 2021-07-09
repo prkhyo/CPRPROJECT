@@ -7,6 +7,7 @@ import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.community.CommunityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -99,40 +100,32 @@ public class CommunityController {
 
 
 
-    @PostMapping("/community/commentInsert/{communityId}/{memberId}/{commentContents}")
+    @PostMapping("/community/commentInsert")
     @ResponseBody
-    public Map<String, Object> commentInsert(@PathVariable Long communityId, @PathVariable Long memberId, @PathVariable String commentContents){
-
-
-        Map<String, Object> map = new HashMap<String, Object>();
+    public void commentInsert(@RequestBody List<CommentsDto> commentsDto){
 
           try {
 
-              CommentsDto commentsDto = new CommentsDto();
-              commentsDto.setCommunityId(communityId);
-              commentsDto.setCommentContents(commentContents);
-              commentsDto.setMemberId(memberId); /*여기다는 현재 세션에 로그인 된 아이디로 넣어주기*/
-              communityService.insertComment(commentsDto);
-              map.put("result","success");
-
-              System.out.println("insert 성공");
+           communityService.insertComment(commentsDto);
+           System.out.println("insert 성공");
 
           }catch (Exception e){
               e.printStackTrace();
-              map.put("result","fail");
-
               System.out.println("insert 실패");
           }
 
-         return  map;
+
 
     }
 
 
 
-    @PostMapping("/community/commentlist/{communityId}")
+    @PostMapping("/community/commentlist")
     @ResponseBody
-    public List<CommentsDto> commentList(@PathVariable Long communityId, @RequestParam int commentCurrentPage ){
+    public List<CommentsDto> commentList(@RequestBody CommentsDto commentsDto){
+
+        Long communityId = commentsDto.getCommunityId();
+        int commentCurrentPage = commentsDto.getCommentCurrentPage();
 
 
         int commentTotalCnt = communityService.countAllComments(communityId);
@@ -151,22 +144,19 @@ public class CommunityController {
     }
 
 
-  @PostMapping("/community/commentDelete/{commentId}")
+  @PostMapping("/community/commentDelete")
   @ResponseBody
-  public Map<String, Object> commentDelete(@PathVariable Long commentId){
-      Map<String, Object> map = new HashMap<String, Object>();
+  public void commentDelete(@RequestBody CommentsDto commentsDto){
+
        try {
-           communityService.deleteComment(commentId);
-           map.put("result","success");
+          communityService.deleteComment(commentsDto.getCommentId());
            System.out.println("delete 성공");
 
        }catch (Exception e){
            e.printStackTrace();
-           map.put("result","fail");
            System.out.println("delete 실패");
        }
 
-      return map;
   }
 
     @GetMapping("/community/add")

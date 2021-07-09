@@ -137,9 +137,14 @@
     </delete>
 
 
-    <insert id="insertComment" parameterType="com.CPR.redHome.dto.community.CommentsDto">
+    <insert id="insertComment" parameterType="java.util.List">
 
-        insert into comments(community_id, comment_contents, member_id)values(${communityId}, #{commentContents}, ${memberId})
+        insert into comments(community_id, comment_contents, member_id)values(
+           <foreach collection="list" item="commentDto" separator=",">
+                        ${commentDto.communityId}, #{commentDto.commentContents}, ${commentDto.memberId}
+
+                        )
+           </foreach>
 
     </insert>
 

@@ -8,7 +8,8 @@
     <script type="text/javascript">
 
 
-        $(document).ready(function(){
+        document.addEventListener("DOMContentLoaded", function(){
+
             var fileTarget = $('.filebox .upload-hidden');
 
             fileTarget.on('change', function(){
@@ -20,8 +21,6 @@
 
                 $(this).siblings('.upload-name').val(filename);
             });
-
-
         });
 
 

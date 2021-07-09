@@ -85,7 +85,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public void insertComment(CommentsDto commentsDto) {
+    public void insertComment(List<CommentsDto> commentsDto) {
         communityMapper.insertComment(commentsDto);
     }
 

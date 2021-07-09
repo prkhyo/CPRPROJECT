@@ -35,7 +35,7 @@ public interface CommunityMapper {
     void deleteCommunity(Long communityId);
     
     //코멘트 등록
-    void insertComment(@RequestParam("comment") CommentsDto commentsDto);
+    void insertComment(List<CommentsDto> commentsDto);
 
     //커뮤니티 글 답변상태 완료로 변경
     void updateCommunityStateComplete(Long communityId);

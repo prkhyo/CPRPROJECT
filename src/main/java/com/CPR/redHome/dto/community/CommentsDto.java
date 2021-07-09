@@ -26,5 +26,8 @@ public class CommentsDto {
 
     //comment insert 성공 유무
     private boolean success;
+    
+    //comment list 불러올 때 사용
+    private int commentCurrentPage;
 
 }

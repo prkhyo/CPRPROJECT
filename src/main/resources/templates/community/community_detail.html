@@ -124,7 +124,7 @@
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
                     <h1 class="comment-feed__header">답변</h1>
-                    <form class="comment-feed__form" id="comment-feed__form" name="commentForm" onsubmit="commemntInsert_CheckForm(this); return false;">
+                    <form class="comment-feed__form" id="comment-feed__form" name="commentForm" onsubmit="commentInsert(this); return false;">
                         <div class="comment-feed__form__user">
                             <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
                         </div>
@@ -144,14 +144,14 @@
                         <input type="hidden" name="currentPageNo" th:value="${currentPageNo}">
                         <input type="hidden" name="searchType" th:value="${criteria.searchType}">
                         <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
-                        <input type="hidden" name="commentCurrentPage" th:value="${commentCurrentPage}">
+                        <input type="hidden" name="commentCurrentPage" id="commentCurrentPage" th:value="${commentCurrentPage}">
                         <input type="hidden" name="communityTitle" th:value="${community.communityTitle}">
 
                     </form>
 
 
 
-                      <ul class="comment-feed__list"></ul>
+                      <ul class="comment-feed__list" id="comment-feed__list"></ul>
 
 
                 </section>
@@ -218,7 +218,7 @@
 
          //정규 표현식
          //허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
-        var regExp = /[\{\}\[\]\/,;|\)*~`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        var regExp = /[\{\}\[\]\/,;|\)*~`^\-_+┼<>\#$%&\'\"\\\(\=]/gi;
 
         if( regExp.test(obj.value) ){
             alert("특수문자는 입력하실수 없습니다.");
@@ -279,83 +279,86 @@
 
 
 
-
-
-
-
-    $(document).ready(function(){
+    document.addEventListener("DOMContentLoaded", function(){
         getCommentList();
     });
 
+
+
     function getCommentList(){
 
-      let communityId = document.commentForm.communityId.value;
-      let commentCurrentPage = document.commentForm.commentCurrentPage.value;
-      let commentbean ={
-          commentCurrentPage: commentCurrentPage
-      };
-      let url =  '/community/commentlist/'+communityId;
+        let communityId = document.commentForm.communityId.value;
+        let commentCurrentPage = document.commentForm.commentCurrentPage.value;
 
+        var commentDto = new Object() ;
+        commentDto.communityId = communityId;
+        commentDto.commentCurrentPage = commentCurrentPage;
 
-      $.post(
-           url,
-           commentbean,
-          function(result) {
-              let comments = "";
-              if (result.length < 1) {
-                  comments = "<p style='margin-left: 40%; color: #424242;'>등록된 댓글이 없습니다.</p>";
+        var xhr = new XMLHttpRequest();
 
-                  $(".comment-feed__list").html(comments);
-              } else {
-                  $(result).each(function () {
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("작업내용 작성");
+                    console.log(xhr.responseText);
 
-                      dateFormatChange(this.commentCreatedDate);
-                      let member__= commentMemberIdExtraction(this.commentContents);
-                      let content__= commentContentExtraction(this.commentContents);
+                    let parseData = JSON.parse(xhr.responseText);    // 객체화 : 배열처리
+                    let comments = "";
+                    console.log('길이'+parseData.length);
 
-                      comments += '<li className="comment-feed__list__item">';
-                      comments += '<article className="comment-feed__item">';
-                      comments += '<p className="comment-feed__item__content">';
-                      comments += '<a href="/users/13759551" className="comment-feed__item__content__author" style=" color: #424242; font-weight: 700; font-size: 15px; margin-top: 10px; margin-right: 5px;">';
-                      comments += '<img className="comment-feed__item__content__author__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36"';
-                      comments += ' srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" style="width: 30px; height: 30px; margin-right: 10px; border-radius: 100%; background-color: #dbdbdb; float: left; margin-top: 5px; margin-bottom: 50px;"></img>';
-                      comments += '<span className="comment-feed__item__content__author__name">';
-                      comments +=  this.memberId;
-                      comments += '</span></a>';
-                      comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
-                      comments += '<span style="color: #424242;  background-color: #FFB6C1; " >';
-                      comments +=  member__;
-                      comments += '</span><span>';
-                      comments +=  content__
-                      comments += '</span>'
-                      comments += '</span></p><footer className="comment-feed__item__footer">';
-                      comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold;  color: #757575; font-size: 14px;" >';
-                      comments +=  dateFormatChange(this.commentCreatedDate);
-                      comments += '</time>';
-                      comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
-                      comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentTocomment(';
-                      comments += this.memberId;
-                      comments += ')">답글 달기</button>';
-                      comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
-                      comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
-                      comments += this.commentId;
-                      comments += ')">삭제</button></footer>';
-                      comments += '</article></li>';
-                      comments += '<form className = "comment_to_commentForm" id = "';
-                      comments += this.commentId;
-                      comments += '" name = "comment_to_commentForm"></form>';
+                    for (var i = 0; i < parseData.length; i++){
+                        dateFormatChange(parseData[i].commentCreatedDate);
+                        let member__= commentMemberIdExtraction(parseData[i].commentContents);
+                        let content__= commentContentExtraction(parseData[i].commentContents);
 
+                        comments += '<li className="comment-feed__list__item">';
+                        comments += '<article className="comment-feed__item">';
+                        comments += '<p className="comment-feed__item__content">';
+                        comments += '<a href="/users/13759551" className="comment-feed__item__content__author" style=" color: #424242; font-weight: 700; font-size: 15px; margin-top: 10px; margin-right: 5px;">';
+                        comments += '<img className="comment-feed__item__content__author__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36"';
+                        comments += ' srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" style="width: 30px; height: 30px; margin-right: 10px; border-radius: 100%; background-color: #dbdbdb; float: left; margin-top: 5px; margin-bottom: 50px;"></img>';
+                        comments += '<span className="comment-feed__item__content__author__name">';
+                        comments +=  parseData[i].memberId;
+                        comments += '</span></a>';
+                        comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
+                        comments += '<span style="color: #424242;  background-color: #FFB6C1; " >';
+                        comments +=  member__;
+                        comments += '</span><span>';
+                        comments +=  content__
+                        comments += '</span>'
+                        comments += '</span></p><footer className="comment-feed__item__footer">';
+                        comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold;  color: #757575; font-size: 14px;" >';
+                        comments +=  dateFormatChange(parseData[i].commentCreatedDate);
+                        comments += '</time>';
+                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
+                        comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentTocomment(';
+                        comments += parseData[i].memberId;
+                        comments += ')">답글 달기</button>';
+                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
+                        comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
+                        comments += parseData[i].commentId;
+                        comments += ')">삭제</button></footer>';
+                        comments += '</article></li>';
+                        comments += '<form className = "comment_to_commentForm" id = "';
+                        comments += parseData[i].commentId;
+                        comments += '" name = "comment_to_commentForm"></form>';
+                    }
+                    document.getElementById("comment-feed__list").innerHTML = comments;
 
-                      $(".comment-feed__list").html(comments);
+                }else{
+                    console.log('HTTP error', xhr.status, xhr.statusText);
+                }
+            }else{
+                return;
+            }
+        };
 
+        xhr.open("POST", "/community/commentlist", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(commentDto));
 
+        console.log('보내기 완료');
 
-                  });
-              }
-
-          },
-          'json'
-      );
 
     }
 
@@ -372,66 +375,94 @@
 
 
 
-    function commemntInsert_CheckForm(form){
+    function commentInsert(form){
 
         let community_Id = form.communityId.value.trim();
         let comment_Contents = form.commentContents.value.trim();
         let member_Id = 3;
 
-     if(comment_Contents == null || comment_Contents == ''){
-         alert('답글을 입력해주세요.');
-         form.commentContents.focus();
-         return;
+        if(comment_Contents == null || comment_Contents == ''){
+            alert('답글을 입력해주세요.');
+            form.commentContents.focus();
+            return;
 
-     }
-        let commentBean = {
-            communityId: community_Id,
-            commentContents : comment_Contents,
-            reply: form.reply.value,
-            orderType: form.orderType.value,
-            currentPageNo: form.currentPageNo.value,
-            searchType: form.searchType.value,
-            searchKeyword: form.searchKeyword.value
+        }
 
+       // 리스트 생성
+        var commentList = new Array() ;
+
+            // 객체 생성
+            var commentDto = new Object() ;
+
+            commentDto.communityId = community_Id;
+            commentDto.commentContents = comment_Contents;
+            commentDto.memberId = member_Id;
+
+            // 리스트에 생성된 객체 삽입
+            commentList.push(commentDto) ;
+
+        // String 형태로 변환
+        var jsonData = JSON.stringify(commentList) ;
+        console.log(jsonData) ;
+
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {    /* 요청완료 */
+                if (xhr.status === 200) {  /* 요청성공 */
+                    console.log("작업내용 작성");
+                    getCommentList();
+                    form.commentContents.value = '';
+                    document.getElementById("commentCurrentPage").value=1;
+                    location.reload();
+
+                }else{
+                    console.log('HTTP error', xhr.status, xhr.statusText);
+                }
+
+            }else{
+                return;
+            }
         };
-      let url_data = '/community/commentInsert/' + community_Id +'/'+ member_Id +'/'+ comment_Contents;
 
-     $.post({
-         url: url_data,
-         data: commentBean,
-         dataType: 'json',
-         success: function (result) {
-             getCommentList();
-             form.commentContents.value = '';
-             $('#paging').load('community_detail.html');
+        xhr.open("POST", "/community/commentInsert", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(jsonData);
 
-
-         },
-         error: function (error) {
-             console.log("에러 :" + error);
-         }
-     });
-        location.reload();
+        console.log('보내기 완료');
 
     }
 
-    function commentDelete(commentId){
-        alert('삭제');
-       let url = '/community/commentDelete/'+ commentId;
 
-        $.post({
-            url: url,
-            dataType: 'json',
-            success: function(result){
-                getCommentList();
 
-            },
-            error: function(error){
-                console.log("에러: "+error);
+  function commentDelete(comm_id){
+
+      var commentDto = new Object() ;
+      commentDto.commentId = comm_id;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("작업내용 작성");
+                    getCommentList();
+                    location.reload();
+
+                }else{
+                    console.log('HTTP error', xhr.status, xhr.statusText);
+                }
+            }else{
+                return;
             }
-        });
+        };
 
-        location.reload();
+        xhr.open("POST", "/community/commentDelete", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(commentDto));
+
+        console.log('보내기 완료');
 
     }
 

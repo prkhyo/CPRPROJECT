@@ -27,7 +27,7 @@ public interface CommunityService {
 
     void deleteCommunity(Long communityId);
 
-    void insertComment(CommentsDto commentsDto);
+    void insertComment(List<CommentsDto> commentsDto);
 
     void updateCommunityStateComplete(Long communityId);
 
