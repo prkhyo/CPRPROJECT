@@ -10,18 +10,35 @@
 
         document.addEventListener("DOMContentLoaded", function(){
 
-            var fileTarget = $('.filebox .upload-hidden');
 
-            fileTarget.on('change', function(){
-                if(window.FileReader){
-                    var filename = $(this)[0].files[0].name;
-                } else {
-                    var filename = $(this).val().split('/').pop().split('\\').pop();
-                }
+            var fileTarget = document.getElementById("filebox");
+            fileTarget.onchange= function (){
 
-                $(this).siblings('.upload-name').val(filename);
-            });
+                //input file 태그.
+                var file = document.getElementById('input-file');
+                //파일 경로.
+                var filePath = file.value;
+                //전체경로를 \ 나눔.
+                var filePathSplit = filePath.split('\\');
+                //전체경로를 \로 나눈 길이.
+                var filePathLength = filePathSplit.length;
+                //마지막 경로를 .으로 나눔.
+                var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+                //파일명 : .으로 나눈 앞부분
+                var fileName = fileNameSplit[0];
+                //파일 확장자 : .으로 나눈 뒷부분
+                var fileExt = fileNameSplit[1];
+                //파일 크기
+                var fileSize = file.files[0].size;
+
+                document.getElementById("communityImg").value=fileName+'.'+fileExt;
+
+
+            };
+
         });
+
+
 
 
     </script>
@@ -72,10 +89,10 @@
             </section>
             <section id="question-form__floating" class="floating-bar static sticky-bottom">
                 <div class="floating-bar__content sticky-content question-form__floating">
-                    <div class="filebox preview-image">
+                    <div class="filebox preview-image" id="filebox">
                         <input class="upload-name" id="communityImg"   value="파일선택" disabled="disabled" >
                         <label for="input-file">업로드</label>
-                        <input  type="file" id="input-file" name="communityImg" class="upload-hidden">
+                        <input  type="file" id="input-file" name="communityImg" class="upload-hidden" >
                         <button id="annulationBtn" type="button" onclick="uploadAnnulation()">취소</button>
                     </div>
 
@@ -99,7 +116,7 @@
     function uploadAnnulation(){
         alert('취소!');
         document.getElementById("input-file").value='';
-        document.getElementById("communityImg").value='';
+        document.getElementById("communityImg").value='파일선택';
     }
 
 

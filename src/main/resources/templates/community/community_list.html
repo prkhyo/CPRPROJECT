@@ -50,7 +50,7 @@
     <div class="questions-filter__content container">
         <div class="questions-filter__filters">
             <div class="filter-select" id="questions-filter-sort" data-modal-id="questions-filter-sort-modal">
-                <dl class="filter-select__header" role="button">
+                <dl class="filter-select__header" role="button" onclick="showSort()" ondblclick="hideSort()">
                     <dt class="filter-select__header__name">
                         정렬<span class="icon icon-pointer-angle-down-dark-sm"></span>
                     </dt>
@@ -62,15 +62,15 @@
                     </th:block>
 
                 </dl>
-                <ul class="filter-select__list" >
-                    <li class="filter-select__list__entry active" >
-                    <a class="filter-select__list_newCommunity sort"  th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newCommunity', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  id="activeList" onmouseover="newCommunityFocus()">최신순</a>
+                <ul class="filter-select__list" id="filter-select__list" >
+                    <li class="filter-select__list__entry" th:classappend="${orderType != 'newComment' and orderType != 'mostPopular'} ?'active':''" >
+                    <a class="filter-select__list_newCommunity sort"  th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newCommunity', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  th:id="${orderType != 'newComment' and orderType != 'mostPopular'} ?'activeList':'notactiveList1'" onmouseover="newCommunityFocus()" >최신순</a>
                     </li>
-                    <li class="filter-select__list__entry" >
-                    <a class="filter-select__list_newComment sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newComment', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" id="notactiveList1" onmouseover="newCommentFocus()">최근 답변순</a>
+                    <li class="filter-select__list__entry" th:classappend="${orderType == 'newComment'} ?'active':''"  >
+                    <a class="filter-select__list_newComment sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='newComment', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'newComment'} ?'activeList':'notactiveList2'" onmouseover="newCommentFocus()">최근 답변순</a>
                     </li>
-                    <li class="filter-select__list__entry" >
-                        <a class="filter-select__list_mostPopular sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='mostPopular', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" id="notactiveList2" onmouseover="mostPopularFocus()">인기순</a>
+                    <li class="filter-select__list__entry" th:classappend="${orderType == 'mostPopular'} ?'active':''" >
+                        <a class="filter-select__list_mostPopular sort" th:href="@{/community/list(currentPageNo=1, reply=${reply}, orderType='mostPopular', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'mostPopular'} ?'activeList':'notactiveList3'" onmouseover="mostPopularFocus()">인기순</a>
                     </li>
                 </ul>
             </div>
@@ -202,16 +202,26 @@
 
     }
 
-    $(".filter-select__header").click(function (){
-        $(".filter-select__list").css({visibility: "visible",
-            opacity: 1, transform: "none",top:"400px",left:"290px"
-        });
-        $(".filter-select__header").dblclick(function () {
-            $(".filter-select__list").css({visibility: "hidden",
-                opacity: 0
-            });
-        });
-    });
+
+    function showSort(){
+
+        let sort =  document.getElementById("filter-select__list");
+
+        sort.style.visibility='visible';
+        sort.style.opacity='1';
+        sort.style.transform='none';
+        sort.style.top='400px';
+        sort.style.left='290px';
+
+    }
+
+    function hideSort(){
+        let sort =  document.getElementById("filter-select__list");
+        sort.style.visibility='hidden';
+        sort.style.opacity='0';
+
+    }
+
 
   function newCommunityFocus(){
       let sort = document.getElementsByClassName("sort")[0].id;
