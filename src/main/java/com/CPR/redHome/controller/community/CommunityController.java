@@ -39,10 +39,7 @@ public class CommunityController {
         String searchType = criteria.getSearchType();
         String searchKeyword = criteria.getSearchKeyword();
 
-        System.out.println("searchType:"+ searchType); //test
-        System.out.println("searchKeyword:"+ searchKeyword);//test
         int communityTotalCnt = communityService.countAllCommunities(reply, searchType, searchKeyword);
-         System.out.println("총 개수:"+ communityTotalCnt);//test
 
         criteria.setCurrentPageNo(currentPageNo);
         Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
@@ -54,13 +51,8 @@ public class CommunityController {
           communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
        }
 
-        System.out.println(communityList);//test
-
-
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
-
-
 
         return "community/community_list";
     }
@@ -80,6 +72,7 @@ public class CommunityController {
         int commentTotalCnt = communityService.countAllComments(communityId);
         Pagination pagination = communityService.setCommentPagingData(communityId, criteria, commentCurrentPage, commentTotalCnt);
 
+        model.addAttribute("commentTotalCnt", commentTotalCnt);
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
@@ -184,10 +177,7 @@ public class CommunityController {
         }
 
 
-
         return "redirect:/community/list";
-
-
     }
 
     @GetMapping("/community/edit")
@@ -195,7 +185,6 @@ public class CommunityController {
 
 
         CommunityDto communityDto = communityService.selectCommunity(communityId);
-        System.out.println(communityDto);
 
         model.addAttribute("community", communityDto);
 
@@ -222,12 +211,8 @@ public class CommunityController {
 
         }
 
-
         return "redirect:/community/list";
     }
-
-
-
 
 
 }

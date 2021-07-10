@@ -160,8 +160,8 @@ fieldset, img {
 .qna-detail__content__body img {
     display: block;
     margin: 0px 0% 30px 20%;
-    width: 60%;
-    height: 1000px;
+    width: auto;
+    height: auto;
 }
 
 

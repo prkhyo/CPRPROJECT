@@ -127,7 +127,6 @@ public class CommunityServiceImpl implements CommunityService {
         criteria.setCurrentPageNo(commentCurrentPage);
         Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);
         this.pagination = pagination;
-        System.out.println("계싼");
 
         int recordsPerPage = criteria.getRecordsPerPage();
         int firstRecordIndex = pagination.getFirstRecordIndex();
@@ -151,46 +150,52 @@ public class CommunityServiceImpl implements CommunityService {
     public void insertCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 
 
-        String filename=null;
         if( !file.isEmpty() ) {
 
-            String originalFileName = file.getOriginalFilename();
-            String ext = FilenameUtils.getExtension(originalFileName); //확장자
-
-            UUID uuid = UUID.randomUUID(); //UUID 구하기
-            filename = uuid+"."+ext;
-
-            file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
-
+            String filename = fileUpload(file, request);
             communityDto.setCommunityImg(filename);
+
         }
 
-        System.out.println(communityDto); //test
-
         communityMapper.insertCommunity(communityDto);
-
-
 
     }
 
     @Override
     public void modifyCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 
-        String filename=null;
+
         if( !file.isEmpty() ) {
 
-            String originalFileName = file.getOriginalFilename();
-            String ext = FilenameUtils.getExtension(originalFileName); //확장자
-
-            UUID uuid = UUID.randomUUID(); //UUID 구하기
-            filename = uuid+"."+ext;
-
-            file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
-
+            String filename = fileUpload(file, request);
             communityDto.setCommunityImg(filename);
+
         }
 
         communityMapper.modifyCommunity(communityDto);
 
     }
+
+
+    public String fileUpload(MultipartFile file, HttpServletRequest request) throws IOException {
+
+        String filename=null;
+
+        String originalFileName = file.getOriginalFilename();
+        String ext = FilenameUtils.getExtension(originalFileName); //확장자
+
+        UUID uuid = UUID.randomUUID(); //UUID 구하기
+        filename = uuid+"."+ext;
+
+        file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
+
+
+        return filename;
+    }
+
+
+
+
+
+
 }

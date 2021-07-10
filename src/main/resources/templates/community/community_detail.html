@@ -123,7 +123,7 @@
 
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
-                    <h1 class="comment-feed__header">답변</h1>
+                    <h1 class="comment-feed__header">답변<span th:text="${commentTotalCnt}" style="margin-left: 5px; color: #ed4a4a;"></span></h1>
                     <form class="comment-feed__form" id="comment-feed__form" name="commentForm" onsubmit="commentInsert(this); return false;">
                         <div class="comment-feed__form__user">
                             <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x">
@@ -267,7 +267,6 @@
     function showShare(){
 
         let share =  document.getElementById("shareSns");
-
         share.style.visibility='visible';
 
     }
@@ -473,14 +472,14 @@
 
 
     function shareFacebook(){
-        alert('페이스북 공유');
+
         var url = window.document.location.href;
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
     }
 
 
     function shareKakao(){
-        alert('카카오 공유');
+
         var url = window.document.location.href;
         var title = document.commentForm.communityTitle.value;
         // 사용할 앱의 JavaScript 키 설정
@@ -502,7 +501,7 @@
     }
 
     function shareNaver(){
-        alert('네이버 공유');
+
         var url = window.document.location.href;
         var title = '레드홈 커뮤니티 글';
         var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
@@ -511,7 +510,7 @@
     }
 
     function shareUrl(){
-        alert('주소 공유');
+
         var url = '';
         var textarea = document.createElement("textarea");
         document.body.appendChild(textarea);
