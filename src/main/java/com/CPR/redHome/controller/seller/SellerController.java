@@ -31,10 +31,12 @@ public class SellerController {
 
 //        view단에서 json보내면 이렇게 list 방법으로 받을 수 있음!!
 
-        log.info("product regists dto check = " + productRegistDto);
-        log.info("product regists dto check = " + productRegistDto.get(0).getImageUrls());
+        log.info("product regists dto check = " + productRegistDto);/*
+        log.info("product regists dto check = " + productRegistDto.get(0));
+        log.info("product regists dto check = " + productRegistDto.get(0).getImageUrl());*/
 
-
+        sellerService.registProducts(productRegistDto.get(0));
+        sellerService.registImage(productRegistDto);
 
     }
 }

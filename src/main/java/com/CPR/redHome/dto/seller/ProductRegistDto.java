@@ -13,16 +13,17 @@ import org.apache.ibatis.type.Alias;
 @Alias("RegistDto")
 public class ProductRegistDto extends ImageDto{
 
+    private Long memberId;
+
     private String title;
     private String description;
+
     private Integer price;
     private Integer categoryNo;
     private Integer themeNo;
     private Integer deliveryCharge;
     private Integer totalQuantity;
 
-    private String imageUrls;
-    private String thumbnailUrls;
 
 
 

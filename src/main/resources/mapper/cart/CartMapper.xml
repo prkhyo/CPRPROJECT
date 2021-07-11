@@ -9,7 +9,6 @@
 
         select m.member_id               as memberId
              , m2.name                   as name
-             , p.product_img             as img
              , p.product_price           as price
              , c.product_quantity        as quantity
              , p.product_title           as title
@@ -27,7 +26,7 @@
     </select>
 
 
-    <delete id="cartDelete"  parameterType="java.util.List">
+    <delete id="cartDelete" parameterType="java.util.List">
 
         delete from shopping_cart where shopping_cart_id in
 
@@ -50,7 +49,6 @@
         m.email as email,
         p.product_id as productId,
         p.product_price as price,
-        p.product_img as img,
         p.product_delivery_charge as deliveryCharge,
         m2.name as name,
 
@@ -74,7 +72,7 @@
 
     <select id="findMemberId" resultType="int">
 
-        select  m.point as currentPoint
+        select m.point as currentPoint
         from shopping_cart c
                  join member m on m.member_id = c.member_id
         where c.shopping_cart_id = #{memberId}
@@ -82,19 +80,25 @@
 
     </select>
 
-    <insert id="insertOrders"  parameterType="java.util.List">
+    <insert id="insertOrders" parameterType="java.util.List">
         insert into orders (
-            order_number,            member_id,            product_id,            order_receiver,
-            order_unit_price,            order_delivery_charge,            order_point_used,
-            order_request,            order_address        ) values
+        order_number, member_id, product_id, order_receiver,
+        order_unit_price, order_delivery_charge, order_point_used,
+        order_request, order_address ) values
 
 
-        <foreach collection="list" item="item" separator="," >
-                 (
-                     #{item.orderId},                #{item.memberId},                     #{item.productId},
-                  #{item.receiver},                     #{item.price},                     #{item.deliveryCharge},
-                  #{item.usedPoint},                     #{item.orderRequest},                     #{item.address}
-                 )
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.orderId},
+            #{item.memberId},
+            #{item.productId},
+            #{item.receiver},
+            #{item.price},
+            #{item.deliveryCharge},
+            #{item.usedPoint},
+            #{item.orderRequest},
+            #{item.address}
+            )
         </foreach>
 
     </insert>
@@ -102,9 +106,10 @@
     <update id="deductedPoint" parameterType="orderDto">
 
 
-            update member as b, (select point from member where member_id = ${memberId} ) as a, product as p
-            set b.point = a.point - ${usedPoint} , p.product_quantity = p.product_quantity - ${quantity}
-            where p.product_id = ${productId} and b.member_id = ${memberId}
+        update member as b, (select point from member where member_id = ${memberId} ) as a, product as p
+        set b.point = a.point - ${usedPoint}, p.product_quantity = p.product_quantity - ${quantity}
+        where p.product_id = ${productId}
+          and b.member_id = ${memberId}
 
 
     </update>

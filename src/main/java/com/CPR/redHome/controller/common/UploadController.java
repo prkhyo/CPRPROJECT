@@ -67,36 +67,27 @@ public class UploadController {
 
             //날짜 폴더 생성
             String folderPath = makeFolder();
-
             //UUID
             String uuid = UUID.randomUUID().toString();
-
             //저장할 파일 이름 중간에 "-" 를 이용해서 구분
             String savaName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
 
             log.info("savaName 1 : " + savaName);
-
             Path savePath = Paths.get(savaName);
 
             try {
                 uploadFile.transferTo(savePath); //실제 이미지 저장
-
                 // 섬네일 생성
                 String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
-
                 // 썸네일 파일 이름은준간에 s_로 시작
                 File thumbnailFile = new File(thumbnailSaveName);
-
                 //섬네일 생성
                 Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 200, 200);
-
                 registDtoList.add(new ImageUploadDto(fileName, uuid, folderPath));
 
             } catch (IOException e) {
-
                 e.printStackTrace();
             }
-
         } //end for
         return new ResponseEntity<>(registDtoList, HttpStatus.OK);
     }

@@ -14,7 +14,7 @@ public class SellerServiceImpl implements SellerService {
     private final SellerMapper sellerMapper;
 
     @Override
-    public int registProducts(List<ProductRegistDto> productRegistDto) {
+    public int registProducts(ProductRegistDto productRegistDto) {
 
 
         return sellerMapper.registProducts(productRegistDto);

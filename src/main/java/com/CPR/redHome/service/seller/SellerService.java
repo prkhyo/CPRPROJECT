@@ -7,7 +7,7 @@ import java.util.List;
 public interface SellerService {
 
     //상품 등록
-    int registProducts(List<ProductRegistDto> productRegistDto);
+    int registProducts(ProductRegistDto productRegistDto);
 
     // 상품 이미지 등록
     int registImage(List<ProductRegistDto> productRegistDto);

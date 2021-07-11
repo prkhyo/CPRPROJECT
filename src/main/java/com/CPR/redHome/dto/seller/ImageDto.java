@@ -14,8 +14,8 @@ import org.apache.ibatis.type.Alias;
 public class ImageDto {
 
     private String productImageId;
-    private String imageUrls;
-    private String thumbnailUrls;
+    private String imageUrl;
+    private String thumbnailUrl;
 
 
 }
