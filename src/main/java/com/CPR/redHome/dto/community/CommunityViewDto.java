@@ -1,6 +1,5 @@
 package com.CPR.redHome.dto.community;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,16 +8,17 @@ import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@Alias("CommunityDto")
-public class CommunityDto   {
+@Alias("CommunityViewDto")
+public class CommunityViewDto {
 
     private Long communityId; //auto
 
-    private Long memberId;
+    private String accountId; //
 
     private String communityTitle;
 
@@ -34,8 +34,15 @@ public class CommunityDto   {
 
 
 
-    /*커뮤니티 글 수정 시 업로드 한 파일 취소 여부 파악할 때 사용*/
-    private String fileAnnulation;
+    /*조인 시 사용*/
+    private Long ccommentId;
+
+    /*특정 커뮤니트 글에 대한 답글 수 구할 때 사용*/
+    private  int commentCnt;
+
+
+
+
 
 
 }

@@ -1,6 +1,9 @@
 package com.CPR.redHome.dto.community;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
@@ -9,8 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @ToString
-@Alias("CommentsDto")
-public class CommentsDto {
+@Alias("CommentViewDto")
+public class CommentViewDto {
 
     private Long commentId;
 
@@ -20,15 +23,15 @@ public class CommentsDto {
 
     private LocalDateTime commentCreatedDate;
 
-    private Long memberId;
+    private String accountId; //
 
 
 
-    //comment insert 성공 유무
-    private boolean success;
 
-    //comment list 불러올 때 사용
-    private int commentCurrentPage;
-    
+
+
+
+
+
 
 }

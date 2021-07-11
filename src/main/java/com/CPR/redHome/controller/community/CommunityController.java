@@ -1,10 +1,14 @@
 package com.CPR.redHome.controller.community;
 
+import com.CPR.redHome.dto.community.CommentViewDto;
 import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.community.CommunityDto;
+import com.CPR.redHome.dto.community.CommunityViewDto;
+import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.community.CommunityService;
+import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.Param;
@@ -31,10 +35,10 @@ public class CommunityController {
 
     @GetMapping("/community/list")
     public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                    @RequestParam(defaultValue="1") int currentPageNo) {
+                                    @RequestParam(defaultValue="1") int currentPageNo, @Login MemberDto memberDto) {
        /* @ModelAttribute를 이용하면 파라미터로 전달받은 객체를 자동으로 뷰까지 전달*/
 
-        List<CommunityDto> communityList = Collections.emptyList();
+        List<CommunityViewDto> communityList = Collections.emptyList();
 
         String searchType = criteria.getSearchType();
         String searchKeyword = criteria.getSearchKeyword();
@@ -51,6 +55,13 @@ public class CommunityController {
           communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
        }
 
+        if(memberDto != null) {
+            model.addAttribute("memberId", memberDto.getMemberId());
+        }else{
+            model.addAttribute("memberId", null);
+        }
+
+
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
@@ -60,14 +71,14 @@ public class CommunityController {
 
     @GetMapping("/community/detail")
     public String communityDetailPage(@RequestParam Long communityId, Model model, @ModelAttribute("criteria")Criteria criteria, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                      @RequestParam Integer commentCurrentPage){
+                                      @RequestParam Integer commentCurrentPage, @Login MemberDto memberDto){
 
 
         model.addAttribute("currentPageNo", criteria.getCurrentPageNo());
 
         communityService.updateCommunityHitCnt(communityId);
 
-        CommunityDto communityDto = communityService.selectCommunity(communityId);
+        CommunityViewDto communityDto = communityService.selectCommunity(communityId);
 
         int commentTotalCnt = communityService.countAllComments(communityId);
         Pagination pagination = communityService.setCommentPagingData(communityId, criteria, commentCurrentPage, commentTotalCnt);
@@ -76,6 +87,13 @@ public class CommunityController {
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
+
+        if(memberDto != null) {
+            model.addAttribute("memberId", memberDto.getMemberId());
+            model.addAttribute("accountId", memberDto.getAccountId());
+        }else{
+            model.addAttribute("memberId", null);
+        }
 
 
 
@@ -115,7 +133,7 @@ public class CommunityController {
 
     @PostMapping("/community/commentlist")
     @ResponseBody
-    public List<CommentsDto> commentList(@RequestBody CommentsDto commentsDto){
+    public List<CommentViewDto> commentList(@RequestBody CommentsDto commentsDto){
 
         Long communityId = commentsDto.getCommunityId();
         int commentCurrentPage = commentsDto.getCommentCurrentPage();
@@ -123,7 +141,7 @@ public class CommunityController {
 
         int commentTotalCnt = communityService.countAllComments(communityId);
 
-        List<CommentsDto> commentlist = communityService.updateCommentPagingData(commentCurrentPage, commentTotalCnt, communityId);
+        List<CommentViewDto> commentlist = communityService.updateCommentPagingData(commentCurrentPage, commentTotalCnt, communityId);
 
 
         if(commentlist.size() < 1 ){
@@ -160,12 +178,12 @@ public class CommunityController {
     }
 
     @PostMapping("/community/communityInsert")
-    public String communityInsert(@RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
+    public String communityInsert(@Login MemberDto memberDto, @RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
 
         CommunityDto communityDto = new CommunityDto();
         communityDto.setCommunityTitle(communityTitle);
         communityDto.setCommunityContents(communityContents);
-        communityDto.setMemberId(3L); //현재 세션에 로그인 된 아이디로 변경할 예정
+        communityDto.setMemberId(memberDto.getMemberId()); //현재 세션에 로그인 된 아이디로 변경할 예정
 
 
         try {
@@ -184,7 +202,7 @@ public class CommunityController {
     public String communityEditPage(Long communityId, Model model) {
 
 
-        CommunityDto communityDto = communityService.selectCommunity(communityId);
+        CommunityViewDto communityDto = communityService.selectCommunity(communityId);
 
         model.addAttribute("community", communityDto);
 
