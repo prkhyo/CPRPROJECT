@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.member.MemberMapper">
+    <select id="selectMemberByAccountId" resultType="memberDto">
+        select member_id       as memberId,
+               grade_id        as gradeId,
+               account_id      as accountId,
+               member_password as memberPassword,
+               name,
+               telephone,
+               email,
+               created_date    as createdDate,
+               address,
+               birthdate,
+               point,
+               role
+        from member
+        where account_id = #{accountId};
+    </select>
+    <select id="selectMemberByMemberId" resultType="memberDto">
+        select member_id       as memberId,
+               grade_id        as gradeId,
+               account_id      as accountId,
+               member_password as memberPassword,
+               name,
+               telephone,
+               email,
+               created_date    as createdDate,
+               address,
+               birthdate,
+               point,
+               role
+        from member
+        where member_id = #{memberId};
+    </select>
+    <insert id="joinMember" parameterType="memberDto">
+        insert into member (account_id,
+                            member_password,
+                            name,
+                            telephone,
+                            email,
+                            address,
+                            birthdate)
+        values (#{accountId},
+                #{memberPassword},
+                #{name}, #{telephone},
+                #{email},
+                #{address},
+                #{birthdate})
+    </insert>
+
+    <select id="selectAllMember" resultType="memberDto">
+         select member_id  as memberId,
+            grade_id  as gradeId,
+            account_id as accountId,
+            member_password as memberPassword,
+            name,
+            telephone,
+            email,
+            created_date  as createdDate,
+            address,
+            birthdate,
+            point,
+            role from member
+    </select>
+    <delete id="deleteMember" parameterType="Long">
+        delete  FROM member where member_id = #{memberId}
+    </delete>
+    <update id="updateMember" parameterType="memberDto">
+        update member
+        set  member_password = #{memberPassword},
+             name= #{name},
+             telephone= #{telephone},
+             address= #{address},
+             email= #{email}
+        where member_id = #{memberId}
+    </update>
+
+</mapper>
