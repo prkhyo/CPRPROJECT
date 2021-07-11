@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Ready to decorate your home?</title>
+  <link rel="stylesheet" type="text/css" href="/css/member/login.css"/>
+</head>
+<body>
+<main class="css-1iharqo-Main">
+  <div class="css-9bsbsj-FormWrap">
+    <a aria-label="오늘의집" class="css-1a5fr2v-LogoLink ebon26m3" href="/store" >
+      <img src="../../img/redhome_kor.jpg" style="width: 150px;">
+    </a>
+    <form class="css-18fd3as-FormContent e7sx0344" action="/login" th:object="${memberLoginDto}" th:action method="post">
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+           th:text="${err}">글로벌 오류 메시지</p>
+      </div>
+      <div class="css-14zpkc9-InputFieldWrap e7sx0343">
+        <input class="_3ASDR _2wjXG css-ov0qvl-FormInputField e7sx0342" id="accountId" name="accountId" th:field="*{accountId}"  type="id" position="top" placeholder="아이디" value="">
+      </div>
+      <div class="css-14zpkc9-InputFieldWrap e7sx0343">
+        <input class="_3ASDR _2wjXG css-1uzhxvg-FormInputField e7sx0342" id="memberPassword" name="memberPassword" th:field="*{memberPassword}"  type="password" position="bottom" placeholder="비밀번호" value="">
+      </div>
+      <div class="field-error" th:errors="*{accountId}"/>
+      <div class="field-error" th:errors="*{memberPassword}"/>
+      <button class="_1eWD8 _3SroY _27do9 css-15i71tl-SubmitButton e7sx0340" type="submit">로그인</button>
+      <section class="css-6ofxvx-Actions e5voaya4">
+        <a class="css-a6x0yj-ActionLink e5voaya3" >비밀번호 재설정</a>
+        <a class="css-a6x0yj-ActionLink e5voaya3" th:href="@{/join}">회원가입</a>
+      </section>
+    </form>
+  </div>
+  <footer class="css-1a7naln-Footer ebon26m0">© &nbsp;<a href="https://www.bucketplace.co.kr/" target="_blank" rel="noopener noreferrer">bucketplace, Co., Ltd.</a>. All Rights Reserved</footer>
+</main>
+
+
+</body>
+</html>

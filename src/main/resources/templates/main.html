@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/main/top2.css">
+    <link href="/css/main/banner.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/main/banner.js?after"></script>
+    <script>
+        function myOn() {
+            document.getElementById("popup").style['display'] = 'block';
+
+        }
+
+        function myOut() {
+            document.getElementById("popup").style['display'] = 'none';
+        }
+
+        function logOut() {
+            location.href = "/logOut";
+        }
+
+    </script>
+    <link href="../../css/store.css?" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/selectbox.min.css?">
+    <script src="../../js/selectbox.min.js?"></script>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <style>
+        <!--  페이지 하단  -->
+        .layout > .layout-footer {margin-top: auto;}
+        .layout-footer {
+            display: block;
+            background-color: #fafafa;}
+
+        header, footer, main {
+            box-sizing: border-box;
+            position: relative;
+            display: block; }
+
+        @media (min-width: 1024px) {
+            .layout-footer__content {
+                padding: 30px 60px 40px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .layout-footer__content {
+                padding: 30px 40px 40px;
+            }
+        }
+
+        .layout-footer__content {
+            display: block;
+            max-width: 1256px;
+            margin: 0 auto;
+            padding: 30px 15px 40px;
+            box-sizing: border-box;
+
+        }
+
+        @media (min-width: 768px) {
+            .layout-footer__top {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-flex-wrap: wrap;
+                -moz-flex-wrap: wrap;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                -webkit-box-align: start;
+                -ms-flex-align: start;
+                -webkit-align-items: flex-start;
+                -moz-align-items: flex-start;
+                align-items: flex-start;
+                -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                -webkit-justify-content: space-between;
+                -moz-justify-content: space-between;
+                justify-content: space-between;
+            }
+        }
+
+        .layout-footer__cs {
+            margin: 0 0 25px;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        address, caption, cite, code, dfn, em, th, var {
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        .layout-footer__cs__link {
+            display: inline-block;
+            font-weight: 700;
+            color: #424242;
+        }
+
+        .layout-footer__cs__tel {
+            display: inline-block;
+            margin: 2px 0 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #424242;
+            line-height: 36px;
+        }
+
+        .layout-footer__cs__time {
+            color: #757575;
+        }
+
+        .layout-footer__outbound {
+            margin: -3px -7px 25px;
+        }
+
+        .layout-footer__outbound__item {
+            display: inline-block;
+            padding: 3px;
+            margin: 0 4px;
+        }
+
+        .layout-footer__shortcut {
+            margin: 0 -5px 10px;
+            padding: 0px;
+        }
+
+        ol, ul { list-style: none;  }
+
+        .layout-footer__shortcut > li {display: inline;}
+
+        .layout-footer__shortcut__item {
+            display: inline-block;
+            margin: 0 3px;
+            padding: 2px;
+            font-size: 10px;
+            font-weight: 400;
+            color: #424242;
+            line-height: 16px;
+        }
+
+        .layout-footer__info__item {
+            display: inline-block;
+            margin: 0 3px;
+            padding: 2px;
+        }
+
+        .layout-footer__info {
+            display: block;
+            margin: 0 -5px;
+            font-size: 10px;
+            color: #757575;
+            line-height: 16px;
+        }
+
+        .layout-footer__info__item dd, .layout-footer__info__item dt {
+            display: inline;
+        }
+
+        .layout-footer__info__item dt:after {
+            content: " : ";
+        }
+
+        .layout-footer__copyright {
+            margin: 10px 0 0;
+            font-size: 10px;
+            color: #424242;
+            line-height: 16px;
+        }
+
+        <!-- 공통 태그   -->
+
+        fieldset, img { border: 0; }
+
+        input, textarea, select, button {font-size: inherit;}
+
+        h1, h2, h3, h4, h5, h6 {font-weight: inherit;}
+
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        a { color: inherit;
+            text-decoration: none;}
+    </style>
+</head>
+<body>
+<header class="layout-navigation-bar">
+    <div class="layout-navigation-primary-wrap">
+        <div class="layout-navigation-primary" style="position:relative">
+            <div class="layout-navigation-primary__content">
+                <div class="layout-navigation-primary__left">
+                    <a href="/main" class="noDeco layout-navigation-logo">
+                        <img src="../../img/redhome_kor.jpg" style="width: 100px;">
+                    </a>
+                </div>
+                <nav class="layout-navigation-primary__menu" style="display:block">
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/store">
+                        스토어
+                    </a>
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/board">
+                        공지사항
+                    </a>
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/board"
+                       th:unless="${SessionUser}==null" th:text="|로그인: ${SessionUser.accountId}|">
+                        사용자
+                    </a>
+                </nav>
+                <div class="drop-down layout-navigation-bar-upload-button">
+                    <form th:unless="${SessionUser}==null" th:action="@{/logout}" method="post">
+                        <button class="layout-navigation-bar-upload-button__button" type="submit" th:method="post"
+                                th:action="@{/logout}">
+                            로그아웃
+                        </button>
+                    </form>
+                    <a th:if="${SessionUser}==null" class="layout-navigation-bar-upload-button__button" type="button"
+                       th:href="@{/login}" th:text="로그인">
+                    </a>
+                </div>
+
+                <div class="layout-navigation-primary__right">
+                    <div class="layout-navigation-bar-search">
+                        <div class="layout-navigation-search">
+                            <div class="layout-navigation-search__header">
+                                <div class="layout-navigation-search__combobox">
+                                    <div class="layout-navigation-search__input">
+                                        <img src="../../img/ohsu_2.PNG"
+                                             style="position:absolute; padding-top:6px; padding-left:6px;">
+                                        <input type="text" class="layout-navigation-search__input__text"
+                                               placeholder="레드홈 통합검색">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile" title="스크랩북"
+                       aria-label="스크랩북" href="/users/13093528/collections">
+                        <svg class="icon" width="24" height="24" stroke="currentColor" viewBox="0 0 24 24"
+                             preserveAspectRatio="xMidYMid meet">
+                            <path fill="none" stroke-width="2"
+                                  d="M3 20.967zm0 0V2.5a.5.5 0 01.5-.5h17a.5.5 0 01.5.5v18.467l-8.057-4.309a2 2 0 00-1.886 0L3 20.968z"></path>
+                        </svg>
+                    </a>
+                    <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile" title="알림"
+                       aria-label="알림" href="/notifications/feed">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             preserveAspectRatio="xMidYMid meet">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M10.04 4.19C10.16 3.16 10.6 2 12.05 2c1.35 0 1.78 1.11 1.9 2.13C21.05 5.25 21 13.43 21 19H3c0-5.48-.05-13.48 7.04-14.81zM10 19c0 1.66.9 3 2 3s2-1.34 2-3"></path>
+                        </svg>
+                    </a>
+                    <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"
+                             stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet">
+                            <path stroke-linecap="round"
+                                  d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z"></path>
+                            <path d="M1 2h3v3"></path>
+                        </svg>
+                        <span class="layout-navigation-bar-icon__ticker">3</span></a>
+                    <div class="drop-down layout-navigation-bar-user-section">
+                        <button class="layout-navigation-bar-user-button" type="button" aria-label="KSB2010"
+                                onclick="myOn()" ondblclick="myOut()">
+                            <div class="layout-navigation-bar-user-button__image">
+                                <img class="image"
+                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=36&amp;h=36&amp;c=c"
+                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
+                                <div class="dropdown-content">
+                                    <p>Hello World!</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="drop-down layout-navigation-bar-upload-button">
+                        <button class="layout-navigation-bar-upload-button__button">
+                            글쓰기
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-navigation-secondary-wrap">
+        <div class="layout-navigation-secondary" style="position:relative">
+            <div class="layout-navigation-secondary__content">
+                <nav class="layout-navigation-secondary__menu">
+                    <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active noDeco"
+                       href="#">
+                        전체
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        영화관
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        카페
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        도서관
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        PC방
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        헬스장
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        노래방
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="#">
+                        오피스
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<div>
+    <div id="popup" class="popout popout--prepared popout--axis-1 popout--dir-0 popout--cross-dir-2" data-popout="true"
+         style="position: absolute; z-index: 1000; right: 230px; bottom: 380px; display: none;">
+        <div class="animated-popout drop-down__content layout-navigation-bar-user-section__content open open-active">
+            <ul class="layout-navigation-bar-user-menu">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" href="/mypage">마이페이지</a>
+                </li>
+                </li>
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" href="/user_shopping_pages/order_list">나의 쇼핑</a>
+                </li>
+                </li>
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" href="/competitions/feed">이벤트</a>
+                </li>
+                </li>
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item"
+                       href="https://pro.ohou.se/?utm_source=ohouse&amp;utm_medium=web&amp;utm_campaign=prosignup&amp;utm_content=myhome">전문가
+                        신청</a>
+                </li>
+                </li>
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" href="/partner/applications/new">판매자 신청</a>
+                </li>
+                </li>
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <button class="layout-navigation-bar-user-menu__item" type="button" onclick="logOut()">로그아웃</button>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="slider-wrap">
+    <ul id="slider">
+        <li>
+            <img src="../../img/banner/banner_img1.webp?">
+        </li>
+
+        <li>
+            <img src="../../img/banner/banner_img2.webp?">
+        </li>
+
+        <li>
+            <img src="../../img/banner/banner_img3.webp?">
+        </li>
+
+        <li>
+            <img src="../../img/banner/banner_img4.webp?">
+        </li>
+
+        <li>
+            <img src="../../img/banner/banner_img5.webp?">
+        </li>
+
+        <li>
+            <img src="../../img/banner/banner_img6.webp?">
+        </li>
+    </ul>
+
+    <div class="slider-btns" id="next"><span>▶</span></div>
+    <div class="slider-btns" id="previous"><span>◀</span></div>
+
+    <div id="slider-pagination-wrap">
+        <ul>
+        </ul>
+    </div>
+</div>
+
+<!-- 페이지 하단 -->
+<footer class="layout-footer">
+    <div class="layout-footer__content">
+        <div class="layout-footer__top">
+            <address class="layout-footer__cs">
+                <div class="layout-footer__cs__row">
+                    <a class="layout-footer__cs__link" href="#">
+                        고객센터
+                    </a>
+                </div>
+                <div class="layout-footer__cs__row">
+                    <a class="layout-footer__cs__tel" href="#">1670-1234</a>
+                </div>
+                <span class="layout-footer__cs__time">평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</span>
+            </address>
+            <div class="layout-footer__outbound">
+                <a class="layout-footer__outbound__item" href="#" title="앱스토어">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill-rule="evenodd"
+                              d="M22.34 15.57a5.6 5.6 0 0 0 3.42 5.15c-.02.1-.53 1.84-1.78 3.62-1.05 1.57-2.15 3.1-3.9 3.13-1.69.04-2.26-1-4.2-1-1.96 0-2.57.97-4.2 1.04-1.65.06-2.92-1.67-4-3.23-2.18-3.17-3.87-8.93-1.6-12.85a6.23 6.23 0 0 1 5.24-3.2c1.66-.03 3.2 1.12 4.22 1.12 1 0 2.91-1.38 4.88-1.17.82.02 3.17.32 4.68 2.52-.13.08-2.8 1.64-2.76 4.87zm-3.2-9.48a4.8 4.8 0 0 1-3.8 1.8c-.18-1.46.54-3 1.34-3.95A5.81 5.81 0 0 1 20.44 2c.17 1.5-.43 3-1.3 4.09z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="플레이스토어">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill-rule="evenodd"
+                              d="M4.22 26.95A2.35 2.35 0 0 1 4 25.9V3.8c0-.42.08-.77.22-1.05l12.1 12.1-12.1 12.1zm.74.68l12.07-12.07 3.7 3.7-14.2 8.1c-.6.34-1.14.42-1.57.27zm15.78-17.2l-3.71 3.71L4.96 2.07c.14-.04.3-.07.45-.07.34 0 .72.1 1.12.34l14.2 8.1zm.9.52l4.32 2.46c1.39.8 1.39 2.09 0 2.88l-4.32 2.46-3.9-3.9 3.9-3.9z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="카카오스토리">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M19.02 6h-8.04a.96.96 0 0 0-.98.93v8.16c0 .51.44.93.98.93h3.7c-.02.9-.4 1.9-.99 2.77a10.3 10.3 0 0 1-2 2.06l-.03.03c-.11.1-.2.22-.2.38 0 .12.07.21.14.31l.02.02 2.57 2.76s.13.12.23.15c.12.02.25.03.34-.04A12.25 12.25 0 0 0 20 14.79V6.93a.96.96 0 0 0-.98-.93"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="페이스북">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M16.67 26V15H20v-3.38h-3.33V9.07c-.02-.76.08-1.29 1.66-1.7H20V4h-3.33c-3.2 0-4.46 1.84-4.17 5.08v2.53H10V15h2.5v11h4.17z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="인스타그램">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M15 3c3.26 0 3.67.02 4.95.08 1.27.05 2.14.26 2.9.55a5.88 5.88 0 0 1 2.13 1.39 5.88 5.88 0 0 1 1.39 2.12c.3.77.5 1.64.55 2.91.06 1.28.08 1.7.08 4.95s-.02 3.67-.08 4.95a8.78 8.78 0 0 1-.55 2.9 5.88 5.88 0 0 1-1.39 2.13 5.88 5.88 0 0 1-2.12 1.39c-.77.3-1.64.5-2.91.55-1.28.06-1.7.08-4.95.08s-3.67-.02-4.95-.08a8.78 8.78 0 0 1-2.9-.55 5.88 5.88 0 0 1-2.13-1.39 5.88 5.88 0 0 1-1.39-2.12c-.3-.77-.5-1.64-.55-2.91C3.02 18.67 3 18.25 3 15s.02-3.67.08-4.95c.05-1.27.26-2.15.55-2.9a5.88 5.88 0 0 1 1.39-2.13 5.88 5.88 0 0 1 2.12-1.39c.76-.3 1.64-.5 2.91-.55C11.33 3.02 11.75 3 15 3zm0 2.17c-3.2 0-3.58 0-4.85.07-1.17.05-1.8.24-2.22.4-.56.23-.96.49-1.38.9a3.7 3.7 0 0 0-.9 1.39 6.64 6.64 0 0 0-.41 2.22A82.92 82.92 0 0 0 5.17 15c0 3.2 0 3.58.07 4.85.05 1.17.24 1.8.4 2.22.23.56.49.96.9 1.38.43.42.83.68 1.39.9.42.17 1.05.36 2.22.41 1.27.06 1.65.07 4.85.07 3.2 0 3.58 0 4.85-.07a6.67 6.67 0 0 0 2.23-.4c.56-.23.96-.49 1.38-.9.42-.43.68-.83.9-1.39.16-.42.35-1.05.4-2.22.06-1.27.07-1.65.07-4.85 0-3.2 0-3.58-.06-4.85a6.66 6.66 0 0 0-.42-2.23 3.72 3.72 0 0 0-.9-1.38 3.7 3.7 0 0 0-1.37-.9 6.64 6.64 0 0 0-2.23-.4A82.92 82.92 0 0 0 15 5.15zm0 3.67a6.16 6.16 0 1 1 0 12.32 6.16 6.16 0 0 1 0-12.32zM15 19a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="네이버 포스트">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30" preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M8.5 5h13v13h-13V5zm7.45 4v2.52L14.05 9H12v5h2.05v-2.52l1.9 2.52H18V9h-2.05zm3.11 13h-8.12L8.5 19h13l-2.44 3zm-.81 1L15 27l-3.25-4h6.5z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <ul class="layout-footer__shortcut">
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/brand-story"
+                   target="_blank">브랜드 스토리</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/"
+                   target="_blank">회사소개</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/recruit"
+                   target="_blank">채용정보</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/usepolicy" target="_blank">이용약관</a></li>
+            <li><a class="layout-footer__shortcut__item layout-footer__shortcut__item--bold" rel="noopener"
+                   href="/privacy" target="_blank">개인정보처리방침</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_notices"
+                   target="_blank">공지사항</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_center" target="_blank">고객센터</a>
+            </li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new" target="_blank">고객의 소리</a>
+            </li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener"
+                   href="https://pro.ohou.se/?utm_source=ohouse&amp;utm_medium=web&amp;utm_campaign=prosignup&amp;utm_content=footer"
+                   target="_blank">전문가 등록</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/b2b" target="_blank">사업자
+                구매회원</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new?type=request"
+                   target="_blank">제휴/광고 문의</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/partner/applications/new"
+                   target="_blank">입점신청 문의</a></li>
+        </ul>
+        <address class="layout-footer__info-wrap">
+            <dl class="layout-footer__info">
+                <a class="layout-footer__info__item" href="#">
+                    <dt>
+                        상호명
+                    </dt>
+                    <dd>(주)바쿄진컴퍼니</dd>
+                </a>
+                <span class="layout-footer__info__item">
+							<dt>
+								이메일
+							</dt>
+							<dd>(고객문의)<a href="mailto:cs@redhome.net"> cs@redhome.net </a>(제휴문의)<a
+                                    href="mailto:contact@redhome.net"> contact@bucketplace.net</a></dd>
+						</span>
+                <span class="layout-footer__info__item">
+							<dt>대표이사</dt>
+							<dd>바쿄진</dd>
+						</span>
+                <span class="layout-footer__info__item">
+							<dt>사업자등록번호</dt>
+							<dd>119-86-123456</dd>
+						</span>
+                <span class="layout-footer__info__item">
+							<dt>통신판매업신고번호</dt>
+							<dd>제2021-서울서초-0580호</dd>
+						</span>
+                <span class="layout-footer__info__item">
+							<dt>주소</dt>
+							<dd>서울특별시 강남구 테헤란로 132 한독약품빌딩 8층</dd>
+						</span>
+            </dl>
+            <dl class="layout-footer__info">
+						<span class="layout-footer__info__item">
+							<dt>우리은행 채무지급보증안내</dt>
+							<dd>(주)바쿄진컴퍼니는 고객님이 현금결제한&nbsp; 금액에 대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.&nbsp;<a
+                                    class="layout-footer__info__item__link"
+                                    href="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161646429944190689.jpg?gif=1&amp;w=1440"
+                                    target="_blank" rel="noopener noreferrer">서비스가입사실 확인</a></dd>
+						</span>
+            </dl>
+            <span class="layout-footer__info">
+						<span class="layout-footer__info__item">(주)바쿄진하우스는 통신판매중개자로서 통신판매의 당사자가 아니며, 입점업체가 등록한 상품, 상품정보 및 거래에 대하여 (주)윤하우스는 일체 책임을 지지 않습니다.</span>
+					</span>
+        </address>
+        <p class="layout-footer__copyright">Copyright 2021. redhome, Co., Ltd. All rights reserved</p>
+    </div>
+</footer>
+</body>
+</html>
