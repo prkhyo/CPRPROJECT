@@ -41,7 +41,7 @@ function showUploadImages(arr) {
 
     for (let i = 0; i < arr.length; i++) {
         str += "<div class='thumnailBox'>";
-        str += "<img class='imageLocation' src='/display?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<img class='imageLocation' src='/displayImage?fileName=" + arr[i].thumbnailURL + "'>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'><i class=\"fas fa-times\"></i></button>"
         str += "</div>";
     }
