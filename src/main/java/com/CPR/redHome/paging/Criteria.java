@@ -2,6 +2,7 @@ package com.CPR.redHome.paging;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.util.UriComponents;
@@ -10,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Criteria {
 
     //현재 페이지 번호
@@ -22,16 +24,13 @@ public class Criteria {
     private int pageSize;
 
     //검색 키워드
-    private String searchKeyword;  //search_title,search_contents, search_id
+    private String searchKeyword;
 
     //검색 유형
-    private String searchType;
+    private String searchType;   //search_communityTitle,  search_communityContents,  search_memberId
 
-    public Criteria() {
-        this.currentPageNo = 1;
-        this.recordsPerPage = 2;
-        this.pageSize = 10;
-    }
+
+
 
 
 

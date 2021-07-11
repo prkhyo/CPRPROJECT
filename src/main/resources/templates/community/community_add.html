@@ -1,10 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/community/community_add.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+
+
+        document.addEventListener("DOMContentLoaded", function(){
+
+
+            var fileTarget = document.getElementById("filebox");
+            fileTarget.onchange= function (){
+
+                //input file 태그.
+                var file = document.getElementById('input-file');
+                //파일 경로.
+                var filePath = file.value;
+                //전체경로를 \ 나눔.
+                var filePathSplit = filePath.split('\\');
+                //전체경로를 \로 나눈 길이.
+                var filePathLength = filePathSplit.length;
+                //마지막 경로를 .으로 나눔.
+                var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+                //파일명 : .으로 나눈 앞부분
+                var fileName = fileNameSplit[0];
+                //파일 확장자 : .으로 나눈 뒷부분
+                var fileExt = fileNameSplit[1];
+                //파일 크기
+                var fileSize = file.files[0].size;
+
+                document.getElementById("communityImg").value=fileName+'.'+fileExt;
+
+
+            };
+
+        });
+
+
+
+
+    </script>
+
 </head>
 <body>
+
+
+<header id="simplified-gnb" class="simplified-gnb">
+    <div class="container simplified-gnb__container">
+        <a class="simplified-gnb__logo" href="/top"> <span
+                class="icon icon-etc-brand-icon-n-bi-md" aria-hidden="true"></span>
+        </a>
+    </div>
+</header>
+
+
+<main role="main">
+    <div class="question-form container">
+        <form id="question-form" name="communityInsertForm" class="new_question" action="/community/communityInsert"
+              accept-charset="UTF-8" method="post" enctype="multipart/form-data" onsubmit="communityInsertSubmit(this); return false;">
+            <input name="utf8" type="hidden" value="✓">
+            <input type="hidden" name="authenticity_token"
+                   value="h5kq955vmS3REp8nbOs0Dnt+o1h/n3oj7Tw+U2I/B/hki35l2kEeTosUIYLQVLJ3bCzM7S8RK04XoD0y6nU8wQ==">
+
+            <header class="question-form__header">
+                <h2 class="question-form__header__heading text-black bold">질문하기</h2>
+                <div class="question-form__cs" style="font-family: inherit">
+                    상품구매, 배송 관련 문의가 필요하시다면 <a class="question-form__cs__link"
+                                              href="/board">문의하러 가기</a>
+                </div>
+                <div class="question-form__header__title form-group">
+                    <input placeholder="제목을 적어주세요." class="form-control" maxlength="61"
+                           size="1" type="text" name="communityTitle" id="communityTitle" onblur="title_InsertCheck()"/>
+                    <p class="error" id="title_error" style="display: none; margin-top: 5px;" >제목을 7자 이상으로 적어주세요.</p>
+                </div>
+            </header>
+
+            <section class="question-form__body">
+                <div class="question-form__body__content form-group">
+                    <div class="question-form__body__content__wrap">
+                        <textarea class="question-form__body__content__input" name="communityContents" id="communityContents" rows="10" cols="50" placeholder="내용을 적어주세요.
+참고가 되는 사진을 같이 공유해주시면 더 좋은 답변을 얻을 수 있습니다.
+            " onblur="Content_InsertCheck()"></textarea>
+                    </div>
+                    <p class="error" id="content_error" style="display: none; margin-top: 5px;">궁금한 내용을 텍스트로 적어주세요.</p>
+                </div>
+            </section>
+            <section id="question-form__floating" class="floating-bar static sticky-bottom">
+                <div class="floating-bar__content sticky-content question-form__floating">
+                    <div class="filebox preview-image" id="filebox">
+                        <input class="upload-name" id="communityImg"   value="파일선택" disabled="disabled" >
+                        <label for="input-file">업로드</label>
+                        <input  type="file" id="input-file" name="communityImg" class="upload-hidden" >
+                        <button id="annulationBtn" type="button" onclick="uploadAnnulation()">취소</button>
+                    </div>
+
+                    <button class="question-form__floating__save-btn btn btn-light" >
+                        질문 저장하기
+                    </button>
+                </div>
+            </section>
+        </form>
+    </div>
+
+
+
+</main>
+
+
+
+
+<script>
+
+    function uploadAnnulation(){
+        alert('취소!');
+        document.getElementById("input-file").value='';
+        document.getElementById("communityImg").value='파일선택';
+    }
+
+
+    function communityInsertSubmit(form){
+        let community_Title_value = form.communityTitle.value.trim();
+        let community_Content_value = form.communityContents.value.trim();
+        if(community_Title_value == null || community_Title_value == ''){
+            alert('제목을 입력해주세요.');
+            return false;
+
+        }else if(community_Content_value == null || community_Content_value == ''){
+            alert('내용을 입력해주세요.');
+            return false;
+        }
+        alert('제출 !!.');
+        form.submit();
+    }
+
+
+   function title_InsertCheck(){
+       let community_Title_value = document.communityInsertForm.communityTitle.value.trim();
+       let community_Title = document.getElementById("communityTitle");
+
+       if(community_Title_value.length < 7){
+           let title_error =  document.getElementById("title_error");
+           title_error.style.display='block';
+           community_Title.style.border ='solid 1px #ed4a4a';
+           community_Title.value ='';
+           return;
+
+       }else{
+           title_error.style.display='none';
+           community_Title.style.border ='solid 1px #dbdbdb';
+       }
+
+   }
+
+
+   function Content_InsertCheck(){
+       let community_Content_value = document.communityInsertForm.communityContents.value.trim();
+       let community_Content = document.getElementById("communityContents");
+
+       if(community_Content_value == null || community_Content_value == ''){
+           let content_error =  document.getElementById("content_error");
+           content_error.style.display='block';
+           community_Content.style.border ='solid 1px #ed4a4a';
+           community_Content.value ='';
+
+           return;
+
+       }else{
+           content_error.style.display='none';
+           community_Content.style.border ='solid 1px #dbdbdb';
+       }
+   }
+
+</script>
+
 
 </body>
 </html>

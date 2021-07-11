@@ -12,12 +12,22 @@ import java.time.LocalDateTime;
 @Alias("CommentsDto")
 public class CommentsDto {
 
-    private Long commentId; //auto
+    private Long commentId;
 
     private Long communityId;
 
     private String commentContents;
 
     private LocalDateTime commentCreatedDate;
+
+    private Long memberId;
+
+
+
+    //comment insert 성공 유무
+    private boolean success;
+    
+    //comment list 불러올 때 사용
+    private int commentCurrentPage;
 
 }
