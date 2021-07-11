@@ -21,7 +21,7 @@
         }
 
     </script>
-    link href="../../css/store.css?" rel="stylesheet">
+    <link href="../../css/store.css?" rel="stylesheet">
     <link rel="stylesheet" href="../../css/selectbox.min.css?">
     <script src="../../js/selectbox.min.js?"></script>
     <script type="text/javascript"
@@ -397,138 +397,7 @@
         </ul>
     </div>
 </div>
-<!--상품 섹션-->
-<!--<include page="top.jsp" flush="false" />
-<include page="banner.jsp" flush="false" />
-<div class="store">
-    <div class="today_sale">
-        <label class="today_sale_label">오늘의 딜</label>
-    </div>
-    <div class="store_items">
-        <forEach var="s" items="${productSaleList}" varStatus="status">
-            <if test="${status.index%4 == 0 }">
-                <div class="store_items">
-            <if>
-            <div class="store_item">
-                <div class="store_item_img">
-                    <a href="/storeInfo?p_num=${s.product_num}">
-                        <div class="store_item_imgScale">
-                            <img alt="" src="../../img/productImg/${s.product_img}">
-                        </div>
-                    </a>
-                </div>
-                <div class="store_item_header">
-                    <h1>
-                        <span class="store_item_header_name">${s.product_name}</span>
-                    </h1>
-                    <h1>
-                        <span class="store_item_header_sale">${s.sale_rate}%</span>
-                        <span class="store_item_header_priceline"><del>${priceList[status.index]}</del></span>
-                        <span class="store_item_header_price">${salePriceList[status.index]}</span>
-                    </h1>
-                </div>
-            </div>
-            <if test="${status.index%4 == 3 }">
-    </div>
-    <if>
-    <forEach>
-</div>
-</div>
 
-<br>
-<br>
-<br>
-
-<div class="store_option">
-    <form action="/store" name="freeDel_frm">
-        <div class="store_option_free">
-            <label class="switch"> <input type="checkbox"> <span
-                    class="slider round"></span>
-            </label>
-            <p>배송</p>
-            <p style="display: none;">무료배송</p>
-        </div>
-    </form>
-    <form action="/store" name="select_frm" method="get" onchange="javascript:selectSort();">
-        <input type="hidden" id="c_num" name="c_num" value="${c_num}">
-        <input type="hidden" id="p_name" name="p_name" value="${p_name}">
-        <div class="store_option_select">
-            <select name="storeOrder" id="storeOrder" class="justselect">
-                <option value="sort" selected disabled hidden>
-                    <choose>
-                        <when test="${sort == 'best'}">
-                            인기순
-                        </when>
-                        <when test="${sort == 'new'}">
-                            최신순
-                        </when>
-                        <when test="${sort == 'high'}">
-                            높은가격순
-                        </when>
-                        <when test="${sort == 'low'}">
-                            낮은가격순
-                        </when>
-                        otherwise>
-                            최신순
-                        <otherwise>
-                    </choose>
-                </option>
-
-                <option value="best">인기순</option>
-                <option value="new">최신순</option>
-                <option value="high">높은가격순</option>
-                <option value="low">낮은가격순</option>
-            </select>
-        </div>
-    </form>
-</div>
-
-
-<forEach var="p" items="${productList}" varStatus="status">
-    <if test="${status.index%4 == 0 }">
-        <div class="store_items">
-    </if>
-    <div class="store_item">
-        <div class="store_item_img">
-            <a href="/storeInfo?p_num=${p.product_num}">
-                <div class="store_item_imgScale">
-                    <img alt="" src="../../img/productImg/${p.product_img}">
-                </div>
-            </a>
-        </div>
-        <div class="store_item_header">
-            <%&#45;&#45;   &#45;&#45;%>
-            <h1>
-                <span class="store_item_header_name">${p.product_num}</span>
-            </h1>
-            <h1>
-                <span class="store_item_header_name">${p.product_name}</span>
-            </h1>
-            <h1>
-                <span class="store_item_header_price">${CatePriceList[status.index]}</span>
-            </h1>
-            <h1>
-                <span class="store_item_header_scope">${reviewGradeList[status.index]}</span>
-                <span class="store_item_header_reviewCnt">리뷰 ${reviewCntList[status.index]}</span>
-            </h1>
-        </div>
-    </div>
-    <if test="${status.index%4 == 3 }">
-        </div>
-    </if>
-    <if test="${status.index == functions:length(productList)-1 and status.index%4 != 3 }">
-        </div>
-    <if>
-<forEach>
-
-<include page="bottom.jsp" flush="false" />
-
-<script type="text/javascript">
-    var check = $("input[type='checkbox']");
-    check.click(function() {
-        $("p").toggle();
-    });
-</script>-->
 <!-- 페이지 하단 -->
 <footer class="layout-footer">
     <div class="layout-footer__content">
@@ -651,7 +520,7 @@
 						</span>
             </dl>
             <span class="layout-footer__info">
-						<span class="layout-footer__info__item">(주)윤하우스는 통신판매중개자로서 통신판매의 당사자가 아니며, 입점업체가 등록한 상품, 상품정보 및 거래에 대하여 (주)윤하우스는 일체 책임을 지지 않습니다.</span>
+						<span class="layout-footer__info__item">(주)바쿄진하우스는 통신판매중개자로서 통신판매의 당사자가 아니며, 입점업체가 등록한 상품, 상품정보 및 거래에 대하여 (주)윤하우스는 일체 책임을 지지 않습니다.</span>
 					</span>
         </address>
         <p class="layout-footer__copyright">Copyright 2021. redhome, Co., Ltd. All rights reserved</p>

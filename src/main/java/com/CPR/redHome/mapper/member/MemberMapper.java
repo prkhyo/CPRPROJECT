@@ -16,7 +16,6 @@ public interface MemberMapper {
     //회원 정보 가져오기(memberId)
     MemberDto selectMemberByMemberId(Long memberId);
 
-
     //회원가입(멤버 등록)
     void joinMember(MemberDto memberDto);
 

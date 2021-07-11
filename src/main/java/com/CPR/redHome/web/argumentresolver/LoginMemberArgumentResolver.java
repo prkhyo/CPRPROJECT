@@ -22,7 +22,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
         boolean hasMemberDtoType = MemberDto.class.isAssignableFrom(parameter.getParameterType());
 
-        //true면 실행 false 면 실행 X
+        //true 실행 false 면 실행 X
         return hasLoginAnnotation && hasMemberDtoType;
     }
 
