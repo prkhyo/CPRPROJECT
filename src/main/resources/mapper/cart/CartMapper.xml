@@ -9,6 +9,7 @@
 
         select m.member_id               as memberId
              , m2.name                   as name
+             , img.product_thumbnail     as thumbnailUrl
              , p.product_price           as price
              , c.product_quantity        as quantity
              , p.product_title           as title
@@ -20,6 +21,7 @@
                  join member m on c.member_id = m.member_id
                  join product p on c.product_id = p.product_id
                  join member m2 on p.member_id = m2.member_id
+                 join product_image img on p.product_id = img.product_id
         where c.member_id = #{memberId}
 
 
@@ -43,6 +45,7 @@
 
         c.shopping_cart_id as cartId ,
         c.member_id as memberId,
+        img.product_thumbnail as thumbnailUrl,
         m.account_id as accountId,
         p.product_title as title,
         m.grade_id as gradeId,
@@ -61,6 +64,7 @@
         join grade g on m.grade_id = g.grade_id
         join product p on c.product_id = p.product_id
         join member m2 on p.member_id = m2.member_id
+        join product_image img on p.product_id = img.product_id
 
 
         where shopping_cart_id IN
@@ -89,7 +93,7 @@
 
         <foreach collection="list" item="item" separator=",">
             (
-            #{item.orderId},
+            #{item.orderNo},
             #{item.memberId},
             #{item.productId},
             #{item.receiver},
