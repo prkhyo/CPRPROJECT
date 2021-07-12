@@ -17,9 +17,9 @@ import java.util.List;
 public interface CommunityService {
 
 
-    int countAllCommunities(String reply, String searchType, String searchKeyword);
+    int countAllCommunities(String reply, Criteria criteria);
 
-    List<CommunityViewDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex, String searchType, String searchKeyword);
+    List<CommunityViewDto> getCommunityList(String reply, String orderType, int firstRecordIndex, Criteria criteria);
 
     CommunityViewDto selectCommunity(Long communityId);
 

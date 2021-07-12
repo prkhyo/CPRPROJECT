@@ -4,15 +4,15 @@
 
 
     <sql id ="search" >
-        <if test="searchType == 'search_communityTitle'">
-            community_title like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_communityTitle'">
+            community_title like CONCAT('%',#{criteria.searchKeyword},'%')
 
         </if>
-        <if test="searchType == 'search_communityContents'">
-            community_contents like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_communityContents'">
+            community_contents like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_memberId'">
-            member_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_memberId'">
+            member_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
@@ -23,11 +23,11 @@
       select count(*)
       from community
       <where>
-        <if test="searchType != null">
+        <if test="criteria.searchType != null">
          <include refid="search"></include>
          </if>
 
-         <if test="searchType != null  and reply =='not_yet'">and</if>
+         <if test="criteria.searchType != null  and reply =='not_yet'">and</if>
 
           <if test="reply == 'not_yet'">
              community_state = '답변대기'
@@ -64,11 +64,11 @@
         <where>
 
 
-            <if test="searchType != null">
+            <if test="criteria.searchType != null">
                 <include refid="search"></include>
             </if>
 
-            <if test="searchType != null and reply =='not_yet'">and</if>
+            <if test="criteria.searchType != null and reply =='not_yet'">and</if>
 
             <if test="reply == 'not_yet'">
                 community_state = '답변대기'
@@ -89,7 +89,7 @@
 
         <if test="orderType == 'newComment'">)a group by a.communityId </if>
 
-        limit #{firstRecordIndex}, #{recordsPerPage}
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
 
 
 

@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 @Alias("CommunityViewDto")
 public class CommunityViewDto {
 
-    private Long communityId; //auto
+    private Long communityId;
 
-    private String accountId; //
+    private String accountId;
 
     private String communityTitle;
 

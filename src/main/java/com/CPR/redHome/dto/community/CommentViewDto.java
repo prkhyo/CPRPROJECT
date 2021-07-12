@@ -23,7 +23,7 @@ public class CommentViewDto {
 
     private LocalDateTime commentCreatedDate;
 
-    private String accountId; //
+    private String accountId;
 
 
 

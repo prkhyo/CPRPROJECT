@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Alias("CommunityDto")
 public class CommunityDto   {
 
-    private Long communityId; //auto
+    private Long communityId;
 
     private Long memberId;
 

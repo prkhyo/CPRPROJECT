@@ -15,11 +15,11 @@ import java.util.List;
 public interface CommunityMapper {
 
     //총 커뮤니티 글 수 가져오기
-   int selectCommunityTotalCnt(@RequestParam String reply, @RequestParam String searchType, @RequestParam String searchKeyword);
+   int selectCommunityTotalCnt(@RequestParam String reply, @RequestParam Criteria criteria);
 
    //전체 커뮤니티 글 가져오기
-   List<CommunityViewDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex,
-                                          @RequestParam String searchType, @RequestParam String searchKeyword);
+   List<CommunityViewDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType,  @RequestParam int firstRecordIndex,
+                                          @RequestParam Criteria criteria);
 
    //특정 커뮤니티 글에 대한 총 코멘트 수 가져오기
     int selectCommentsCnt(Long communityId);

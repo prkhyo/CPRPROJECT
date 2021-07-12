@@ -31,15 +31,15 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     @Override
-    public int countAllCommunities(String reply, String searchType, String searchKeyword) {
-        int communityCnt = communityMapper.selectCommunityTotalCnt(reply, searchType, searchKeyword);
+    public int countAllCommunities(String reply, Criteria criteria) {
+        int communityCnt = communityMapper.selectCommunityTotalCnt(reply, criteria);
         return communityCnt;
     }
 
     @Override
-    public List<CommunityViewDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex, String searchType, String searchKeyword) {
+    public List<CommunityViewDto> getCommunityList(String reply, String orderType, int firstRecordIndex, Criteria criteria) {
 
-        List<CommunityViewDto> communityList = communityMapper.selectAllCommunities(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
+        List<CommunityViewDto> communityList = communityMapper.selectAllCommunities(reply, orderType, firstRecordIndex, criteria);
 
 
 

@@ -36,23 +36,18 @@ public class CommunityController {
     @GetMapping("/community/list")
     public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
                                     @RequestParam(defaultValue="1") int currentPageNo, @Login MemberDto memberDto) {
-       /* @ModelAttribute를 이용하면 파라미터로 전달받은 객체를 자동으로 뷰까지 전달*/
 
         List<CommunityViewDto> communityList = Collections.emptyList();
 
-        String searchType = criteria.getSearchType();
-        String searchKeyword = criteria.getSearchKeyword();
-
-        int communityTotalCnt = communityService.countAllCommunities(reply, searchType, searchKeyword);
+        int communityTotalCnt = communityService.countAllCommunities(reply, criteria);
 
         criteria.setCurrentPageNo(currentPageNo);
         Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
 
         int firstRecordIndex = pagination.getFirstRecordIndex();
-        int recordsPerPage = criteria.getRecordsPerPage();
 
       if(communityTotalCnt > 0){
-          communityList = communityService.getCommunityList(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
+          communityList = communityService.getCommunityList(reply, orderType, firstRecordIndex, criteria);
        }
 
         if(memberDto != null) {
@@ -183,7 +178,7 @@ public class CommunityController {
         CommunityDto communityDto = new CommunityDto();
         communityDto.setCommunityTitle(communityTitle);
         communityDto.setCommunityContents(communityContents);
-        communityDto.setMemberId(memberDto.getMemberId()); //현재 세션에 로그인 된 아이디로 변경할 예정
+        communityDto.setMemberId(memberDto.getMemberId());
 
 
         try {
