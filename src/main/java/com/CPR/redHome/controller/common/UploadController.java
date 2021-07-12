@@ -123,7 +123,7 @@ public class UploadController {
     }
 */
 
-
+// 이미지 출력
     @GetMapping("/displayImage")
     public ResponseEntity<byte[]> getFiles(String fileName) {
         ResponseEntity<byte[]> result = null;
