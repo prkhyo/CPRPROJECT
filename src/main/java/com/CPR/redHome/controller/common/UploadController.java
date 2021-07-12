@@ -3,9 +3,11 @@ package com.CPR.redHome.controller.common;
 import com.CPR.redHome.dto.common.ImageUploadDto;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -101,6 +104,9 @@ public class UploadController {
         return new ResponseEntity<>(registDtoList, HttpStatus.OK);
     }
 
+/*
+    // 암호화 된 이미지명 넣으면 이미지가 출력 됩니다 ^^
+
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName) {
         ResponseEntity<byte[]> result = null;
@@ -124,6 +130,31 @@ public class UploadController {
         }
         return result;
     }
+*/
+
+// 이미지 출력
+    @GetMapping("/displayImage")
+    public ResponseEntity<byte[]> getFiles(String fileName) {
+        ResponseEntity<byte[]> result = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        try {
+
+            String srcFileName = URLDecoder.decode(fileName, "UTF-8");
+            log.info("upload file Test 111:  " + srcFileName);
+
+            File file = new File(uploadPath + File.separator + srcFileName);
+            log.info("upload file Test 222 : " + file);
+
+            return new ResponseEntity<byte[]>(IOUtils.toByteArray(new FileInputStream(file))
+                    , headers, HttpStatus.CREATED);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
     // 폴더가 미존재 시 생성

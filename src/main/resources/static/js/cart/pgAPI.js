@@ -97,7 +97,7 @@ function dataSend() {
     for (let i = 0; i < unitPrice.length; i++) {
         let data = new Object();
 
-        data.orderId = orderId;
+        data.orderNo = orderId;
         data.address = add4;
         data.accountId = accountId;
         data.memberId = parseFloat(memberId);

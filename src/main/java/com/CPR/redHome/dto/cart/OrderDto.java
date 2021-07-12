@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderDto extends CartDto {
 
     // javscript ajax로 json데이터 전송 시 필요한 객체들 생성
-    private String orderId;
+    private String orderNo;
     private Long gradeId;
 
     // 해당 계정 정보

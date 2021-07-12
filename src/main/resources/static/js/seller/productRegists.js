@@ -85,7 +85,7 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
                     if (status === 0 || (status >= 200 && status < 400)) {
                         // The request has been completed successfully
                         console.log(httpRequest.responseText);
-                        // window.location.href = '/cart';
+                        window.location.href = '/cart';
                     } else {
                         // Oh no! There has been an error with the request!
                     }
