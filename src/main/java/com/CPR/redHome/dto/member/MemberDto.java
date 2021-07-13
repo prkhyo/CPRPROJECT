@@ -3,6 +3,7 @@ package com.CPR.redHome.dto.member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.Alias;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Alias("memberDto")
+@ToString
 public class MemberDto {
 
 
