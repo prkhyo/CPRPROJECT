@@ -104,7 +104,6 @@ public class UploadController {
         return new ResponseEntity<>(registDtoList, HttpStatus.OK);
     }
 
-/*
     // 암호화 된 이미지명 넣으면 이미지가 출력 됩니다 ^^
 
     @GetMapping("/display")
@@ -130,31 +129,6 @@ public class UploadController {
         }
         return result;
     }
-*/
-
-// 이미지 출력
-    @GetMapping("/displayImage")
-    public ResponseEntity<byte[]> getFiles(String fileName) {
-        ResponseEntity<byte[]> result = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-        try {
-
-            String srcFileName = URLDecoder.decode(fileName, "UTF-8");
-            log.info("upload file Test 111:  " + srcFileName);
-
-            File file = new File(uploadPath + File.separator + srcFileName);
-            log.info("upload file Test 222 : " + file);
-
-            return new ResponseEntity<byte[]>(IOUtils.toByteArray(new FileInputStream(file))
-                    , headers, HttpStatus.CREATED);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
 
 
     // 폴더가 미존재 시 생성

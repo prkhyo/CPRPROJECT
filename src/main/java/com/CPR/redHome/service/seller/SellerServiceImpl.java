@@ -16,13 +16,11 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public int registProducts(ProductRegistDto productRegistDto) {
 
-
         return sellerMapper.registProducts(productRegistDto);
     }
 
     @Override
     public int registImage(List<ProductRegistDto> productRegistDto) {
-
 
         return sellerMapper.registImage(productRegistDto);
     }

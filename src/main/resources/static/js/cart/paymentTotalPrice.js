@@ -77,13 +77,6 @@ function pointUse() {
 
         calculatePrice(finalPrice);
     } else {
-        console.log("havePoint = " + havePoint)
-        console.log("usedPoint1 = " + usedPoint1)
-        console.log("finalPrice = " + finalPrice)
-        console.log(usedPoint1 > finalPrice)
-        console.log(typeof(havePoint))
-        console.log(typeof(usedPoint1))
-        console.log(typeof(finalPrice))
 
         // 잔여 포인트 변경
         document.querySelectorAll('.havePoint')[0].outerText = (havePoint - usedPoint1).format();

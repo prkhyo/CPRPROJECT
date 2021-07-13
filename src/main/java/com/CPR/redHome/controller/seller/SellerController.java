@@ -1,7 +1,9 @@
 package com.CPR.redHome.controller.seller;
 
+import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
 import com.CPR.redHome.service.seller.SellerService;
+import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,9 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping("/product/regist")
-    public String registProduct(Model model) {
+    public String registProduct(@Login MemberDto memberDto, Model model) {
+
+        model.addAttribute("memberId", memberDto.getMemberId());
 
         return "seller/productRegistration";
     }
@@ -29,14 +33,15 @@ public class SellerController {
     @ResponseStatus(HttpStatus.OK)
     public void submitRegistProduct(@RequestBody List<ProductRegistDto> productRegistDto) {
 
-//        view단에서 json보내면 이렇게 list 방법으로 받을 수 있음!!
-
-        log.info("product regists dto check = " + productRegistDto);/*
-        log.info("product regists dto check = " + productRegistDto.get(0));
-        log.info("product regists dto check = " + productRegistDto.get(0).getImageUrl());*/
-
-        sellerService.registProducts(productRegistDto.get(0));
-        sellerService.registImage(productRegistDto);
+        // 제품 등록 시 이미지가 없으면 기본 내용만 등록 , else 이미지도 같이 저장
+        if (productRegistDto.get(0).getImageUrl() == null) {
+            log.info("no have any image");
+            sellerService.registProducts(productRegistDto.get(0));
+        }else{
+            log.info("have image");
+            sellerService.registProducts(productRegistDto.get(0));
+            sellerService.registImage(productRegistDto);
+        }
 
     }
 }

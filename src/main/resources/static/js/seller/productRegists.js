@@ -3,6 +3,7 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
 
         //상품 등록 목록 값 가져오기
         const category = document.getElementById('category');
+        const memberId = document.getElementById('memberId');
         const theme = document.getElementById('theme');
         const title = document.getElementById('title');
         const price = document.getElementById('price');
@@ -39,8 +40,8 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
 
             if (setImageURL.length == 0) {
                 let productRegistObject = new Object();
-                console.log("no have image");
 
+                productRegistObject.memberId = memberId.value;
                 productRegistObject.categoryNo = category.options[category.selectedIndex].value;
                 productRegistObject.themeNo = theme.options[theme.selectedIndex].value;
                 productRegistObject.title = title.value;
@@ -57,6 +58,7 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
 
                     productRegistObject.imageUrl = imageURLS[i].imageURL;
                     productRegistObject.thumbnailUrl = imageURLS[i].thumbnailURL;
+                    productRegistObject.memberId = memberId.value;
                     productRegistObject.categoryNo = category.options[category.selectedIndex].value;
                     productRegistObject.themeNo = theme.options[theme.selectedIndex].value;
                     productRegistObject.title = title.value;
@@ -71,7 +73,6 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
 
             //  배열 json 변경
             const data = JSON.stringify(registProductJson);
-            console.log("jsonData  = " + data);
 
             let httpRequest = new XMLHttpRequest();
             httpRequest.open("POST", "/product/regist", true);
@@ -84,8 +85,7 @@ let delBtn = document.getElementById('registBtn').addEventListener('click',
                     var status = httpRequest.status;
                     if (status === 0 || (status >= 200 && status < 400)) {
                         // The request has been completed successfully
-                        console.log(httpRequest.responseText);
-                        window.location.href = '/cart';
+                        window.location.href = '/';
                     } else {
                         // Oh no! There has been an error with the request!
                     }

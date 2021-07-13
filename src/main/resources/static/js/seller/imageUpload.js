@@ -5,7 +5,6 @@ $('.uploadBtn').click(function () {
     var files = inputFile[0].files;
 
     for (var i = 0; i < files.length; i++) {
-        console.log(files[i]);
         formData.append("uploadFiles", files[i]);
     }
 
@@ -32,7 +31,6 @@ let setImageURL = [];
 
 
 function showUploadImages(arr) {
-    console.log( arr);
     setImageURL = arr;
 
 
@@ -41,7 +39,7 @@ function showUploadImages(arr) {
 
     for (let i = 0; i < arr.length; i++) {
         str += "<div class='thumnailBox'>";
-        str += "<img class='imageLocation' src='/displayImage?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<img class='imageLocation' src='/display?fileName=" + arr[i].thumbnailURL + "'>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'><i class=\"fas fa-times\"></i></button>"
         str += "</div>";
     }
@@ -55,7 +53,6 @@ $(".uploadResult").on("click", ".removeBtn", function (e) {
 
     console.log(fileName);
     $.post('/removeFile', {fileName: fileName}, function (result) {
-        console.log(result);
         if (result === true) {
             targetDiv.remove();
         }

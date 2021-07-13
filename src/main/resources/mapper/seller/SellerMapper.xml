@@ -11,7 +11,7 @@
         product_theme_id)
         values
 
-            (1, #{title}, #{price}, #{deliveryCharge},
+            (#{memberId}, #{title}, #{price}, #{deliveryCharge},
             #{totalQuantity}, #{categoryNo}, #{themeNo})
 
     </insert>
@@ -23,7 +23,7 @@
         values
 
         <foreach collection="list" item="item" separator=",">
-            ((select product_id from product where member_id = 1 order by product_id desc limit 1 ),
+            ((select product_id from product where member_id = #{item.memberId} order by product_id desc limit 1 ),
                #{item.imageUrl}, #{item.thumbnailUrl})
         </foreach>
 

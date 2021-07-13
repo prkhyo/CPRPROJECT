@@ -126,7 +126,6 @@ function dataSend() {
 //  server로 값 전달
 function ajax(data) {
 
-    // console.log("data   " + data);
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.open("POST", "/cart/payments");
