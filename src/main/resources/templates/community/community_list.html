@@ -155,8 +155,7 @@
         </th:block>
 </section>
 
-      <input type="hidden" id="memberId" th:value="${memberId}">
-
+     <input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
 
 
 

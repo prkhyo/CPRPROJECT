@@ -162,9 +162,9 @@
                         <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
                         <input type="hidden" name="commentCurrentPage" id="commentCurrentPage" th:value="${commentCurrentPage}">
                         <input type="hidden" name="communityTitle" th:value="${community.communityTitle}">
-                        <input type="hidden"  id="memberId" th:value="${memberId}">
                         <input type="hidden"  id="communityAccountId" th:value="${community.accountId}">
-                        <input type="hidden"  id="accountId" th:value="${accountId}">
+                        <input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+                        <input type="hidden"  id="accountId" th:value="${member == null ? null : member.accountId}  "/>
                     </form>
 
 
@@ -252,6 +252,7 @@
 
     function loginCheck(){
         let memberId = document.getElementById("memberId").value;
+
         if(memberId == null || memberId == ''){
             alert('로그인 후 답변 작성이 가능합니다.');
             document.getElementById("commentContents").blur();

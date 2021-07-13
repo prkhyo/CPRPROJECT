@@ -50,13 +50,8 @@ public class CommunityController {
           communityList = communityService.getCommunityList(reply, orderType, firstRecordIndex, criteria);
        }
 
-        if(memberDto != null) {
-            model.addAttribute("memberId", memberDto.getMemberId());
-        }else{
-            model.addAttribute("memberId", null);
-        }
 
-
+        model.addAttribute("member", memberDto);
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
@@ -82,13 +77,7 @@ public class CommunityController {
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
-
-        if(memberDto != null) {
-            model.addAttribute("memberId", memberDto.getMemberId());
-            model.addAttribute("accountId", memberDto.getAccountId());
-        }else{
-            model.addAttribute("memberId", null);
-        }
+        model.addAttribute("member", memberDto);
 
 
 
