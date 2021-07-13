@@ -113,218 +113,211 @@
 <div class="layout">
 
 
-        <main class="_3z82S">
+    <main class="_3z82S">
 
-            <div class="p0PrG">
-                <header class="_3pPzh">주문/결제</header>
-                <section class="_3oseG">
-                    <div class="checkout-container _1cbjv">
-                        <div class="_3Pp8n">배송지</div>
-                        <div class="_1_5Vk"></div>
-                    </div>
-                    <div class="bbqwt">
-                        <div class="checkout-container _1abJt">
-                            <div class="BenKu">
-                                <div class="_10zXy">받는 사람</div>
-                                <div class="_3cYTk">
-                                    <input class="_3ASDR _1qwAY _2Zb2k receiver" name="recipient"
-                                           maxlength="10" value="">
-                                </div>
+        <div class="p0PrG">
+            <header class="_3pPzh">주문/결제</header>
+            <section class="_3oseG">
+                <div class="checkout-container _1cbjv">
+                    <div class="_3Pp8n">배송지</div>
+                    <div class="_1_5Vk"></div>
+                </div>
+                <div class="bbqwt">
+                    <div class="checkout-container _1abJt">
+                        <div class="BenKu">
+                            <div class="_10zXy">받는 사람</div>
+                            <div class="_3Bt8k">
+                                <input class="_3ASDR  receiver" name="recipient" maxlength="10" placeholder="받는 사람을 입력해 주세요">
                             </div>
-                            <div class="BenKu">
-                                <div class="_10zXy _2klPP">연락처</div>
-                                <div class="_3cYTk">
-                                    <div class="_2Z2K1">
-                                        <div class="UYZ4Z">
-                                            <input class="_3ASDR _1qwAY _2Zb2k phone"
-                                                   type="tel" placeholder="입력해주세요" size="1"
-                                                   maxlength="9" value="">
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="BenKu">
+                            <div class="_10zXy ">연락처</div>
+                            <div class="_3Bt8k">
+                                <input class="_3ASDR phone"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                       type="tel" placeholder="입력해주세요" size="1"
+                                       maxlength="9" value="">
                             </div>
-                            <div class="BenKu">
-                                <div class="_10zXy _2klPP">주소</div>
-                                <div class="_3cYTk Ap00Z">
-                                    <div class="_3Bt8k">
-                                        <div class="hs9EY UB4oG ">
+                        </div>
+                        <div class="BenKu">
+                            <div class="_10zXy ">주소</div>
+                            <div class="_3Bt8k ">
+                                    <div class="hs9EY UB4oG ">
+                                        <div>
                                             <button class="_1eWD8 _2wuTD _3VwZT _1h-CO" type="button"
-                                                    onclick="sample4_execDaumPostcode()" value="우편번호 찾기" >주소찾기
+                                                    onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
                                             </button>
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add1 "
-                                                   type="text"
-                                                   id="sample4_postcode" placeholder="우편번호" readonly>
                                         </div>
-                                        <div class="_3cYTk" style="margin-bottom: 10px">
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add2"
-                                                   type="text"
-                                                   id="sample4_roadAddress" placeholder="도로명주소" readonly>
+                                        <div class="_3Bt8k">
+                                            <input class="_3ASDR add1" type="text" id="sample4_postcode"
+                                                   placeholder="우편번호" readonly>
                                         </div>
-                                        <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add3 "
-                                                   type="hidden"
-                                                   id="sample4_jibunAddress" placeholder="지번주소" readonly>
-                                            <span id="guide" style="color:#999;display:none"></span>
-                                        </div>
-                                        <div class="_3cYTk">
-                                            <input class="_3ASDR _1qwAY _2Zb2k add4" type="text"
-                                                   id="sample4_detailAddress"
-
-                                                   placeholder="상세주소">
-                                        </div>
-
                                     </div>
-                                </div>
+                                    <div class="_3Bt8k" >
+                                        <input class="_3ASDR add2" type="text" id="sample4_roadAddress"
+                                               placeholder="도로명주소" readonly>
+                                    </div>
+                                    <div class="_3Bt8k">
+                                        <input class="_3ASDR  add3 " type="hidden" id="sample4_jibunAddress"
+                                               placeholder="지번주소" readonly>
+                                        <span id="guide" style="color:#999;display:none"></span>
+                                    </div>
+                                    <div class="_3Bt8k">
+                                        <input class="_3ASDR  add4" type="text" id="sample4_detailAddress"
+                                               placeholder="상세주소">
+                                    </div>
 
-                            </div>
-                            <div class="BenKu">
-                                <div class="_10zXy">요청사항</div>
-                                <div class="_3cYTk">
-                                    <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient"
-                                           placeholder="요청사항을 입력해 주세요"
-                                           maxlength="10" value="">
-                                </div>
                             </div>
 
                         </div>
-                        <!--                        <div class="_10zXy _2klPP">요청 사항</div>-->
-                        <!--                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">-->
-
-
-                        <!--                        </div>-->
-                    </div>
-                </section>
-
-                <section class="_3oseG">
-                    <div class="checkout-container _1cbjv">
-                        <div class="_3Pp8n">주문상품</div>
-                        <div class="_1_5Vk"></div>
-                    </div>
-                    <div class="bbqwt">
-                        <section class="checkout-container _1NTS-" th:each="data : ${orderDetail}">
-                            <input class="accountId" type="hidden" th:value="${data.accountId}">
-                            <input class="productId" type="hidden" th:value="${data.productId}">
-                            <input class="memberId" type="hidden" th:value="${data.memberId}">
-                            <input class="gradeId" type="hidden" th:value="${data.gradeId}">
-                            <input class="email" type="hidden" th:value="${data.email}">
-                            <input class="name" type="hidden" th:value="${data.name}">
-                            <input class="cartId" type="hidden" th:value="${data.cartId}">
-                            <div class="_3KPKx">
-                                <div class="_2uYBI">
-                                    <div class="XVdGS">
-                                        업체명 :
-                                        <div class="_3-gF9">[[${data.name}]]</div>
-                                        <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span>
-                                        </div>
-                                        원
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="_2CuPx">
-                                        <picture>
-                                            <img class='_1Z1hI' th:src="@{${'/displayImage?fileName=' + data.thumbnailUrl}}" >
-                                        </picture>
-
-                                        <div class="_5cZyM">
-
-                                            <div class="_1rZ6t"> [[${data.title}]]</div>
-
-                                            <div class="_3_Emc">
-                                                단가 : <span class="_2_p5n unitPrice"> [[${data.price}]]</span> 원
-                                                <div class="_2T03R"></div>
-                                                수량 : <span class="_1Dwy0 qty"> [[${data.quantity}]]</span>
-                                                <div class="_2T03R"></div>
-                                                총 금액 : <span
-                                                    class="_1Dwy0 totalPrice"> [[${data.price * data.quantity}]]</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </section>
-                    </div>
-                </section>
-
-                <section class="_3oseG">
-                    <div class="checkout-container _1cbjv">
-                        <div class="_3Pp8n">포인트</div>
-                        <div class="_1_5Vk Y6P6C">사용 가능한 포인트가 없습니다</div>
-                    </div>
-                    <div class="bbqwt">
-                        <div class="checkout-container _2UZdB">
-                            <div class="_2E4tc">
-                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel"
-                                       pattern="\d*"
-                                       th:value="0">
-                                <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
-                                </button>
-                            </div>
-                            <div class="_4hX3z">사용 가능 포인트
-                                <span class="_3HMkK havePoint">[[${point}]] </span> P
+                        <div class="BenKu">
+                            <div class="_10zXy">요청사항</div>
+                            <div class="_3Bt8k">
+                                <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient"
+                                       placeholder="요청사항을 입력해 주세요"
+                                       maxlength="10" value="">
                             </div>
                         </div>
+
                     </div>
-                </section>
+                </div>
+            </section>
 
-            </div>
+            <section class="_3oseG">
+                <div class="checkout-container _1cbjv">
+                    <div class="_3Pp8n">주문상품</div>
+                    <div class="_1_5Vk"></div>
+                </div>
+                <div class="bbqwt">
+                    <section class="checkout-container _1NTS-" th:each="data : ${orderDetail}">
+                        <input class="accountId" type="hidden" th:value="${data.accountId}">
+                        <input class="productId" type="hidden" th:value="${data.productId}">
+                        <input class="memberId" type="hidden" th:value="${data.memberId}">
+                        <input class="gradeId" type="hidden" th:value="${data.gradeId}">
+                        <input class="email" type="hidden" th:value="${data.email}">
+                        <input class="name" type="hidden" th:value="${data.name}">
+                        <input class="cartId" type="hidden" th:value="${data.cartId}">
+                        <div class="_3KPKx">
+                            <div class="_2uYBI">
+                                <div class="XVdGS">
+                                    업체명 :
+                                    <div class="_3-gF9">[[${data.name}]]</div>
+                                    <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span>
+                                    </div>
+                                    원
+                                </div>
+                            </div>
+                            <div>
+                                <div class="_2CuPx">
+                                    <picture>
+                                        <img class='_1Z1hI'
+                                             th:src="@{${'/displayImage?fileName=' + data.thumbnailUrl}}">
+                                    </picture>
 
-            <section class="_18aQ-">
-                <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81"
-                     class="sticky-container _17uZq" style="position: sticky; top: 81px;">
-                    <div class="sticky-child" style="position: relative;">
-                        <div class="_380vz">
-                            <div class="_1XSgE">
-                                <div class="_1BWlf">
-                                    <div class="_1yha3">결제금액</div>
-                                    <div class="_3CAac">
-                                        <div class="_2SFk1 ">총 상품 금액</div>
-                                        <div class="_3IGoe _3k3pP"><span class="productTotalSum">0</span>원</div>
-                                    </div>
-                                    <div class="_3CAac">
-                                        <div class="_2SFk1">배송비</div>
-                                        <div class="_3IGoe"><span class="number deliveryTotalCharge">0</span>원</div>
-                                    </div>
-                                    <div class="_3CAac">
-                                        <div class="_2SFk1">포인트 사용</div>
-                                        <div class="_3IGoe ">-<span class="totalPoint"></span>원</div>
-                                    </div>
-                                    <div class="_1Nffa">
-                                        <div class="_2CIyZ">최종 결제 금액</div>
-                                        <div class="_1TYIO">
-                                            <span class="kUAhq finalPrice"></span>&nbsp;원
-                                            <div class="_3bTpP">
-                                                <span class="_11DAx addPoint">22</span>P&nbsp;적립 예정
-                                            </div>
+                                    <div class="_5cZyM">
+
+                                        <div class="_1rZ6t"> [[${data.title}]]</div>
+
+                                        <div class="_3_Emc">
+                                            단가 : <span class="_2_p5n unitPrice"> [[${data.price}]]</span> 원
+                                            <div class="_2T03R"></div>
+                                            수량 : <span class="_1Dwy0 qty"> [[${data.quantity}]]</span>
+                                            <div class="_2T03R"></div>
+                                            총 금액 : <span
+                                                class="_1Dwy0 totalPrice"> [[${data.price * data.quantity}]]</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="_1WDOn">
-                                    <label  class="_2bgXR">
-
-                                        <input type="checkbox" style="margin:5px" name="selectCheck()" onclick='selectCheck()'>
-
-                                        <div class="_2Db2x">아래 내용에 모두 동의합니다. (필수)</div>
-                                    </label>
-                                    <div class="" style="overflow: hidden;"></div>
-                                    <button type="button" class="_3Jkwr">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관
-                                        <svg class="_2Ci3B" fill="none" viewBox="0 0 16 10"
-                                             preserveAspectRatio="xMidYMid meet">
-                                            <path d="M1.75.833L8 6.873l6.25-6.04L15.5 1.98 8 9.167.5 1.98 1.75.833z"></path>
-                                        </svg>
-                                    </button>
-                                    <div class="_1mEF0" style="overflow: hidden;"></div>
-                                    <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
-                                </div>
                             </div>
-<!--                                <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>-->
-                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">결제하기</button>
+                        </div>
+
+                    </section>
+                </div>
+            </section>
+
+            <section class="_3oseG">
+                <div class="checkout-container _1cbjv">
+                    <div class="_3Pp8n">포인트</div>
+                    <div class="_1_5Vk Y6P6C">사용 가능한 포인트가 없습니다</div>
+                </div>
+                <div class="bbqwt">
+                    <div class="checkout-container _2UZdB">
+                        <div class="_2E4tc">
+                            <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel"
+                                   pattern="\d*"
+                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                   placeholder="0">
+                            <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
+                            </button>
+                        </div>
+                        <div class="_4hX3z">사용 가능 포인트
+                            <span class="_3HMkK havePoint">[[${point}]] </span> P
                         </div>
                     </div>
                 </div>
             </section>
 
-        </main>
+        </div>
+
+        <section class="_18aQ-">
+            <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81"
+                 class="sticky-container _17uZq" style="position: sticky; top: 81px;">
+                <div class="sticky-child" style="position: relative;">
+                    <div class="_380vz">
+                        <div class="_1XSgE">
+                            <div class="_1BWlf">
+                                <div class="_1yha3">결제금액</div>
+                                <div class="_3CAac">
+                                    <div class="_2SFk1 ">총 상품 금액</div>
+                                    <div class="_3IGoe _3k3pP"><span class="productTotalSum">0</span>원</div>
+                                </div>
+                                <div class="_3CAac">
+                                    <div class="_2SFk1">배송비</div>
+                                    <div class="_3IGoe"><span class="number deliveryTotalCharge">0</span>원</div>
+                                </div>
+                                <div class="_3CAac">
+                                    <div class="_2SFk1">포인트 사용</div>
+                                    <div class="_3IGoe ">-<span class="totalPoint"></span>원</div>
+                                </div>
+                                <div class="_1Nffa">
+                                    <div class="_2CIyZ">최종 결제 금액</div>
+                                    <div class="_1TYIO">
+                                        <span class="kUAhq finalPrice"></span>&nbsp;원
+                                        <div class="_3bTpP">
+                                            <span class="_11DAx addPoint">22</span>P&nbsp;적립 예정
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="_1WDOn">
+                                <label class="_2bgXR">
+
+                                    <input type="checkbox" style="margin:5px" name="selectCheck()"
+                                           onclick='selectCheck()'>
+
+                                    <div class="_2Db2x">아래 내용에 모두 동의합니다. (필수)</div>
+                                </label>
+                                <div class="" style="overflow: hidden;"></div>
+                                <button type="button" class="_3Jkwr">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관
+                                    <svg class="_2Ci3B" fill="none" viewBox="0 0 16 10"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <path d="M1.75.833L8 6.873l6.25-6.04L15.5 1.98 8 9.167.5 1.98 1.75.833z"></path>
+                                    </svg>
+                                </button>
+                                <div class="_1mEF0" style="overflow: hidden;"></div>
+                                <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
+                            </div>
+                        </div>
+                        <!--                                <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>-->
+                        <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">
+                            결제하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
 </div>
 </body>

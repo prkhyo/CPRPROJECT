@@ -2,7 +2,9 @@ package com.CPR.redHome.controller.cart;
 
 import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.cart.OrderDto;
+import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.service.cart.CartService;
+import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -24,12 +26,12 @@ public class CartController {
 
 
     @GetMapping("/cart")
-    public String getCart(Long memberId, Model model) {
+    public String getCart(@Login MemberDto memberDto, Model model) {
 
-        // 임시 memberId
-        memberId = 1L;
+        log.info("memberID = " + memberDto.getMemberId());
+        log.info("memberID = " + memberDto.getMemberPassword());
 
-        model.addAttribute("carts", cartService.getCartList(memberId));
+        model.addAttribute("carts", cartService.getCartList(memberDto.getMemberId()));
 
         return "carts/cart";
     }
