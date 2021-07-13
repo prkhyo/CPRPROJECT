@@ -161,6 +161,7 @@ fieldset, img {
     display: block;
     margin: 0px 0% 30px 20%;
     width: auto;
+    max-width: 900px;
     height: auto;
 }
 
