@@ -26,7 +26,6 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-/*@RequestMapping("/community")*/
 public class CommunityController {
 
 
