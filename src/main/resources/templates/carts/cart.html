@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/cart/cart.css"/>
     <link rel="stylesheet" type="text/css" href="/css/cart/top2.css"/>
     <link rel="stylesheet" type="text/css" href="/css/cart/bottom.css"/>
+    <script src="../../static/js/cart/clickListener.js"></script>
 
 
 </head>
@@ -35,7 +36,7 @@
                             <div class="layout-navigation-search__header">
                                 <div class="layout-navigation-search__combobox">
                                     <div class="layout-navigation-search__input">
-                                        <form action="/store">
+                                        <form>
                                             <img src="/img/ohsu_2.PNG"
                                                  style="position:absolute; padding-top:6px; padding-left:6px;">
 
@@ -111,16 +112,15 @@
 
 <div class="layout">
     <div class="commerce-cart-wrap">
-
-        <div class="container">
-            <div class="commerce-cart row">
-                <div class="commerce-cart__content-wrap col-12 col-md-7 col-lg-8">
-                    <form  method="post"  th:action="@{/cart/delete}">
-                    <div class="commerce-cart__content">
-                        <div data-sticky-enabled="false" data-sticky-disabled="true" data-sticky-always="false"
-                             data-sticky-ignore="true" data-direction="top" data-offset="81"
-                             class="sticky-container commerce-cart__header-wrap" style="">
-                            <div class="sticky-child commerce-cart__header" style="position: relative">
+        <form method="post" th:action="@{/cart/payment}">
+            <div class="container">
+                <div class="commerce-cart row">
+                    <div class="commerce-cart__content-wrap col-12 col-md-7 col-lg-8">
+                        <div class="commerce-cart__content">
+                            <div data-sticky-enabled="false" data-sticky-disabled="true" data-sticky-always="false"
+                                 data-sticky-ignore="true" data-direction="top" data-offset="81"
+                                 class="sticky-container commerce-cart__header-wrap" style="">
+                                <div class="sticky-child commerce-cart__header" style="position: relative">
                                     <span class="commerce-cart__header__left">
                                         <label class="_3xqzr _4VN_z">
                                             <div class="_3zqA8">
@@ -131,18 +131,18 @@
                                             </span>
                                         </label>
                                     </span>
-                                <span class="commerce-cart__header__right">
-                                        <button class="selectDelete" id="selectDelete" type="submit" value="delete" >선택삭제</button>
+                                    <span class="commerce-cart__header__right">
+                                        <button class="selectDelete" id="selectDelete" value="delete"
+                                                onclick="deleteBtn() ">선택삭제</button>
                                     </span>
+                                </div>
                             </div>
-                        </div>
 
                             <div th:each="data : ${carts}">
                                 <ul class="commerce-cart__content__group-list">
                                     <li class="commerce-cart__content__group-item">
                                         <article class="commerce-cart__group">
                                             <h1 class="commerce-cart__group__header sellerName">[[${data.name}]]</h1>
-                                            <input type="hidden" name="memberId" th:value="${data.memberId}">
                                             <ul class="commerce-cart__group__item-list">
                                                 <li class="commerce-cart__group__item">
                                                     <article class="commerce-cart__delivery-group">
@@ -152,7 +152,7 @@
                                                                     <div class="carted-product__select">
                                                                         <div class="_3zqA8">
 
-                                                                            <input type="checkbox" name="delete"
+                                                                            <input type="checkbox" name="selectNo"
                                                                                    th:value="${data.cartId}"
                                                                                    onclick='checkSelectAll()'>
 
@@ -180,11 +180,12 @@
                                                                                         <div class="input-group select-input option-count-input">
 
                                                                                             <span>수량 : </span>
-                                                                                            <span class="qty"  >[[${data.qty}]] </span>
+                                                                                            <span class="qty">[[${data.quantity}]] </span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <p class="selling-option-item__price">
-                                                                                       <span>단가 : </span> <span class="selling-option-item__price__number unitPrice">[[${data.price}]]</span>원
+                                                                                        <span>단가 : </span> <span
+                                                                                            class="selling-option-item__price__number unitPrice">[[${data.price}]]</span>원
                                                                                     </p>
                                                                                 </div>
                                                                             </article>
@@ -192,14 +193,16 @@
                                                                     </ul>
                                                                     <div class="carted-product__footer">
                                                                     <span class="carted-product__subtotal">
-                                                                        <span>총 상품 금액 : </span><span class="carted-product__subtotal__number totalSum" >[[${data.price * data.qty }]]</span>원</span>
+                                                                        <span>총 상품 금액 : </span><span
+                                                                            class="carted-product__subtotal__number totalSum">[[${data.price * data.quantity }]]</span>원</span>
                                                                     </div>
                                                                 </article>
                                                             </li>
                                                         </ul>
                                                         <footer class="commerce-cart__delivery-group__footer">
                                                             <p class="commerce-cart__delivery-group__total ">배송비 :
-                                                                <span class="delivery">[[${data.deliveryCharge}]]</span><span> 원</span></p>
+                                                                <span class="delivery">[[${data.deliveryCharge}]]</span><span> 원</span>
+                                                            </p>
                                                         </footer>
                                                     </article>
                                                 </li>
@@ -211,9 +214,10 @@
                                 </ul>
                             </div>
 
-                    </div>
 
-                </div>
+                        </div>
+
+                    </div>
 
                     <div class="commerce-cart__side-bar-wrap col-12 col-md-5 col-lg-4">
                         <div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="false"
@@ -224,7 +228,7 @@
                                 <dl class="commerce-cart__summary commerce-cart__side-bar__summary">
                                     <div class="commerce-cart__summary__row">
                                         <dt>총 상품금액</dt>
-                                        <dd><span class="number productTotalPrice" >0</span>원</dd>
+                                        <dd><span class="number productTotalPrice">0</span>원</dd>
                                     </div>
                                     <div class="commerce-cart__summary__row">
                                         <dt>총 배송비</dt>
@@ -241,17 +245,17 @@
                                 </dl>
                                 <div class="commerce-cart__side-bar__order">
                                     <button class="_1eWD8 _3SroY _27do9 commerce-cart__side-bar__order__btn"
-                                            type="submit" th:formaction="@{/cart/payment}">
+                                            id="submitBtn" type="submit"  >
                                         구매하기
                                     </button>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-            </form>
-        </div>
-
+        </form>
     </div>
 
     <!--        footer 시작-->
@@ -396,8 +400,8 @@
 
 </body>
 
-<script src="/js/cart/howMuchTotalPrice.js"></script>
-<script src="/js/cart/listenMyClick.js"></script>
+<script src="/js/cart/cartPage.js"></script>
+<script src="/js/cart/clickListener.js"></script>
 
 
 </html>

@@ -4,28 +4,35 @@
 
 
     <sql id ="search" >
+        <if test="criteria.searchType == 'search_communityTitle'">
+            community_title like CONCAT('%',#{criteria.searchKeyword},'%')
 
-        <if test="type == 'search_title'">
-            quest_title like '%'||'${keyword}'||'%' and
         </if>
-        <if test="type == 'search_contents'">
-            quest_contents like '%'||'${keyword}'||'%' and
+        <if test="criteria.searchType == 'search_communityContents'">
+            community_contents like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="type == 'search_id'">
-            member_id like '%'||'${keyword}'||'%' and
+        <if test="criteria.searchType == 'search_memberId'">
+            member_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
 
 
 
-    <select id="selectCommunityTotalCnt" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    <select id="selectCommunityTotalCnt" resultType="java.lang.Integer" >
       select count(*)
       from community
       <where>
-         <if test='reply == "not_yet"'>
+        <if test="criteria.searchType != null">
+         <include refid="search"></include>
+         </if>
+
+         <if test="criteria.searchType != null  and reply =='not_yet'">and</if>
+
+          <if test="reply == 'not_yet'">
              community_state = '답변대기'
          </if>
+
       </where>
 
 
@@ -34,48 +41,175 @@
 
    <!-- LIMIT의 첫 번째 파라미터는 시작 위치(몇 번째 데이터부터 가지고 올 것인지)를 지정하고,
     두 번째 파라미터는 시작 위치를 기준으로 가지고 올 데이터의 개수를 지정-->
-    <select id="selectAllCommunities" resultType="com.CPR.redHome.dto.community.CommunityDto" parameterType="java.util.HashMap" >
+    <select id="selectAllCommunities" resultType="CommunityViewDto" >
 
-        select  community.community_id as communityId, member_id as memberId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
-        <if test="orderType == 'newComment'">, comments.comment_id as ccommentId </if>
+
+        select  community.community_id as communityId, account_id as accountId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit as communityHit
+        <if test="orderType == 'newComment'">, a.mx as ccommentId </if>
         <choose>
             <when test="orderType == 'newComment'">
-                from community left outer join comments
-                on comments.community_id = community.community_id
+                from community
+                inner join member on community.member_id = member.member_id
+                left outer join (
+                select max(comment_id) as mx, community_id
+                from comments
+                group by community_id order by mx desc)a on a.community_id = community.community_id
+
             </when>
             <otherwise>
                 from community
+                 inner join member on community.member_id = member.member_id
             </otherwise>
         </choose>
 
         <where>
-            <choose>
-                <when test='reply == "not_yet"'>
-                    community_state = '답변대기'
-                </when>
-                <otherwise>
 
-                </otherwise>
-            </choose>
+
+            <if test="criteria.searchType != null">
+                <include refid="search"></include>
+            </if>
+
+            <if test="criteria.searchType != null and reply =='not_yet'">and</if>
+
+            <if test="reply == 'not_yet'">
+                community_state = '답변대기'
+            </if>
+
+
         </where>
 
         <if test='orderType != "newComment" and orderType != "mostPopular"'>
-            order by community.community_id desc
+            order by communityId desc
         </if>
         <if test='orderType == "mostPopular"'>
-            order by community_hit desc
+            order by communityHit desc
         </if>
-        <if test='orderType == "newComment"'>
-            order by comments.comment_id desc
+        <if test="orderType == 'newComment'">
+            order by ccommentId desc
         </if>
 
-        limit #{firstRecordIndex}, #{recordsPerPage}
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+
+
+
 
     </select>
 
 
 
+    <select id="selectCommentsCnt"  resultType="java.lang.Integer" parameterType="java.lang.Long">
+         select count(*)
+         from comments
+         where community_id = ${communityId}
 
+    </select>
+
+
+
+    <select id="selectCommunity" parameterType="java.lang.Long" resultType="CommunityViewDto">
+
+        select community_id as communityId, account_id as accountId, community_title as communityTitle, community_contents as communityContents, community_img as communityImg, community_created_date as communityCreatedDate, community_state as communityState, community_hit  as communityHit
+        from community inner join member
+        on community.member_id = member.member_id
+        where community_id = ${value}
+
+    </select>
+
+
+    <select id="selectAllComments"  resultType="CommentViewDto">
+
+        select comment_id as commentId,  community_id as communityId,  comment_contents as commentContents, comment_created_date as commentCreatedDate, account_id as accountId
+        from comments
+         inner join member on comments.member_id = member.member_id
+        where community_id = #{communityId}
+        order by comment_id desc
+        limit #{firstRecordIndex}, #{recordsPerPage}
+
+    </select>
+
+    <update id="updateCommunityHitCnt" parameterType="java.lang.Long">
+
+       update community set community_hit = community_hit + 1 where community_id = ${communityId}
+
+    </update>
+
+
+    <delete id="deleteCommunity" parameterType="java.lang.Long">
+
+       delete from community where community_id = ${communityId}
+
+    </delete>
+
+
+    <insert id="insertComment" parameterType="java.util.List">
+
+        insert into comments(community_id, comment_contents, member_id)values(
+           <foreach collection="list" item="commentDto" separator=",">
+                        ${commentDto.communityId}, #{commentDto.commentContents}, ${commentDto.memberId}
+
+                        )
+           </foreach>
+
+    </insert>
+
+    <update id="updateCommunityStateComplete" parameterType="java.lang.Long">
+
+        update community set community_state = '답변완료' where community_id = ${communityId}
+
+    </update>
+
+    <update id="updateCommunityStateWait" parameterType="java.lang.Long">
+
+        update community set community_state = '답변대기' where community_id = ${communityId}
+
+    </update>
+
+    <delete id="deleteComment" parameterType="java.lang.Long">
+
+        delete from comments where comment_id = ${commentId}
+
+    </delete>
+
+
+    <insert id="insertCommunity" parameterType="CommunityDto" >
+
+        insert into community(community_title, community_contents, community_state, community_hit, member_id
+
+        <if test="communityImg != null">
+            , community_img
+        </if>
+
+        )values(#{communityTitle}, #{communityContents}, '답변대기', 0, ${memberId}
+
+
+        <if test="communityImg != null">
+           , #{communityImg}
+        </if>
+
+        )
+
+    </insert>
+
+
+    <update id="modifyCommunity" parameterType="CommunityDto">
+
+        update community
+        set community_title = #{communityTitle},
+            community_contents = #{communityContents}
+
+        <if test="communityImg != null">
+            , community_img = #{communityImg}
+        </if>
+        <if test="fileAnnulation == 'true'">
+            , community_img = null
+        </if>
+
+        where community_id = ${communityId}
+
+
+
+
+    </update>
 
 
 </mapper>

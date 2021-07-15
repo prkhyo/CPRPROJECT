@@ -33,27 +33,21 @@ public class Pagination {
     //다음 페이지 존재 여부
     private boolean hasNextPage;
 
-    public Pagination(Criteria criteria) {
-        if (criteria.getCurrentPageNo() < 1) {
-            criteria.setCurrentPageNo(1);
-        }
-        if (criteria.getRecordsPerPage() < 1 || criteria.getRecordsPerPage() > 100) {
-            criteria.setRecordsPerPage(10);
-        }
-        if (criteria.getPageSize() < 5 || criteria.getPageSize() > 20) {
-            criteria.setPageSize(10);
-        }
+    public Pagination(Criteria criteria, int totalRecordCount, int pageSize, int recordsPerPage) {
 
         this.criteria = criteria;
-    }
-
-    public void setTotalRecordCount(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
+        this.criteria.setPageSize(pageSize);
+        this.criteria.setRecordsPerPage(recordsPerPage);
+
+        if(criteria.getCurrentPageNo() == 0)  this.criteria.setCurrentPageNo(1); //현재 페이지 초기값 1 로 설정
 
         if (totalRecordCount > 0) {
             calculation();
         }
+
     }
+
 
     private void calculation() {
 

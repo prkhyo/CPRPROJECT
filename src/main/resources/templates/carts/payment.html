@@ -9,6 +9,9 @@
 
 
 </head>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script src="/js/cart/addressapi.js"></script>
 <body>
 <header class="layout-navigation-bar">
     <div class="layout-navigation-primary-wrap">
@@ -109,354 +112,360 @@
 
 <div class="layout">
 
-    <main class="_3z82S">
-        <div class="p0PrG">
-            <header class="_3pPzh">주문/결제</header>
-            <section class="_3oseG">
-                <div class="checkout-container _1cbjv">
-                    <div class="_3Pp8n">배송지</div>
-                    <div class="_1_5Vk"></div>
-                </div>
-                <div class="bbqwt">
-                    <div class="checkout-container _1abJt">
-                        <div class="BenKu">
-                            <div class="_10zXy">받는 사람</div>
-                            <div class="_3cYTk">
-                                <input class="_3ASDR _1qwAY _2Zb2k" name="recipient" maxlength="10" value="">
-                            </div>
-                        </div>
-                        <div class="BenKu">
-                            <div class="_10zXy _2klPP">연락처</div>
-                            <div class="_3cYTk">
-                                <div class="_2Z2K1">
-                                    <div class="_2ixif">
-                                        <div class="_3Bt8k">
-                                            <select class="_3ASDR _1qwAY _3K8Q8" name="phone1">
-                                                <option value="" disabled="">선택</option>
-                                                <option value="0">010</option>
-                                                <option value="1">011</option>
-                                                <option value="2">016</option>
-                                                <option value="3">017</option>
-                                                <option value="4">018</option>
-                                                <option value="5">019</option>
-                                                <option value="6">02</option>
-                                                <option value="7">031</option>
-                                                <option value="8">032</option>
-                                                <option value="9">033</option>
-                                                <option value="10">041</option>
-                                                <option value="11">042</option>
-                                                <option value="12">043</option>
-                                                <option value="13">044</option>
-                                                <option value="14">051</option>
-                                                <option value="15">052</option>
-                                                <option value="16">053</option>
-                                                <option value="17">054</option>
-                                                <option value="18">055</option>
-                                                <option value="19">061</option>
-                                                <option value="20">062</option>
-                                                <option value="21">063</option>
-                                                <option value="22">064</option>
-                                                <option value="23">070</option>
-                                                <option value="24">080</option>
-                                                <option value="25">050</option>
-                                                <option value="26">012</option>
-                                                <option value="27">059</option>
-                                                <option value="28">직접 입력</option>
-                                            </select>
-                                            <svg width="1em" height="1em" viewBox="0 0 10 10" fill="currentColor"
-                                                 class="IgBXR yPMDv">
-                                                <path d="M0 3l5 5 5-5z"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="UYZ4Z">
-                                        <input class="_3ASDR _1qwAY _2Zb2k" type="tel" placeholder="입력해주세요" size="1"
-                                               maxlength="9" value="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="BenKu">
-                            <div class="_10zXy _2klPP">주소</div>
-                            <div class="_3cYTk Ap00Z">
-                                <div class="">
-                                    <div class="hs9EY UB4oG">
-                                        <button class="_1eWD8 _2wuTD _3VwZT _1h-CO" type="button"  onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기</button>
-                                        <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI" type="text" id="sample4_postcode" placeholder="우편번호">
-                                    </div>
-                                    <div>
-                                        <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI" type="text" id="sample4_roadAddress" placeholder="도로명주소">
-                                    </div>
-                                    <div>
-                                        <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                                        <span id="guide" style="color:#999;display:none"></span>
-                                    </div>
-                                    <div>
-                                        <input  class="_3ASDR _1qwAY _2Zb2k"   type="text" id="sample4_detailAddress" placeholder="상세주소">
-                                    </div>
 
-                            </div>
-                        </div>
+        <main class="_3z82S">
 
+            <div class="p0PrG">
+                <header class="_3pPzh">주문/결제</header>
+                <section class="_3oseG">
+                    <div class="checkout-container _1cbjv">
+                        <div class="_3Pp8n">배송지</div>
+                        <div class="_1_5Vk"></div>
                     </div>
-                </div>
-            </section>
-
-            <section class="_3oseG">
-                <div class="checkout-container _1cbjv">
-                    <div class="_3Pp8n">주문상품</div>
-                    <div class="_1_5Vk"></div>
-                </div>
-                <div class="bbqwt">
-                    <section class="checkout-container _1NTS-">
-                        <div class="_3KPKx">
-                            <div class="_2uYBI">
-                                <div class="XVdGS">
-                                    <div class="_3-gF9">지큐브스페이스 주식회사</div>
-                                    <div class="_3YZco">무료배송</div>
+                    <div class="bbqwt">
+                        <div class="checkout-container _1abJt">
+                            <div class="BenKu">
+                                <div class="_10zXy">받는 사람</div>
+                                <div class="_3cYTk">
+                                    <input class="_3ASDR _1qwAY _2Zb2k receiver" name="recipient"
+                                           maxlength="10" value="">
                                 </div>
                             </div>
-                            <div>
-                                <div class="_2CuPx">
-                                    <picture>
-                                        <source type="image/webp"
-                                                src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=72&amp;h=72&amp;c=c&amp;webp=1"
-                                                srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 3x">
-                                        <img class="_1Z1hI"
-                                             src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=72&amp;h=72&amp;c=c"
-                                             srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=256&amp;h=256&amp;c=c 3x">
-                                    </picture>
-                                    <div class="_5cZyM">
-                                        <div class="_1rZ6t">Q4 유로탑 롤팩 매트리스 2size</div>
-                                        <ul class="_3e4Nu">
-                                            <li>SS 슈퍼싱글</li>
-                                        </ul>
-                                        <div class="_3_Emc">
-                                            <span class="_2_p5n">249,900원</span>
-                                            <div class="_2T03R"></div>
-                                            <span class="_1Dwy0">1개</span>
+                            <div class="BenKu">
+                                <div class="_10zXy _2klPP">연락처</div>
+                                <div class="_3cYTk">
+                                    <div class="_2Z2K1">
+                                        <div class="UYZ4Z">
+                                            <input class="_3ASDR _1qwAY _2Zb2k phone"
+                                                   type="tel" placeholder="입력해주세요" size="1"
+                                                   maxlength="9" value="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="BenKu">
+                                <div class="_10zXy _2klPP">주소</div>
+                                <div class="_3cYTk Ap00Z">
+                                    <div class="_3Bt8k">
+                                        <div class="hs9EY UB4oG ">
+                                            <button class="_1eWD8 _2wuTD _3VwZT _1h-CO" type="button"
+                                                    onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
+                                            </button>
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add1 "
+                                                   type="text"
+                                                   id="sample4_postcode" placeholder="우편번호">
+                                        </div>
+                                        <div class="_3cYTk" style="margin-bottom: 10px">
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add2"
+                                                   type="text"
+                                                   id="sample4_roadAddress" placeholder="도로명주소">
+                                        </div>
+                                        <div class="_3cYTk">
+                                            <input class="_3ASDR _1qwAY _2Zb2k _3-Mek _3Nn4g _2JXwI add3 "
+                                                   type="hidden"
+                                                   id="sample4_jibunAddress" placeholder="지번주소">
+                                            <span id="guide" style="color:#999;display:none"></span>
+                                        </div>
+                                        <div class="_3cYTk">
+                                            <input class="_3ASDR _1qwAY _2Zb2k add4" type="text"
+                                                   id="sample4_detailAddress"
 
-                    </section>
-                </div>
-            </section>
+                                                   placeholder="상세주소">
+                                        </div>
 
-            <section class="_3oseG">
-                <div class="checkout-container _1cbjv">
-                    <div class="_3Pp8n">포인트</div>
-                    <div class="_1_5Vk Y6P6C">사용 가능한 포인트가 없습니다</div>
-                </div>
-                <div class="bbqwt">
-                    <div class="checkout-container _2UZdB">
-                        <div class="_2E4tc">
-                            <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ" name="mileageCost" type="tel" pattern="\d*"
-                                   disabled="" value="0">
-                            <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" disabled="" type="button">전액사용</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="BenKu">
+                                <div class="_10zXy">요청사항</div>
+                                <div class="_3cYTk">
+                                    <input class="_3ASDR _1qwAY _2Zb2k request" name="recipient"
+                                           placeholder="요청사항을 입력해 주세요"
+                                           maxlength="10" value="">
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="_4hX3z">사용 가능 포인트
-                            <span class="_3HMkK">0 P</span>
-                        </div>
+                        <!--                        <div class="_10zXy _2klPP">요청 사항</div>-->
+                        <!--                        <div class="css-nj6fnr-DeliveryRequestInput e84q8kd0">-->
+
+
+                        <!--                        </div>-->
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
-        <div data-sticky-enabled="false" data-sticky-always="false" data-direction="bottom" data-offset="0"
-             class="sticky-container _1-dUw">
-            <div class="sticky-child" style="position: relative;">
-                <button class="_1eWD8 _3SroY _27do9 _1Ry4q">388,800원 결제하기</button>
-            </div>
-        </div>
+                <section class="_3oseG">
+                    <div class="checkout-container _1cbjv">
+                        <div class="_3Pp8n">주문상품</div>
+                        <div class="_1_5Vk"></div>
+                    </div>
+                    <div class="bbqwt">
+                        <section class="checkout-container _1NTS-" th:each="data : ${orderDetail}">
+                            <input class="accountId" type="hidden" th:value="${data.accountId}">
+                            <input class="productId" type="hidden" th:value="${data.productId}">
+                            <input class="memberId" type="hidden" th:value="${data.memberId}">
+                            <input class="gradeId" type="hidden" th:value="${data.gradeId}">
+                            <input class="email" type="hidden" th:value="${data.email}">
+                            <input class="name" type="hidden" th:value="${data.name}">
+                            <input class="cartId" type="hidden" th:value="${data.cartId}">
+                            <div class="_3KPKx">
+                                <div class="_2uYBI">
+                                    <div class="XVdGS">
+                                        업체명 :
+                                        <div class="_3-gF9">[[${data.name}]]</div>
+                                        <div class="_3YZco "><span>배송비 : </span><span class="deliveryCharge">[[${data.deliveryCharge}]] </span>
+                                        </div>
+                                        원
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="_2CuPx">
+                                        <picture>
+                                            <source type="image/webp"
+                                                    src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=72&amp;h=72&amp;c=c&amp;webp=1"
+                                                    srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 3x">
+                                            <img class="_1Z1hI"
+                                                 src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=72&amp;h=72&amp;c=c"
+                                                 srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1554432441250_K6wX5dopzz.jpg?w=256&amp;h=256&amp;c=c 3x">
+                                        </picture>
 
-        <section class="_18aQ-">
-            <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81"
-                 class="sticky-container _17uZq" style="position: sticky; top: 81px;">
-                <div class="sticky-child" style="position: relative;">
-                    <div class="_380vz">
-                        <div class="_1XSgE">
-                            <div class="_1BWlf">
-                                <div class="_1yha3">결제금액</div>
-                                <div class="_3CAac">
-                                    <div class="_2SFk1">총 상품 금액</div>
-                                    <div class="_3IGoe _3k3pP">388,800원</div>
-                                </div>
-                                <div class="_3CAac">
-                                    <div class="_2SFk1">배송비</div>
-                                    <div class="_3IGoe">0원</div>
-                                </div>
-                                <div class="_3CAac">
-                                    <div class="_2SFk1">쿠폰 사용</div>
-                                    <div class="_3IGoe">0원</div>
-                                </div>
-                                <div class="_3CAac">
-                                    <div class="_2SFk1">포인트 사용</div>
-                                    <div class="_3IGoe">0원</div>
-                                </div>
-                                <div class="_1Nffa">
-                                    <div class="_2CIyZ">최종 결제 금액</div>
-                                    <div class="_1TYIO">
-                                        <span class="kUAhq">388,800</span>&nbsp;원
-                                        <div class="_3bTpP">
-                                            <span class="_11DAx">1,167 P</span>&nbsp;적립 예정
+                                        <div class="_5cZyM">
+
+                                            <div class="_1rZ6t"> [[${data.title}]]</div>
+
+                                            <div class="_3_Emc">
+                                                단가 : <span class="_2_p5n unitPrice"> [[${data.price}]]</span> 원
+                                                <div class="_2T03R"></div>
+                                                수량 : <span class="_1Dwy0 qty"> [[${data.quantity}]]</span>
+                                                <div class="_2T03R"></div>
+                                                총 금액 : <span
+                                                    class="_1Dwy0 totalPrice"> [[${data.price * data.quantity}]]</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="_1WDOn">
-                                <label for="checkout-agree" class="_2bgXR">
-                                    <div class="_3zqA8 _3FRhK">
-                                        <input type="checkbox" class="_3UImz" id="checkout-agree" name="isAgree"
-                                               value="">
-                                        <span class="_2mDYR">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path
-                                                    fill="currentColor"
-                                                    d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg>
-                                        </span>
-                                    </div>
-                                    <div class="_2Db2x">아래 내용에 모두 동의합니다. (필수)</div>
-                                </label>
-                                <div class="" style="overflow: hidden;"></div>
-                                <button type="button" class="_3Jkwr">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관
-                                    <svg class="_2Ci3B" fill="none" viewBox="0 0 16 10"
-                                         preserveAspectRatio="xMidYMid meet">
-                                        <path d="M1.75.833L8 6.873l6.25-6.04L15.5 1.98 8 9.167.5 1.98 1.75.833z"></path>
-                                    </svg>
+
+                        </section>
+                    </div>
+                </section>
+
+                <section class="_3oseG">
+                    <div class="checkout-container _1cbjv">
+                        <div class="_3Pp8n">포인트</div>
+                        <div class="_1_5Vk Y6P6C">사용 가능한 포인트가 없습니다</div>
+                    </div>
+                    <div class="bbqwt">
+                        <div class="checkout-container _2UZdB">
+                            <div class="_2E4tc">
+                                <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel"
+                                       pattern="\d*"
+                                       th:value="0">
+                                <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
                                 </button>
-                                <div class="_1mEF0" style="overflow: hidden;"></div>
-                                <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
+                            </div>
+                            <div class="_4hX3z">사용 가능 포인트
+                                <span class="_3HMkK havePoint">[[${point}]] </span> P
                             </div>
                         </div>
-                        <button class="_1eWD8 _3SroY _27do9 _3Bxwj" type="button">388,800원 결제하기</button>
+                    </div>
+                </section>
+
+            </div>
+
+            <section class="_18aQ-">
+                <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81"
+                     class="sticky-container _17uZq" style="position: sticky; top: 81px;">
+                    <div class="sticky-child" style="position: relative;">
+                        <div class="_380vz">
+                            <div class="_1XSgE">
+                                <div class="_1BWlf">
+                                    <div class="_1yha3">결제금액</div>
+                                    <div class="_3CAac">
+                                        <div class="_2SFk1 ">총 상품 금액</div>
+                                        <div class="_3IGoe _3k3pP"><span class="productTotalSum">0</span>원</div>
+                                    </div>
+                                    <div class="_3CAac">
+                                        <div class="_2SFk1">배송비</div>
+                                        <div class="_3IGoe"><span class="number deliveryTotalCharge">0</span>원</div>
+                                    </div>
+                                    <div class="_3CAac">
+                                        <div class="_2SFk1">포인트 사용</div>
+                                        <div class="_3IGoe ">-<span class="totalPoint"></span>원</div>
+                                    </div>
+                                    <div class="_1Nffa">
+                                        <div class="_2CIyZ">최종 결제 금액</div>
+                                        <div class="_1TYIO">
+                                            <span class="kUAhq finalPrice"></span>&nbsp;원
+                                            <div class="_3bTpP">
+                                                <span class="_11DAx addPoint">22</span>P&nbsp;적립 예정
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="_1WDOn">
+                                    <label  class="_2bgXR">
+
+                                        <input type="checkbox" style="margin:5px" name="selectCheck()" onclick='selectCheck()'>
+
+                                        <div class="_2Db2x">아래 내용에 모두 동의합니다. (필수)</div>
+                                    </label>
+                                    <div class="" style="overflow: hidden;"></div>
+                                    <button type="button" class="_3Jkwr">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관
+                                        <svg class="_2Ci3B" fill="none" viewBox="0 0 16 10"
+                                             preserveAspectRatio="xMidYMid meet">
+                                            <path d="M1.75.833L8 6.873l6.25-6.04L15.5 1.98 8 9.167.5 1.98 1.75.833z"></path>
+                                        </svg>
+                                    </button>
+                                    <div class="_1mEF0" style="overflow: hidden;"></div>
+                                    <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
+                                </div>
+                            </div>
+<!--                                <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>-->
+                            <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">결제하기</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+
+        </main>
+
 </div>
-    <!--        footer 시작-->
-    <footer class="layout-footer">
-        <div class="layout-footer__content">
-            <div class="layout-footer__top">
-                <address class="layout-footer__cs">
-                    <div class="layout-footer__cs__row">
-                        <a class="layout-footer__cs__link" href="#">
-                            고객센터
-                        </a>
-                    </div>
-                    <div class="layout-footer__cs__row">
-                        <a class="layout-footer__cs__tel" href="#">1670-1234</a>
-                    </div>
-                    <span class="layout-footer__cs__time">평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</span>
-                </address>
-                <div class="layout-footer__outbound">
-                    <a class="layout-footer__outbound__item" href="#" title="앱스토어">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill-rule="evenodd"
-                                  d="M22.34 15.57a5.6 5.6 0 0 0 3.42 5.15c-.02.1-.53 1.84-1.78 3.62-1.05 1.57-2.15 3.1-3.9 3.13-1.69.04-2.26-1-4.2-1-1.96 0-2.57.97-4.2 1.04-1.65.06-2.92-1.67-4-3.23-2.18-3.17-3.87-8.93-1.6-12.85a6.23 6.23 0 0 1 5.24-3.2c1.66-.03 3.2 1.12 4.22 1.12 1 0 2.91-1.38 4.88-1.17.82.02 3.17.32 4.68 2.52-.13.08-2.8 1.64-2.76 4.87zm-3.2-9.48a4.8 4.8 0 0 1-3.8 1.8c-.18-1.46.54-3 1.34-3.95A5.81 5.81 0 0 1 20.44 2c.17 1.5-.43 3-1.3 4.09z"></path>
-                        </svg>
-                    </a>
-                    <a class="layout-footer__outbound__item" href="#" title="플레이스토어">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill-rule="evenodd"
-                                  d="M4.22 26.95A2.35 2.35 0 0 1 4 25.9V3.8c0-.42.08-.77.22-1.05l12.1 12.1-12.1 12.1zm.74.68l12.07-12.07 3.7 3.7-14.2 8.1c-.6.34-1.14.42-1.57.27zm15.78-17.2l-3.71 3.71L4.96 2.07c.14-.04.3-.07.45-.07.34 0 .72.1 1.12.34l14.2 8.1zm.9.52l4.32 2.46c1.39.8 1.39 2.09 0 2.88l-4.32 2.46-3.9-3.9 3.9-3.9z"></path>
-                        </svg>
-                    </a>
-                    <a class="layout-footer__outbound__item" href="#" title="카카오스토리">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill="#757575" fill-rule="evenodd"
-                                  d="M19.02 6h-8.04a.96.96 0 0 0-.98.93v8.16c0 .51.44.93.98.93h3.7c-.02.9-.4 1.9-.99 2.77a10.3 10.3 0 0 1-2 2.06l-.03.03c-.11.1-.2.22-.2.38 0 .12.07.21.14.31l.02.02 2.57 2.76s.13.12.23.15c.12.02.25.03.34-.04A12.25 12.25 0 0 0 20 14.79V6.93a.96.96 0 0 0-.98-.93"></path>
-                        </svg>
-                    </a>
-                    <a class="layout-footer__outbound__item" href="#" title="페이스북">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill="#757575" fill-rule="evenodd"
-                                  d="M16.67 26V15H20v-3.38h-3.33V9.07c-.02-.76.08-1.29 1.66-1.7H20V4h-3.33c-3.2 0-4.46 1.84-4.17 5.08v2.53H10V15h2.5v11h4.17z"></path>
-                        </svg>
-                    </a>
-                    <a class="layout-footer__outbound__item" href="#" title="인스타그램">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill="#757575" fill-rule="evenodd"
-                                  d="M15 3c3.26 0 3.67.02 4.95.08 1.27.05 2.14.26 2.9.55a5.88 5.88 0 0 1 2.13 1.39 5.88 5.88 0 0 1 1.39 2.12c.3.77.5 1.64.55 2.91.06 1.28.08 1.7.08 4.95s-.02 3.67-.08 4.95a8.78 8.78 0 0 1-.55 2.9 5.88 5.88 0 0 1-1.39 2.13 5.88 5.88 0 0 1-2.12 1.39c-.77.3-1.64.5-2.91.55-1.28.06-1.7.08-4.95.08s-3.67-.02-4.95-.08a8.78 8.78 0 0 1-2.9-.55 5.88 5.88 0 0 1-2.13-1.39 5.88 5.88 0 0 1-1.39-2.12c-.3-.77-.5-1.64-.55-2.91C3.02 18.67 3 18.25 3 15s.02-3.67.08-4.95c.05-1.27.26-2.15.55-2.9a5.88 5.88 0 0 1 1.39-2.13 5.88 5.88 0 0 1 2.12-1.39c.76-.3 1.64-.5 2.91-.55C11.33 3.02 11.75 3 15 3zm0 2.17c-3.2 0-3.58 0-4.85.07-1.17.05-1.8.24-2.22.4-.56.23-.96.49-1.38.9a3.7 3.7 0 0 0-.9 1.39 6.64 6.64 0 0 0-.41 2.22A82.92 82.92 0 0 0 5.17 15c0 3.2 0 3.58.07 4.85.05 1.17.24 1.8.4 2.22.23.56.49.96.9 1.38.43.42.83.68 1.39.9.42.17 1.05.36 2.22.41 1.27.06 1.65.07 4.85.07 3.2 0 3.58 0 4.85-.07a6.67 6.67 0 0 0 2.23-.4c.56-.23.96-.49 1.38-.9.42-.43.68-.83.9-1.39.16-.42.35-1.05.4-2.22.06-1.27.07-1.65.07-4.85 0-3.2 0-3.58-.06-4.85a6.66 6.66 0 0 0-.42-2.23 3.72 3.72 0 0 0-.9-1.38 3.7 3.7 0 0 0-1.37-.9 6.64 6.64 0 0 0-2.23-.4A82.92 82.92 0 0 0 15 5.15zm0 3.67a6.16 6.16 0 1 1 0 12.32 6.16 6.16 0 0 1 0-12.32zM15 19a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"></path>
-                        </svg>
-                    </a>
-                    <a class="layout-footer__outbound__item" href="#" title="네이버 포스트">
-                        <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
-                             preserveAspectRatio="xMidYMid meet">
-                            <path fill="#757575" fill-rule="evenodd"
-                                  d="M8.5 5h13v13h-13V5zm7.45 4v2.52L14.05 9H12v5h2.05v-2.52l1.9 2.52H18V9h-2.05zm3.11 13h-8.12L8.5 19h13l-2.44 3zm-.81 1L15 27l-3.25-4h6.5z"></path>
-                        </svg>
+</body>
+
+<script src="/js/cart/pgAPI.js"></script>
+<script src="/js/cart/paymentTotalPrice.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+</html>
+
+<!--
+
+&lt;!&ndash;        footer 시작&ndash;&gt;
+<footer class="layout-footer">
+    <div class="layout-footer__content">
+        <div class="layout-footer__top">
+            <address class="layout-footer__cs">
+                <div class="layout-footer__cs__row">
+                    <a class="layout-footer__cs__link" href="#">
+                        고객센터
                     </a>
                 </div>
+                <div class="layout-footer__cs__row">
+                    <a class="layout-footer__cs__tel" href="#">1670-1234</a>
+                </div>
+                <span class="layout-footer__cs__time">평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</span>
+            </address>
+            <div class="layout-footer__outbound">
+                <a class="layout-footer__outbound__item" href="#" title="앱스토어">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill-rule="evenodd"
+                              d="M22.34 15.57a5.6 5.6 0 0 0 3.42 5.15c-.02.1-.53 1.84-1.78 3.62-1.05 1.57-2.15 3.1-3.9 3.13-1.69.04-2.26-1-4.2-1-1.96 0-2.57.97-4.2 1.04-1.65.06-2.92-1.67-4-3.23-2.18-3.17-3.87-8.93-1.6-12.85a6.23 6.23 0 0 1 5.24-3.2c1.66-.03 3.2 1.12 4.22 1.12 1 0 2.91-1.38 4.88-1.17.82.02 3.17.32 4.68 2.52-.13.08-2.8 1.64-2.76 4.87zm-3.2-9.48a4.8 4.8 0 0 1-3.8 1.8c-.18-1.46.54-3 1.34-3.95A5.81 5.81 0 0 1 20.44 2c.17 1.5-.43 3-1.3 4.09z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="플레이스토어">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill-rule="evenodd"
+                              d="M4.22 26.95A2.35 2.35 0 0 1 4 25.9V3.8c0-.42.08-.77.22-1.05l12.1 12.1-12.1 12.1zm.74.68l12.07-12.07 3.7 3.7-14.2 8.1c-.6.34-1.14.42-1.57.27zm15.78-17.2l-3.71 3.71L4.96 2.07c.14-.04.3-.07.45-.07.34 0 .72.1 1.12.34l14.2 8.1zm.9.52l4.32 2.46c1.39.8 1.39 2.09 0 2.88l-4.32 2.46-3.9-3.9 3.9-3.9z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="카카오스토리">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M19.02 6h-8.04a.96.96 0 0 0-.98.93v8.16c0 .51.44.93.98.93h3.7c-.02.9-.4 1.9-.99 2.77a10.3 10.3 0 0 1-2 2.06l-.03.03c-.11.1-.2.22-.2.38 0 .12.07.21.14.31l.02.02 2.57 2.76s.13.12.23.15c.12.02.25.03.34-.04A12.25 12.25 0 0 0 20 14.79V6.93a.96.96 0 0 0-.98-.93"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="페이스북">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M16.67 26V15H20v-3.38h-3.33V9.07c-.02-.76.08-1.29 1.66-1.7H20V4h-3.33c-3.2 0-4.46 1.84-4.17 5.08v2.53H10V15h2.5v11h4.17z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="인스타그램">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M15 3c3.26 0 3.67.02 4.95.08 1.27.05 2.14.26 2.9.55a5.88 5.88 0 0 1 2.13 1.39 5.88 5.88 0 0 1 1.39 2.12c.3.77.5 1.64.55 2.91.06 1.28.08 1.7.08 4.95s-.02 3.67-.08 4.95a8.78 8.78 0 0 1-.55 2.9 5.88 5.88 0 0 1-1.39 2.13 5.88 5.88 0 0 1-2.12 1.39c-.77.3-1.64.5-2.91.55-1.28.06-1.7.08-4.95.08s-3.67-.02-4.95-.08a8.78 8.78 0 0 1-2.9-.55 5.88 5.88 0 0 1-2.13-1.39 5.88 5.88 0 0 1-1.39-2.12c-.3-.77-.5-1.64-.55-2.91C3.02 18.67 3 18.25 3 15s.02-3.67.08-4.95c.05-1.27.26-2.15.55-2.9a5.88 5.88 0 0 1 1.39-2.13 5.88 5.88 0 0 1 2.12-1.39c.76-.3 1.64-.5 2.91-.55C11.33 3.02 11.75 3 15 3zm0 2.17c-3.2 0-3.58 0-4.85.07-1.17.05-1.8.24-2.22.4-.56.23-.96.49-1.38.9a3.7 3.7 0 0 0-.9 1.39 6.64 6.64 0 0 0-.41 2.22A82.92 82.92 0 0 0 5.17 15c0 3.2 0 3.58.07 4.85.05 1.17.24 1.8.4 2.22.23.56.49.96.9 1.38.43.42.83.68 1.39.9.42.17 1.05.36 2.22.41 1.27.06 1.65.07 4.85.07 3.2 0 3.58 0 4.85-.07a6.67 6.67 0 0 0 2.23-.4c.56-.23.96-.49 1.38-.9.42-.43.68-.83.9-1.39.16-.42.35-1.05.4-2.22.06-1.27.07-1.65.07-4.85 0-3.2 0-3.58-.06-4.85a6.66 6.66 0 0 0-.42-2.23 3.72 3.72 0 0 0-.9-1.38 3.7 3.7 0 0 0-1.37-.9 6.64 6.64 0 0 0-2.23-.4A82.92 82.92 0 0 0 15 5.15zm0 3.67a6.16 6.16 0 1 1 0 12.32 6.16 6.16 0 0 1 0-12.32zM15 19a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"></path>
+                    </svg>
+                </a>
+                <a class="layout-footer__outbound__item" href="#" title="네이버 포스트">
+                    <svg class="icon" width="30" height="30" viewBox="0 0 30 30"
+                         preserveAspectRatio="xMidYMid meet">
+                        <path fill="#757575" fill-rule="evenodd"
+                              d="M8.5 5h13v13h-13V5zm7.45 4v2.52L14.05 9H12v5h2.05v-2.52l1.9 2.52H18V9h-2.05zm3.11 13h-8.12L8.5 19h13l-2.44 3zm-.81 1L15 27l-3.25-4h6.5z"></path>
+                    </svg>
+                </a>
             </div>
-            <ul class="layout-footer__shortcut">
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/brand-story"
-                       target="_blank">브랜드 스토리</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/"
-                       target="_blank">회사소개</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/recruit"
-                       target="_blank">채용정보</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/usepolicy" target="_blank">이용약관</a>
-                </li>
-                <li><a class="layout-footer__shortcut__item layout-footer__shortcut__item--bold" rel="noopener"
-                       href="/privacy" target="_blank">개인정보처리방침</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_notices" target="_blank">공지사항</a>
-                </li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_center"
-                       target="_blank">고객센터</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new" target="_blank">고객의
-                    소리</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener"
-                       href="https://pro.ohou.se/?utm_source=ohouse&amp;utm_medium=web&amp;utm_campaign=prosignup&amp;utm_content=footer"
-                       target="_blank">전문가 등록</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/b2b" target="_blank">사업자
-                    구매회원</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new?type=request"
-                       target="_blank">제휴/광고 문의</a></li>
-                <li><a class="layout-footer__shortcut__item" rel="noopener" href="/partner/applications/new"
-                       target="_blank">입점신청 문의</a></li>
-            </ul>
-            <address class="layout-footer__info-wrap">
-                <dl class="layout-footer__info">
-                    <a class="layout-footer__info__item" href="#">
-                        <dt>
-                            상호명
-                        </dt>
-                        <dd>(주)윤하우스</dd>
-                    </a>
-                    <span class="layout-footer__info__item">
+        </div>
+        <ul class="layout-footer__shortcut">
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/brand-story"
+                   target="_blank">브랜드 스토리</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/"
+                   target="_blank">회사소개</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="http://bucketplace.co.kr/recruit"
+                   target="_blank">채용정보</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/usepolicy" target="_blank">이용약관</a>
+            </li>
+            <li><a class="layout-footer__shortcut__item layout-footer__shortcut__item&#45;&#45;bold" rel="noopener"
+                   href="/privacy" target="_blank">개인정보처리방침</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_notices"
+                   target="_blank">공지사항</a>
+            </li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/customer_center"
+                   target="_blank">고객센터</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new" target="_blank">고객의
+                소리</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener"
+                   href="https://pro.ohou.se/?utm_source=ohouse&amp;utm_medium=web&amp;utm_campaign=prosignup&amp;utm_content=footer"
+                   target="_blank">전문가 등록</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/b2b" target="_blank">사업자
+                구매회원</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/contacts/new?type=request"
+                   target="_blank">제휴/광고 문의</a></li>
+            <li><a class="layout-footer__shortcut__item" rel="noopener" href="/partner/applications/new"
+                   target="_blank">입점신청 문의</a></li>
+        </ul>
+        <address class="layout-footer__info-wrap">
+            <dl class="layout-footer__info">
+                <a class="layout-footer__info__item" href="#">
+                    <dt>
+                        상호명
+                    </dt>
+                    <dd>(주)윤하우스</dd>
+                </a>
+                <span class="layout-footer__info__item">
 							<dt>
 								이메일
 							</dt>
 							<dd>(고객문의)<a href="mailto:cs@redhome.net"> cs@redhome.net </a>(제휴문의)<a
                                     href="mailto:contact@redhome.net"> contact@bucketplace.net</a></dd>
 						</span>
-                    <span class="layout-footer__info__item">
+                <span class="layout-footer__info__item">
 							<dt>대표이사</dt>
 							<dd>김윤하</dd>
 						</span>
-                    <span class="layout-footer__info__item">
+                <span class="layout-footer__info__item">
 							<dt>사업자등록번호</dt>
 							<dd>119-86-123456</dd>
 						</span>
-                    <span class="layout-footer__info__item">
+                <span class="layout-footer__info__item">
 							<dt>통신판매업신고번호</dt>
 							<dd>제2021-서울서초-0580호</dd>
 						</span>
-                    <span class="layout-footer__info__item">
+                <span class="layout-footer__info__item">
 							<dt>주소</dt>
 							<dd>서울특별시 강남구 테헤란로 132 한독약품빌딩 8층</dd>
 						</span>
-                </dl>
-                <dl class="layout-footer__info">
+            </dl>
+            <dl class="layout-footer__info">
 						<span class="layout-footer__info__item">
 							<dt>우리은행 채무지급보증안내</dt>
 							<dd>(주)윤하우스는 고객님이 현금결제한&nbsp; 금액에 대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.&nbsp;<a
@@ -464,18 +473,14 @@
                                     href="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161646429944190689.jpg?gif=1&amp;w=1440"
                                     target="_blank" rel="noopener noreferrer">서비스가입사실 확인</a></dd>
 						</span>
-                </dl>
-                <span class="layout-footer__info">
+            </dl>
+            <span class="layout-footer__info">
 						<span class="layout-footer__info__item">(주)윤하우스는 통신판매중개자로서 통신판매의 당사자가 아니며, 입점업체가 등록한 상품, 상품정보 및 거래에 대하여 (주)윤하우스는 일체 책임을 지지 않습니다.</span>
 					</span>
-            </address>
-            <p class="layout-footer__copyright">Copyright 2021. redhome, Co., Ltd. All rights reserved</p>
-        </div>
-    </footer>
+        </address>
+        <p class="layout-footer__copyright">Copyright 2021. redhome, Co., Ltd. All rights reserved</p>
+    </div>
+</footer>
 
-</body>
+-->
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="/js/cart/addressapi.js"></script>
-
-</html>

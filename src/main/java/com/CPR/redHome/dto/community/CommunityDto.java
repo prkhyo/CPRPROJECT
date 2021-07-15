@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Alias("CommunityDto")
-public class CommunityDto  {
+public class CommunityDto   {
 
-    private Long communityId; //auto
+    private Long communityId;
 
     private Long memberId;
 
@@ -34,7 +34,8 @@ public class CommunityDto  {
 
 
 
-    /*조인 시 사용*/
-    private Long ccommentId;
+    /*커뮤니티 글 수정 시 업로드 한 파일 취소 여부 파악할 때 사용*/
+    private String fileAnnulation;
+
 
 }
