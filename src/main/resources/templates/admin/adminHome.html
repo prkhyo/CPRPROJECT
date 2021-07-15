@@ -1,14 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .paging{
+            font-size : 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 <div th:replace="/admin/layout/header.html :: header"></div>
 
-<div class="adminLogin">
-<!--<c:if test="${admin eq null}">-->
-    <h2>관리자 로그인</h2>
-    <form action="/adminlogin" method="post">
-        ID:<input type="text" name="id">
-        PWD:<input type="password" name="password">
-        <input type="submit">
-    </form>
-<!--</c:if>-->
-</div>
+<!--<div class="adminLogin">-->
+<!--&lt;!&ndash;<c:if test="${admin eq null}">&ndash;&gt;-->
+<!--    <h2>관리자 로그인</h2>-->
+<!--    <form action="/adminlogin" method="post">-->
+<!--        ID:<input type="text" name="id">-->
+<!--        PWD:<input type="password" name="password">-->
+<!--        <input type="submit">-->
+<!--    </form>-->
+<!--&lt;!&ndash;</c:if>&ndash;&gt;-->
+<!--</div>-->
 
 <div th:replace="/admin/layout/footer.html :: footer"></div>
+
+
+</body>
+</html>
+
+

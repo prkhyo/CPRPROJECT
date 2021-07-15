@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.CPR.redHome.mapper.admin.order.OrderAdminMapper">
+
+    <!-- order columns -->
+    <sql id="orderColumns">
+        o.order_id as orderId
+            ,o.order_number as orderNumber
+            ,m.account_id as accountId
+            ,o.order_receiver as receiver
+            ,o.order_date as orderDate
+            ,o.order_unit_price as price
+            ,o.order_delivery_charge as deliveryCharge
+            ,o.order_state as orderState
+            ,o.order_request as orderRequest
+            ,o.order_point_used as usedPoint
+    </sql>
+    
+    <!-- 전체 주문 조회. -->
+    <select id="selectAllOrders" resultType="com.CPR.redHome.dto.cart.OrderDto">
+        select
+            <include refid="orderColumns"/>
+        from
+             orders o, member m
+        where
+            o.member_id = m.member_id
+    </select>
+
+    <!-- 선택 주문 조회 -->
+    <select id="selectOrderById" parameterType="Integer" resultType="com.CPR.redHome.dto.cart.OrderDto">
+        SELECT
+            <include refid="orderColumns"/>
+        FROM
+            orders o, member m
+        WHERE
+            o.member_id = m.member_id AND o.order_id = #{value}
+    </select>
+
+    <!-- 수정 주문 update -->
+    <update id="updateOrder" parameterType="com.CPR.redHome.dto.cart.OrderDto">
+        UPDATE
+            orders
+        SET
+            order_receiver = #{receiver}
+          ,order_state = #{orderState}
+          ,order_request = #{orderRequest}
+        WHERE
+            order_number = #{orderNumber}
+    </update>
+
+
+
+
+
+    <!-- 가격대 별 상품 수 조회 -->
+    <select id="selectProductByPrice" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_price BETWEEN 0 and 9999 then 1 end) as "만원미만",
+            COUNT(case when product_price BETWEEN 10000 and 99999 then 1 end) as "만원대",
+            COUNT(case when product_price BETWEEN 100000 and 199999 then 1 end) as "10만원대",
+            COUNT(case when product_price BETWEEN 200000 and 299999 then 1 end) as "20먼원대",
+            COUNT(case when product_price BETWEEN 300000 and 399999 then 1 end) as "30만원대",
+            COUNT(case when product_price BETWEEN 400000 and 499999 then 1 end) as "40만원대",
+            COUNT(case when product_price > 500000 then 1 end) as "50만원이상"
+        FROM (SELECT product_price FROM product) T
+    </select>
+
+    <!-- 카테고리 별 상품 수 조회 -->
+    <select id="selectProductByCategory" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_category_id = 1 then 1 end) as "서랍",
+            COUNT(case when product_category_id = 2 then 1 end) as "책상",
+            COUNT(case when product_category_id = 3 then 1 end) as "의자",
+            COUNT(case when product_category_id = 4 then 1 end) as "옷장",
+            COUNT(case when product_category_id = 5 then 1 end) as "침대",
+            COUNT(case when product_category_id > 5 then 1 end) as "기타"
+        FROM (SELECT product_category_id FROM product) T
+    </select>
+
+    <!-- 테마 별 상품 수 조회 -->
+    <select id="selectProductByTheme" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_theme_id = 1 then 1 end) as "노래방",
+            COUNT(case when product_theme_id = 2 then 1 end) as "도서관",
+            COUNT(case when product_theme_id = 3 then 1 end) as "오피스",
+            COUNT(case when product_theme_id = 4 then 1 end) as "영화관",
+            COUNT(case when product_theme_id = 5 then 1 end) as "카페",
+            COUNT(case when product_theme_id = 6 then 1 end) as "헬스장",
+            COUNT(case when product_theme_id = 7 then 1 end) as "PC방",
+            COUNT(case when product_theme_id > 7 then 1 end) as "기타"
+        FROM (SELECT product_theme_id FROM product) T
+    </select>
+
+
+
+
+</mapper>

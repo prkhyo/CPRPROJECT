@@ -20,7 +20,7 @@ public class CartDto {
     private String title;
     private String img;
     private int price;
-    private int qty;
+    private int quantity;
     private int deliveryCharge;
 
 

@@ -23,12 +23,24 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
     // 전체회원 조회
     @Override
-    public List<MemberDto> selectAllMember() {
-        return memberAdminMapper.selectAllMember();
+    public List<MemberDto> selectAllMembers() {
+        return memberAdminMapper.selectAllMembers();
+    }
+
+    // memberId로 회원 조회
+    @Override
+    public MemberDto selectMemberById(int memberId) {
+        return memberAdminMapper.selectMemberById(memberId);
+    }
+
+    // 수정된 member update
+    @Override
+    public void updateMember(MemberDto memberDto) {
+        memberAdminMapper.updateMember(memberDto);
     }
 
 
-    // 나이대별 회원 조회
+    // 연령대 별 회원 수 조회
     @Override
     public JSONObject selectMemberByAge() {
 
@@ -37,6 +49,28 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
         // 구글차트에서 인식하는 JSON data로 가공.
         JSONObject data = makeJsonForChartServcie.makeJsonForChart(map, "연령대", "회원수");
+
+        return data;
+    }
+
+    // 지역 별 회원 수 조회
+    @Override
+    public JSONObject selectMemberByLocation() {
+        // 지역 별 회원 수 DB에서 받아옴.
+        LinkedHashMap<String, Integer> map = memberAdminMapper.selectMemberByLocation();
+
+        JSONObject data = makeJsonForChartServcie.makeJsonForChart(map, "지역", "회원수");
+
+        return data;
+    }
+
+    // 등급 별 회원 수 조회
+    @Override
+    public JSONObject selectMemberByGrade() {
+
+        LinkedHashMap<String, Integer> map = memberAdminMapper.selectMemberByGrade();
+
+        JSONObject data = makeJsonForChartServcie.makeJsonForChart(map, "등급", "회원수");
 
         return data;
     }

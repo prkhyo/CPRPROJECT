@@ -1,26 +1,26 @@
-package com.CPR.redHome.controller.admin.member;
+package com.CPR.redHome.controller.admin.product;
 
-import com.CPR.redHome.service.admin.member.MemberAdminService;
+import com.CPR.redHome.service.admin.product.ProductAdminService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class MemberAdminApiController {
+public class ProductAdminApiController {
 
-    private final MemberAdminService memberAdminService;
+    private final ProductAdminService productAdminService;
 
-    // 연령대 별 회원 수
+    // 가격 별 상품 수 조회
     @Transactional(readOnly = true)
-    @GetMapping("/api/admin/member/chart/byAge")
-    public ResponseEntity<JSONObject> listByAge() {
+    @GetMapping("/api/admin/product/chart/byPrice")
+    public ResponseEntity<JSONObject> listByPrice() {
         ResponseEntity<JSONObject> entity=null;
-        JSONObject data = memberAdminService.selectMemberByAge();
+        JSONObject data = productAdminService.selectProductByPrice();
 
         try {
             entity = new ResponseEntity<JSONObject>(data, HttpStatus.OK);
@@ -32,12 +32,12 @@ public class MemberAdminApiController {
         return entity;
     }
 
-    // 지역 별 회원 수
+    // 카테고리 별 상품 수 조회
     @Transactional(readOnly = true)
-    @GetMapping("/api/admin/member/chart/byLocation")
-    public ResponseEntity<JSONObject> listByLocation() {
+    @GetMapping("/api/admin/product/chart/byCategory")
+    public ResponseEntity<JSONObject> listByCategory() {
         ResponseEntity<JSONObject> entity=null;
-        JSONObject data = memberAdminService.selectMemberByLocation();
+        JSONObject data = productAdminService.selectProductByCategory();
 
         try {
             entity = new ResponseEntity<JSONObject>(data, HttpStatus.OK);
@@ -49,12 +49,12 @@ public class MemberAdminApiController {
         return entity;
     }
 
-    // 등급 별 회원 수
+    // 테마 별 상품 수 조회
     @Transactional(readOnly = true)
-    @GetMapping("/api/admin/member/chart/byGrade")
-    public ResponseEntity<JSONObject> listByGrade() {
+    @GetMapping("/api/admin/product/chart/byTheme")
+    public ResponseEntity<JSONObject> listByTheme() {
         ResponseEntity<JSONObject> entity=null;
-        JSONObject data = memberAdminService.selectMemberByGrade();
+        JSONObject data = productAdminService.selectProductByTheme();
 
         try {
             entity = new ResponseEntity<JSONObject>(data, HttpStatus.OK);
@@ -65,5 +65,4 @@ public class MemberAdminApiController {
 
         return entity;
     }
-
 }

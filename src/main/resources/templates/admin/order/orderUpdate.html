@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>주문수정페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .main{
+            width: 360px;
+            margin:0 auto;
+        }
+
+        .main-title{
+            font-size: 20px;
+            font-weight: 700;
+            margin : 30px 0;
+        }
+
+        .form-group{
+            margin: 0 0 30px;
+        }
+
+        .group-label{
+            display: block;
+            margin: 0 0 12px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #292929;
+            line-height: 21px;
+            word-break: keep-all;
+        }
+
+        .group-description{
+            margin: 0;
+            font-size: 13px;
+            color: #757575;
+            line-height: 1.4;
+        }
+
+        .group-input{
+            margin: 10px 0 0;
+        }
+
+        .submitBtn{
+            background-color: #ed4a4a;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 26px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            margin : 0 0 30px;
+        }
+
+
+        /*전체*/
+
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        function updateProduct(){
+            var frm = document.frm;
+
+
+
+            if(!frm.receiver.value || frm.receiver.value == ""){
+                alert("받는사람을 입력하세요");
+                frm.receiver.focus();
+                return false;
+            }
+
+            if(!frm.orderState.value || frm.orderState.value == ""){
+                alert("주문상태를 입력하세요");
+                frm.orderState.focus();
+                return false;
+            }
+
+            if(!frm.orderRequest.value || frm.orderRequest.value == ""){
+                alert("요청사항을 입력하세요");
+                frm.orderRequest.focus();
+                return false;
+            }
+
+
+            frm.method = "post";
+            frm.action = "/admin/order/update";
+            frm.submit();
+        }
+
+    </script>
+</head>
+<body>
+<div class="main">
+    <h3 class="main-title">주문수정 페이지</h3>
+    <form name="frm">
+        <div class="form-group">
+            <div class="group-label">주문번호</div>
+            <div class="group-input">
+                <input type="text" placeholder="주문번호" class="form-control" th:value="${orderDetails.orderNumber}" name="orderNumber" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">아이디</div>
+            <div class="group-input">
+                <input type="text" placeholder="아이디" class="form-control" th:value="${orderDetails.accountId}" name="accountId" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">받는사람</div>
+            <div class="group-input">
+                <input type="text" placeholder="받는사람" class="form-control" th:value="${orderDetails.receiver}" name="receiver">
+            </div>
+        </div>
+<!--        <div class="form-group">-->
+<!--            <div class="group-label">주문날짜</div>-->
+<!--            <div class="group-input">-->
+<!--                <input type="text" placeholder="주문날짜" class="form-control" th:value="${orderDetails.orderDate}" name="orderDate" readonly="readonly">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="form-group">
+            <div class="group-label">주문금액</div>
+            <div class="group-input">
+                <input type="text" placeholder="주문금액" class="form-control" th:value="${orderDetails.price}" name="price" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">배송비</div>
+            <div class="group-input">
+                <input type="text" placeholder="배송비" class="form-control" th:value="${orderDetails.deliveryCharge}" name="deliveryCharge" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">주문상태</div>
+            <div class="group-input">
+                <input type="text" placeholder="주문상태" class="form-control" th:value="${orderDetails.orderState}" name="orderState">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">요청사항</div>
+            <div class="group-input">
+                <input type="text" placeholder="요청사항" class="form-control" th:value="${orderDetails.orderRequest}" name="orderRequest">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">사용포인트</div>
+            <div class="group-input">
+                <input type="text" placeholder="사용포인트" class="form-control" th:value="${orderDetails.usedPoint}" name="usedPoint" readonly="readonly">
+            </div>
+        </div>
+        <button class="submitBtn" type="button" onclick="updateProduct()">상품수정</button>
+    </form>
+</div>
+</body>
+</html>

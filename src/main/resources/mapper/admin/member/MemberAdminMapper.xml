@@ -3,10 +3,8 @@
 
 <mapper namespace="com.CPR.redHome.mapper.admin.member.MemberAdminMapper">
 
-    <!-- 전체 회원 조회. -->
-    <select id="selectAllMember" resultType="com.CPR.redHome.dto.member.MemberDto">
-        select
-            member_id as memberId
+    <sql id="memberColumns">
+        member_id as memberId
             ,account_id as accountId
             ,member_password as memberPassword
             ,name as name
@@ -18,10 +16,39 @@
             ,point as point
             ,role as role
             ,grade_id as gradeId
-        from member
+    </sql>
+
+    <!-- 전체 회원 조회. -->
+    <select id="selectAllMembers" resultType="com.CPR.redHome.dto.member.MemberDto">
+        SELECT
+            <include refid="memberColumns"/>
+        FROM
+             member
     </select>
 
-    <!-- 나이대 별 회원 조회 -->
+    <!-- memberId 해당 회원 조회 -->
+    <select id="selectMemberById" parameterType="Integer" resultType="com.CPR.redHome.dto.member.MemberDto">
+        SELECT
+            <include refid="memberColumns"/>
+        FROM
+             member
+        WHERE
+            member_id = #{memberId}
+    </select>
+
+    <!-- 수정 member update -->
+    <update id="updateMember" parameterType="com.CPR.redHome.dto.member.MemberDto">
+        UPDATE
+            member
+        SET
+            point = #{point}
+          ,grade_id = #{gradeId}
+          ,role = #{role}
+        WHERE
+            member_id = #{memberId}
+    </update>
+
+    <!-- 연령대 별 회원 조회 -->
     <select id="selectMemberByAge" resultType="java.util.LinkedHashMap">
         SELECT
             COUNT(case when age BETWEEN 10 and 19 then 1 end) as "10대",
@@ -31,6 +58,38 @@
             COUNT(case when age BETWEEN 50 and 59 then 1 end) as "50대",
             COUNT(case when age > 60 then 1 end) as "60s"
         FROM (SELECT substr(NOW(),1,4)-substr(birthdate,1,4)+1 age from member) T
+    </select>
+
+    <!-- 지역 별 회원 수 조회 -->
+    <select id="selectMemberByLocation" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when address = '서울' then 1 end) as "서울",
+            COUNT(case when address = '경기' then 1 end) as "경기",
+            COUNT(case when address = '부산' then 1 end) as "부산",
+            COUNT(case when address = '대구' then 1 end) as "대구",
+            COUNT(case when address = '인천' then 1 end) as "인천",
+            COUNT(case when address = '광주' then 1 end) as "광주",
+            COUNT(case when address = '대전' then 1 end) as "대전",
+            COUNT(case when address = '울산' then 1 end) as "울산",
+            COUNT(case when address = '세종' then 1 end) as "세종",
+            COUNT(case when address = '강원' then 1 end) as "강원",
+            COUNT(case when address = '충청' then 1 end) as "충청",
+            COUNT(case when address = '경상' then 1 end) as "경상",
+            COUNT(case when address = '전라' then 1 end) as "전라",
+            COUNT(case when address = '제주' then 1 end) as "제주"
+        FROM (SELECT SUBSTR(address,1,2) address from member) T
+    </select>
+
+    <!-- 등급 별 회원 수 조회 -->
+    <select id="selectMemberByGrade" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when grade_id = 1 then 1 end) as "브론즈",
+            COUNT(case when grade_id = 2 then 1 end) as "실버",
+            COUNT(case when grade_id = 3 then 1 end) as "골드",
+            COUNT(case when grade_id = 4 then 1 end) as "플래티넘",
+            COUNT(case when grade_id = 5 then 1 end) as "다이아"
+        FROM
+                (SELECT grade_id FROM member) T
     </select>
 
 

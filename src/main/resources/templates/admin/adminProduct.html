@@ -2,21 +2,24 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>상품관리페이지</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
-        function registProduct(){
-            location.href = "/adminMember/adminProduct/enroll";
+        function deleteProduct(no, productTitle){
+            if(!confirm("정말로 상품 \""+productTitle+"\"를 삭제하시겠습니까?")){
+                alert("상품 삭제를 취소하셨습니다.");
+            }else{
+                location.href = "/admin/product/delete/" + no;
+                alert("상품을 삭제하였습니다.");
+            }
+
         }
 
-        function deleteProduct(no){
-            location.href = "/adminProduct/delete?no=" + no;
-        }
+        function updateProduct(no){
+            location.href = "/admin/product/update/" + no;
 
-        function editProduct(no){
-            location.href = "/adminMember/adminProduct/edit/" + no;
         }
 
         function searchBtn(){
@@ -70,7 +73,6 @@
             <th>제품사진</th>
             <th>제품가격</th>
             <th>재고량</th>
-            <th>판매량</th>
             <th>제품타입번호</th>
             <th>카테고리번호</th>
             <th>수정</th>
@@ -78,20 +80,17 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${products}" var="product" >
-            <tr>
-                <td>${product.product_num}</td>
-                <td>${product.product_name}</td>
-                <td>${product.product_img}</td>
-                <td>${product.product_price}</td>
-                <td>${product.product_quantity}</td>
-                <td>${product.product_quantity_sold}</td>
-                <td>${product.product_type_num}</td>
-                <td>${product.product_category_num}</td>
-                <td><button onclick="editProduct(${product.product_num})">수정</button></td>
-                <td><button onclick="deleteProduct(${product.product_num})">삭제</button></td>
+            <tr th:each="product : ${productDtos}">
+                <td th:text="${product.productId}"></td>
+                <td th:text="${product.productTitle}"></td>
+                <td th:text="${product.productImg}"></td>
+                <td th:text="${product.productPrice}"></td>
+                <td th:text="${product.productQuantity}"></td>
+                <td th:text="${product.productThemeId}"></td>
+                <td th:text="${product.productCategoryId}"></td>
+                <td><button th:onclick="updateProduct([[${product.productId}]])">수정</button></td>
+                <td><button th:onclick="deleteProduct([[${product.productId}]],[[${product.productTitle}]])">삭제</button></td>
             </tr>
-        </c:forEach>
         </tbody>
     </table>
 </div>

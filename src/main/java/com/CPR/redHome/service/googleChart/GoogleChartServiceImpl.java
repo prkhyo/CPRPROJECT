@@ -18,7 +18,7 @@ public class GoogleChartServiceImpl implements GoogleChartService{
     @Override
     public JSONObject getChartData() {
 
-        List<MemberDto> items = adminService.selectAllMember();
+        List<MemberDto> items = adminService.selectAllMembers();
 
         JSONObject data = new JSONObject();
 
