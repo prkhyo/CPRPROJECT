@@ -33,7 +33,7 @@
         from member
         where member_id = #{memberId};
     </select>
-    <insert id="joinMember" parameterType="memberDto">
+    <insert id="joinMember" parameterType="memberJoinDto">
         insert into member (account_id,
                             member_password,
                             name,
@@ -75,5 +75,8 @@
              email= #{email}
         where member_id = #{memberId}
     </update>
-
+    <select id="checkAccountIdDuplicate" resultType="Long">
+        select member_id from member
+        where account_id=#{accountId}
+    </select>
 </mapper>

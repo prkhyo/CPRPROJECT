@@ -1,6 +1,7 @@
 package com.CPR.redHome.service.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.dto.member.MemberJoinDto;
 import com.CPR.redHome.mapper.member.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+    @Override
+    public String checkAccountIdDuplicate(String accountId) {
+        Long memberId = memberMapper.checkAccountIdDuplicate(accountId);
 
+        if(memberId==null)
+            return "true";
+
+        return "false";
+    }
 
     @Override
-    public void joinMember(MemberDto memberDto) {
-        memberMapper.joinMember(memberDto);
+    public void joinMember(MemberJoinDto memberJoinDto) {
+        memberMapper.joinMember(memberJoinDto);
     }
 
 

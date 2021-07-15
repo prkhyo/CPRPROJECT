@@ -7,13 +7,12 @@ import com.CPR.redHome.dto.member.SessionUser;
 import com.CPR.redHome.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,6 +85,19 @@ public class MemberController {
         return "member/join";
     }
 
+
+    @PostMapping("join/checkId")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String checkId(@RequestBody String accountId){
+        String result = memberService.checkAccountIdDuplicate(accountId);
+
+        return result;
+    }
+
+
+
+
     @PostMapping("/join")
     public String joinMember(@Validated @ModelAttribute("member") MemberJoinDto member,
                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -95,19 +107,10 @@ public class MemberController {
             return "member/join";
         }
 
-        //성공시
-        MemberDto memberDto = new MemberDto();
-        memberDto.setAccountId(member.getAccountId());
-        memberDto.setMemberPassword(member.getMemberPassword());
-        memberDto.setName(member.getName());
-        memberDto.setTelephone(member.getTelephone());
-        memberDto.setEmail(member.getEmail());
-        memberDto.setAddress(member.getAddress());
-        memberDto.setBirthdate(member.getBirthdate());
 
-        memberService.joinMember(memberDto);
+        memberService.joinMember(member);
 
-        return "member/login";
+        return "redirect:/login";
     }
 
 }
