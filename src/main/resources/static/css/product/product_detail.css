@@ -2039,7 +2039,7 @@ li:first-child>.production-selling-navigation__item {
         -moz-box-flex: 0;
         -moz-flex: 0 0 305px;
         -ms-flex: 0 0 305px;
-        flex: 0 0 305px;
+        flex: 0 0 450px;
     }
 }
 
