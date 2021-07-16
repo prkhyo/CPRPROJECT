@@ -2,12 +2,13 @@ package com.CPR.redHome.service.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.member.MemberJoinDto;
+import com.CPR.redHome.encrypt.EncryptPassword;
 import com.CPR.redHome.mapper.member.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.security.NoSuchAlgorithmException;
 
 
 @Slf4j
@@ -46,9 +47,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void joinMember(MemberJoinDto memberJoinDto) {
+    public void joinMember(MemberJoinDto memberJoinDto) throws NoSuchAlgorithmException{
+        EncryptPassword encryptPassword = new EncryptPassword();
+        String encryptedPassword = encryptPassword.encrypt(memberJoinDto.getMemberPassword());
+        memberJoinDto.setMemberPassword(encryptedPassword);
+
         memberMapper.joinMember(memberJoinDto);
     }
+
+
+
 
 
 }

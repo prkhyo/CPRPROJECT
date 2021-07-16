@@ -100,7 +100,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public String joinMember(@Validated @ModelAttribute("member") MemberJoinDto member,
-                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         //
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);

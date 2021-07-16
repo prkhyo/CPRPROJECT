@@ -34,6 +34,10 @@ function checkId() {
         alert('아이디를 입력해주세요.');
 
     }
+    if(accountId.value.length<4 || accountId.value.length>20){
+        alert("아이디는 4~20글자 사이로 작성해야 합니다. ");
+        return;
+    }
 
     request.onreadystatechange = function () {
         if (this.readyState === 4 & this.status === 200) {

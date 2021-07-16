@@ -4,6 +4,8 @@ import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.member.MemberJoinDto;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
+
 
 public interface MemberService {
 
@@ -14,7 +16,7 @@ public interface MemberService {
     String checkAccountIdDuplicate(String accountId);
 
     //회원가입시
-    void joinMember(MemberJoinDto memberJoinDto);
+    void joinMember(MemberJoinDto memberJoinDto) throws NoSuchAlgorithmException;
 
 
 
