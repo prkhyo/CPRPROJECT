@@ -43,4 +43,10 @@ public class OrderAdminController {
         orderAdminService.updateOrder(orderDto);
         return "redirect:/admin/order";
     }
+
+    // 주문페이지 통계
+    @GetMapping("/admin/order/chart")
+    public String adminMemberChart() {
+        return "admin/chart/orderChart";
+    }
 }

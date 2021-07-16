@@ -49,47 +49,32 @@
             order_number = #{orderNumber}
     </update>
 
-
-
-
-
-    <!-- 가격대 별 상품 수 조회 -->
-    <select id="selectProductByPrice" resultType="java.util.LinkedHashMap">
+    <!-- 월별 주문 수 조회 -->
+    <select id="selectOrderByMonth" resultType="java.util.LinkedHashMap">
         SELECT
-            COUNT(case when product_price BETWEEN 0 and 9999 then 1 end) as "만원미만",
-            COUNT(case when product_price BETWEEN 10000 and 99999 then 1 end) as "만원대",
-            COUNT(case when product_price BETWEEN 100000 and 199999 then 1 end) as "10만원대",
-            COUNT(case when product_price BETWEEN 200000 and 299999 then 1 end) as "20먼원대",
-            COUNT(case when product_price BETWEEN 300000 and 399999 then 1 end) as "30만원대",
-            COUNT(case when product_price BETWEEN 400000 and 499999 then 1 end) as "40만원대",
-            COUNT(case when product_price > 500000 then 1 end) as "50만원이상"
-        FROM (SELECT product_price FROM product) T
+            COUNT(case when month = 01 then 1 end) as "1월",
+            COUNT(case when month = 02 then 1 end) as "2월",
+            COUNT(case when month = 03 then 1 end) as "3월",
+            COUNT(case when month = 04 then 1 end) as "4월",
+            COUNT(case when month = 05 then 1 end) as "5월",
+            COUNT(case when month = 06 then 1 end) as "6월",
+            COUNT(case when month = 07 then 1 end) as "7월",
+            COUNT(case when month = 08 then 1 end) as "8월",
+            COUNT(case when month = 09 then 1 end) as "9월",
+            COUNT(case when month = 10 then 1 end) as "10월",
+            COUNT(case when month = 11 then 1 end) as "11월",
+            COUNT(case when month = 12 then 1 end) as "12월"
+        FROM (SELECT substr(order_date,6,2) month from orders) T
     </select>
 
-    <!-- 카테고리 별 상품 수 조회 -->
-    <select id="selectProductByCategory" resultType="java.util.LinkedHashMap">
+    <!-- 주문 상태 별 주문 수 조회 -->
+    <select id="selectOrderByState" resultType="java.util.LinkedHashMap">
         SELECT
-            COUNT(case when product_category_id = 1 then 1 end) as "서랍",
-            COUNT(case when product_category_id = 2 then 1 end) as "책상",
-            COUNT(case when product_category_id = 3 then 1 end) as "의자",
-            COUNT(case when product_category_id = 4 then 1 end) as "옷장",
-            COUNT(case when product_category_id = 5 then 1 end) as "침대",
-            COUNT(case when product_category_id > 5 then 1 end) as "기타"
-        FROM (SELECT product_category_id FROM product) T
-    </select>
-
-    <!-- 테마 별 상품 수 조회 -->
-    <select id="selectProductByTheme" resultType="java.util.LinkedHashMap">
-        SELECT
-            COUNT(case when product_theme_id = 1 then 1 end) as "노래방",
-            COUNT(case when product_theme_id = 2 then 1 end) as "도서관",
-            COUNT(case when product_theme_id = 3 then 1 end) as "오피스",
-            COUNT(case when product_theme_id = 4 then 1 end) as "영화관",
-            COUNT(case when product_theme_id = 5 then 1 end) as "카페",
-            COUNT(case when product_theme_id = 6 then 1 end) as "헬스장",
-            COUNT(case when product_theme_id = 7 then 1 end) as "PC방",
-            COUNT(case when product_theme_id > 7 then 1 end) as "기타"
-        FROM (SELECT product_theme_id FROM product) T
+            COUNT(case when order_state = '결제 확인' then 1 end) as "결제확인",
+            COUNT(case when order_state = '배송 준비 중' then 1 end) as "배송준비중",
+            COUNT(case when order_state = '배송 중' then 1 end) as "배송중",
+            COUNT(case when order_state = '배송 완료' then 1 end) as "배송완료"
+        FROM orders
     </select>
 
 

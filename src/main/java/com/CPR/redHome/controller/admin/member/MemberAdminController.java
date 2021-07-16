@@ -45,7 +45,7 @@ public class MemberAdminController {
     }
 
     // 멤버페이지 통계
-    @GetMapping("admin/member/chart")
+    @GetMapping("/admin/member/chart")
     public String adminMemberChart() {
         return "admin/chart/memberChart";
     }
@@ -54,15 +54,11 @@ public class MemberAdminController {
 
 
 
-    // =================== 아래 추후 분리 예정 ===================
 
 
 
 
-    // 문의 페이지 조회
-    @GetMapping("/admin/qna")
-    public String adminQna(){
-        return "admin/adminQna";
-    }
+
+
 
 }
