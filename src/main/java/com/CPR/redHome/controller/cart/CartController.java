@@ -37,7 +37,6 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteCart(@RequestBody List<OrderDto> OrderDto) {
 
-        log.info("cartDto = " + OrderDto);
         cartService.cartDelete(OrderDto);
     }
 

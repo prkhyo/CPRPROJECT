@@ -1,5 +1,6 @@
 package com.CPR.redHome.mapper.seller;
 
+import com.CPR.redHome.dto.seller.ImageDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
 import org.apache.ibatis.annotations.Mapper;
 

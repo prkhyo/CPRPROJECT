@@ -35,13 +35,12 @@ public class SellerController {
 
         // 제품 등록 시 이미지가 없으면 기본 내용만 등록 , else 이미지도 같이 저장
         if (productRegistDto.get(0).getImageUrl() == null) {
-            log.info("no have any image");
             sellerService.registProducts(productRegistDto.get(0));
-        }else{
-            log.info("have image");
+        } else {
             sellerService.registProducts(productRegistDto.get(0));
             sellerService.registImage(productRegistDto);
         }
 
     }
+
 }

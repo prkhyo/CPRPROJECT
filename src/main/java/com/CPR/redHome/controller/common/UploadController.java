@@ -36,19 +36,6 @@ public class UploadController {
     @Value("${custom.upload.path}") // yml변수
     private String uploadPath;
 
-    /*
-     파일 저장 시 다음과 같은 사항을 고려해야한다
-
-     1. 업로드 된 확장자가 이미지만 가능하도록 검사( 첨부파일 을 이용한 원격 셀)
-        - 'shell script' 파일 등을 업로드해서 공격하는 기법이 있기에 파일을 저장하는 순간에도 검사하는 과정이 필요
-        - 이 처리는 multipartFile에서 제공하난 getContentType()을 이용해서 처리할 수 있다.
-     2. 동일한 이름의 파일이 업로드 된다면 기존 파일을 덮어쓰는 문제
-        - UUID 를 이용하여 동일한 파일이지만 다른이름을 부여할 수 있다.
-     3. 업로드된 파일을 저장하는 폴더의 용량
-
-    */
-
-
     @PostMapping("/uploadAjax")
     public ResponseEntity<List<ImageUploadDto>> uploadFile(MultipartFile[] uploadFiles) {
 
@@ -66,8 +53,6 @@ public class UploadController {
             String originalName = uploadFile.getOriginalFilename();
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
-            log.info("fileName 1 : " + fileName);
-
             //날짜 폴더 생성
             String folderPath = makeFolder();
 
@@ -76,8 +61,6 @@ public class UploadController {
 
             //저장할 파일 이름 중간에 "-" 를 이용해서 구분
             String savaName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
-
-            log.info("savaName 1 : " + savaName);
 
             Path savePath = Paths.get(savaName);
 
@@ -111,10 +94,8 @@ public class UploadController {
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
-            log.info("fileName 2 :" + srcFileName);
 
             File file = new File(uploadPath + File.separator + srcFileName);
-            log.info("display file : " + file);
 
             HttpHeaders header = new HttpHeaders();
 
@@ -149,7 +130,6 @@ public class UploadController {
     public ResponseEntity<Boolean> removeFile(String fileName) {
         String srcFileName = null;
 
-        log.info("이건 뭐야ㅕ  = " + fileName);
 
         try {
             srcFileName = URLDecoder.decode(fileName, "UTF-8");
