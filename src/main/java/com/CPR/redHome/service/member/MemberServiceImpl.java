@@ -17,15 +17,17 @@ import java.security.NoSuchAlgorithmException;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
+    EncryptPassword encryptPassword = new EncryptPassword();
 
     @Override
-    public MemberDto selectMemberByAccountIdAndPassword(String accountId, String password) {
+    public MemberDto selectMemberByAccountIdAndPassword(String accountId, String password) throws NoSuchAlgorithmException {
+        String encryptedPassword = encryptPassword.encrypt(password);
         MemberDto member = memberMapper.selectMemberByAccountId(accountId);
 
         if (member == null) {
             log.info("xxxxxxxxxxxxxxxx  아이디가 존재하지 않습니다  xxxxxxxxxxxxxx");
 
-        } else if (!(member.getMemberPassword().equals(password))) {
+        } else if (!(member.getMemberPassword().equals(encryptedPassword))) {
             log.info("==============비밀번호가 일치하지 않습니다 ================");
             member = null;
 
@@ -48,7 +50,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void joinMember(MemberJoinDto memberJoinDto) throws NoSuchAlgorithmException{
-        EncryptPassword encryptPassword = new EncryptPassword();
         String encryptedPassword = encryptPassword.encrypt(memberJoinDto.getMemberPassword());
         memberJoinDto.setMemberPassword(encryptedPassword);
 

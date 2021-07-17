@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 public interface MemberService {
 
     //아이디와 패스워드로 멤버가져오기
-    MemberDto selectMemberByAccountIdAndPassword(String accountId,String Password);
+    MemberDto selectMemberByAccountIdAndPassword(String accountId,String Password) throws NoSuchAlgorithmException;
 
     //아이디 중복 확인
     String checkAccountIdDuplicate(String accountId);

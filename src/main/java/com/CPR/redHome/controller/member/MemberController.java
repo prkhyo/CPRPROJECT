@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Controller
@@ -39,7 +40,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request) throws NoSuchAlgorithmException {
 
         log.info("login!!{}", loginData.getAccountId());
 

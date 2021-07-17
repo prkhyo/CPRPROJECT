@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -20,7 +22,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("아이디에 맞는 비밀번호 찾기")
-    public void selectMemberByAccountIdAndPasswordTest() {
+    public void selectMemberByAccountIdAndPasswordTest() throws NoSuchAlgorithmException {
 
         //given
         String accountId1 = "꼬미";
