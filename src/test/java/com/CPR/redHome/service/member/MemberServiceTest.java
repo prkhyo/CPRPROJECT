@@ -1,11 +1,14 @@
 package com.CPR.redHome.service.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +22,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("아이디에 맞는 비밀번호 찾기")
-    public void  selectMemberByAccountIdAndPasswordTest() {
+    public void selectMemberByAccountIdAndPasswordTest() throws NoSuchAlgorithmException {
 
         //given
         String accountId1 = "꼬미";
@@ -41,9 +44,27 @@ class MemberServiceTest {
         System.out.println("member1 = " + member1);
         System.out.println("member2 = " + member2);
         System.out.println("member3 = " + member3);
-            
-        }
-        
 
     }
 
+
+    @Test
+    @DisplayName("중복된 아이디가 있으면 false반환")
+    public void test() {
+
+        //given
+/*        String accountIdExist = "user1";
+        String accountId = "newId";
+
+        //when
+        boolean exist = memberService.checkAccountIdDuplicate(accountIdExist);
+        boolean noneExist = memberService.checkAccountIdDuplicate(accountId);
+
+
+        //then
+        Assertions.assertThat(exist).isFalse();
+        Assertions.assertThat(noneExist).isTrue();*/
+
+    }
+
+}
