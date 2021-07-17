@@ -7,17 +7,18 @@ import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@Alias("ProductDto")
-public class ProductDto {
+@Alias("ProductViewDto")
+public class ProductViewDto {
 
     private Long productId;
 
-    private Long memberId;
+    private String accountId;
 
     private String productTitle;
 
@@ -29,10 +30,11 @@ public class ProductDto {
 
     private Integer productQuantity;
 
-    private Integer productCategoryId; //join
+    private String productCategoryName;
 
-    private Integer productThemeId; //join
+    private String productThemeName;
 
+    private List<ProductImageDto> productImageDtos;
 
 
 

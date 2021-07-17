@@ -13,7 +13,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("ProductImageDto")
 public class ProductImageDto {
 
-   private Long product_image_id;
+   private Long productImageId;
 
    private String productImg;
 

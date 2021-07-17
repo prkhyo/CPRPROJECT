@@ -543,17 +543,8 @@
     }
 }
 
-.production-selling-header__action {
-    position: absolute;
-    top: 22px;
-    right: 0;
-    margin: 0 -6px;
-}
-@media (min-width: 768px){
-    .production-selling-header__action {
-        top: 0;
-    }
-}
+
+
 
 .production-selling-header__action__button-scrap {
     display: none;
@@ -593,13 +584,23 @@
 }
 
 .drop-down {
-    position: relative;
+    position: absolute;
     display: inline-block;
+    top: -65px;
+    left: -30px;
 }
 
 .production-selling-header__action__button>.icon {
     fill: #424242;
 }
+
+.production-selling-header__action{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 -6px;
+}
+
 
 .production-selling-header__review-wrap {
     margin: 5px 0 0;
@@ -738,12 +739,14 @@ selling-header__price__coupon, .production-selling-header__price__price {
 
 .production-selling-header__price__coupon>.number, .production-selling-header__price__price>.number {
     font-family: Tahoma,sans-serif;
+
 }
 
 @media (min-width: 768px){
     .production-selling-header__price__coupon>.number, .production-selling-header__price__price>.number {
         font-size: 32px;
         font-weight: 900;
+
     }
 }
 
@@ -772,11 +775,14 @@ selling-header__price__coupon, .production-selling-header__price__price {
 
 .production-selling-header__delivery--deal {
     border-top: 1px solid #ededed;
+    margin-top: 10px;
 }
 .production-selling-header__delivery {
     padding: 13px 0 0;
     font-size: 15px;
     line-height: 21px;
+
+
 }
 
 .production-selling-header__delivery__type {
@@ -3631,5 +3637,37 @@ tr{
     .production-selling-refund__list {
         font-size: 13px;
         line-height: 17px;
+    }
+}
+
+.production-selling-header__action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 -6px;
+}
+
+
+.production-selling-header__title__name {
+    display: block;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #000;
+    overflow-wrap: break-word;
+    margin-right: 36px;
+    width: 350px;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+
+
+@media (min-width: 768px){
+    .production-selling-header__title__name {
+        font-size: 22px;
+        line-height: 33px;
+        min-height: 43px;
+        margin: 0 92px 0 0;
     }
 }
