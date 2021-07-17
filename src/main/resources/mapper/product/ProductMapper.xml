@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.product.ProductMapper">
+
+<select id="selectProduct" resultType="ProductViewDto" parameterType="java.lang.Long">
+
+
+    select product_id              as productId,
+           product_title           as productTitle,
+           p.created_date          as createdDate,
+           product_price           as productPrice,
+           product_delivery_charge as productDeliveryCharge,
+           product_quantity        as productQuantity,
+           account_id              as accountId,
+           product_category_name   as productCategoryName,
+           product_theme_name      as productThemeName
+
+    from product p
+             inner join product_theme pt on p.product_theme_id = pt.product_theme_id
+             inner join product_category pc on p.product_category_id = pc.product_category_id
+             inner join member m on p.member_id = m.member_id
+    where p.product_id = ${productId}
+
+
+</select>
+
+
+<select id="selectProductImgList" resultType="ProductImageDto" parameterType="java.lang.Long">
+
+    select product_image_id   as productImageId,
+           product_img        as productImg,
+           product_thumbnail  as productThumbnail,
+           product_id         as productId
+    from product_image
+    where product_id = ${productId}
+
+
+</select>
+
+
+<select id="selectProductMainImg" resultType="ProductImageDto" parameterType="java.lang.Long">
+
+        select product_image_id   as productImageId,
+               product_img        as productImg,
+               product_thumbnail  as productThumbnail,
+               product_id         as productId
+        from product_image
+        where product_id = ${productId}
+        limit 1
+
+
+</select>
+
+
+
+</mapper>
