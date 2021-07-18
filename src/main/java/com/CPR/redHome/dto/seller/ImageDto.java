@@ -15,7 +15,7 @@ public class ImageDto {
 
     private String productImageId;
     private String imageUrl;
-    private String thumbnailUrl;
+    private String mainImageUrl;
 
 
 }

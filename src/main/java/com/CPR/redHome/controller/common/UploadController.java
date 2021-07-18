@@ -2,12 +2,8 @@ package com.CPR.redHome.controller.common;
 
 import com.CPR.redHome.dto.common.ImageUploadDto;
 import lombok.extern.log4j.Log4j2;
-import net.coobird.thumbnailator.Thumbnailator;
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -33,12 +29,10 @@ import java.util.UUID;
 @Log4j2
 public class UploadController {
 
-    @Value("${custom.upload.path}") // yml변수
-    private String uploadPath;
-
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<ImageUploadDto>> uploadFile(MultipartFile[] uploadFiles) {
+    public ResponseEntity<List<ImageUploadDto>> uploadFile(MultipartFile[] uploadFiles, HttpServletRequest request) {
 
+        String uploadPath = request.getSession().getServletContext().getRealPath("/fileUpload/product/");
         List<ImageUploadDto> registDtoList = new ArrayList<>();
 
         for (MultipartFile uploadFile : uploadFiles) {
@@ -54,27 +48,17 @@ public class UploadController {
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
             //날짜 폴더 생성
-            String folderPath = makeFolder();
+            String folderPath = makeFolder(uploadPath);
 
             //UUID
             String uuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름 중간에 "-" 를 이용해서 구분
             String savaName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
-
             Path savePath = Paths.get(savaName);
 
             try {
                 uploadFile.transferTo(savePath); //실제 이미지 저장
-
-                // 섬네일 생성
-                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
-
-                // 썸네일 파일 이름은준간에 s_로 시작
-                File thumbnailFile = new File(thumbnailSaveName);
-
-                //섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 200, 200);
 
                 registDtoList.add(new ImageUploadDto(fileName, uuid, folderPath));
 
@@ -88,15 +72,13 @@ public class UploadController {
     }
 
     // 암호화 된 이미지명 넣으면 이미지가 출력 됩니다 ^^
-
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    public ResponseEntity<byte[]> getFile(String fileName, HttpServletRequest request) {
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
 
-            File file = new File(uploadPath + File.separator + srcFileName);
-
+            File file = new File(request.getSession().getServletContext().getRealPath("/fileUpload/product/") + File.separator + srcFileName);
             HttpHeaders header = new HttpHeaders();
 
             //MIME타입 처리
@@ -113,13 +95,12 @@ public class UploadController {
 
 
     // 폴더가 미존재 시 생성
-    private String makeFolder() {
-
+    private String makeFolder(String path) {
         String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         String folderPath = str.replace("//", File.separator);
 
         //make folder
-        File uploadPathFolder = new File(uploadPath, folderPath);
+        File uploadPathFolder = new File(path, folderPath);
         if (uploadPathFolder.exists() == false) {
             uploadPathFolder.mkdirs();
         }
@@ -127,18 +108,15 @@ public class UploadController {
     }
 
     @PostMapping("/removeFile")
-    public ResponseEntity<Boolean> removeFile(String fileName) {
-        String srcFileName = null;
+    public ResponseEntity<Boolean> removeFile(String fileName, HttpServletRequest request) {
+        String uploadPath = request.getSession().getServletContext().getRealPath("/fileUpload/product/");
 
+        String srcFileName = null;
 
         try {
             srcFileName = URLDecoder.decode(fileName, "UTF-8");
             File file = new File(uploadPath + File.separator + srcFileName);
             boolean result = file.delete();
-
-            File thumbnail = new File(file.getParent(), "s_" + file.getName());
-
-            result = thumbnail.delete();
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {

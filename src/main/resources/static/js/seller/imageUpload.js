@@ -21,7 +21,6 @@ $('.uploadBtn').click(function () {
             showUploadImages(result);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
         }
     }); // ajax 끝
 
@@ -38,8 +37,9 @@ function showUploadImages(arr) {
     var str = "";
 
     for (let i = 0; i < arr.length; i++) {
-        str += "<div class='thumnailBox'>";
-        str += "<img class='imageLocation' src='/display?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<div class='thumnailBox' >";
+        str += "<input name='getMain' type='checkbox' onclick='getMainImage(event)' value="+ i +" >";
+        str += "<img class='imageLocation' name='inputImg' style='max-width: 200px; max-height: 200px;' src='/display?fileName=" + arr[i].imageURL+ "'>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'><i class=\"fas fa-times\"></i></button>"
         str += "</div>";
     }
@@ -51,11 +51,11 @@ $(".uploadResult").on("click", ".removeBtn", function (e) {
     var fileName = target.data("name");
     var targetDiv = $(this).closest("div");
 
-    console.log(fileName);
     $.post('/removeFile', {fileName: fileName}, function (result) {
         if (result === true) {
             targetDiv.remove();
         }
+
     });
 
 });
