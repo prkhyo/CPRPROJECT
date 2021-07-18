@@ -6,6 +6,23 @@
     <link rel="stylesheet" type="text/css" href="/css/community/community_detail.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let communityAccountId = document.getElementById("communityAccountId").value;
+            let accountId = document.getElementById("accountId").value;
+
+
+            if(communityAccountId != accountId){
+                document.getElementById("modify_btn").style.visibility='hidden';
+                document.getElementById("delete_btn").style.visibility='hidden';
+            }
+
+
+
+        });
+
+    </script>
 
 </head>
 <body>
@@ -27,7 +44,7 @@
                         </div>
                         <div class="qna-detail-author__profile-link__summary">
                             <div class="qna-detail-author__profile-link__summary-section">
-                                <span class="qna-detail-author__profile-link__summary-nickname" th:text="${community.memberId}"></span>
+                                <span class="qna-detail-author__profile-link__summary-nickname" th:text="${community.accountId}"></span>
                             </div>
                         </div>
                     </a>
@@ -111,7 +128,6 @@
                 </div>
 
                 <div class="header_btn">
-                    <!--수정, 삭제는 현재 로그인 된 아이디와 해당 문의글의 작성 아이디가 같을 때만 보이게 처리할 것-->
                     <button type="button" class="btn btn-default modifyBtn" id="modify_btn"><a th:href="@{/community/edit(communityId=${community.communityId})}">수정</a></button>
                     <button type="button" class="btn btn-default deleteBtn" id="delete_btn"><a th:href="@{/community/communityDelete(communityId=${community.communityId})}">삭제</a></button>
                     <button type="button" class="btn btn-default listBtn" id="boardList_btn"><a th:href="@{/community/list(currentPageNo=${currentPageNo}, reply=${reply}, orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}">목록</a></button>
@@ -131,7 +147,7 @@
                         <div class="comment-feed__form__input">
                             <div class="comment-feed__form__content">
                                 <div class="comment-content-input">
-                                    <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"/>
+                                    <input type="text" name="commentContents" id="commentContents"class="comment-content-input__text comment-feed__form__content__text" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" onfocus="loginCheck()"/>
                                 </div>
                             </div>
                             <div class="comment-feed__form__actions" >
@@ -146,7 +162,9 @@
                         <input type="hidden" name="searchKeyword" th:value="${criteria.searchKeyword}">
                         <input type="hidden" name="commentCurrentPage" id="commentCurrentPage" th:value="${commentCurrentPage}">
                         <input type="hidden" name="communityTitle" th:value="${community.communityTitle}">
-
+                        <input type="hidden"  id="communityAccountId" th:value="${community.accountId}">
+                        <input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+                        <input type="hidden"  id="accountId" th:value="${member == null ? null : member.accountId}  "/>
                     </form>
 
 
@@ -214,6 +232,10 @@
 <script>
 
 
+
+
+
+
     function characterCheck(obj){
 
          //정규 표현식
@@ -228,11 +250,27 @@
     }
 
 
+    function loginCheck(){
+        let memberId = document.getElementById("memberId").value;
 
-   function commentTocomment(commentMemberID){
+        if(memberId == null || memberId == ''){
+            alert('로그인 후 답변 작성이 가능합니다.');
+            document.getElementById("commentContents").blur();
+            location.href ='/login';
+        }else{
+            return -1;
+        }
 
-    let memberTag = ' @'+commentMemberID+': ';
-    document.getElementById("commentContents").value= memberTag;
+    }
+
+
+
+   function commentTocomment(accountId){
+
+      if(loginCheck() == -1){
+          let memberTag = ' @'+accountId+': ';
+          document.getElementById("commentContents").value= memberTag;
+      }
 
    }
 
@@ -309,6 +347,8 @@
                         dateFormatChange(parseData[i].commentCreatedDate);
                         let member__= commentMemberIdExtraction(parseData[i].commentContents);
                         let content__= commentContentExtraction(parseData[i].commentContents);
+                        let loginId = document.getElementById("accountId").value;
+
 
                         comments += '<li className="comment-feed__list__item">';
                         comments += '<article className="comment-feed__item">';
@@ -316,8 +356,8 @@
                         comments += '<a href="/users/13759551" className="comment-feed__item__content__author" style=" color: #424242; font-weight: 700; font-size: 15px; margin-top: 10px; margin-right: 5px;">';
                         comments += '<img className="comment-feed__item__content__author__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36"';
                         comments += ' srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" style="width: 30px; height: 30px; margin-right: 10px; border-radius: 100%; background-color: #dbdbdb; float: left; margin-top: 5px; margin-bottom: 50px;"></img>';
-                        comments += '<span className="comment-feed__item__content__author__name">';
-                        comments +=  parseData[i].memberId;
+                        comments += '<span className="comment-feed__item__content__author__name" id="comment_accountId">';
+                        comments +=  parseData[i].accountId;
                         comments += '</span></a>';
                         comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
                         comments += '<span style="color: #424242;  background-color: #FFB6C1; " >';
@@ -329,19 +369,30 @@
                         comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold;  color: #757575; font-size: 14px;" >';
                         comments +=  dateFormatChange(parseData[i].commentCreatedDate);
                         comments += '</time>';
-                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
+                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;" >·</span>';
                         comments += '<button className="comment-feed__item__footer__reply-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentTocomment(';
-                        comments += parseData[i].memberId;
+                        comments +="'"+parseData[i].accountId+"'";
                         comments += ')">답글 달기</button>';
-                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;">·</span>';
-                        comments += '<button className="comment-feed__item__footer__delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
+                        comments +=  '<span style="color: rgb(189, 189, 189); font-size: 13px; font-weight: bold; margin: 0px 5px;"';
+                        if(loginId != parseData[i].accountId ){
+                            comments += 'hidden';
+                        }
+                        comments += '>·</span>';
+                        comments += '<button className="comment-feed__item__footer__delete-btn" id="delete-btn" type="button" style="background: none; border: none;  color: rgb(117, 117, 117);  padding: 0;  font-size: 13px;  font-weight: bold;  font-family: inherit;" onclick="commentDelete(';
                         comments += parseData[i].commentId;
-                        comments += ')">삭제</button></footer>';
+                        comments += ')"';
+                        if(loginId != parseData[i].accountId ){
+                        comments += 'hidden';
+                        }
+                        comments += '>삭제</button></footer>';
                         comments += '</article></li>';
                         comments += '<form className = "comment_to_commentForm" id = "';
                         comments += parseData[i].commentId;
                         comments += '" name = "comment_to_commentForm"></form>';
+
+
                     }
+
                     document.getElementById("comment-feed__list").innerHTML = comments;
 
                 }else{
@@ -378,7 +429,7 @@
 
         let community_Id = form.communityId.value.trim();
         let comment_Contents = form.commentContents.value.trim();
-        let member_Id = 3;
+        let member_Id = form.memberId.value;
 
         if(comment_Contents == null || comment_Contents == ''){
             alert('답글을 입력해주세요.');

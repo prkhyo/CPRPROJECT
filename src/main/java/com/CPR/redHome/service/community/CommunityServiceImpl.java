@@ -1,7 +1,9 @@
 package com.CPR.redHome.service.community;
 
+import com.CPR.redHome.dto.community.CommentViewDto;
 import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.community.CommunityDto;
+import com.CPR.redHome.dto.community.CommunityViewDto;
 import com.CPR.redHome.mapper.community.CommunityMapper;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
@@ -29,15 +31,15 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     @Override
-    public int countAllCommunities(String reply, String searchType, String searchKeyword) {
-        int communityCnt = communityMapper.selectCommunityTotalCnt(reply, searchType, searchKeyword);
+    public int countAllCommunities(String reply, Criteria criteria) {
+        int communityCnt = communityMapper.selectCommunityTotalCnt(reply, criteria);
         return communityCnt;
     }
 
     @Override
-    public List<CommunityDto> getCommunityList(String reply, String orderType, int recordsPerPage, int firstRecordIndex, String searchType, String searchKeyword) {
+    public List<CommunityViewDto> getCommunityList(String reply, String orderType, int firstRecordIndex, Criteria criteria) {
 
-        List<CommunityDto> communityList = communityMapper.selectAllCommunities(reply, orderType, recordsPerPage, firstRecordIndex, searchType, searchKeyword);
+        List<CommunityViewDto> communityList = communityMapper.selectAllCommunities(reply, orderType, firstRecordIndex, criteria);
 
 
 
@@ -53,17 +55,17 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDto selectCommunity(Long communityId) {
+    public CommunityViewDto selectCommunity(Long communityId) {
 
-        CommunityDto communityDto = communityMapper.selectCommunity(communityId);
+        CommunityViewDto communityDto = communityMapper.selectCommunity(communityId);
 
         return communityDto;
     }
 
     @Override
-    public List<CommentsDto> selectAllComments(Long communityId, int recordsPerPage, int firstRecordIndex) {
+    public List<CommentViewDto> selectAllComments(Long communityId, int recordsPerPage, int firstRecordIndex) {
 
-        List<CommentsDto> commentsList = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
+        List<CommentViewDto> commentsList = communityMapper.selectAllComments(communityId, recordsPerPage, firstRecordIndex);
 
         if (commentsList == null) {
             communityMapper.updateCommunityStateWait(communityId);
@@ -120,9 +122,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
 
-    public List<CommentsDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId) {
+    public List<CommentViewDto> updateCommentPagingData(int commentCurrentPage, int commentTotalCnt, Long communityId) {
         
-        List<CommentsDto> commentlist = Collections.emptyList();
+        List<CommentViewDto> commentlist = Collections.emptyList();
 
         criteria.setCurrentPageNo(commentCurrentPage);
         Pagination pagination = new Pagination(criteria, commentTotalCnt, 1, 2);

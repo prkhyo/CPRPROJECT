@@ -2,6 +2,7 @@ package com.CPR.redHome.mapper.member;
 
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.dto.member.MemberJoinDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,7 @@ public interface MemberMapper {
     MemberDto selectMemberByMemberId(Long memberId);
 
     //회원가입(멤버 등록)
-    void joinMember(MemberDto memberDto);
+    void joinMember(MemberJoinDto memberJoinDto);
 
     //멤버리스트 가져오기
     List<MemberDto> selectAllMember();
@@ -27,4 +28,7 @@ public interface MemberMapper {
 
     //멤버 수정
     void updateMember(MemberDto memberDto);
+
+    //아이디 중복 확인
+    Long checkAccountIdDuplicate(String accountId);
 }
