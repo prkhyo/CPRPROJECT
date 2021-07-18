@@ -3544,7 +3544,7 @@ a {
 }
 
 .production-question-feed__item__answer {
-    margin-bottom: 40px;
+
 }
 
 /*배송, 교환/환불*/
@@ -3670,4 +3670,21 @@ tr{
         min-height: 43px;
         margin: 0 92px 0 0;
     }
+}
+
+.production-question-feed__item__header_category::after{
+
+    content: " | ";
+    margin-right: 5px;
+
+
+}
+
+
+
+.production-question-feed__list__empty {
+    text-align: center;
+    font-size: 15px;
+    color: #757575;
+    margin-bottom: 40px;
 }

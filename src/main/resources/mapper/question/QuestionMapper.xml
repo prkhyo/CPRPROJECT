@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.question.QuestionMapper">
+
+
+    <select id="selectQuestionList" resultType="QuestionViewDto" parameterType="java.lang.Long">
+
+      select q.question_id          as questionId,
+             question_contents      as questionContents,
+             secret_question        as secretQuestion,
+             question_date          as questionDate,
+             question_state         as questionState,
+             question_category_name as questionCategoryName,
+             q.product_id           as productId,
+             m1.account_id          as userAccountId,
+             answer_id              as answerId,
+             answer_contents        as answerContents,
+             m2.account_id          as sellerAccountId,
+             answer_date            as answerDate
+
+      from question as q
+         inner join question_category as qc on q.question_category_id = qc.question_category_id
+         inner join member as m1 on q.member_id = m1.member_id
+         left outer join answer as a on q.question_id = a.question_id
+         left outer join member as m2 on a.member_id = m2.member_id
+      where q.product_id = ${productId}
+      order by questionId desc
+
+
+    </select>
+    
+    <select id="selectQuestionCnt" resultType="java.lang.Integer" parameterType="java.lang.Long">
+
+      select count(*)
+      from question
+      where product_id = ${productId}
+
+
+    </select>
+
+
+</mapper>
