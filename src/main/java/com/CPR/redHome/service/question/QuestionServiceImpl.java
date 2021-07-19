@@ -2,6 +2,7 @@ package com.CPR.redHome.service.question;
 
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.mapper.question.QuestionMapper;
+import com.CPR.redHome.paging.Criteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     @Override
-    public List<QuestionViewDto> selectQuestionList(Long productId) {
+    public List<QuestionViewDto> selectQuestionList(Long productId, int firstRecordIndex, Criteria criteria) {
 
-        List<QuestionViewDto> questionList = questionMapper.selectQuestionList(productId);
+        List<QuestionViewDto> questionList = questionMapper.selectQuestionList(productId, firstRecordIndex, criteria );
 
         return questionList;
     }

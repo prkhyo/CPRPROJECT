@@ -3,7 +3,7 @@
 <mapper namespace="com.CPR.redHome.mapper.question.QuestionMapper">
 
 
-    <select id="selectQuestionList" resultType="QuestionViewDto" parameterType="java.lang.Long">
+    <select id="selectQuestionList" resultType="QuestionViewDto">
 
       select q.question_id          as questionId,
              question_contents      as questionContents,
@@ -25,6 +25,8 @@
          left outer join member as m2 on a.member_id = m2.member_id
       where q.product_id = ${productId}
       order by questionId desc
+
+      limit #{firstRecordIndex}, #{criteria.recordsPerPage}
 
 
     </select>
