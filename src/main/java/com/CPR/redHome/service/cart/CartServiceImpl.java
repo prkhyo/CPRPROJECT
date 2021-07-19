@@ -20,22 +20,17 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartDto> getCartList(Long memberId) {
 
-        log.info("회원 번호 "+ memberId+"님의 장바구니를 조회 합니다. " );
-
         return cartMapper.getCartList(memberId);
     }
 
     @Override
     public int cartDelete(List<OrderDto> orderDto) {
 
-        log.info("삭제되는 cart id = " + orderDto);
         return cartMapper.cartDelete(orderDto);
     }
 
     @Override
     public List<OrderDto> getPayment(List<String> ids) {
-
-        log.info("회원번호 1 의 제품번호 : " + ids + "결제 창 요청 중...");
 
         return cartMapper.getPayment(ids);
     }
@@ -49,8 +44,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public int insertOrders(List<OrderDto> orderDto) {
 
-        log.info("::::::::  결제 후 내역 추가 ::::::::");
-
         return cartMapper.insertOrders(orderDto);
     }
 
@@ -58,7 +51,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public int deductedPoint(OrderDto orderDto) {
 
-        log.info("::::::: 포인트 차감 및 제품 보유 수량 감소 합니당  :::::");
         return cartMapper.deductedPoint(orderDto);
     }
 

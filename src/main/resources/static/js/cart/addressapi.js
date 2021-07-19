@@ -27,12 +27,6 @@ function sample4_execDaumPostcode() {
             document.getElementById("sample4_roadAddress").value = roadAddr;
             document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 
-            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-            // if(roadAddr !== ''){
-            //     document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-            // } else {
-            //     document.getElementById("sample4_extraAddress").value = '';
-            // }
 
             var guideTextBox = document.getElementById("guide");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
