@@ -5,3 +5,9 @@ function pageMove(page){
 
 }
 
+function writeQuestion(){
+    let productId = document.getElementById("productId").value;
+
+    location.href = '/question/add?productId='+productId;
+
+}

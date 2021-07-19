@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/question/question_add.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+
+<div class="react-modal__content-wrap" style="width: 50%; margin-left: 25%; margin-top: 70px;">
+    <div class="react-modal__content product-question">
+        <form class="product-question__wrap">
+            <div class="product-question__wrap__title">상품 문의하기</div>
+            <div class="product-question__wrap__sub-title">문의유형</div>
+            <div class="product-question__wrap__type-select">
+                <div class="product-question__wrap__type-select__box" >상품</div>
+                <div class="product-question__wrap__type-select__box product-question__wrap__type-select__box--select">배송</div>
+                <div class="product-question__wrap__type-select__box" >반품</div>
+                <div class="product-question__wrap__type-select__box" >교환</div>
+                <div class="product-question__wrap__type-select__box" >환불</div>
+                <div class="product-question__wrap__type-select__box" >기타</div>
+            </div>
+            <div class="product-question__wrap__sub-title product-question__wrap__sub-title">문의내용</div>
+            <textarea placeholder="문의 내용을 입력하세요" maxlength="1000" class="form-control text-area-input error product-question__wrap__question" style="height: 39px; font-family: inherit"></textarea>
+            <div class="form-check checkbox-input product-question__checkbox">
+                <label class="form-check-label">
+                    <input class="form-check" type="checkbox">
+                    <span class="check-img"></span>비밀글로 문의하기
+                </label>
+            </div>
+            <div class="product-question__wrap__explain">문의내용에 대한 답변은 ‘마이페이지 &gt; 나의 쇼핑 &gt; 나의 문의내역’ 또는 ‘상품 상세페이지’에서 확인 가능합니다.</div>
+            <div class="product-question__wrap__buttons">
+                <button class="button button--color-blue button--size-50 button--shape-4 product-question__wrap__buttons__submit" type="submit">완료</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+          <input type="hidden" id="productId" th:value="${productId}">
+
+
+<script>
+    var question_category = document.getElementsByClassName("product-question__wrap__type-select__box");
+
+    function handleClick(event) {
+
+
+        if (event.target.classList[1] === "product-question__wrap__type-select__box--select") {
+            event.target.classList.remove("product-question__wrap__type-select__box--select");
+        } else {
+            for (var i = 0; i < question_category.length; i++) {
+                question_category[i].classList.remove("product-question__wrap__type-select__box--select");
+            }
+
+            event.target.classList.add("product-question__wrap__type-select__box--select");
+        }
+    }
+
+    function init() {
+        for (var i = 0; i < question_category.length; i++) {
+            question_category[i].addEventListener("click", handleClick);
+        }
+    }
+
+    init();
+
+</script>
+
+
 
 </body>
 </html>
