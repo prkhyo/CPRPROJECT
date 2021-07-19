@@ -1,6 +1,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/main/top2.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/admin.css"/>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script>
@@ -85,10 +87,17 @@
 </head>
 <body>
 <div th:replace="/admin/chart/layout/chartHeader.html :: header"></div>
-<h1>상품 통계</h1>
-<input type="button" id="chartByMonth" value="월별 주문 수">
-<input type="button" id="chartByState" value="배송상태에 따른 주문 수">
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <h1>주문 통계</h1>
+    <br>
+    <input type="button" id="chartByMonth" value="월별 주문 수">
+    <input type="button" id="chartByState" value="배송상태에 따른 주문 수">
 
-<div id="chart_div" style="width: 900px; height: 500px"></div>
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+</div>
+<div th:replace="/admin/layout/footer.html :: footer"></div>
 </body>
 </html>

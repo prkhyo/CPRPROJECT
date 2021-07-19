@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class QnaAdminController {
 
-    private final QnaAdminService qnaAdminService;
+//    private final QnaAdminService qnaAdminService;
 
     // 문의 페이지 조회
     @GetMapping("/admin/qna")
