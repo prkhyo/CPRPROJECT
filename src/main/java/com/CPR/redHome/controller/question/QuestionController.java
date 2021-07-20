@@ -1,10 +1,7 @@
 package com.CPR.redHome.controller.question;
 
-import com.CPR.redHome.dto.community.CommentsDto;
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.question.QuestionDto;
-import com.CPR.redHome.paging.Criteria;
-import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.question.QuestionService;
 import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,11 +37,9 @@ public class QuestionController {
         questionDto.setProductId(productId);
         questionDto.setMemberId(memberDto.getMemberId());
 
-
         if(secretQuestion != null){
             questionDto.setSecretQuestion("true");
         }
-
 
         int questionCategoryId;
 
