@@ -1,0 +1,92 @@
+@charset "EUC-KR";
+
+.main {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+
+}
+.leftDiv {
+    display: flex;
+    justify-content: flex-end;
+    width: 300px;
+    height: 50vh;
+    margin: auto;
+    flex-direction: column;
+
+}
+.Btns, .thumnailBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+}
+
+.imgBox  img, button{
+    margin: 10px 10px;
+}
+.centerDiv {
+    width: 400px;
+    margin: auto;
+
+}
+
+
+.main-title{
+    font-size: 20px;
+    font-weight: bold;
+    margin : 30px 0;
+}
+
+.form-group{
+    margin: 0 0 30px;
+}
+
+
+.group-input {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.group-input label {
+    width: 100px;
+    margin-right: 10px;
+    font-size: 15px;
+    color: #292929;
+}
+
+.submitBtn{
+    background-color: #ed4a4a;
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    margin : auto;
+}
+
+
+.removeBtn {
+    border: 0;
+    outline: #35c5f0;
+    background-color: transparent ;
+
+
+}
+
+
+/*ÀüÃ¼*/
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend,select, input, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+

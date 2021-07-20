@@ -273,13 +273,14 @@ fieldset, img {
     -webkit-align-items: center;
     -moz-align-items: center;
     align-items: center;
-    width: 72px;
+    width: 120px;
     font-size: 15px;
     line-height: 18px;
     color: #757575;
     white-space: pre-line;
     max-height: 40px;
     transition: color .25s;
+    margin-right: 10px;
 }
 
 /*._10zXy._2klPP {

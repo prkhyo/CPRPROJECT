@@ -12,6 +12,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
+
+  servlet:
+    multipart:
+      enabled: true   # 파일 업로드 가능 여부 선택
+      max-request-size: 30MB    # 한번에 최대 업로드 가능 용량
+      max-file-size: 10MB        # 파일 하나의 초대 크기
+
   messages:
     basename: i18n/messages
     encoding: UTF-8
@@ -19,6 +26,3 @@ spring:
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
   type-aliases-package: com.CPR.redHome.dto.**.*
-
-#  configuration:
-#  map-underscore-to-camel-case: true

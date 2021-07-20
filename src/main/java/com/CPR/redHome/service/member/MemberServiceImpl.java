@@ -17,7 +17,9 @@ import java.security.NoSuchAlgorithmException;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
-    EncryptPassword encryptPassword = new EncryptPassword();
+    private final EncryptPassword encryptPassword;
+
+
 
     @Override
     public MemberDto selectMemberByAccountIdAndPassword(String accountId, String password) throws NoSuchAlgorithmException {
@@ -57,7 +59,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
+    @Override
+    public void deleteMember(Long memberId) {
+        memberMapper.deleteMember(memberId);
+    }
 
 
 }

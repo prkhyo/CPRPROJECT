@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.seller.SellerMapper">
+
+    <insert id="registProducts" parameterType="RegistDto">
+
+        insert into product (member_id, product_title,
+                             product_price, product_delivery_charge,
+                             product_quantity, product_category_id,
+                             product_theme_id, product_main_image, product_description)
+        values (#{memberId}, #{title}, #{price}, #{deliveryCharge},
+                #{totalQuantity}, #{categoryNo}, #{themeNo}, #{mainImageUrl}, #{description})
+
+    </insert>
+
+
+    <insert id="registImage" parameterType="RegistDto">
+
+        insert into product_image (product_id, product_img)
+        values
+
+        <foreach collection="list" item="item" separator=",">
+            ((select product_id from product where member_id = #{item.memberId} order by product_id desc limit 1 ),
+            #{item.imageUrl})
+        </foreach>
+
+
+    </insert>
+
+
+</mapper>
