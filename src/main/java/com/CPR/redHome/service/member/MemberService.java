@@ -18,6 +18,7 @@ public interface MemberService {
     //회원가입시
     void joinMember(MemberJoinDto memberJoinDto) throws NoSuchAlgorithmException;
 
-
+    //회원탈퇴
+    void deleteMember(Long memberId);
 
 }
