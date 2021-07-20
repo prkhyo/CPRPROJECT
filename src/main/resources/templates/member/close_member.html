@@ -271,7 +271,7 @@
 </head>
 <body>
 <div>
-    <form>
+    <form th:action method="post" name="closeform">
         <div class="css-1vu0zgi-WithdrawalContainer e187gapo9">
             <h1 class="css-1lj3sn1-WithdrawalTitle e187gapo8">회원탈퇴 신청</h1>
             <div class="css-etu0mm-FormGroupDiv evfva9a4">
@@ -308,31 +308,44 @@
 
 
             <div class="css-1ek4v32-WithdrawalActions e187gapo1">
+                <input type="hidden" name="memberId" id="memberId" th:value="${session.loginMember.memberId}">
                 <button class="_3Z6oR _3s8ZZ _2tsrJ css-m3n2ud-WithdrawalButton e187gapo0" type="button"
-                        onclick="outBtn()" th:href="@{}">탈퇴신청
+                        onclick="outBtn()">탈퇴신청
                 </button>
                 <button class="_3Z6oR _3AsCW _2tsrJ css-m3n2ud-WithdrawalButton e187gapo0" type="button"
-                        onclick="returnBtn()">취소하기
+                        onclick="returnBtn()" th:href="@{/}">취소하기
                 </button>
             </div>
         </div>
     </form>
+
 </div>
 </body>
 
-<script>
+<script th:inline="javascript">
 
   function outBtn(){
 
     const closeCheck = document.getElementById('confirmed');
     if(closeCheck.checked == true){
-      console.log("체크")
+        if(confirm("정말 회원 탈퇴를 하시겠습니까?")==true){
+            document.closeform.submit();
+        }
+
     }else {
-      console.log("체크 안햇뎌")
+      alert("동의하지 않으셨습니다.")
+        return;
+
+
     }
 
 
 
+  }
+
+  function returnBtn(){
+      alert("회원탈퇴를 취소하셨습니다.")
+      window.location.href = /*[[@{/}]]*/;
   }
 
 </script>
