@@ -41,4 +41,37 @@
     </select>
 
 
+    <insert id="insertQuestion" parameterType="QuestionDto">
+        insert into question(question_contents,
+                             question_state,
+                             question_category_id,
+                             product_id,
+                             member_id
+
+                     <if test="secretQuestion != null">
+                        , secret_question
+                     </if>
+
+        )values( #{questionContents},
+                 '답변대기',
+                 ${questionCategoryId},
+                 ${productId},
+                 ${memberId}
+
+                    <if test="secretQuestion != null">
+                       , #{secretQuestion}
+                    </if>
+
+                 )
+
+    </insert>
+
+
+    <delete id="deleteQuestion" parameterType="java.lang.Long">
+
+        delete from question where question_id = ${questionId}
+
+    </delete>
+
+
 </mapper>

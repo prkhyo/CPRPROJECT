@@ -1,5 +1,6 @@
 package com.CPR.redHome.controller.product;
 
+import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
@@ -7,6 +8,7 @@ import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.product.ProductService;
 import com.CPR.redHome.service.question.QuestionService;
+import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,8 @@ public class ProductController {
     private final QuestionService questionService;
 
     @GetMapping("/product/detail")
-    public String productDetailPage(Model model, @RequestParam Long productId, @RequestParam(defaultValue = "1") int questionCurrentPageNo){
+    public String productDetailPage(Model model, @RequestParam Long productId, @RequestParam(defaultValue = "1") int questionCurrentPageNo,
+                                    @Login MemberDto memberDto){
 
 
         ProductViewDto productDto = productService.selectProduct(productId);
@@ -55,6 +58,7 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
+        model.addAttribute("member", memberDto);
 
 
         return "product/product_detail";

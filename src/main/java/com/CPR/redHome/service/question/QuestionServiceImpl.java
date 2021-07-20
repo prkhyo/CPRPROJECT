@@ -1,5 +1,6 @@
 package com.CPR.redHome.service.question;
 
+import com.CPR.redHome.dto.question.QuestionDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.mapper.question.QuestionMapper;
 import com.CPR.redHome.paging.Criteria;
@@ -29,5 +30,19 @@ public class QuestionServiceImpl implements QuestionService {
         int questionCnt = questionMapper.selectQuestionCnt(productId);
 
         return questionCnt;
+    }
+
+    @Override
+    public void insertQuestion(QuestionDto questionDto) {
+
+        questionMapper.insertQuestion(questionDto);
+
+    }
+
+    @Override
+    public void deleteQuestion(Long questionId) {
+
+        questionMapper.deleteQuestion(questionId);
+
     }
 }

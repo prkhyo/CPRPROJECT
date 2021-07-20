@@ -26,7 +26,7 @@ public class QuestionDto {
 
     private String questionState;
 
-    private Long questionCategoryId;
+    private int questionCategoryId;
 
     private Long productId;
 
