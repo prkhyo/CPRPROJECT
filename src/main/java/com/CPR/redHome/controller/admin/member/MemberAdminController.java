@@ -1,16 +1,17 @@
 package com.CPR.redHome.controller.admin.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.paging.Criteria;
+import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.admin.member.MemberAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -22,9 +23,25 @@ public class MemberAdminController {
 
     // 전체 회원 조회
     @GetMapping("/admin/member")
-    public String adminMember(Model model){
-        List<MemberDto> memberDtos = memberAdminService.selectAllMembers();
+    public String adminMember(@ModelAttribute("criteria") Criteria criteria, Model model,
+                              @RequestParam(defaultValue = "1") int currentPageNo){
+
+        List<MemberDto> memberDtos = Collections.emptyList();
+
+        int totalCnt = memberAdminService.countAll(criteria);
+
+        criteria.setCurrentPageNo(currentPageNo);
+        Pagination pagination = new Pagination(criteria, totalCnt, 5, 5);
+
+        int firstRecordIndex = pagination.getFirstRecordIndex();
+
+        if(totalCnt>0){
+            memberDtos = memberAdminService.getMemberList(firstRecordIndex, criteria);
+        }
+
+        model.addAttribute("pageMaker", pagination);
         model.addAttribute("memberDtos", memberDtos);
+
         return "admin/adminMember";
     }
 
@@ -49,16 +66,5 @@ public class MemberAdminController {
     public String adminMemberChart() {
         return "admin/chart/memberChart";
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

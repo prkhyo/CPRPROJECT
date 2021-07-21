@@ -3,6 +3,51 @@
 
 <mapper namespace="com.CPR.redHome.mapper.admin.member.MemberAdminMapper">
 
+    <sql id ="search" >
+        <if test="criteria.searchType == 'search_accountId'">
+            account_id like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_memberName'">
+            name like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_memberEmail'">
+            eamil like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_memberLevel'">
+            grade_id like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+    </sql>
+
+    <select id="selectTotalCnt" resultType="Integer">
+        SELECT count(*)
+        FROM member
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="search"/>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMembers" resultType="com.CPR.redHome.dto.member.MemberDto">
+        SELECT
+            <include refid="memberColumns"/>
+        FROM member
+
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="search"/>
+            </if>
+
+        </where>
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+    </select>
+
+
+
+
+
+
+
     <sql id="memberColumns">
         member_id as memberId
             ,account_id as accountId
@@ -19,12 +64,12 @@
     </sql>
 
     <!-- 전체 회원 조회. -->
-    <select id="selectAllMembers" resultType="com.CPR.redHome.dto.member.MemberDto">
-        SELECT
-            <include refid="memberColumns"/>
-        FROM
-             member
-    </select>
+<!--    <select id="selectAllMembers" resultType="com.CPR.redHome.dto.member.MemberDto">-->
+<!--        SELECT-->
+<!--            <include refid="memberColumns"/>-->
+<!--        FROM-->
+<!--             member-->
+<!--    </select>-->
 
     <!-- memberId 해당 회원 조회 -->
     <select id="selectMemberById" parameterType="Integer" resultType="com.CPR.redHome.dto.member.MemberDto">

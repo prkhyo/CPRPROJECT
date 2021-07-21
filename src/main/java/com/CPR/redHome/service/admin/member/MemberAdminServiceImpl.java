@@ -2,16 +2,16 @@ package com.CPR.redHome.service.admin.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.mapper.admin.member.MemberAdminMapper;
+import com.CPR.redHome.paging.Criteria;
+import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.admin.util.MakeJsonForChartServcie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @Service
@@ -20,6 +20,28 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
     private final MemberAdminMapper memberAdminMapper;
     private final MakeJsonForChartServcie makeJsonForChartServcie;
+    Criteria criteria;
+    Pagination pagination;
+
+    // 오늘
+    @Override
+    public int countAll(Criteria criteria) {
+        int cnt = memberAdminMapper.selectTotalCnt(criteria);
+        System.out.println("cnt = " + cnt);
+        return cnt;
+    }
+
+    // list 불러오기
+    @Override
+    public List<MemberDto> getMemberList(int firstRecordIndex, Criteria criteria) {
+        List<MemberDto> memberDtos = memberAdminMapper.selectMembers(firstRecordIndex, criteria);
+
+        return memberDtos;
+    }
+
+
+
+
 
     // 전체회원 조회
     @Override

@@ -1,7 +1,9 @@
 package com.CPR.redHome.mapper.admin.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,6 +11,12 @@ import java.util.Map;
 
 @Mapper
 public interface MemberAdminMapper {
+    // 오늘
+    int selectTotalCnt(@RequestParam Criteria criteria);
+
+    List<MemberDto> selectMembers(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
+
+
 
     // 전체 멤버 조회
     List<MemberDto> selectAllMembers();
