@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+                    <!--문의-->
+                    <section class="production-selling-section" th:fragment="questionList">
+                        <header class="production-selling-section__header" style="margin-bottom: 50px;">
+                            <h1 class="production-selling-section__title">
+                                <span class="production-selling-section__title" >문의</span>
+                                <span class="count" th:text="${questionCnt}"></span>
+                            </h1>
+                            <div class="production-selling-section__right">
+                                <button onclick="writeQuestion()">문의하기</button>
+                            </div>
+                        </header>
+
+                        <div class="production-question-feed" th:if="${questionCnt == 0}">
+                           <div class="production-question-feed__list__empty">문의 내역이 없습니다.</div>
+                        </div>
+
+                        <div class="production-question-feed" th:unless="${questionCnt == 0}">
+                            <div class="production-question-feed__list" >
+                                <th: th:each= "question : ${questionList}" >
+                                <article class="production-question-feed__item" data-qna-id="3793373" style="margin-bottom: 40px;">
+                                    <header class="production-question-feed__item__header" >
+                                        <span class="production-question-feed__item__header_category" th:text="${question.questionCategoryName}" style="float: left;" ></span>
+                                        <span class="" th:classappend="${question.questionState == '답변대기'}?'unanswered':'answered'" th:text="${question.questionState}" ></span>
+                                        <th:block th:if="${member != null}">
+                                            <th:block th:if="${question.userAccountId == member.accountId}">
+                                        <button class="production-question-feed__item__header__delete" type="button" th:onclick="'questionDelete('+${question.questionId}+')'">삭제</button>
+                                            </th:block>
+                                        </th:block>
+                                    </header>
+                                    <p class="production-question-feed__item__author" th:text="${question.userAccountId +' | '+#temporals.format(question.questionDate,'yyyy년 MM월 dd일 HH시 mm분')}"></p>
+                                    <!--질문-->
+
+                                    <div class="production-question-feed__item__question">
+                                        <span class="production-question-feed__item__badge">Q&nbsp;</span>
+
+                                        <th:block th:if="${member == null}">
+                                            <p class="production-question-feed__item__content" th:if="${question.secretQuestion == null}" th:text="${question.questionContents}" ></p>
+
+                                            <p class="production-question-feed__item__content" th:unless="${question.secretQuestion == null}">
+                                                <svg class="production-question-feed__item__content__secret-icon" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
+                                                    <path fill="#AFAFAF" d="M10 5.33h-.67V4a3.33 3.33 0 00-6.66 0v1.33H2c-.73 0-1.33.6-1.33 1.34v6.66c0 .74.6 1.34 1.33 1.34h8c.73 0 1.33-.6 1.33-1.34V6.67c0-.74-.6-1.34-1.33-1.34zm-4 6c-.73 0-1.33-.6-1.33-1.33S5.27 8.67 6 8.67s1.33.6 1.33 1.33-.6 1.33-1.33 1.33zm2.07-6H3.93V4a2.07 2.07 0 014.14 0v1.33z"></path>
+                                                </svg>비밀글입니다.</p>
+                                        </th:block>
+                                        <th:block th:unless="${member == null}">
+                                            <p class="production-question-feed__item__content" th:if="${question.secretQuestion == null or (question.secretQuestion != null and member.accountId == question.userAccountId)}" th:text="${question.questionContents}" ></p>
+
+                                            <p class="production-question-feed__item__content" th:unless="${question.secretQuestion == null or (question.secretQuestion != null and member.accountId == question.userAccountId)}">
+                                                <svg class="production-question-feed__item__content__secret-icon" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
+                                                    <path fill="#AFAFAF" d="M10 5.33h-.67V4a3.33 3.33 0 00-6.66 0v1.33H2c-.73 0-1.33.6-1.33 1.34v6.66c0 .74.6 1.34 1.33 1.34h8c.73 0 1.33-.6 1.33-1.34V6.67c0-.74-.6-1.34-1.33-1.34zm-4 6c-.73 0-1.33-.6-1.33-1.33S5.27 8.67 6 8.67s1.33.6 1.33 1.33-.6 1.33-1.33 1.33zm2.07-6H3.93V4a2.07 2.07 0 014.14 0v1.33z"></path>
+                                                </svg>비밀글입니다.</p>
+                                        </th:block>
+
+                                    </div>
+                                    <!--답변-->
+                                    <th:block th:if="${question.answerId != null}">
+                                        <th:block th:if="${question.secretQuestion == null or (question.secretQuestion != null and member != null)}">
+                                            <th:block th:if="${question.secretQuestion == null or (question.secretQuestion != null and member.accountId == question.userAccountId)}">
+                                    <div class="production-question-feed__item__answer">
+                                        <span class="production-question-feed__item__badge">A&nbsp;</span>
+                                        <p class="production-question-feed__item__answer__author">
+                                            <span class="author" th:text="${question.sellerAccountId}" style="margin-right: 8px;"></span><span class="date" th:text="${#temporals.format(question.answerDate,'yyyy년 MM월 dd일 HH시 mm분')}"></span>
+                                        </p>
+                                        <p class="production-question-feed__item__content" th:text="${question.answerContents}" style="margin-top: 5px;"></p>
+                                    </div>
+                                           </th:block>
+                                        </th:block>
+                                    </th:block>
+                                </article>
+                                </th:block>
+                            </div>
+
+                            <ul class="_2BEHX production-question__paginator">
+                              <!--이전버튼-->
+                              <th:block th:if="${questionPageMaker.hasPreviousPage}">
+                                <li>
+                                    <button class="_2XI47 _1gwhd" type="button" th:onclick="'pageMove('+${questionPageMaker.firstPage - 1}+')'">
+                                        <svg width="1em" height="1em" viewBox="0 0 24 24" style="transform: scaleX(-1);">
+                                            <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                              </th:block>
+
+
+                                <!--페이지 번호-->
+                                <th:block th:each="page: ${#numbers.sequence(questionPageMaker.firstPage,questionPageMaker.lastPage)}">
+                                <li>
+                                    <button class="_3b4ci" type="button" id="pageNum" th:classappend="${questionPageMaker.criteria.currentPageNo == page} ?'R16_p':''" th:text="${page == 0 ? '': page}"
+                                            th:onclick="'pageMove('+${page}+')'"></button>
+                                </li>
+                                </th:block>
+
+
+                               <!-- 다음버튼-->
+                              <th:block th:if="${questionPageMaker.hasNextPage}">
+                                <li>
+                                    <button class="_2XI47 _3I7ex" type="button" th:onclick="'pageMove('+${questionPageMaker.lastPage + 1}+')'">
+                                        <svg width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                              </th:block>
+
+                            </ul>
+
+                        </div>
+
+                        <input type="hidden" id="productId" th:value="${productDto.productId}">
+                        <input type="hidden" id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+                        <input type="hidden" id="questionCurrentPageNo" th:value="${questionPageMaker.criteria.currentPageNo}  "/>
+                    </section>
+
+
+
+</body>
+</html>
