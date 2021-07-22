@@ -1,5 +1,6 @@
 package com.CPR.redHome.service.product;
 
+import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.mapper.product.ProductMapper;
@@ -31,11 +32,21 @@ public class ProductServiceImpl implements ProductService {
         return productImageList;
     }
 
+
+
+    /*테스트용*/
     @Override
-    public ProductImageDto selectProductMainImg(Long productId) {
+    public List<ProductViewDto> selectProductList() {
 
-        ProductImageDto productMainImg = productMapper.selectProductMainImg(productId);
+        List<ProductViewDto> productList = productMapper.selectProductList();
 
-        return productMainImg;
+        return productList;
     }
+
+    @Override
+    public void insertProductToCart(CartDto cartDto) {
+        productMapper.insertProductToCart(cartDto);
+    }
+
+
 }

@@ -33,6 +33,12 @@ public class ProductDto {
 
     private Integer productThemeId; //join
 
+    private String productDescription;
+
+    private String productMainImage;
+
+
+
 
 
 

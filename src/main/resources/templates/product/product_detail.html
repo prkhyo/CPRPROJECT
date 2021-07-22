@@ -6,8 +6,43 @@
     <link rel="stylesheet" type="text/css" href="/css/product/product_detail.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/js/question/question_list.js"></script>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+
+
+       $( document ).ready( function() {
+            var jbOffset = $( '.production-selling-navigation__content' ).offset();
+            $( window ).scroll( function() {
+                if ( $( document ).scrollTop() > jbOffset.top ) {
+                    $( '.production-selling-navigation__content' ).addClass( 'nav_sticky' );
+                    $( '.production-selling-navigation__item' ).addClass( 'production-selling-navigation__item--active' );
+
+                }
+                else {
+                    $( '.production-selling-navigation__content' ).removeClass( 'nav_sticky' );
+                    $( '.production-selling-navigation__item' ).removeClass( 'production-selling-navigation__item--active' );
+                }
+            });
+
+        });
+
+
+
+        /*탭 클릭시 해당 태그로 이동*/
+        function tabMove(seq){
+
+            var offset = $("#" + seq).offset();
+           $('html, body').animate({scrollTop : offset.top - 108}, 400);
+
+        }
+
+
+
+
+    </script>
 </head>
 <body>
+
 
 
 <div class="production-selling">
@@ -25,7 +60,7 @@
                         <div class="carousel__list-wrap production-selling-cover-image__carousel-wrap">
                             <div class="carousel__list" style="transform: translateX(0%);">
                                 <div class="carousel__list__entry production-selling-cover-image__entry" style="width: 100%">
-                                    <img class="production-selling-cover-image__entry__image" tabindex="0" src="../../img/productImg/${productDto.product_img}">
+                                    <img class="production-selling-cover-image__entry__image" tabindex="0" th:src="@{${'/display?fileName='+productDto.productMainImage}}">
                                 </div>
                             </div>
                         </div>
@@ -35,11 +70,11 @@
             <div class="production-selling-overview__content col-12 col-md-6 col-lg-5">
                 <div class="production-selling-header">
                     <h1 class="production-selling-header__title">
-                        <span class="production-selling-header__title__name" style="width: 300px; margin-right: 20px;" >피씨방의자피씨방의자</span>
+                        <span class="production-selling-header__title__name" style="width: 300px; margin-right: 20px;" th:text="${productDto.productTitle}"></span>
                     </h1>
                     <div class="production-selling-header__action" >
                         <div class="drop-down" >
-                            <button class="production-selling-header__action__button" type="button" style="position: absolute; top:65px;">
+                            <button class="production-selling-header__action__button" type="button" style="position: absolute; top:65px;" onclick="showShare()" ondblclick="hideShare()">
                                 <svg class="icon" aria-label="공유하기" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                                     <path d="M9.64 14.646a4.5 4.5 0 1 1 0-5.292l4.54-2.476a4.5 4.5 0 1 1 .63.795l-4.675 2.55c.235.545.365 1.146.365 1.777s-.13 1.232-.365 1.777l4.675 2.55a4.5 4.5 0 1 1-.63.795l-4.54-2.476zM18 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM6 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM18 23a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
                                 </svg>
@@ -86,7 +121,7 @@
                                     <span class="production-selling-header__price__row">
                                         <span class="production-selling-header__price__price-wrap">
                                             <span class="production-selling-header__price__price">
-                                                <span class="number" th:text="${productDto.productPrice}"></span>
+                                                <span class="number" th:text="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}"></span>
                                                 <span class="won">원</span>
                                             </span>
                                         </span>
@@ -99,13 +134,19 @@
 									<span>15일 이내 배송</span>
 								</span>
                         <span class="production-selling-header__delivery__fee">
-									<svg class="badge-free" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-								</span>
+                                    <th:block th:if="${productDto.productDeliveryCharge == 0}">
+									  <svg class="badge-free" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
+                                    </th:block>
+                                    <th:block th:unless="${productDto.productDeliveryCharge == 0}">
+                                        <span class="badge-not-free" id="delivery_title">배송비</span>
+                                        <span class="badge-not-free" id="delivery_charge" th:text="${#numbers.formatDecimal(productDto.productDeliveryCharge, 0, 'COMMA', 0, 'POINT')}+'원'"></span>
+                                    </th:block>
+                        </span>
                         <span class="production-selling-header__delivery__disclaimer-wrap">
 									<span class="production-selling-header__delivery__disclaimer">일부 상품은 예외가 있을 수 있습니다 (개별 상품정보 창고)</span>
 									<span class="production-selling-header__delivery__disclaimer">조건에 따라 추가비용 발생 가능 (상품 상세 정보 참고)</span>
 									<span class="production-selling-header__delivery__disclaimer">제주도/도서산간 지역 배송 불가</span>
-								</span>
+						</span>
                     </p>
                 </div>
                 <div class="production-selling-option-form production-selling-overview__option-form">
@@ -116,9 +157,9 @@
                                     <h2 class="selling-option-item__name" th:text="${productDto.productTitle}"></h2>
                                     <div class="selling-option-item__controls">
                                         <div class="selling-option-item__quantity">
-                                            <input type="number" pattern="[0-9]*" min="1" step="1" size="5" class="form-control option-count-input manual" value="1">
+                                            <input type="number" pattern="[0-9]*" min="1" th:max="${productDto.productQuantity}" class="form-control option-count-input manual" id="desiredQuantity" value="1" onblur="quantityCheck()">
                                         </div>
-                                        <p class="selling-option-item__price"><span class="selling-option-item__price__number" th:text="${productDto.productPrice}"></span>원</p>
+                                        <p class="selling-option-item__price"><span class="selling-option-item__price__number purchasePrice"  th:text="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}"></span>원</p>
                                     </div>
                                 </article>
                             </li>
@@ -126,14 +167,14 @@
                         <p class="selling-option-form-content__price">
                             <span class="selling-option-form-content__price__left">주문금액</span>
                             <span class="selling-option-form-content__price__right">
-										<span class="selling-option-form-content__price__number" th:text="${productDto.productPrice}"></span>
+										<span class="selling-option-form-content__price__number purchasePrice" id="purchasePrice"  th:text="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}" th:value="${productDto.productPrice}"></span>
 										원
 									</span>
                         </p>
                     </div>
                     <div class="production-selling-option-form__footer">
-                        <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button"><a href="/cart">장바구니</a></button>
-                        <button class="button button--color-blue button--size-55 button--shape-4" type="button"><a href="/payment">바로구매</a></button>
+                        <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button"><a onclick="cartInsert()">장바구니</a></button>
+                        <button class="button button--color-blue button--size-55 button--shape-4" type="button"><a onclick="payment()">바로구매</a></button>
                     </div>
                 </div>
             </div>
@@ -142,22 +183,22 @@
     <div class="production-selling-navigation-border"></div>
     <div data-sticky-enabled="false" data-sticky-disabled="false" data-sticky-always="false" data-sticky-ignore="false" data-direction="top" data-offset="130" class="sticky-container production-selling-navigation-wrap" style="position: static; top: 130px;">
         <div class="production-selling-navigation" style="position:relative">
-            <nav class="production-selling-navigation__content">
+            <nav class="production-selling-navigation__content" id="production-selling-navigation__content" >
                 <ol class="production-selling-navigation__list">
                     <li>
-                        <a class="production-selling-navigation__item production-selling-navigation__item--active" href="#production-selling-information">상품정보</a>
+                        <a class="production-selling-navigation__item"  onclick="tabMove('production-selling-information')">상품정보</a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" href="#production-selling-review">리뷰<span class="production-selling-navigation__item__count">${r_cnt}</span></a>
+                        <a class="production-selling-navigation__item" onclick="tabMove('production-selling-review')" >리뷰<span class="production-selling-navigation__item__count">${r_cnt}</span></a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" href="#production-selling-question">문의<span class="production-selling-navigation__item__count" th:text="${questionCnt}"></span></a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-question')">문의<span class="production-selling-navigation__item__count" th:text="${questionCnt}"></span></a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" href="#production-selling-delivery">배송</a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-delivery')">배송</a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" href="#production-selling-exchange">교환/환불</a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-exchange')">교환/환불</a>
                     </li>
                 </ol>
             </nav>
@@ -172,16 +213,23 @@
                 <div class="production-selling-content">
 
                     <!--상품 정보-->
-                    <a id="production-selling-information"></a>
+                    <a id="production-selling-information" ></a>
                     <div class="production-selling-description production-selling-description--notice production-selling-description--open">
                         <ul class="production-selling-description__delivery-notice">
                             <li><b>배송까지 <span class="red">최대 <!-- -->15<!-- -->일</span> (주말과 공휴일 제외) 소요됩니다.</b></li>
                             <li>고객주문 &gt; 주문확인 &gt; 상품준비(3~7일) &gt; 안내전화 &gt; 배송</li>
                             <li>주문확인 이후에는 구매 취소와 배송지 변경이 불가합니다.</li>
                         </ul>
-                        <div class="production-selling-description__content">
-
-                            <img src="../../img/productDetailImg/${imgName}">
+                        <div class="production-selling-description__content" style="margin-bottom: 40px;">
+                           <th:block th:each= "productImage : ${productImageList}" >
+                            <th:block th:if="${productDto.productMainImage!= productImage.productImg}">
+                            <img th:src="@{${'/display?fileName='+productImage.productImg}}">
+                            </th:block>
+                           </th:block>
+                            <div style="margin-top: 30px; margin-bottom: 70px;">
+                             <label style="font-family: inherit; font-weight: bold; color: #292929; font-size: 17px;">제품 설명:</label>
+                            <span th:text="${productDto.productDescription}" id="description"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -691,7 +739,10 @@
                             </tr>
                             <tr>
                                 <th>배송비</th>
-                                <td>무료배송</td>
+                                <td>
+                                    <span th:if="${productDto.productDeliveryCharge != 0}" th:text="${#numbers.formatDecimal(productDto.productDeliveryCharge, 0, 'COMMA', 0, 'POINT')}+'원'"></span>
+                                    <span th:unless="${productDto.productDeliveryCharge != 0}">무료배송</span>
+                                </td>
                             </tr>
                             <tr>
                                 <th>도서산간 추가 배송비</th>
@@ -716,11 +767,16 @@
                                 <tbody>
                                 <tr class="firstRow">
                                     <th>반품배송비</th>
-                                    <td>80,000원 (최초 배송비가 무료인 경우 160,000원 부과)</td>
+                                    <td>
+                                        <span th:text="${#numbers.formatDecimal(productDto.productDeliveryCharge == 0?'2500':productDto.productDeliveryCharge, 0, 'COMMA', 0, 'POINT')}+'원'"></span>
+                                        <span th:text="'(최초 배송비가 무료인 경우 '+${#numbers.formatDecimal(productDto.productDeliveryCharge == 0? 2500*2 :productDto.productDeliveryCharge*2 , 0, 'COMMA', 0, 'POINT')}+'원 부과)'"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>교환배송비</th>
-                                    <td>80,000원</td>
+                                    <td>
+                                        <span th:text="${#numbers.formatDecimal(productDto.productDeliveryCharge == 0?'2500':productDto.productDeliveryCharge, 0, 'COMMA', 0, 'POINT')}+'원'"></span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>보내실 곳</th>
@@ -758,6 +814,249 @@
 </div>
 
 </div>
+
+
+<div class ="shareSns" id="shareSns" style="visibility: hidden;">
+    <div class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-1" data-popout="true"  style="position: absolute; left:765px; transform: translateX(-50%);">
+        <div class="animated-popout drop-down__content share-drop-down open open-active">
+            <div class="share-list share-drop-down__content">
+                <button class="share-list__button" type="button" onclick="shareFacebook()">
+                    <svg class="icon" aria-label="페이스북 공유" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                        <g fill="none" fill-rule="evenodd">
+                            <path fill="#3B5998" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"></path>
+                            <path fill="#FFF" d="M25.77 35V24h3.384v-3.385h-3.385v-2.538c-.012-.756.08-1.285 1.693-1.692h1.692V13h-3.385c-3.25 0-4.52 1.84-4.23 5.077v2.538H19V24h2.538v11h4.231z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="share-list__button" id="kakaoBtn" type="button" onclick="shareKakao()">
+                    <svg class="icon" aria-label="카카오톡 공유" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                        <g fill="none" fill-rule="evenodd">
+                            <path fill="#FFEB00" d="M0 24a24 24 0 1 1 48 0 24 24 0 0 1-48 0z"></path>
+                            <path fill="#3C2929" d="M24 11.28c8.28 0 15 5.3 15 11.85 0 6.54-6.72 11.85-15 11.85-.92 0-1.82-.07-2.7-.2l-6.08 4.11a.43.43 0 0 1-.67-.48l1.41-5.28c-4.18-2.1-6.96-5.8-6.96-10 0-6.55 6.72-11.85 15-11.85zm10.86 15.17c.03-.3-.14-.52-.35-.8l-2.04-2.67 1.72-1.74.18-.2c.23-.26.35-.39.35-.59.01-.42-.34-.65-.68-.66a.8.8 0 0 0-.57.27l-2.53 2.63v-2.3c0-.42-.3-.7-.72-.7s-.72.3-.72.7v5.94c0 .41.3.69.72.69.41 0 .72-.3.72-.69V24.4l.51-.53 1.89 2.57c.28.38.42.54.69.57h.11c.16 0 .66-.04.72-.56zm-5.98-.14a.64.64 0 0 0-.17-.48.69.69 0 0 0-.51-.2h-2v-5.2c0-.46-.27-.75-.71-.75-.44 0-.72.3-.72.75v5.71c0 .5.28.8.75.8h2.68c.43 0 .67-.33.68-.63zm-5.51.7c.37 0 .65-.27.65-.61 0-.06-.01-.2-.08-.37l-2.02-5.51c-.18-.53-.57-.84-1.06-.84-.56 0-.92.44-1.07.84l-2.08 5.52a.84.84 0 0 0-.07.31c0 .37.31.67.7.67.37 0 .58-.17.7-.51l.32-.97h3l.31.98c.11.33.34.5.7.5zm-6.94-.75v-5.2h1.5c.48 0 .65-.36.65-.66 0-.32-.23-.65-.64-.65h-4.46c-.41 0-.64.33-.64.65 0 .3.17.65.64.65H15v5.21c0 .47.28.76.72.76.44 0 .72-.3.72-.76zM20.84 21a.01.01 0 0 1 .03 0l1.08 3.26h-2.19L20.84 21z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="share-list__button" type="button" onclick="shareNaver()">
+                    <svg class="icon" aria-label="네이버 블로그 공유" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                        <g fill="none" fill-rule="evenodd">
+                            <path fill="#00C63B" d="M0 24a24 24 0 1 1 48 0 24 24 0 0 1-48 0z"></path>
+                            <path fill="#FFF" d="M32.79 14A3.21 3.21 0 0 1 36 17.21v10.43a3.21 3.21 0 0 1-3.21 3.21h-6.15l-2.11 4.98s-.15.43-.5.43-.5-.43-.5-.43l-2.11-4.98h-6.21a3.21 3.21 0 0 1-3.21-3.2V17.2A3.21 3.21 0 0 1 15.21 14h17.58zm-13.25 9.22s.27-2.23-1.86-2.42c0 0-.98-.01-1.31.56V19.1s-1.35.01-1.44 0v5.92h1.43v-.34s.43.5 1.2.5c0 0 1.97-.05 1.98-1.96zm2.53-2.24s.16-1.99-2.09-2.08v1.42s.68.15.68.7v4.01h1.4v-4.05zm3.33 4.2c1.3 0 2.36-.96 2.36-2.16 0-1.2-1.06-2.17-2.36-2.17-1.3 0-2.36.97-2.36 2.17s1.06 2.17 2.36 2.17zm7.7 0v-4.27h-1.43v.43c-.46-.63-1.22-.55-1.22-.55-1.92.15-1.96 1.92-1.96 1.92v.64c0 1.71 1.75 1.84 1.75 1.84 1.23 0 1.4-.55 1.4-.55.02 1.35-.86 1.27-.86 1.27h-.39v1.34h.64c2.1 0 2.07-2.06 2.07-2.06zm-7.7-3.05a.89.89 0 1 1 0 1.78.89.89 0 0 1 0-1.78zm-8.16.08a.83.83 0 1 1 0 1.66.83.83 0 0 1 0-1.66zm13.63-.06a.87.87 0 1 1 0 1.74.87.87 0 0 1 0-1.74z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="share-list__button" type="button" onclick="shareUrl()">
+                    <svg class="icon" aria-label="주소 복사" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                        <g fill="none" fill-rule="evenodd">
+                            <path fill="#35C5F0" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"></path>
+                            <path fill="#FFF" d="M16.138 29.182c-2.282 0-3.836-1.246-3.836-4.606v-5.88h1.624v5.992c0 2.324.924 3.08 2.212 3.08 1.302 0 2.254-.756 2.254-3.08v-5.992h1.568v5.88c0 3.36-1.54 4.606-3.822 4.606zm8.106-9.184v3.542h1.554c1.498 0 2.31-.616 2.31-1.862s-.812-1.68-2.31-1.68h-1.554zM30.082 29h-1.834l-2.338-4.158h-1.666V29H22.62V18.696h3.374c2.128 0 3.724.756 3.724 2.982 0 1.596-.854 2.548-2.156 2.954L30.082 29zm1.708 0V18.696h1.624v8.932h4.354V29H31.79z"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="product_quantity" th:value="${productDto.productQuantity}">
+<input type="hidden" id="product_price_comma" th:value="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}">
+<input type="hidden" id="product_price" th:value="${productDto.productPrice}">
+<input type="hidden" id="product_title" th:value="${productDto.productTitle}">
+<input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+
+<!--최종 구매 정보-->
+<input type="hidden" id="productId" th:value="${productDto.productId}">
+<input type="hidden" id="title" th:value="${productDto.productTitle}">
+<input type="hidden" id="img" th:value="${productDto.productMainImage}">
+<input type="hidden" id="price" th:value="${productDto.productPrice}">
+<input type="hidden" id="quantity" th:value="1">
+<input type="hidden" id="deliveryCharge" th:value="${productDto.productDeliveryCharge}">
+
+
+<script>
+
+    function loginCheck(){
+        let memberId = document.getElementById("memberId").value;
+
+        if(memberId == null || memberId == ''){
+            alert('로그인 후 구매 가능합니다.');
+            location.href ='/login';
+        }else{
+            return -1;
+        }
+
+    }
+
+    function cartInsert(){
+        if(loginCheck() == -1) {
+
+            let productId_ = document.getElementById("productId").value;
+            let quantity_ = document.getElementById("quantity").value;
+
+            location.href='/product/insertTo/cart?productId='+ productId_ +'&quantity='+ quantity_;
+        }
+
+
+    }
+
+
+    function payment(){
+        if(loginCheck() == -1) {
+
+            let productId_ = document.getElementById("productId").value;
+            let title_ = document.getElementById("title").value;
+            let img_ = document.getElementById("img").value;
+            let price_ = document.getElementById("price").value;
+            let quantity_ = document.getElementById("quantity").value;
+            let deliveryCharge_ = document.getElementById("deliveryCharge").value;
+
+           location.href='/cart/payment?productId='+ productId_ +'&title='+ title_ +'&img='+ img_ +'&price='+ price_ +'&quantity='+ quantity_ +'&deliveryCharge='+ deliveryCharge_;
+        }
+
+
+    }
+
+
+
+    function priceInputValueCheck(desiredQuantity){
+
+
+        var chkStyle = /[0-9]/ ;      //체크 방식(숫자)
+
+        if(!(chkStyle.test(desiredQuantity))){
+            desiredQuantity = 1;
+            document.getElementById("desiredQuantity").value =1;
+        }
+        return desiredQuantity;
+    }
+
+
+    function quantityCheck(){
+        let desiredQuantity = document.getElementById("desiredQuantity").value;
+        let productQuantity = document.getElementById("product_quantity").value;
+        let productPrice = document.getElementById("product_price").value;
+
+
+
+        desiredQuantity = priceInputValueCheck(desiredQuantity);
+
+        if(desiredQuantity == 0){
+            priceReset();
+            return;
+        }
+
+        let purchasePrice = desiredQuantity * productPrice;
+        let maxPurchasePrice = productQuantity * productPrice;
+
+        if(purchasePrice > maxPurchasePrice){
+            alert('선택한 개수가 너무 큽니다. 도움이 필요하시면 고객센터에 문의해 주세요. < 제품 재고량: '+productQuantity+' >');
+            priceReset();
+            return;
+
+        }
+
+        priceCalculation(desiredQuantity);
+
+    }
+
+
+    function priceCalculation(productQuantity){
+        let productPrice = document.getElementById("product_price").value;
+        let purchasePrice = (productQuantity * productPrice).toLocaleString('ko-KR');
+
+        for(var i = 0; i < 2; i++){
+            document.getElementsByClassName("purchasePrice")[i].innerHTML = purchasePrice;
+            document.getElementById("purchasePrice").value = purchasePrice;
+        }
+
+        document.getElementById("quantity").value = productQuantity ;
+        alert(productQuantity);
+
+
+    }
+
+
+    function priceReset(){
+        let productPrice = document.getElementById("product_price_comma").value;
+        document.getElementById("desiredQuantity").value = 1;
+        for(var i = 0; i < 2; i++){
+            document.getElementsByClassName("purchasePrice")[i].innerHTML = productPrice;
+        }
+        document.getElementById("purchasePrice").value = productPrice;
+
+    }
+
+
+
+
+    function showShare(){
+
+        let share =  document.getElementById("shareSns");
+        share.style.visibility='visible';
+
+    }
+
+    function hideShare(){
+        let share =  document.getElementById("shareSns");
+        share.style.visibility='hidden';
+    }
+
+    function shareFacebook(){
+
+        var url = window.document.location.href;
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+    }
+
+
+    function shareKakao(){
+
+        var url = window.document.location.href;
+        var title = document.getElementById("product_title").value;
+        // 사용할 앱의 JavaScript 키 설정
+        Kakao.init('fd7626ea3a5e0e31243689e0c229e721');
+
+        // 카카오링크 버튼 생성
+        Kakao.Link.createDefaultButton({
+            container: '#kakaoBtn', // 카카오공유버튼ID
+            objectType: 'feed',
+            content: {
+                title: "레드홈 판매 상품: ", // 보여질 제목
+                description: title, // 보여질 설명
+                imageUrl: url, // 콘텐츠 URL
+                link: {
+                    mobileWebUrl: url,
+                    webUrl: url
+                }
+            }
+        });
+    }
+
+    function shareNaver(){
+
+        var url = window.document.location.href;
+        var title = '레드홈 판매 상품: '+ document.getElementById("product_title").value;
+        var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
+        document.location = shareURL;
+
+    }
+
+    function shareUrl(){
+
+        var url = '';
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+        url = window.document.location.href;
+        textarea.value = url;
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("클립보드에 복사되었습니다.")
+    }
+
+
+
+</script>
 
 </body>
 </html>

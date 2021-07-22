@@ -17,8 +17,7 @@ public class ProductImageDto {
 
    private String productImg;
 
-   private String productThumbnail;
-
    private Long productId;
+
 
 }

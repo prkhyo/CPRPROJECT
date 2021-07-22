@@ -34,6 +34,10 @@ public class ProductViewDto {
 
     private String productThemeName;
 
+    private String productDescription;
+
+    private String productMainImage;
+
     private List<ProductImageDto> productImageDtos;
 
 

@@ -1,5 +1,6 @@
 package com.CPR.redHome.controller.product;
 
+import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
@@ -33,10 +34,9 @@ public class ProductController {
 
 
         ProductViewDto productDto = productService.selectProduct(productId);
-        ProductImageDto productMainImg = productService.selectProductMainImg(productId);
         List<ProductImageDto> productImageList = productService.selectProductImgList(productId);
         model.addAttribute("productDto", productDto);
-
+        model.addAttribute("productImageList", productImageList);
 
         int questionCnt = questionService.countAllQuestions(productId);
         model.addAttribute("questionCnt", questionCnt);
@@ -62,4 +62,43 @@ public class ProductController {
 
         return "product/product_detail";
     }
+
+
+    /*테스트 용*/
+    @GetMapping("/product/list")
+    public String productListPage(Model model){
+
+
+        List<ProductViewDto> productList = productService.selectProductList();
+        model.addAttribute("productList", productList);
+
+        return "product/product_list_test";
+    }
+
+
+
+
+    @GetMapping("/product/insertTo/cart")
+    public String productInsertToCart(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+
+
+        System.out.println(productId);
+        System.out.println(quantity);
+        
+        CartDto cartDto = new CartDto();
+        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setProductId(productId);
+        cartDto.setQuantity(quantity);
+
+
+        productService.insertProductToCart(cartDto);
+        System.out.println("insertProductToCart 성공");
+
+
+
+     return "redirect:/cart";
+    }
+
+
+
 }
