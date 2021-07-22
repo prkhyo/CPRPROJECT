@@ -20,6 +20,8 @@ public class ProductViewDto {
 
     private String accountId;
 
+    private String  address; //제품 판매자 주소
+
     private String productTitle;
 
     private LocalDateTime createdDate;

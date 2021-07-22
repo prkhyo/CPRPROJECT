@@ -15,7 +15,8 @@
            product_category_name   as productCategoryName,
            product_theme_name      as productThemeName,
            product_description     as productDescription,
-           product_main_image      as productMainImage
+           product_main_image      as productMainImage,
+           address                 as address
     from product p
              inner join product_theme pt on p.product_theme_id = pt.product_theme_id
              inner join product_category pc on p.product_category_id = pc.product_category_id

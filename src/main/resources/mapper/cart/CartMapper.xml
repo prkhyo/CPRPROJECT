@@ -15,6 +15,7 @@
              , p.product_title           as title
              , p.product_delivery_charge as deliveryCharge
              , c.shopping_cart_id        as cartId
+             , p.product_id              as productId
 
         from shopping_cart as c
 
