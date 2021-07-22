@@ -17,4 +17,6 @@ public interface ProductService {
 
     void insertProductToCart(CartDto cartDto);
 
+    String selectShoppingCartNo(Long productId);
+
 }

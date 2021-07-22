@@ -61,12 +61,23 @@
 
 
 
-    <insert id="insertProductToCart" parameterType="cartDto">
+<insert id="insertProductToCart" parameterType="cartDto">
 
     insert into shopping_cart(product_id, product_quantity, member_id)
     values( ${productId}, ${quantity}, ${memberId}  )
 
-    </insert>
+</insert>
+
+
+<select id="selectShoppingCartNo" parameterType="java.lang.Long" resultType="java.lang.Long">
+
+  select shopping_cart_id as cartId
+  from shopping_cart
+  where product_id = ${productId}
+  order by cartId desc
+  limit 1
+
+</select>
 
 
 </mapper>

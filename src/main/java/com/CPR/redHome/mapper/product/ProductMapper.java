@@ -23,4 +23,7 @@ public interface ProductMapper {
     //제품 장바구니에 넣기
     void insertProductToCart(CartDto cartDto);
 
+    //특정 제품에 대한 가장 최근 장바구니 번호 가져오기
+    Long selectShoppingCartNo(Long productId);
+
 }

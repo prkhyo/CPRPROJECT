@@ -82,9 +82,6 @@ public class ProductController {
     public String productInsertToCart(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
 
 
-        System.out.println(productId);
-        System.out.println(quantity);
-        
         CartDto cartDto = new CartDto();
         cartDto.setMemberId(memberDto.getMemberId());
         cartDto.setProductId(productId);
@@ -98,6 +95,28 @@ public class ProductController {
 
      return "redirect:/cart";
     }
+
+
+    @GetMapping("/product/moveTo/payment")
+    public  String productMoveToPayment(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+
+        CartDto cartDto = new CartDto();
+        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setProductId(productId);
+        cartDto.setQuantity(quantity);
+
+        //구매할 제품 장바구니에 넣기
+        productService.insertProductToCart(cartDto);
+        System.out.println("insertProductToCart 성공");
+
+        //최근 생성한 장바구니 아이디 받아오기
+        String selectNo = productService.selectShoppingCartNo(productId);
+
+
+        return "redirect:/cart/payment?selectNo="+selectNo;
+    }
+
+
 
 
 

@@ -12,7 +12,7 @@ function payment() {
     let  checked = document.querySelector('input[name="selectCheck()"]:checked');
 
     if(check !==  checked){
-        alert("동의 해주세용 ")
+        alert("동의 해주세요. ")
     }else if (receiver == "") {
         alert("받는 사람을 입력해 주세요.");
     } else if (phone == "") {

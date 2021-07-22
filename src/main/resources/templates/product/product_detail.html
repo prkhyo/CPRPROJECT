@@ -867,11 +867,8 @@
 
 <!--최종 구매 정보-->
 <input type="hidden" id="productId" th:value="${productDto.productId}">
-<input type="hidden" id="title" th:value="${productDto.productTitle}">
-<input type="hidden" id="img" th:value="${productDto.productMainImage}">
-<input type="hidden" id="price" th:value="${productDto.productPrice}">
 <input type="hidden" id="quantity" th:value="1">
-<input type="hidden" id="deliveryCharge" th:value="${productDto.productDeliveryCharge}">
+
 
 
 <script>
@@ -905,13 +902,9 @@
         if(loginCheck() == -1) {
 
             let productId_ = document.getElementById("productId").value;
-            let title_ = document.getElementById("title").value;
-            let img_ = document.getElementById("img").value;
-            let price_ = document.getElementById("price").value;
             let quantity_ = document.getElementById("quantity").value;
-            let deliveryCharge_ = document.getElementById("deliveryCharge").value;
 
-           location.href='/cart/payment?productId='+ productId_ +'&title='+ title_ +'&img='+ img_ +'&price='+ price_ +'&quantity='+ quantity_ +'&deliveryCharge='+ deliveryCharge_;
+           location.href='/product/moveTo/payment?productId='+ productId_ +'&quantity='+ quantity_;
         }
 
 

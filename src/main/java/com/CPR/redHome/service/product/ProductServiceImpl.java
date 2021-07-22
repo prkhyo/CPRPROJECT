@@ -48,5 +48,13 @@ public class ProductServiceImpl implements ProductService {
         productMapper.insertProductToCart(cartDto);
     }
 
+    @Override
+    public String selectShoppingCartNo(Long productId) {
+
+        String shoppingCartNo = String.valueOf(productMapper.selectShoppingCartNo(productId));
+
+        return shoppingCartNo;
+    }
+
 
 }
