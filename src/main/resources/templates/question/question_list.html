@@ -26,7 +26,7 @@
 
                         <div class="production-question-feed" th:unless="${questionCnt == 0}">
                             <div class="production-question-feed__list" >
-                                <th: th:each= "question : ${questionList}" >
+                                <th:block th:each= "question : ${questionList}" >
                                 <article class="production-question-feed__item" data-qna-id="3793373" style="margin-bottom: 40px;">
                                     <header class="production-question-feed__item__header" >
                                         <span class="production-question-feed__item__header_category" th:text="${question.questionCategoryName}" style="float: left;" ></span>

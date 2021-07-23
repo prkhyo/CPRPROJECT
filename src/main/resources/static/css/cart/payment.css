@@ -813,6 +813,7 @@ fieldset, img {
     white-space: nowrap;
     word-wrap: normal;
     overflow: hidden;
+    margin-left: 10px;
 }
 
 ._3-gF9, ._3YZco {
@@ -924,6 +925,7 @@ fieldset, img {
     line-height: 17px;
     color: #292929;
     font-weight: 700;
+    margin-left: 5px;
 }
 
 ._2T03R {
@@ -937,6 +939,7 @@ fieldset, img {
     font-size: 13px;
     line-height: 16px;
     color: #757575;
+    margin-left: 5px;
 }
 
 ._1_5Vk.Y6P6C {
@@ -1366,7 +1369,10 @@ fieldset, img {
 
 
 
+.deliveryCharge{
+    margin-left: 10px;
 
+}
 
 
 

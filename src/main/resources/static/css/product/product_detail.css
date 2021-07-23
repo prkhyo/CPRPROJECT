@@ -806,7 +806,7 @@ selling-header__price__coupon, .production-selling-header__price__price {
 
 .production-selling-header__delivery__fee {
     display: block;
-    margin-top: 4px;
+    margin-top: 10px;
     color: #757575;
 }
 
@@ -1176,7 +1176,7 @@ selling-header__price__coupon, .production-selling-header__price__price {
     max-width: 1000px;
     margin: 0 auto;
     width: 1000px;
-    margin-left: 8%;
+    margin-left: 7.5%;
 
 }
 @media (min-width: 768px){
@@ -1217,9 +1217,10 @@ selling-header__price__coupon, .production-selling-header__price__price {
 
 li:first-child>.production-selling-navigation__item {
     border-left: none;
+
 }
 .production-selling-navigation__item.production-selling-navigation__item--active {
-    color: #ed4a4a;
+    color: #424242;/**/
     border-bottom: 3px solid #ed4a4a;
     z-index: 1;
 }
@@ -1238,7 +1239,8 @@ li:first-child>.production-selling-navigation__item {
     font-weight: 700;
     border-color: transparent transparent #ededed #ededed;
     transition: color .1s;
-    width: 200px;
+    width: 201px;
+    border-bottom: 1px solid #ededed;
 
 }
 @media (min-width: 768px){
@@ -1247,7 +1249,7 @@ li:first-child>.production-selling-navigation__item {
         padding: 14px 10px 15px;
         font-size: 15px;
         background-color: #fafafa;
-        width: 200px;
+        width: 201px;
 
     }
 }
@@ -3711,4 +3713,75 @@ tr{
     margin-right: 6px;
     width: 15px;
     height: 15px;
+}
+
+.nav_sticky {
+    position: fixed;
+    top: 0px;
+
+}
+
+#delivery_title{
+
+    font-size: 14px;
+    line-height: 21px;
+    color: #828c94;
+    margin-right: 10px;
+}
+
+#delivery_charge{
+
+    margin-bottom: 4px;
+    color: #292929;
+    font-weight: bold;
+
+}
+
+.share-drop-down__content {
+    margin: 0 -1px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 -1px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 300px;
+
+
+}
+
+.share-list__button {
+    display: inline-block;
+    margin: 0 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 0;
+    transition: opacity .1s;
+    cursor: pointer;
+}
+
+#shareSns{
+    position: absolute;
+    top: 130px;
+    left:450px;
+
+}
+
+.popout--axis-1.popout--dir-2.popout--cross-dir-2 .share-drop-down:after {
+    left: auto;
+    right: 20px;
+}
+
+.popout--axis-1.popout--dir-2 .share-drop-down:after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 225px;
+    border-style: solid;
+    top: -8px;
+    margin: 0 1px;
+    border-width: 0 9px 9px;
+    border-color: transparent transparent #fff;
 }

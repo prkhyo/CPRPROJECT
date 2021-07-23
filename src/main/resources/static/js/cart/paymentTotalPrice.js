@@ -67,7 +67,7 @@ function pointUse() {
         alert("사용 포인트가 보유 포인트 보다 적습니다.")
 
     } else if (usedPoint1 > finalPrice) {
-        alert("결제금액을 오버합니다.")
+        alert("결제금액 초과")
 
         document.querySelectorAll('.usedPoint')[0].value = finalPrice.format();
         // 잔여 포인트 변경
