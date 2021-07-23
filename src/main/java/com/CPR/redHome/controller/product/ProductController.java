@@ -57,7 +57,7 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
-        model.addAttribute("member", memberDto);
+        model.addAttribute("SessionUser", memberDto);
 
 
         return "product/product_detail";

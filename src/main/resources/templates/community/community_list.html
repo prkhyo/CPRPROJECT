@@ -7,7 +7,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
 
 <div id="questions-index-page">
     <section id="questions-header">
@@ -155,7 +156,7 @@
         </th:block>
 </section>
 
-     <input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+     <input type="hidden"  id="memberId" th:value="${SessionUser == null ? null : SessionUser.memberId}  "/>
 
 
 
@@ -189,7 +190,8 @@
     </ul>
 </div>
 
-
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
 
 <script>
 
