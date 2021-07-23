@@ -65,7 +65,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <a class="product-small-item product-small-item--clickable"
-                                                                       href="#">
+                                                                       th:href="@{${'/product/detail?productId=' + data.productId}}">
                                                                         <div class="product-small-item__image thumnailBox">
                                                                             <img class='imageLocation'
                                                                                  th:src="@{${'/display?fileName=' + data.mainImageUrl}}">

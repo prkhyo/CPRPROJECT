@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>제품리스트 페이지</title>
+    <style>
+        td{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>제품 리스트 페이지</h1>
+
+<table border="1" cellpadding="5px" >
+    <thead>
+    <tr>
+        <th>productId</th>
+        <th>productTitle</th>
+        <th>productMainImage</th>
+        <th>accountId</th>
+        <th>createdDate</th>
+        <th>productPrice</th>
+        <th>productDeliveryCharge</th>
+        <th>productQuantity</th>
+        <th>productCategoryName</th>
+        <th>productThemeName</th>
+        <th>productDescription</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each= "product : ${productList}" >
+    <tr>
+        <td th:text="${product.productId}"></td>
+        <td><a th:text="${product.productTitle}" th:href="@{${'/product/detail?productId='+product.productId}}"></a></td>
+        <td><img th:src="@{${'/display?fileName='+product.productMainImage}}" style="width: 200px; height: 200px; text-align: center;" /></td>
+        <td th:text="${product.accountId}"></td>
+        <td th:text="${product.createdDate}"></td>
+        <td th:text="${product.productPrice}"></td>
+        <td th:text="${product.productDeliveryCharge}"></td>
+        <td th:text="${product.productQuantity}"></td>
+        <td th:text="${product.productCategoryName}"></td>
+        <td th:text="${product.productThemeName}"></td>
+        <td th:text="${product.productDescription}"></td>
+    </tr>
+    </th:block>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>
