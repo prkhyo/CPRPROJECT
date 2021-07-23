@@ -44,10 +44,10 @@
         <form id="memberSearchFrm" th:action="@{/admin/member(currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
             <select name="searchType" id="searchType">
                 <option selected value="" th:selected="${criteria.searchType == null}">선택해주세요.</option>
-                <option value="아이디" th:selected="${criteria.searchType == 'search_accountId'}">아이디</option>
-                <option value="이름" th:selected="${criteria.searchType == 'search_memberName'}">이름</option>
-                <option value="이메일" th:selected="${criteria.searchType == 'search_memberEmail'}">이메일</option>
-                <option value="레벨" th:selected="${criteria.searchType == 'search_memberLevel'}">레벨</option>
+                <option value="search_accountId" th:selected="${criteria.searchType == 'search_accountId'}">아이디</option>
+                <option value="search_memberName" th:selected="${criteria.searchType == 'search_memberName'}">이름</option>
+                <option value="search_memberEmail" th:selected="${criteria.searchType == 'search_memberEmail'}">이메일</option>
+                <option value="search_memberLevel" th:selected="${criteria.searchType == 'search_memberLevel'}">레벨</option>
             </select>
             <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
             <button onclick="searchMember()">검색</button>

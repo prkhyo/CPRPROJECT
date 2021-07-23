@@ -27,7 +27,6 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     @Override
     public int countAll(Criteria criteria) {
         int cnt = memberAdminMapper.selectTotalCnt(criteria);
-        System.out.println("cnt = " + cnt);
         return cnt;
     }
 

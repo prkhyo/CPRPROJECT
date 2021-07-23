@@ -11,19 +11,19 @@
             name like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
         <if test="criteria.searchType == 'search_memberEmail'">
-            eamil like CONCAT('%',#{criteria.searchKeyword},'%')
+            email like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
         <if test="criteria.searchType == 'search_memberLevel'">
             grade_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
-    <select id="selectTotalCnt" resultType="Integer">
+    <select id="selectTotalCnt" resultType="java.lang.Integer">
         SELECT count(*)
         FROM member
         <where>
-            <if test="criteria.searchType != null">
-                <include refid="search"/>
+            <if test="searchType != null">
+<!--                <include refid="search"></include>-->
             </if>
         </where>
     </select>
