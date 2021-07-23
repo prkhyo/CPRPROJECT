@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header class="layout-navigation-bar" th:fragment="top">
+        <div class="layout-navigation-primary-wrap">
+            <div class="layout-navigation-primary" style="position:relative">
+                <div class="layout-navigation-primary__content">
+                    <div class="layout-navigation-primary__left">
+                        <a th:href="@{/}" class="noDeco layout-navigation-logo">
+                            <img src="../../img/redhome_kor.jpg" style="width: 100px;" >
+                        </a>
+                    </div>
+
+                    <nav class="layout-navigation-primary__menu" style="display:block">
+                        <a class="layout-navigation-primary__menu__item noDeco" href="/store">
+                            스토어
+                        </a>
+                        <a class="layout-navigation-primary__menu__item noDeco" href="/board">
+                            커뮤니티
+                        </a>
+                    </nav>
+
+                    <div class="layout-navigation-primary__right">
+                        <div class="layout-navigation-bar-search">
+                            <div class="layout-navigation-search">
+                                <div class="layout-navigation-search__header">
+                                    <div class="layout-navigation-search__combobox">
+                                        <div class="layout-navigation-search__input">
+                                            <img src="../../img/ohsu_2.PNG"
+                                                 style="position:absolute; padding-top:6px; padding-left:6px;">
+                                            <input type="text" class="layout-navigation-search__input__text"
+                                                   placeholder="레드홈 통합검색">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <th:block th:if="${SessionUser}==null">
+                                <div class="layout-navigation-bar-login">
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/login">
+                                        로그인
+                                    </a>
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/signup">
+                                        회원가입
+                                    </a>
+                                </div>
+                        </th:block>
+                        <th:block th:unless="${SessionUser}==null">
+                               <a class="layout-navigation-primary__menu__item noDeco" href="/board"
+                               th:unless="${SessionUser}==null" th:text="|${SessionUser.accountId} 님|" style="font-size: 15px;">
+                                </a>
+                                <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet"><path stroke-linecap="round" d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z"></path><path d="M1 2h3v3"></path></svg><span class="layout-navigation-bar-icon__ticker">3</span></a>
+                                <div class="drop-down layout-navigation-bar-user-section">
+                                    <button class="layout-navigation-bar-user-button" type="button" aria-label="KSB2010" onclick="myOn()" ondblclick="myOut()">
+                                        <div class="layout-navigation-bar-user-button__image">
+                                            <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=36&amp;h=36&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/1616584400_naver_d249f598b47581337df9d88372a025236e8dad03aee213698a91ac9b7051f2a8.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
+                                            <div class="dropdown-content">
+                                                <p>Hello World!</p>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div class="drop-down layout-navigation-bar-upload-button" >
+                                    <form th:unless="${SessionUser}==null" th:action="@{/logout}" method="post">
+                                        <button class="layout-navigation-bar-upload-button__button" type="submit" th:method="post"
+                                                th:action="@{/logout}" style="color: #ed4a4a; background-color: white; border: 1px solid #dbdbdb;">
+                                            로그아웃
+                                        </button>
+                                    </form>
+                                </div>
+                        </th:block>
+                        <div class="drop-down layout-navigation-bar-upload-button">
+                            <button class="layout-navigation-bar-upload-button__button">
+                                글쓰기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-navigation-secondary-wrap">
+            <div class="layout-navigation-secondary" style="position:relative">
+                <div class="layout-navigation-secondary__content">
+                    <nav class="layout-navigation-secondary__menu">
+                        <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active noDeco" href="/store" >
+                            전체
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=1">
+                            노래방
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=2">
+                            도서관
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=3">
+                            오피스
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=4">
+                            영화관
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=5">
+                            카페
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=6">
+                            헬스장
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=7">
+                            pc방
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+
+</body>
+</html>
