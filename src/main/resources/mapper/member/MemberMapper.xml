@@ -68,8 +68,7 @@
     </delete>
     <update id="updateMember" parameterType="memberDto">
         update member
-        set  member_password = #{memberPassword},
-             name= #{name},
+        set  name= #{name},
              telephone= #{telephone},
              address= #{address},
              email= #{email}
