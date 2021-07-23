@@ -23,7 +23,7 @@ public class MemberAdminController {
 
     // 전체 회원 조회
     @GetMapping("/admin/member")
-    public String adminMember(@ModelAttribute("criteria")Criteria criteria, Model model,
+    public String adminMember(@ModelAttribute Criteria criteria, Model model,
                               @RequestParam(defaultValue = "1") int currentPageNo){
 
         List<MemberDto> memberDtos = Collections.emptyList();
