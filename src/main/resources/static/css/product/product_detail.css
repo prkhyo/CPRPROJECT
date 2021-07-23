@@ -1217,6 +1217,7 @@ selling-header__price__coupon, .production-selling-header__price__price {
 
 li:first-child>.production-selling-navigation__item {
     border-left: none;
+
 }
 .production-selling-navigation__item.production-selling-navigation__item--active {
     color: #424242;/**/
@@ -1239,6 +1240,7 @@ li:first-child>.production-selling-navigation__item {
     border-color: transparent transparent #ededed #ededed;
     transition: color .1s;
     width: 201px;
+    border-bottom: 1px solid #ededed;
 
 }
 @media (min-width: 768px){

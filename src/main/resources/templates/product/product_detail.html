@@ -11,31 +11,64 @@
     <script>
 
 
-       $( document ).ready( function() {
-            var jbOffset = $( '.production-selling-navigation__content' ).offset();
-            $( window ).scroll( function() {
-                if ( $( document ).scrollTop() > jbOffset.top ) {
-                    $( '.production-selling-navigation__content' ).addClass( 'nav_sticky' );
-                    $( '.production-selling-navigation__item' ).addClass( 'production-selling-navigation__item--active' );
+       /* 스크롤 시 nav bar 상단에 고정 */
+       document.addEventListener("DOMContentLoaded", function(){
+           var navOffset = document.querySelector('.production-selling-navigation__content').getBoundingClientRect();
+           let navItem = document.getElementsByClassName("production-selling-navigation__item");
 
-                }
-                else {
-                    $( '.production-selling-navigation__content' ).removeClass( 'nav_sticky' );
-                    $( '.production-selling-navigation__item' ).removeClass( 'production-selling-navigation__item--active' );
-                }
-            });
+           document.addEventListener("scroll", function(){
+              if(document.documentElement.scrollTop > navOffset.top){
+                  document.querySelector('.production-selling-navigation__content').classList.add('nav_sticky');
 
-        });
+                  for(let i = 0; i<navItem.length;i++) {
+                      navItem[i].classList.add('production-selling-navigation__item--active');
+                  }
+              }else{
+                  document.querySelector('.production-selling-navigation__content').classList.remove('nav_sticky');
+
+                  for(let i = 0; i<navItem.length;i++) {
+                      navItem[i].classList.remove('production-selling-navigation__item--active');
+                  }
+              }
+           });
+       });
 
 
 
-        /*탭 클릭시 해당 태그로 이동*/
+        /* nav bar 클릭시 해당 태그로 이동 */
         function tabMove(seq){
 
-            var offset = $("#" + seq).offset();
-           $('html, body').animate({scrollTop : offset.top - 108}, 400);
+            var navItemOffset = $(seq).offset(); //document.querySelector(seq).getBoundingClientRect() 이렇게 바닐라 스크립트로 바꾸면 돼야하는데 안돼서 ㅜㅜ
+            animateScroll(navItemOffset.top-108);
 
         }
+
+
+       function animateScroll(to) {
+           function animation() {
+               const now = (performance.now() - startTime) / time,
+                   progress = transition(now);
+
+               1 > now
+                   ? (
+                       window.requestAnimationFrame(animation),
+                           window.scrollTo(0, from + (to - from) * progress)
+                   )
+                   : (
+                       window.scrollTo(0, to)
+                   )
+           }
+
+           const from = window.scrollY;
+           const time = 500,
+               transition = number => {
+                   return -.5 * (Math.cos(Math.PI * number) - 1)
+               },
+               startTime = performance.now();
+           animation();
+       }
+
+
 
 
     </script>
@@ -185,19 +218,19 @@
             <nav class="production-selling-navigation__content" id="production-selling-navigation__content" >
                 <ol class="production-selling-navigation__list">
                     <li>
-                        <a class="production-selling-navigation__item"  onclick="tabMove('production-selling-information')">상품정보</a>
+                        <a class="production-selling-navigation__item"  onclick="tabMove('#production-selling-information')">상품정보</a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" onclick="tabMove('production-selling-review')" >리뷰<span class="production-selling-navigation__item__count">${r_cnt}</span></a>
+                        <a class="production-selling-navigation__item" onclick="tabMove('#production-selling-review')" >리뷰<span class="production-selling-navigation__item__count">${r_cnt}</span></a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-question')">문의<span class="production-selling-navigation__item__count" th:text="${questionCnt}"></span></a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('#production-selling-question')">문의<span class="production-selling-navigation__item__count" th:text="${questionCnt}"></span></a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-delivery')">배송</a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('#production-selling-delivery')">배송</a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item " onclick="tabMove('production-selling-exchange')">교환/환불</a>
+                        <a class="production-selling-navigation__item " onclick="tabMove('#production-selling-exchange')">교환/환불</a>
                     </li>
                 </ol>
             </nav>

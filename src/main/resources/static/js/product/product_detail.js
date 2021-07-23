@@ -90,7 +90,7 @@ function priceCalculation(productQuantity){
     }
 
     document.getElementById("quantity").value = productQuantity ;
-   
+
 
 
 }

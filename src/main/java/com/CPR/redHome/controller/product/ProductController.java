@@ -64,7 +64,7 @@ public class ProductController {
     }
 
 
-    /*테스트 용*/
+    /*제품리스트 페이지로 이동(메인페이지 완성되면 삭제할 예정)*/
     @GetMapping("/product/list")
     public String productListPage(Model model){
 
