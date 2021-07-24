@@ -24,9 +24,9 @@
 
     const frm = document.frm;
 
-        if(!frm.name.value || frm.email.value == ""){
+        if(!frm.email.value || frm.email.value == ""){
             alert("이메일 입력하세요");
-            frm.name.focus();
+            frm.email.focus();
             return false;
         }
         if(!frm.name.value || frm.name.value == ""){
@@ -34,19 +34,19 @@
             frm.name.focus();
             return false;
         }
-        if(!frm.name.value || frm.address.value == ""){
+        if(!frm.address.value || frm.address.value == ""){
             alert("주소를 입력하세요");
-            frm.name.focus();
+            frm.address.focus();
             return false;
         }
-        if(!frm.name.value || frm.telephone.value == ""){
+        if(!frm.telephone.value || frm.telephone.value == ""){
             alert("전화번호를 입력하세요");
-            frm.name.focus();
+            frm.telephone.focus();
             return false;
         }
         if(!frm.name.value || frm.birthdate.value == ""){
             alert("생일을 입력하세요");
-            frm.name.focus();
+            frm.birthdate.focus();
             return false;
         }
 
