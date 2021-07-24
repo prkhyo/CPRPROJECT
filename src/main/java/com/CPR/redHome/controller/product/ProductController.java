@@ -117,7 +117,18 @@ public class ProductController {
     }
 
 
+    @GetMapping("/store")
+    public String storePage(Model model, @RequestParam(required = false) String productSort, @RequestParam(required = false) String storeOrder,
+                            @RequestParam(required = false) String searchProductKeyword){
 
+
+
+
+        List<ProductViewDto> productList = productService.selectProductList();
+        model.addAttribute("productList", productList);
+
+        return "product/store";
+    }
 
 
 }

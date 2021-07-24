@@ -33,28 +33,24 @@
         </div>
     </form>
     <form action="/store" name="select_frm" method="get" onchange="javascript:selectSort();">
-        <input type="hidden" id="c_num" name="c_num" value="${c_num}">
-        <input type="hidden" id="p_name" name="p_name" value="${p_name}">
+        <input type="hidden" id="productCategoryNo" name="productCategoryNo" th:value="${productCategoryNo}">
+        <input type="hidden" id="searchProductKeyword" name="searchProductKeyword" th:value="${searchProductKeyword}">
         <div class="store_option_select">
             <select name="storeOrder" id="storeOrder" class="justselect">
                 <option value="sort" selected disabled hidden>
-                    <c:choose>
-                        <c:when test="${sort == 'best'}">
+                        <th:block th:if="${productSort != 'best' and productSort != 'high' and productSort != 'low'}">
+                            최신순
+                        </th:block>
+                        <th:block th:if="${productSort == 'best'}">
                             인기순
-                        </c:when>
-                        <c:when test="${sort == 'new'}">
-                            최신순
-                        </c:when>
-                        <c:when test="${sort == 'high'}">
+                        </th:block>
+
+                        <th:block th:if="${productSort == 'high'}">
                             높은가격순
-                        </c:when>
-                        <c:when test="${sort == 'low'}">
+                        </th:block>
+                        <th:block th:if="${productSort == 'low'}">
                             낮은가격순
-                        </c:when>
-                        <c:otherwise>
-                            최신순
-                        </c:otherwise>
-                    </c:choose>
+                        </th:block>
                 </option>
 
                 <option value="best">인기순</option>
@@ -97,7 +93,7 @@
         </div>
     </div>
     <c:if test="${status.index%4 == 3 }">
-        </div>
+        </th:block>
     </c:if>
     <c:if test="${status.index == functions:length(productList)-1 and status.index%4 != 3 }">
         </div>

@@ -38,6 +38,7 @@
 .store_option_select {
     margin-right: 20px;
     padding: 4px;
+
 }
 
 .store_items {
@@ -109,6 +110,7 @@
 .store_item_header_name {
     font-weight: bold;
     font-size: 15px;
+    height: 20px;
 }
 
 .store_item_header_sale {
@@ -205,3 +207,5 @@ p {
     font-size: 15px;
     font-weight: bold;
 }
+
+

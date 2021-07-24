@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="/static/css/main/selectbox.css">
+  <link rel="stylesheet" type="text/css" href="/css/main/store.css">
+  <script th:src="@{/js/selectbox.min.js}"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+</head>
+<body>
+
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
+
+<!--배너-->
+<th:block th:include="/fragments/banner.html"></th:block>
+
+
+<!--제품 리스트-->
+
+<br>
+
+<div class="store_option">
+  <form action="/store" name="freeDel_frm">
+    <div class="store_option_free">
+      <label class="switch">
+        <input type="checkbox" name="noDeliveryCharge">
+        <span class="slider round"></span>
+      </label>
+      <p>배송</p>
+      <p style="display: none;">무료배송</p>
+    </div>
+  </form>
+
+  <form action="/store" name="select_frm" method="get" onchange="javascript:selectSort();">
+    <input type="hidden" id="productCategoryNo" name="productCategoryNo" th:value="${productCategoryNo}">
+    <input type="hidden" id="searchProductKeyword" name="searchProductKeyword" th:value="${searchProductKeyword}">
+    <div class="store_option_select">
+      <select name="storeOrder" id="storeOrder" class="justselect1" style="border: 1px solid #dbdbdb; border-radius: 3px; color: #424242; min-height: 30px; ">
+        <option value="sort" selected disabled hidden>
+          <th:block th:if="${productSort != 'best' and productSort != 'high' and productSort != 'low'}">
+            최신순
+          </th:block>
+          <th:block th:if="${productSort == 'best'}">
+            인기순
+          </th:block>
+
+          <th:block th:if="${productSort == 'high'}">
+            높은가격순
+          </th:block>
+          <th:block th:if="${productSort == 'low'}">
+            낮은가격순
+          </th:block>
+        </option>
+        <option class="sortOption" value="new" >최신순</option>
+        <option class="sortOption" value="best">인기순</option>
+        <option class="sortOption" value="high">높은가격순</option>
+        <option class="sortOption" value="low">낮은가격순</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<th:block th:each="product : ${productList}">
+ <th:block th:if ="${productStat.index % 4 == 0 }">
+   <div class="store_items" >
+ </th:block>
+   <div class="store_item">
+     <div class="store_item_img">
+       <a href="/storeInfo?p_num=${p.product_num}">
+         <div class="store_item_imgScale">
+           <img alt="" th:src="@{${'/display?fileName='+product.productMainImage}}">
+         </div>
+       </a>
+     </div>
+     <div class="store_item_header"  style="margin-top: 5px;">
+
+       <div>
+         <span class="store_item_header_name" th:text="${product.productId}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_name" th:text="${product.productTitle}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_price" th:text="${product.productPrice}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_scope">${reviewGrade}</span>
+         <span class="store_item_header_reviewCnt">리뷰 ${reviewCnt}</span>
+       </div>
+     </div>
+   </div>
+   <th:block th:if="${productStat.index % 4 == 3 }">
+     </div>
+   </th:block>
+   <th:block th:if="${productStat.index == #lists.size(productList) - 1 and productStat.index % 4 != 3 }">
+     </div>
+   </th:block>
+</th:block>
+
+
+<br>
+
+
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
+
+<script>
+  var check = $("input[type='checkbox']");
+  check.click(function() {
+    $("p").toggle();
+  });
+
+
+</script>
+
+</body>
+
+
+</html>
