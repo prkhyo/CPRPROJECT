@@ -5,7 +5,7 @@
 
     <sql id ="search" >
         <if test="criteria.searchType == 'search_communityTitle'">
-            community_title like CONCAT('%',#{crit eria.searchKeyword},'%')
+            community_title like CONCAT('%',#{criteria.searchKeyword},'%')
 
         </if>
         <if test="criteria.searchType == 'search_communityContents'">
