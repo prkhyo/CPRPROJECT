@@ -1,12 +1,6 @@
 @charset "EUC-KR";
 
-body {
-    line-height: 1;
-    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.4px;
-    font-size: 13px;
-}
+
 
 .noDeco{
     text-decoration:none
@@ -114,6 +108,19 @@ body {
 .layout-navigation-primary__menu__item {
     position: relative;
     display: inline-block;
+    margin: 6px 10px 0;
+    padding: 14px 6px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #424242;
+    cursor: pointer;
+
+}
+
+.userName{
+    position: relative;
+    display: inline-block;
     margin: 6px 0px 0px 10px;
     padding: 14px 0px;
     font-size: 16px;
@@ -124,6 +131,8 @@ body {
     width: 80px;
 
 }
+
+
 
 @media (min-width: 768px){
     .layout-navigation-primary__right {
@@ -210,7 +219,7 @@ body {
     border-radius: 4px;
 }
 input[type='number'], input[type='text'], input[type='password'], input[type='file'], input[type='tel'], input[type='email'], select, option, textarea, input[type='submit'], button {
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;*/
     -moz-appearance: textfield;
 }
 .layout-navigation-search__input__text {
@@ -515,7 +524,7 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
 }
 
 .layout-navigation-secondary__menu__item--active, .layout-navigation-secondary__menu__item--open {
-    color: #35c5f0;
+    color: #ed4a4a;
 }
 @media (min-width: 768px){
     .layout-navigation-secondary__menu__item {
@@ -567,6 +576,8 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
 
 .popout--axis-1.popout--dir-0 .animated-popout {
     transform: translateY(10px);
+    top: -15px;
+    left: -87px;
 }
 
 
@@ -600,11 +611,13 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     padding: 10px;
     box-sizing: border-box;
     background-color: #fff;
-    /*box-shadow: 0 4px 6px 0 rgb(0 0 0 / 18%);*/
+    box-shadow: 0 4px 6px 0 rgb(0 0 0 / 18%);
     border: 1px solid #dbdbdb;
     border-radius: 4px;
     white-space: nowrap;
     overflow: hidden;
+
+
 }
 
 .layout-navigation-bar-user-section__content:after, .layout-navigation-bar-user-section__content:before {
@@ -642,7 +655,10 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     border-radius: 2px;
 }
 
+.layout-navigation-bar-user-menu__item:hover{
+    background-color: rgb(239, 239, 239);
 
+}
 
 
 

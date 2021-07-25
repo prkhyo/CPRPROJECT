@@ -18,7 +18,7 @@ public class MainController {
 
 
         model.addAttribute("SessionUser",loginMember);
-        return "main";
+        return "/store";
     }
 
 }

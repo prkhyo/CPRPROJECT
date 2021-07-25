@@ -17,8 +17,9 @@ public interface ProductMapper {
     //특정 제품 이미지 가져오기
     List<ProductImageDto> selectProductImgList(Long productId);
 
-    //제품리스트 가져오기 (테스트용)
-    List<ProductViewDto> selectProductList();
+    //제품리스트 가져오기
+    List<ProductViewDto> selectProductList(@RequestParam String storeOrder, @RequestParam String deliveryChargeOPtion,
+                                           @RequestParam String searchProductKeyword, @RequestParam Integer productThemeNo);
 
     //제품 장바구니에 넣기
     void insertProductToCart(CartDto cartDto);

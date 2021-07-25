@@ -34,11 +34,11 @@ public class ProductServiceImpl implements ProductService {
 
 
 
-    /*테스트용*/
-    @Override
-    public List<ProductViewDto> selectProductList() {
 
-        List<ProductViewDto> productList = productMapper.selectProductList();
+    @Override
+    public List<ProductViewDto> selectProductList(String storeOrder, String deliveryChargeOPtion, String searchProductKeyword, Integer productThemeNo) {
+
+        List<ProductViewDto> productList = productMapper.selectProductList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo);
 
         return productList;
     }

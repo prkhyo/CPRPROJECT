@@ -3764,17 +3764,17 @@ tr{
 
 #shareSns{
     position: absolute;
-    top: 130px;
+    top: 280px;
     left:450px;
 
 }
 
-.popout--axis-1.popout--dir-2.popout--cross-dir-2 .share-drop-down:after {
+.popout--axis-11.popout--dir-21.popout--cross-dir-21 .share-drop-down:after {
     left: auto;
     right: 20px;
 }
 
-.popout--axis-1.popout--dir-2 .share-drop-down:after {
+.popout--axis-11.popout--dir-21 .share-drop-down:after {
     content: "";
     position: absolute;
     display: block;

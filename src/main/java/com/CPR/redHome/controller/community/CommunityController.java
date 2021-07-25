@@ -50,7 +50,7 @@ public class CommunityController {
        }
 
 
-        model.addAttribute("member", memberDto);
+        model.addAttribute("SessionUser", memberDto);
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
@@ -76,7 +76,7 @@ public class CommunityController {
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
-        model.addAttribute("member", memberDto);
+        model.addAttribute("SessionUser", memberDto);
 
 
 
