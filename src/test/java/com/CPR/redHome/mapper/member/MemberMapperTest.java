@@ -32,6 +32,7 @@ class MemberMapperTest {
         //when
         MemberDto result = memberMapper.selectMemberByAccountId(member.getAccountId());
 
+
         //then
         Assertions.assertThat(result.getMemberPassword()).isEqualTo(member.getMemberPassword());
 
