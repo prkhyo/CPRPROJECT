@@ -130,8 +130,28 @@ public class MemberController {
         if (session != null) {
             session.invalidate();
         }
-            return "redirect:/";
+        return "redirect:/";
 
 
     }
+
+    @GetMapping("/update")
+    public String updateMemberInfo(@Login MemberDto loginmember, Model model) {
+
+        MemberDto member = memberService.selectMemberByMemberId(loginmember.getMemberId());
+        model.addAttribute("member", member);
+
+        return "member/update";
+    }
+
+    @PostMapping("/update")
+    public String sendUpdateMemberInfo(@ModelAttribute MemberDto memberDto) {
+
+        memberService.updateMember(memberDto);
+
+
+        return "redirect:/update";
+    }
+
+
 }

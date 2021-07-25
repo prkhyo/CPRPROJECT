@@ -20,6 +20,11 @@ public class MemberServiceImpl implements MemberService {
     private final EncryptPassword encryptPassword;
 
 
+    @Override
+    public MemberDto selectMemberByMemberId(Long memberId) {
+        return  memberMapper.selectMemberByMemberId(memberId);
+    }
+
 
     @Override
     public MemberDto selectMemberByAccountIdAndPassword(String accountId, String password) throws NoSuchAlgorithmException {
@@ -62,6 +67,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteMember(Long memberId) {
         memberMapper.deleteMember(memberId);
+    }
+
+    @Override
+    public void updateMember(MemberDto memberDto) {
+
+        memberMapper.updateMember(memberDto);
     }
 
 

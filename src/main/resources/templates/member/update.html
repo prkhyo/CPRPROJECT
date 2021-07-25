@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+
+    <script src="/js/cart/addressapi.js"></script>
+    <script src="/js/member/phoneNumberCheck.js"></script>
+
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+</head>
+
+<body>
+<div class="edit-user-info">
+    <div class="myhome-nav myhome-nav--owner">
+        <nav class="page-navigation myhome-nav__owner">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item"><a class="" href="/user_shopping_pages/order_list" target="_self">나의
+                    쇼핑</a></li>
+                <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+                </li>
+                <li class="page-navigation__item"><a class="active" href="/users/13093528/edit" target="_self">설정</a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="page-navigation myhome-nav__contents">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">회원정보수정</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">판매자 신청</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/advices" target="_self">비밀번호 변경</a>
+            </ul>
+        </nav>
+    </div>
+    <div class="edit-user-info__wrap container">
+        <div class="edit-user-info__header">
+            <div class="edit-user-info__header__title">회원정보수정</div>
+            <a class="edit-user-info__header__withdrawals" th:href="@{/close}">탈퇴하기</a>
+        </div>
+        <form name="frm" th:action method="post">
+            <input class="form-control" th:value="${member.memberId}"  name="memberId" th:type="hidden">
+            <div class="edit-user-info__form-item">
+                <div class="edit-user-info__form-item__title">
+                    이메일
+                    <div class="edit-user-info__form-item__title__require"> * 필수항목</div>
+                </div>
+                <div class="expert-form-group edit-user-info__form-item__group">
+                    <div class="expert-form-group__content">
+                        <div class="expert-form-group__input">
+                            <div class="edit-user-info__form-item__field">
+                                <div class="input-group email-input">
+                                        <span class="email-input__local">
+                                            <input class="form-control" type="email" th:value="${member.email}" placeholder="이메일" name="email">
+                                        </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-user-info__form-item">
+                <div class="edit-user-info__form-item__title">
+                    이름
+                    <div class="edit-user-info__form-item__title__require"> * 필수항목</div>
+                </div>
+                <div class="expert-form-group edit-user-info__form-item__group">
+                    <div class="expert-form-group__content">
+                        <div class="expert-form-group__input">
+                            <div class="edit-user-info__form-item__field">
+                                <div class="edit-user-info__input">
+                                    <input th:value="${member.name}" class="form-control" name="name" >
+                                    <div class="edit-user-info__input__error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="edit-user-info__form-item">
+                <div class="edit-user-info__form-item__title">주소</div>
+                <div class="expert-form-group edit-user-info__form-item__group">
+                    <div class="expert-form-group__content">
+                        <div class="expert-form-group__input">
+                            <div class="edit-user-info__form-item__field">
+                                <div class="display_button_check" style="padding-bottom: 10px">
+                                    <button class="check_button" type="button" style="margin-left: 0px"
+                                            onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
+                                    </button>
+                                    <input name="post" class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" readonly>
+                                </div>
+                                <div class="_3cYTk" style="margin-bottom: 10px">
+                                    <input class="form-control"
+                                           type="text"
+                                           id="sample4_roadAddress" placeholder="도로명주소" readonly>
+                                </div>
+                                <div class="_3cYTk">
+                                    <input class="form-control"
+                                           type="hidden"
+                                           id="sample4_jibunAddress" placeholder="지번주소">
+                                    <span id="guide" style="color:#999;display:none"></span>
+                                </div>
+                                <div class="_3cYTk">
+                                    <input class="form-control" type="text"
+                                           id="sample4_detailAddress"
+
+                                           placeholder="상세주소">
+                                </div>
+                                <input id="finalAddress" type="text"  name="address" th:value="${member.address}" th:type="hidden">
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="edit-user-info__form-item">
+                <div class="edit-user-info__form-item__title">
+                    휴대폰 번호
+                </div>
+                <div class="expert-form-group edit-user-info__form-item__group">
+                    <div class="expert-form-group__content">
+                        <div class="expert-form-group__input">
+                            <div class="edit-user-info__form-item__field">
+                                <div class="input-group email-input">
+                                          <span class="email-input__local">
+                                            <input class="form-control" maxlength="13" name="telephone" th:value="${member.telephone}"  onkeyup="inputPhoneNumber(this)" placeholder="전화번호" >
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="edit-user-info__form-item">
+                <div class="edit-user-info__form-item__title">
+                    생년월일
+                </div>
+                <div class="expert-form-group edit-user-info__form-item__group">
+                    <div class="expert-form-group__content">
+                        <div class="expert-form-group__input">
+                            <div class="edit-user-info__form-item__field">
+                                <div class="input-group email-input">
+                                        <span class="email-input__local">
+                                            <input class="form-control"  maxlength="8" th:value="${member.birthdate}" placeholder="YYYYMMDD"
+                                                   name="birthdate">
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <button class="button button--color-red button--size-50 button--shape-4 edit-user-info__submit" onclick="editSubmit()" type="button">회원 정보 수정
+    </button>
+    </form>
+</div>
+</div>
+</body>
+
+<script src="/js/member/memberUpdate.js"></script>
+
+</html>
