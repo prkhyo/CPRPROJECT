@@ -22,13 +22,13 @@ public class MemberAdminController {
     private final MemberAdminService memberAdminService;
 
     // 전체 회원 조회
+    @Transactional(readOnly = true)
     @GetMapping("/admin/member")
     public String adminMember(@ModelAttribute Criteria criteria, Model model,
                               @RequestParam(defaultValue = "1") int currentPageNo){
 
         List<MemberDto> memberDtos = Collections.emptyList();
         int totalCnt = memberAdminService.countAll(criteria);
-        System.out.println("totalCnt = " + totalCnt);
 
         criteria.setCurrentPageNo(currentPageNo);
         Pagination pagination = new Pagination(criteria, totalCnt, 5, 5);
@@ -58,6 +58,14 @@ public class MemberAdminController {
     @PostMapping("/admin/member/update")
     public String adminMemberUpdate(MemberDto memberDto){
         memberAdminService.updateMember(memberDto);
+        return "redirect:/admin/member";
+    }
+
+    // member 삭제
+    @Transactional
+    @GetMapping(value = "/admin/member/delete/{memberId}")
+    public String adminMemberDelete(@PathVariable int memberId) {
+        memberAdminService.deleteMember(memberId);
         return "redirect:/admin/member";
     }
 

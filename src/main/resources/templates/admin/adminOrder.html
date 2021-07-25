@@ -9,8 +9,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
+        function deleteOrder(no, orderNumber){
+            if(!confirm("정말로 주문번호 \""+orderNumber+"\"를 삭제하시겠습니까?")){
+                alert("주문 삭제를 취소하셨습니다.");
+            }else{
+                location.href = "/admin/order/delete/" + no;
+                alert("주문을 삭제하였습니다.");
+            }
+
+        }
+
         function updateOrder(no){
             location.href = "/admin/order/update/" + no;
+        }
+
+        function searchOrder(){
+            let type = document.getElementById('searchType').value;
+            let keyword = document.getElementById('searchKeyword').value;
+
+            if((type == null || type == '')&&(keyword == null || keyword == '')){
+                alert('검색 종류와 검색 키워드를 입력해 주세요.');
+                return false;
+            }else if(type == null || type ==''){
+                alert('검색 종류를 선택해 주세요.');
+                return false;
+            }else if(keyword == null || keyword == ''){
+                alert('검색 키워드를 입력해 주세요.');
+                return false;
+            }
+
+            document.getElementById('orderSearchFrm').submit();
         }
     </script>
 </head>
@@ -21,15 +49,17 @@
     <h2>주문관리페이지</h2>
     <br>
     <div>
-        <select name="query" id="query">
-            <option selected value="" >선택해주세요.</option>
-            <option value="주문번호">주문번호</option>
-            <option value="아이디">아이디</option>
-            <option value="주문날짜">주문날짜</option>
-            <option value="주문상태">주문상태</option>
-        </select>
-        <input type="text" name="search" id="search">
-        <button onclick="searchBtn()">검색</button>
+        <form id="orderSearchFrm" th:action="@{/admin/order(currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
+            <select name="searchType" id="searchType">
+                <option selected value="" th:selected="${criteria.searchType == null}">선택해주세요.</option>
+                <option value="search_orderId" th:selected="${criteria.searchType == 'search_orderId'}">주문번호</option>
+                <option value="search_accountId" th:selected="${criteria.searchType == 'search_accountId'}">아이디</option>
+                <option value="search_orderDate" th:selected="${criteria.searchType == 'search_orderDate'}">주문날짜</option>
+                <option value="search_orderState" th:selected="${criteria.searchType == 'search_orderState'}">주문상태</option>
+            </select>
+            <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
+            <button onclick="searchOrder()">검색</button>
+        </form>
     </div>
     <br><br>
     <table class="table table-hover">
@@ -62,10 +92,40 @@
                 <td th:text="${order.orderRequest}"></td>
                 <td th:text="${order.usedPoint}"></td>
                 <td><button th:onclick="updateOrder([[${order.orderId}]])">수정</button></td>
-                <td><button>삭제</button></td>
+                <td><button th:onclick="deleteOrder([[${order.orderId}]],[[${order.orderNumber}]])">삭제</button></td>
             </tr>
         </tbody>
     </table>
+
+    <div class="paging">
+        <ul class="pagination">
+            <!--이전  버튼-->
+            <th:block th:if="${pageMaker.hasPreviousPage}">
+                <li class="page-item">
+                    <a class ="page-link" id="Previous"  th:href="@{/admin/member(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
+                </li>
+            </th:block>
+
+
+
+            <!--페이지 번호-->
+            <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
+                <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
+                    th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
+                    <a class ="page-link" id="pageNum"  th:href="@{/admin/member(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
+                </li>
+            </th:block>
+
+
+            <!--다음 버튼-->
+            <th:block th:if="${pageMaker.hasNextPage}">
+                <li class="page-item" >
+                    <a class ="page-link" id="Next" th:href="@{/admin/member(currentPageNo=${pageMaker.lastPage} + 1, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
+                </li>
+            </th:block>
+
+        </ul>
+    </div>
 </div>
 <div th:replace="/admin/layout/footer.html :: footer"></div>
 </body>

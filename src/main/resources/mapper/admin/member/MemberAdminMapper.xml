@@ -18,6 +18,21 @@
         </if>
     </sql>
 
+    <sql id="memberColumns">
+        member_id as memberId
+            ,account_id as accountId
+            ,member_password as memberPassword
+            ,name as name
+            ,telephone as telephone
+            ,email as email
+            ,created_date as createdDate
+            ,address as address
+            ,birthdate as birthdate
+            ,point as point
+            ,role as role
+            ,grade_id as gradeId
+    </sql>
+
     <select id="selectTotalCnt" resultType="java.lang.Integer">
         SELECT count(*)
         FROM member
@@ -53,35 +68,6 @@
         limit #{firstRecordIndex}, #{criteria.recordsPerPage}
     </select>
 
-
-
-
-
-
-
-    <sql id="memberColumns">
-        member_id as memberId
-            ,account_id as accountId
-            ,member_password as memberPassword
-            ,name as name
-            ,telephone as telephone
-            ,email as email
-            ,created_date as createdDate
-            ,address as address
-            ,birthdate as birthdate
-            ,point as point
-            ,role as role
-            ,grade_id as gradeId
-    </sql>
-
-    <!-- 전체 회원 조회. -->
-<!--    <select id="selectAllMembers" resultType="com.CPR.redHome.dto.member.MemberDto">-->
-<!--        SELECT-->
-<!--            <include refid="memberColumns"/>-->
-<!--        FROM-->
-<!--             member-->
-<!--    </select>-->
-
     <!-- memberId 해당 회원 조회 -->
     <select id="selectMemberById" parameterType="Integer" resultType="com.CPR.redHome.dto.member.MemberDto">
         SELECT
@@ -103,6 +89,14 @@
         WHERE
             member_id = #{memberId}
     </update>
+
+    <!-- member delete -->
+    <delete id="deleteMember" parameterType="Integer">
+        DELETE FROM
+            member
+        WHERE
+            member_id = #{memberId}
+    </delete>
 
     <!-- 연령대 별 회원 조회 -->
     <select id="selectMemberByAge" resultType="java.util.LinkedHashMap">

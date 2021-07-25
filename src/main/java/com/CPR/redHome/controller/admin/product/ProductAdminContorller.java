@@ -1,6 +1,8 @@
 package com.CPR.redHome.controller.admin.product;
 
 import com.CPR.redHome.dto.product.ProductDto;
+import com.CPR.redHome.paging.Criteria;
+import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.admin.product.ProductAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -21,8 +24,22 @@ public class ProductAdminContorller {
     // 상품페이지 조회
     @Transactional(readOnly = true)
     @GetMapping("/admin/product")
-    public String adminProduct(Model model){
-        List<ProductDto> productDtos = productAdminService.selectAllProducts();
+    public String adminProduct(@ModelAttribute Criteria criteria, Model model,
+                               @RequestParam(defaultValue = "1") int currentPageNo){
+
+        List<ProductDto> productDtos = Collections.emptyList();
+        int totalCnt = productAdminService.countAll(criteria);
+
+        criteria.setCurrentPageNo(currentPageNo);
+        Pagination pagination = new Pagination(criteria, totalCnt, 5,5);
+
+        int firstRecordIndex = pagination.getFirstRecordIndex();
+
+        if(totalCnt>0){
+            productDtos = productAdminService.getProductList(firstRecordIndex, criteria);
+        }
+
+        model.addAttribute("pageMaker", pagination);
         model.addAttribute("productDtos", productDtos);
         return "admin/adminProduct";
     }

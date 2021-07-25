@@ -16,16 +16,14 @@ public interface MemberAdminMapper {
 
     List<MemberDto> selectMembers(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
 
-
-
-    // 전체 멤버 조회
-    List<MemberDto> selectAllMembers();
-
     // memberId로 회원 조회
     MemberDto selectMemberById(int memberId);
 
     // 수정 member update
     void updateMember(MemberDto memberDto);
+
+    // member delete
+    void deleteMember(int memberId);
 
     // 나이대 별 회원 수 조회
     LinkedHashMap<String, Integer> selectMemberByAge();

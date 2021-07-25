@@ -1,7 +1,9 @@
 package com.CPR.redHome.service.admin.order;
 
 import com.CPR.redHome.dto.cart.OrderDto;
+import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.mapper.admin.order.OrderAdminMapper;
+import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.service.admin.util.MakeJsonForChartServcie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,10 +21,16 @@ public class OrderAdminServiceImpl implements OrderAdminService{
     private final OrderAdminMapper orderAdminMapper;
     private final MakeJsonForChartServcie makeJsonForChartServcie;
 
-    // 전체 주문 조회
     @Override
-    public List<OrderDto> SelectAllOrders() {
-        return orderAdminMapper.selectAllOrders();
+    public int countAll(Criteria criteria) {
+        int cnt = orderAdminMapper.selectTotalCnt(criteria);
+        return cnt;
+    }
+
+    @Override
+    public List<OrderDto> getOrderList(int firstRecordIndex, Criteria criteria) {
+        List<OrderDto> orderDtos = orderAdminMapper.selectOrders(firstRecordIndex, criteria);
+        return orderDtos;
     }
 
     // 선택 주문 조회
@@ -35,6 +43,12 @@ public class OrderAdminServiceImpl implements OrderAdminService{
     @Override
     public void updateOrder(OrderDto orderDto) {
         orderAdminMapper.updateOrder(orderDto);
+    }
+
+    // order delete
+    @Override
+    public void deleteOrder(int orderId) {
+        orderAdminMapper.deleteOrder(orderId);
     }
 
     // 월별 주문량 조회

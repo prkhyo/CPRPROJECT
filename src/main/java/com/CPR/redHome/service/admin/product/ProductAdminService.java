@@ -1,14 +1,16 @@
 package com.CPR.redHome.service.admin.product;
 
 import com.CPR.redHome.dto.product.ProductDto;
+import com.CPR.redHome.paging.Criteria;
 import org.json.simple.JSONObject;
 
 import java.util.List;
 
 public interface ProductAdminService {
 
-    // 전체 상품 조회
-    List<ProductDto> selectAllProducts();
+    int countAll(Criteria criteria);
+
+    List<ProductDto> getProductList(int firstRecordIndex, Criteria criteria);
 
     // productId로 상품 조회
     ProductDto selectProductByProductId(int productId);

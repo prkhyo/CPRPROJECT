@@ -20,10 +20,7 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
     private final MemberAdminMapper memberAdminMapper;
     private final MakeJsonForChartServcie makeJsonForChartServcie;
-    Criteria criteria;
-    Pagination pagination;
 
-    // 오늘
     @Override
     public int countAll(Criteria criteria) {
         int cnt = memberAdminMapper.selectTotalCnt(criteria);
@@ -38,16 +35,6 @@ public class MemberAdminServiceImpl implements MemberAdminService {
         return memberDtos;
     }
 
-
-
-
-
-    // 전체회원 조회
-    @Override
-    public List<MemberDto> selectAllMembers() {
-        return memberAdminMapper.selectAllMembers();
-    }
-
     // memberId로 회원 조회
     @Override
     public MemberDto selectMemberById(int memberId) {
@@ -58,6 +45,12 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     @Override
     public void updateMember(MemberDto memberDto) {
         memberAdminMapper.updateMember(memberDto);
+    }
+
+    // member delete
+    @Override
+    public void deleteMember(int memberId) {
+        memberAdminMapper.deleteMember(memberId);
     }
 
 

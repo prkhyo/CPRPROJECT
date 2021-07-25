@@ -3,6 +3,21 @@
 
 <mapper namespace="com.CPR.redHome.mapper.admin.product.ProductAdminMapper">
 
+    <sql id ="search">
+        <if test="searchType == 'search_productId'">
+            product_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productTitle'">
+            product_title like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productCategoryId'">
+            product_category_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productThemeId'">
+            product_theme_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+    </sql>
+
     <!-- product columns -->
     <sql id="productColumns">
         product_id as productId
@@ -16,11 +31,38 @@
             ,product_theme_id as productThemeId
     </sql>
 
-    <!-- 전체 상품 조회. -->
-    <select id="selectAllProducts" resultType="com.CPR.redHome.dto.product.ProductDto">
+    <select id="selectTotalCnt" resultType="Integer">
+        SELECT count(*)
+        FROM product
+        <where>
+            <if test="searchType != null">
+                <include refid="search"></include>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectProducts" resultType="com.CPR.redHome.dto.product.ProductDto">
         SELECT
             <include refid="productColumns"/>
         FROM product
+
+        <where>
+            <if test="criteria.searchType != null">
+                <if test="criteria.searchType == 'search_productId'">
+                    product_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productTitle'">
+                    product_title like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productCategoryId'">
+                    product_category_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productThemeId'">
+                    product_theme_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+            </if>
+        </where>
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
     </select>
 
     <!-- productId로 상품 조회 -->

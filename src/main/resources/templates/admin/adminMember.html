@@ -10,6 +10,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
 
+        function deleteMember(no, accountId){
+            if(!confirm("정말로 회원 \""+accountId+"\"를 삭제하시겠습니까?")){
+                alert("회원 삭제를 취소하셨습니다.");
+            }else{
+                location.href = "/admin/member/delete/" + no;
+                alert("회원을 삭제하였습니다.");
+            }
+
+        }
+
         function updateMember(no){
             location.href = "/admin/member/update/" + no;
         }
@@ -89,7 +99,7 @@
                 <td th:text="${member.point}"></td>
                 <td th:text="${member.gradeId}"></td>
                 <td><button th:onclick="updateMember([[${member.memberId}]])">수정</button></td>
-                <td><button>삭제</button></td>
+                <td><button th:onclick="deleteMember([[${member.memberId}]],[[${member.accountId}]])">삭제</button></td>
 <!--            </tr>-->
         </th>
         </tbody>

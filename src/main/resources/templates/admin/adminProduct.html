@@ -24,11 +24,22 @@
 
         }
 
-        function searchBtn(){
-            var query1 = document.getElementById("query1").value;
-            var data = document.getElementById("search").value;
-            console.log("query1 : " + query1 + ", data = " + data);
-            location.href = "/admin_product?query1=" + query1 + "&data=" + data;
+        function searchProduct(){
+            let type = document.getElementById('searchType').value;
+            let keyword = document.getElementById('searchKeyword').value;
+
+            if((type == null || type == '')&&(keyword == null || keyword == '')){
+                alert('검색 종류와 검색 키워드를 입력해 주세요.');
+                return false;
+            }else if(type == null || type ==''){
+                alert('검색 종류를 선택해 주세요.');
+                return false;
+            }else if(keyword == null || keyword == ''){
+                alert('검색 키워드를 입력해 주세요.');
+                return false;
+            }
+
+            document.getElementById('productSearchFrm').submit();
         }
     </script>
 </head>
@@ -40,31 +51,15 @@
     <br>
     <div>
         <form id="productSearchFrm" th:action="@{/admin/product(currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
-            <select name="query1" id="query1">
-                <option selected value="" >선택해주세요</option>
-                <option value="제품번호">제품번호</option>
-                <option value="제품이름">제품이름</option>
+            <select name="searchType" id="searchType">
+                <option selected value="" th:selected="${criteria.searchType == null}">선택해주세요</option>
+                <option value="search_productId" th:selected="${criteria.searchType == 'search_productId'}">제품번호</option>
+                <option value="search_productTitle" th:selected="${criteria.searchType == 'search_productTitle'}">제품이름</option>
+                <option value="search_productCategoryId" th:selected="${criteria.searchType == 'search_productCategoryId'}">카테고리타입</option>
+                <option value="search_productThemeId" th:selected="${criteria.searchType == 'search_productThemeId'}">제품타입</option>
             </select>
-            <select name="query2">
-                <option selected value="카테고리타입" >카테고리타입</option>
-                <option value="노래방">노래방</option>
-                <option value="도서관">도서관</option>
-                <option value="오피스">오피스</option>
-                <option value="영화관">영화관</option>
-                <option value="카페">카페</option>
-                <option value="헬스장">헬스장</option>
-                <option value="pc방">pc방</option>
-            </select>
-            <select name="query3">
-                <option selected value="제품타입" >제품타입</option>
-                <option value="기타">기타</option>
-                <option value="책상">책상</option>
-                <option value="의자">의자</option>
-                <option value="옷장">옷장</option>
-                <option value="침대">침대</option>
-            </select>
-            <input type="text" name="search" id="search">
-            <button onclick="searchBtn()">검색</button>
+            <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
+            <button onclick="searchProduct()">검색</button>
         </form>
     </div>
     <br><br>

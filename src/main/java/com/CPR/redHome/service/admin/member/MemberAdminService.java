@@ -15,17 +15,14 @@ public interface MemberAdminService {
     // 정해진 수대로 멤버 리스트 불러오기
     List<MemberDto> getMemberList(int firstRecordIndex, Criteria criteria);
 
-
-
-
-    // 전체 회원 조회
-    List<MemberDto> selectAllMembers();
-
     // memberId로 회원 조회
     MemberDto selectMemberById(int memberId);
 
     // 수정된 member update
     void updateMember(MemberDto memberDto);
+
+    // member delete
+    void deleteMember(int memberId);
 
     // @@@@@@@ 회원 통계 @@@@@@@@
     // 연령대 별 회원 수 조회

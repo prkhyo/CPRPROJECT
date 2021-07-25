@@ -16,15 +16,61 @@
             ,o.order_request as orderRequest
             ,o.order_point_used as usedPoint
     </sql>
-    
-    <!-- 전체 주문 조회. -->
-    <select id="selectAllOrders" resultType="com.CPR.redHome.dto.cart.OrderDto">
-        select
+
+    <sql id="search">
+        <if test="searchType == 'search_orderId'">
+            o.order_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_accountId'">
+            m.account_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_orderDate'">
+            o.order_date like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_orderState'">
+            o.order_state like CONCAT('%',#{searchKeyword},'%')
+        </if>
+    </sql>
+
+    <select id="selectTotalCnt" resultType="Integer">
+        SELECT COUNT(*)
+        FROM orders o
+        INNER JOIN member m
+        on o.member_id = m.member_id
+        <where>
+            <if test="searchType != null">
+                <include refid="search"></include>
+            </if>
+        </where>
+    </select>
+
+    <!-- 주문 조회. -->
+    <select id="selectOrders" resultType="com.CPR.redHome.dto.cart.OrderDto">
+        SELECT
             <include refid="orderColumns"/>
-        from
-             orders o, member m
-        where
+        FROM
+             orders o
+        INNER JOIN
+                 member m
+        ON
             o.member_id = m.member_id
+        <where>
+            <if test="criteria.searchType != null">
+                <if test="criteria.searchType == 'search_orderId'">
+                    o.order_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_accountId'">
+                    m.account_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_orderDate'">
+                    o.order_date like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_orderState'">
+                    o.order_state like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+            </if>
+        </where>
+
     </select>
 
     <!-- 선택 주문 조회 -->
@@ -48,6 +94,14 @@
         WHERE
             order_number = #{orderNumber}
     </update>
+
+    <!--    delete order-->
+    <delete id="deleteOrder" parameterType="Integer">
+        DELETE FROM
+            orders
+        WHERE
+            order_id = #{orderId}
+    </delete>
 
     <!-- 월별 주문 수 조회 -->
     <select id="selectOrderByMonth" resultType="java.util.LinkedHashMap">
