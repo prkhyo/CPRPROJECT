@@ -15,6 +15,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -64,19 +66,6 @@ public class ProductController {
     }
 
 
-    /*제품리스트 페이지로 이동(메인페이지 완성되면 삭제할 예정)*/
-    @GetMapping("/product/list")
-    public String productListPage(Model model){
-
-
-        List<ProductViewDto> productList = productService.selectProductList();
-        model.addAttribute("productList", productList);
-
-        return "product/product_list_test";
-    }
-
-
-
 
     @GetMapping("/product/insertTo/cart")
     public String productInsertToCart(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
@@ -118,14 +107,19 @@ public class ProductController {
 
 
     @GetMapping("/store")
-    public String storePage(Model model, @RequestParam(required = false) String productSort, @RequestParam(required = false) String storeOrder,
-                            @RequestParam(required = false) String searchProductKeyword){
+    public String storePage(Model model,  @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+                            @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
 
-
-
-        List<ProductViewDto> productList = productService.selectProductList();
+        List<ProductViewDto> productList = productService.selectProductList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo);
         model.addAttribute("productList", productList);
+
+        model.addAttribute("storeOrder", storeOrder);
+        model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
+        model.addAttribute("productThemeNo", productThemeNo);
+        model.addAttribute("searchProductKeyword", searchProductKeyword);
+
+
 
         return "product/store";
     }

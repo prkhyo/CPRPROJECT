@@ -36,9 +36,9 @@
                                     <div class="layout-navigation-search__combobox">
                                         <div class="layout-navigation-search__input">
                                             <img src="../../img/ohsu_2.PNG"
-                                                 style="position:absolute; padding-top:6px; padding-left:6px;">
+                                                 style="position:absolute; padding-top:6px; padding-left:6px;" onclick="storeSearch()">
                                             <input type="text" class="layout-navigation-search__input__text"
-                                                   placeholder="레드홈 통합검색">
+                                                   placeholder="레드홈 통합검색" id="searchProductKeyword" name="searchProductKeyword" th:attr="value=${searchProductKeyword}">
                                         </div>
                                     </div>
                                 </div>
@@ -98,25 +98,25 @@
                         <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active noDeco" href="/store" >
                             전체
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=1">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=1">
                             노래방
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=2">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=2">
                             도서관
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=3">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=3">
                             오피스
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=4">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=4">
                             영화관
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=5">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=5">
                             카페
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=6">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=6">
                             헬스장
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?c_num=7">
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=7">
                             pc방
                         </a>
                     </nav>
@@ -169,8 +169,7 @@
         </ul>
       </div>
    </div>
-
-
-
+<input type="hidden" id="productThemeNo" name="productThemeNo" th:value="${productThemeNo}">
+<input type="hidden" id="deliveryChargeOPtion" name="deliveryChargeOPtion" th:value="${deliveryChargeOPtion}">
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.CPR.redHome.service.product;
 import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ public interface ProductService {
 
     List<ProductImageDto> selectProductImgList(Long productId);
 
-    //제품리스트 가져오기 (테스트용)
-    List<ProductViewDto> selectProductList();
+    List<ProductViewDto> selectProductList(String storeOrder, String deliveryChargeOPtion,
+                                           String searchProductKeyword, Integer productThemeNo);
 
     void insertProductToCart(CartDto cartDto);
 

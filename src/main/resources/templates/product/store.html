@@ -22,44 +22,38 @@
 <br>
 
 <div class="store_option">
-  <form action="/store" name="freeDel_frm">
     <div class="store_option_free">
       <label class="switch">
-        <input type="checkbox" name="noDeliveryCharge">
+        <input type="checkbox" id="deliverycheckbox" name="deliverycheckbox" onchange="chargeOptionChange()">
         <span class="slider round"></span>
       </label>
-      <p>배송</p>
-      <p style="display: none;">무료배송</p>
+      <p th:if="${deliveryChargeOPtion != 'noCharge'}">배송</p>
+      <p th:unless="${deliveryChargeOPtion != 'noCharge'}">무료배송</p>
     </div>
-  </form>
 
-  <form action="/store" name="select_frm" method="get" onchange="javascript:selectSort();">
-    <input type="hidden" id="productCategoryNo" name="productCategoryNo" th:value="${productCategoryNo}">
-    <input type="hidden" id="searchProductKeyword" name="searchProductKeyword" th:value="${searchProductKeyword}">
+
     <div class="store_option_select">
-      <select name="storeOrder" id="storeOrder" class="justselect1" style="border: 1px solid #dbdbdb; border-radius: 3px; color: #424242; min-height: 30px; ">
-        <option value="sort" selected disabled hidden>
-          <th:block th:if="${productSort != 'best' and productSort != 'high' and productSort != 'low'}">
+      <select name="storeOrder" class="justselect1" id="storeOrder" style="border: 1px solid #dbdbdb; border-radius: 3px; color: #424242; min-height: 30px; " onchange="commonSubmit()">
+        <option th:value="${storeOrder}" selected disabled hidden>
+          <th:block th:if="${storeOrder != 'best' and storeOrder != 'high' and storeOrder != 'low'}">
             최신순
           </th:block>
-          <th:block th:if="${productSort == 'best'}">
+          <th:block th:if="${storeOrder == 'best'}">
             인기순
           </th:block>
-
-          <th:block th:if="${productSort == 'high'}">
+          <th:block th:if="${storeOrder == 'high'}">
             높은가격순
           </th:block>
-          <th:block th:if="${productSort == 'low'}">
+          <th:block th:if="${storeOrder == 'low'}">
             낮은가격순
           </th:block>
         </option>
-        <option class="sortOption" value="new" >최신순</option>
-        <option class="sortOption" value="best">인기순</option>
-        <option class="sortOption" value="high">높은가격순</option>
-        <option class="sortOption" value="low">낮은가격순</option>
+        <option value="new" th:text="최신순"></option>
+        <option value="best" th:text="인기순"></option>
+        <option value="high" th:text="높은가격순"></option>
+        <option value="low" th:text="낮은가격순"></option>
       </select>
     </div>
-  </form>
 </div>
 
 <th:block th:each="product : ${productList}">
@@ -68,7 +62,7 @@
  </th:block>
    <div class="store_item">
      <div class="store_item_img">
-       <a href="/storeInfo?p_num=${p.product_num}">
+       <a th:href="@{${'/product/detail?productId='+product.productId}}">
          <div class="store_item_imgScale">
            <img alt="" th:src="@{${'/display?fileName='+product.productMainImage}}">
          </div>
@@ -83,7 +77,7 @@
          <span class="store_item_header_name" th:text="${product.productTitle}"></span>
        </div>
        <div>
-         <span class="store_item_header_price" th:text="${product.productPrice}"></span>
+         <span class="store_item_header_price" th:text="${#numbers.formatDecimal(product.productPrice, 0, 'COMMA', 0, 'POINT')}"></span>
        </div>
        <div>
          <span class="store_item_header_scope">${reviewGrade}</span>
@@ -103,10 +97,52 @@
 <br>
 
 
+
+
+
+
 <!-- 페이지 하단 -->
 <th:block th:include="/fragments/bottom.html"></th:block>
 
 <script>
+
+  function commonSubmit(){
+    let productThemeNo_ = document.getElementById("productThemeNo").value;
+    let searchProductKeyword_ = document.getElementById("searchProductKeyword").value;
+    let deliveryChargeOPtion_ = document.getElementById("deliveryChargeOPtion").value;
+    let storeOrder_ = document.getElementById("storeOrder").value;
+
+    location.href='/store?deliveryChargeOPtion='+deliveryChargeOPtion_+'&storeOrder='+storeOrder_+'&productThemeNo='+productThemeNo_+'&searchProductKeyword='+searchProductKeyword_;
+
+  }
+
+
+  document.addEventListener("DOMContentLoaded", function(){
+       if(document.getElementById("deliveryChargeOPtion").value == 'noCharge'){
+
+         document.getElementById("deliverycheckbox").checked = true;
+
+       }else{
+
+         document.getElementById("deliverycheckbox").checked = false;
+
+       }
+  });
+
+
+  function chargeOptionChange(){
+
+    if(document.getElementById("deliverycheckbox").checked == false){
+            document.getElementById("deliveryChargeOPtion").value ='all';
+    }else{
+            document.getElementById("deliveryChargeOPtion").value ='noCharge';
+    }
+
+    commonSubmit();
+
+  }
+
+
   var check = $("input[type='checkbox']");
   check.click(function() {
     $("p").toggle();

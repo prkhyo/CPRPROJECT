@@ -34,6 +34,8 @@ public class ProductViewDto {
 
     private String productCategoryName;
 
+    private Integer productThemeId;
+
     private String productThemeName;
 
     private String productDescription;

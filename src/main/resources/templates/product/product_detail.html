@@ -82,8 +82,8 @@
     <div class="production-selling-overview container">
         <nav class="commerce-category-breadcrumb-wrap production-selling-overview__category">
             <ol class="commerce-category-breadcrumb">
-                <li class="commerce-category-breadcrumb__entry"><a class="link" href="/store/category?category=0&amp;affect_type= ProductSaleDetail&amp;affect_id=691947" th:text="${productDto.productThemeName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
-                <li class="commerce-category-breadcrumb__entry"><a class="link" href="/store/category?category=0_6&amp;affect_type= ProductSaleDetail&amp;affect_id=691947" th:text="${productDto.productCategoryName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
+                <li class="commerce-category-breadcrumb__entry"><a class="link" th:href="@{${'/store?productThemeNo='+productDto.productThemeId}}" th:text="${productDto.productThemeName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
+                <li class="commerce-category-breadcrumb__entry"><a class="link" href="" th:text="${productDto.productCategoryName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
             </ol>
         </nav>
         <div class="production-selling-overview__container row">
