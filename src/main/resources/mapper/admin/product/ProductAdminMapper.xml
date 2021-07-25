@@ -22,7 +22,7 @@
     <sql id="productColumns">
         product_id as productId
             ,product_title as productTitle
-            ,product_img as productImg
+            ,product_img as productMainImage
             ,product_price as productPrice
             ,product_delivery_charge as productDeliveryCharge
             ,product_quantity as productQuantity
@@ -80,7 +80,7 @@
             product
         SET
             product_title = #{productTitle}
-            ,product_img = #{productImg}
+            ,product_img = #{productMainImage}
             ,product_price = #{productPrice}
             ,product_delivery_charge = #{productDeliveryCharge}
             ,product_quantity = #{productQuantity}

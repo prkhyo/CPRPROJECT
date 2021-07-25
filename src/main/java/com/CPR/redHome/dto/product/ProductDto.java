@@ -1,24 +1,47 @@
 package com.CPR.redHome.dto.product;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
-@Data
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Alias("productDto")
+@ToString
+@Alias("ProductDto")
 public class ProductDto {
 
-    private Integer productId;
+    private Long productId;
+
+    private Long memberId;
+
     private String productTitle;
-    private String productImg;
+
+    private LocalDateTime createdDate;
+
     private Integer productPrice;
+
     private Integer productDeliveryCharge;
+
     private Integer productQuantity;
 
-    private Long productCategoryId;
-    private Long memberId;
-    private Long productThemeId;
+    private Integer productCategoryId; //join
+
+    private Integer productThemeId; //join
+
+    private String productDescription;
+
+    private String productMainImage;
+
+
+
+
+
+
+
+
 }
