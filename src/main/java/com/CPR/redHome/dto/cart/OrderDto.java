@@ -15,8 +15,7 @@ public class OrderDto extends CartDto {
     // cartDto를 extends함으로써 CartDto에 있는 객체들 사용 가능
 
     // javscript ajax로 json데이터 전송 시 필요한 객체들 생성
-    private String orderId;
-    private String orderNumber;
+    private String orderNo;
     private Long gradeId;
 
     // 해당 계정 정보

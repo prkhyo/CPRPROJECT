@@ -9,8 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
-        function deleteOrder(no, orderNumber){
-            if(!confirm("정말로 주문번호 \""+orderNumber+"\"를 삭제하시겠습니까?")){
+        function deleteOrder(no, orderNo){
+            if(!confirm("정말로 주문번호 \""+orderNo+"\"를 삭제하시겠습니까?")){
                 alert("주문 삭제를 취소하셨습니다.");
             }else{
                 location.href = "/admin/order/delete/" + no;
@@ -52,7 +52,7 @@
         <form id="orderSearchFrm" th:action="@{/admin/order(currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
             <select name="searchType" id="searchType">
                 <option selected value="" th:selected="${criteria.searchType == null}">선택해주세요.</option>
-                <option value="search_orderId" th:selected="${criteria.searchType == 'search_orderId'}">주문번호</option>
+                <option value="search_orderNo" th:selected="${criteria.searchType == 'search_orderNo'}">주문번호</option>
                 <option value="search_accountId" th:selected="${criteria.searchType == 'search_accountId'}">아이디</option>
                 <option value="search_orderDate" th:selected="${criteria.searchType == 'search_orderDate'}">주문날짜</option>
                 <option value="search_orderState" th:selected="${criteria.searchType == 'search_orderState'}">주문상태</option>
@@ -82,7 +82,7 @@
         <tbody>
             <tr th:each="order : ${orderDtos}">
                 <td th:text="${order.orderId}"></td>
-                <td th:text="${order.orderNumber}"></td>
+                <td th:text="${order.orderNo}"></td>
                 <td th:text="${order.accountId}"></td>
                 <td th:text="${order.receiver}"></td>
                 <td th:text="${order.orderDate}"></td>
@@ -92,7 +92,7 @@
                 <td th:text="${order.orderRequest}"></td>
                 <td th:text="${order.usedPoint}"></td>
                 <td><button th:onclick="updateOrder([[${order.orderId}]])">수정</button></td>
-                <td><button th:onclick="deleteOrder([[${order.orderId}]],[[${order.orderNumber}]])">삭제</button></td>
+                <td><button th:onclick="deleteOrder([[${order.orderId}]],[[${order.orderNo}]])">삭제</button></td>
             </tr>
         </tbody>
     </table>

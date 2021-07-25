@@ -6,7 +6,7 @@
     <!-- order columns -->
     <sql id="orderColumns">
         o.order_id as orderId
-            ,o.order_number as orderNumber
+            ,o.order_number as orderNo
             ,m.account_id as accountId
             ,o.order_receiver as receiver
             ,o.order_date as orderDate
@@ -18,8 +18,8 @@
     </sql>
 
     <sql id="search">
-        <if test="searchType == 'search_orderId'">
-            o.order_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="searchType == 'search_orderNo'">
+            o.order_number like CONCAT('%',#{searchKeyword},'%')
         </if>
         <if test="searchType == 'search_accountId'">
             m.account_id like CONCAT('%',#{searchKeyword},'%')
@@ -56,8 +56,8 @@
             o.member_id = m.member_id
         <where>
             <if test="criteria.searchType != null">
-                <if test="criteria.searchType == 'search_orderId'">
-                    o.order_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                <if test="criteria.searchType == 'search_orderNo'">
+                    o.order_number like CONCAT('%',#{criteria.searchKeyword},'%')
                 </if>
                 <if test="criteria.searchType == 'search_accountId'">
                     m.account_id like CONCAT('%',#{criteria.searchKeyword},'%')
@@ -92,7 +92,7 @@
           ,order_state = #{orderState}
           ,order_request = #{orderRequest}
         WHERE
-            order_number = #{orderNumber}
+            order_number = #{orderNo}
     </update>
 
     <!--    delete order-->
