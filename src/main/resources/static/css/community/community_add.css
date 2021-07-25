@@ -137,7 +137,7 @@ header,  main {
 
 .question-form__cs__link {
     margin-left: 2px;
-    color: #ed4a4a;
+    color: #f76565;
     font-weight: bold;
     text-decoration: underline;
 }
@@ -333,7 +333,7 @@ fieldset, img {
 }
 
 .question-form__body__content__input img:focus, .question-form__body__content__input img.selected {
-    outline: 4px solid #ed4a4a;
+    outline: 4px solid #f76565;
 }
 
 
@@ -353,7 +353,7 @@ fieldset, img {
 .question-form__body__content__delete__button {
     width: 40px;
     height: 40px;
-    background-color: #ed4a4a;
+    background-color: #f76565;
     color: #ffffff;
     border: none;
     border-radius: 100%;
@@ -395,10 +395,10 @@ fieldset, img {
     color: white;
     font-size: inherit;
     cursor: pointer;
-    border: 1px solid #ed4a4a;
+    border: 1px solid #f76565;
     height: 20px;
     text-align: center;
-    background-color: #ed4a4a;
+    background-color: #f76565;
     border-radius: 4px;
     font-family: "Noto Sans KR", "Apple SD Gothic Neo", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
     font-weight: bold;
@@ -414,7 +414,7 @@ fieldset, img {
 
 #annulationBtn{
     padding: .5em .75em;
-    color: #ed4a4a;
+    color: #f76565;
     font-size: inherit;
     border: 1px solid #dbdbdb;
     height: 38px;

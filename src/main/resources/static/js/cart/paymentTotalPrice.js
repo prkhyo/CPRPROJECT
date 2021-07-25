@@ -44,7 +44,7 @@ function calculatePrice(point) {
     deliveryTotalCharge.innerText = delivery.format();
 
 
-    finalPrice[0].innerText = parseInt(total + delivery - point);
+    finalPrice[0].innerText = parseInt(total + delivery - point).toLocaleString('ko-KR');
 
     addPoint();
 

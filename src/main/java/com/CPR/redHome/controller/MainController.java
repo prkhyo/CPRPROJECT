@@ -16,9 +16,9 @@ public class MainController {
     @GetMapping("/")
     public String home(@Login MemberDto loginMember, Model model){
 
-
         model.addAttribute("SessionUser",loginMember);
-        return "/store";
+
+        return "redirect:/store";
     }
 
 }

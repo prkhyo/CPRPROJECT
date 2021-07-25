@@ -5,10 +5,11 @@ function pageMove(page){
 
 }
 
+
 function writeQuestion(){
     let productId = document.getElementById("productId").value;
-    let memberId = document.getElementById("memberId").value;
-    if(memberId == null || memberId == ''){
+    let sessionUser_ = document.getElementById("sessionUser").value;
+    if(sessionUser_ == null || sessionUser_ == ''){
         alert('로그인 후 문의 글 작성이 가능합니다.');
         location.href ='/login';
     }else{

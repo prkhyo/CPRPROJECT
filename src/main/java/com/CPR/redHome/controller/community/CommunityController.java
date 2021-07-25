@@ -34,14 +34,14 @@ public class CommunityController {
 
     @GetMapping("/community/list")
     public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                    @RequestParam(defaultValue="1") int currentPageNo, @Login MemberDto memberDto) {
+                                    @RequestParam(defaultValue="1") int currentPageNo, @Login MemberDto loginMember) {
 
         List<CommunityViewDto> communityList = Collections.emptyList();
 
         int communityTotalCnt = communityService.countAllCommunities(reply, criteria);
 
         criteria.setCurrentPageNo(currentPageNo);
-        Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
+        Pagination pagination = new Pagination(criteria, communityTotalCnt, 8, 5);
 
         int firstRecordIndex = pagination.getFirstRecordIndex();
 
@@ -50,7 +50,7 @@ public class CommunityController {
        }
 
 
-        model.addAttribute("SessionUser", memberDto);
+        model.addAttribute("SessionUser", loginMember);
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
@@ -60,7 +60,7 @@ public class CommunityController {
 
     @GetMapping("/community/detail")
     public String communityDetailPage(@RequestParam Long communityId, Model model, @ModelAttribute("criteria")Criteria criteria, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                      @RequestParam Integer commentCurrentPage, @Login MemberDto memberDto){
+                                      @RequestParam Integer commentCurrentPage, @Login MemberDto loginMember){
 
 
         model.addAttribute("currentPageNo", criteria.getCurrentPageNo());
@@ -76,7 +76,7 @@ public class CommunityController {
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
-        model.addAttribute("SessionUser", memberDto);
+        model.addAttribute("SessionUser", loginMember);
 
 
 
@@ -161,12 +161,12 @@ public class CommunityController {
     }
 
     @PostMapping("/community/communityInsert")
-    public String communityInsert(@Login MemberDto memberDto, @RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
+    public String communityInsert(@Login MemberDto loginMember, @RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
 
         CommunityDto communityDto = new CommunityDto();
         communityDto.setCommunityTitle(communityTitle);
         communityDto.setCommunityContents(communityContents);
-        communityDto.setMemberId(memberDto.getMemberId());
+        communityDto.setMemberId(loginMember.getMemberId());
 
 
         try {

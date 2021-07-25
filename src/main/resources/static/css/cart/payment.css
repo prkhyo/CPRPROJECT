@@ -514,8 +514,8 @@ fieldset, img {
 }
 
 ._3SroY {
-    background-color: #ed4a4a;
-    border-color: #ed4a4a;
+    background-color: #f76565;
+    border-color: #f76565;
     color: #fff;
 }
 
@@ -559,7 +559,7 @@ fieldset, img {
     background-color: transparent;
     font-size: 16px;
     line-height: 19px;
-    color: #ed4a4a;
+    color: #f76565;
     transition: color .2s;
     border: none;
     font-weight: 700;
@@ -585,8 +585,8 @@ fieldset, img {
 
 ._2wuTD {
     background-color: #fff;
-    border-color: #ed4a4a;
-    color: #ed4a4a;
+    border-color: #f76565;
+    color: #f76565;
 }
 
 ._1h-CO {
@@ -714,7 +714,7 @@ fieldset, img {
     line-height: 19px;
     font-weight: 700;
     margin: 16px 0;
-    color: #ed4a4a;
+    color: #f76565;
     transition: color .2s;
 }
 
@@ -725,7 +725,7 @@ fieldset, img {
     transform: rotate(
             -90deg
     );
-    fill: #ed4a4a;
+    fill: #f76565;
 }
 
 .Ui16N {
@@ -926,6 +926,7 @@ fieldset, img {
     color: #292929;
     font-weight: 700;
     margin-left: 5px;
+    margin-right: 3px;
 }
 
 ._2T03R {
@@ -1013,7 +1014,7 @@ fieldset, img {
 
 ._3HMkK {
     margin-left: 5px;
-    color: #ed4a4a;
+    color: #f76565;
     font-weight: 700;
 }
 
@@ -1080,8 +1081,8 @@ fieldset, img {
 ._2oebd._18EzB {
     padding: 0 0 4px;
     background-color: #ffecec;
-    border-right: 2px solid #ed4a4a;
-    border-bottom: 2px solid #ed4a4a;
+    border-right: 2px solid #f76565;
+    border-bottom: 2px solid #f76565;
 }
 
 ._2oebd._18EzB:before {
@@ -1092,8 +1093,8 @@ fieldset, img {
     left: 0;
     width: 100%;
     height: 100%;
-    border-top: 2px solid #ed4a4a;
-    border-left: 2px solid #ed4a4a;
+    border-top: 2px solid #f76565;
+    border-left: 2px solid #f76565;
 }
 
 ._2oebd ._1olMW {
@@ -1101,7 +1102,7 @@ fieldset, img {
     line-height: 14px;
     font-weight: 700;
     text-align: center;
-    color: #ed4a4a;
+    color: #f76565;
 }
 
 ._2d_-I {
@@ -1266,7 +1267,7 @@ fieldset, img {
 }
 
 .kUAhq {
-    color: #ed4a4a;
+    color: #f76565;
     font-family: Tahoma,sans;
 }
 
@@ -1282,6 +1283,7 @@ fieldset, img {
 ._11DAx {
     font-weight: 700;
     font-family: Tahoma,sans;
+    margin-right: 5px;
 }
 
 
@@ -1371,10 +1373,14 @@ fieldset, img {
 
 .deliveryCharge{
     margin-left: 10px;
+    margin-right: 3px;
 
 }
 
+.productTotalSum,.deliveryTotalCharge{
+    margin-right: 5px;
 
+}
 
 
 

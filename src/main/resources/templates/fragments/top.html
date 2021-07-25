@@ -50,7 +50,7 @@
                                     <a class="layout-navigation-bar-login__item noDeco" href="/login">
                                         로그인
                                     </a>
-                                    <a class="layout-navigation-bar-login__item noDeco" href="/signup">
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/join">
                                         회원가입
                                     </a>
                                 </div>
@@ -67,7 +67,7 @@
                                    <!-- <span class="layout-navigation-bar-icon__ticker">3</span>-->
                                 </a>
                             <div class="drop-down layout-navigation-bar-user-section">
-                                <button class="layout-navigation-bar-user-button layout-navigation-bar-user-button--open"  type="button" th:aria-label="${SessionUser.accountId}" onclick="myOn()" ondblclick="myOut()">
+                                <button class="layout-navigation-bar-user-button layout-navigation-bar-user-button--open"  type="button"  onclick="myOn()" ondblclick="myOut()">
                                     <div class="layout-navigation-bar-user-button__image" id="userImage">
                                         <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
                                     </div>
@@ -171,5 +171,6 @@
    </div>
 <input type="hidden" id="productThemeNo" name="productThemeNo" th:value="${productThemeNo}">
 <input type="hidden" id="deliveryChargeOPtion" name="deliveryChargeOPtion" th:value="${deliveryChargeOPtion}">
+<input type="hidden" id="sessionUser"  th:value="${SessionUser == null ? null : SessionUser}">
 </body>
 </html>

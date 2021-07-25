@@ -31,12 +31,12 @@
 }
 
 .store_option_free {
-    margin-left: 20px;
+    margin-left: 0px;
     padding: 4px;
 }
 
 .store_option_select {
-    margin-right: 20px;
+    margin-right: 0px;
     padding: 4px;
 
 }
@@ -57,12 +57,15 @@
     width: 1256px;
     margin: 0 auto;
     box-sizing: border-box;
+    margin-left: 7.5%;
+
 }
 
 .store_item {
     margin: 4px;
     padding: 4px;
     width: 80%;
+
 }
 
 .store_item img {

@@ -1,8 +1,8 @@
 
 function loginCheck(){
-    let memberId = document.getElementById("memberId").value;
+    let sessionUser_ = document.getElementById("sessionUser").value;
 
-    if(memberId == null || memberId == ''){
+    if(sessionUser_ == null || sessionUser_ == ''){
         alert('로그인 후 구매 가능합니다.');
         location.href ='/login';
     }else{

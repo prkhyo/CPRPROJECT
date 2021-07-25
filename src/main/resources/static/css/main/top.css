@@ -52,7 +52,7 @@
 @media (min-width: 768px){
     .layout-navigation-primary__content {
         height: 80px;
-        padding: 10px 40px;
+        padding: 10px 0px;
         max-width: 1256px;
     }
 }
@@ -455,7 +455,7 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     font-weight: 700;
     text-align: center;
     color: #fff;
-    background-color: #ed4a4a;
+    background-color: #f76565;;
     border-radius: 4px;
     transition: background-color .1s;
 }
@@ -512,19 +512,19 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
 }
 @media (min-width: 768px){
     .layout-navigation-secondary__menu {
-        padding: 0 0 0 40px;
+        padding: 0 0 0 0px;
         margin: 0 8px 0 -12px;
         text-align: left;
     }
 }
 @media (min-width: 1024px){
     .layout-navigation-secondary__menu {
-        padding: 0 0 0 60px;
+        padding: 0 0 0 20px;
     }
 }
 
 .layout-navigation-secondary__menu__item--active, .layout-navigation-secondary__menu__item--open {
-    color: #ed4a4a;
+    color: #f76565;;
 }
 @media (min-width: 768px){
     .layout-navigation-secondary__menu__item {
