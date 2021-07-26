@@ -2,7 +2,7 @@ package com.CPR.redHome.dto.cart;
 
 import lombok.*;
 import org.apache.ibatis.type.Alias;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -30,5 +30,8 @@ public class OrderDto extends CartDto {
     private String orderRequest; //주문 요청 사항
     private String email;       //이메일 (등록된 이메일로 전달)
 
+    private Integer orderId;
+    private LocalDateTime orderDate;
+    private String orderState;
 
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" type="text/css" href="/css/main/top2.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/admin.css"/>
+    <script type="text/javascript" src="/js/main/banner.js?after"></script>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+
+</head>
+<body>
+
+<!-- header start -->
+<header class="layout-navigation-bar">
+    <div class="layout-navigation-primary-wrap">
+        <div class="layout-navigation-primary" style="position:relative">
+            <div class="layout-navigation-primary__content">
+                <div class="layout-navigation-primary__left">
+                    <a th:href="@{/}" class="noDeco layout-navigation-logo">
+                        <img src="../../img/redhome_kor.jpg" style="width: 100px;">
+                    </a>
+                </div>
+                <nav class="layout-navigation-primary__menu" style="display:block">
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/admin">
+                        관리페이지
+                    </a>
+                    <a class="layout-navigation-primary__menu__item noDeco" href="/admin/statistics">
+                        통계페이지
+                    </a>
+
+                </nav>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="layout-navigation-secondary-wrap">
+        <div class="layout-navigation-secondary" style="position:relative">
+            <div class="layout-navigation-secondary__content">
+                <nav class="layout-navigation-secondary__menu">
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="/admin/member/chart">
+                        회원통계
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="/admin/product/chart">
+                        상품통계
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="/admin/order/chart">
+                        주문통계
+                    </a>
+                    <a class="layout-navigation-secondary__menu__item noDeco" href="/admin/qna/chart">
+                        문의통계
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>
+
+<!-- header end -->

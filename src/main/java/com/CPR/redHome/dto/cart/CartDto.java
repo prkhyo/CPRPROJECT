@@ -19,6 +19,7 @@ public class CartDto extends ImageDto {
     // 상품 정보
     private String title;
     private String img;
+
     private Integer price;
     private Integer quantity;
     private Integer deliveryCharge;
