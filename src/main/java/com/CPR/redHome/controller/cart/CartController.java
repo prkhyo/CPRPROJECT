@@ -29,7 +29,6 @@ public class CartController {
     public String getCart(@Login MemberDto loginMember, Model model) {
 
         model.addAttribute("carts", cartService.getCartList(loginMember.getMemberId()));
-        model.addAttribute("SessionUser", loginMember);
 
         return "carts/cart";
     }
@@ -43,12 +42,10 @@ public class CartController {
 
 
     @RequestMapping("/cart/payment")
-    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model,
-                                          @Login MemberDto loginMember) throws NullPointerException {
+    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws NullPointerException {
 
         model.addAttribute("point", cartService.findMemberId(Long.parseLong(ids.get(0))));
         model.addAttribute("orderDetail", cartService.getPayment(ids));
-        model.addAttribute("SessionUser", loginMember);
 
         return "carts/payment";
     }

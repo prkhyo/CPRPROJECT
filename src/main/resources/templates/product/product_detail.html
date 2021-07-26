@@ -904,7 +904,7 @@
 <input type="hidden" id="product_price_comma" th:value="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}">
 <input type="hidden" id="product_price" th:value="${productDto.productPrice}">
 <input type="hidden" id="product_title" th:value="${productDto.productTitle}">
-<input type="hidden" id="memberId" th:value="${SessionUser.memberId} "/>
+<input type="hidden" id="memberId" th:value="${session.loginMember == null? null : session.loginMember.memberId} "/>
 
 <!-- 페이지 하단 -->
 <th:block th:include="/fragments/bottom.html"></th:block>

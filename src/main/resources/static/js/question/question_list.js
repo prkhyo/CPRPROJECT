@@ -6,9 +6,10 @@ function pageMove(page){
 }
 
 
+// 로그인 체크 필요 없게되면 추후 수정 예정
 function writeQuestion(){
     let productId = document.getElementById("productId").value;
-    let sessionUser_ = document.getElementById("sessionUser").value;
+    let sessionUser_ = document.getElementById("memberId").value;
     if(sessionUser_ == null || sessionUser_ == ''){
         alert('로그인 후 문의 글 작성이 가능합니다.');
         location.href ='/login';

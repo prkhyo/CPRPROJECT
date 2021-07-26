@@ -1,6 +1,6 @@
 
 function loginCheck(){
-    let sessionUser_ = document.getElementById("sessionUser").value;
+    let sessionUser_ = document.getElementById("memberId").value;
 
     if(sessionUser_ == null || sessionUser_ == ''){
         alert('로그인 후 구매 가능합니다.');

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 public class MainController {
 
     @GetMapping("/")
-    public String home(@Login MemberDto loginMember, Model model){
-
-        model.addAttribute("SessionUser",loginMember);
+    public String home(){
 
         return "redirect:/store";
     }

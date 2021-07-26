@@ -15,8 +15,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -31,7 +29,7 @@ public class ProductController {
     private final QuestionService questionService;
 
     @GetMapping("/product/detail")
-    public String productDetailPage(Model model,@Login MemberDto loginMember, @RequestParam Long productId,
+    public String productDetailPage(Model model, @RequestParam Long productId,
                                     @RequestParam(defaultValue = "1") int questionCurrentPageNo){
 
 
@@ -59,7 +57,7 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
-        model.addAttribute("SessionUser", loginMember);
+
 
         return "product/product_detail";
     }
@@ -106,7 +104,7 @@ public class ProductController {
 
 
     @GetMapping("/store")
-    public String storePage(Model model, @Login MemberDto loginMember,  @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+    public String storePage(Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
                             @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
 
@@ -117,7 +115,6 @@ public class ProductController {
         model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
         model.addAttribute("productThemeNo", productThemeNo);
         model.addAttribute("searchProductKeyword", searchProductKeyword);
-        model.addAttribute("SessionUser", loginMember);
 
         return "product/store";
     }

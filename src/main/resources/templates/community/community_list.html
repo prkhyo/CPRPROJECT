@@ -79,7 +79,7 @@
 
         <div class="questions-filter__actions">
             <th:block th:if="${reply == 'not_yet'}">
-                    <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/community/list(currentPageNo=1, reply='replyState_all', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" style="color: white; background-color: #ed4a4a; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 질문</button>
+                    <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/community/list(currentPageNo=1, reply='replyState_all', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" style="color: white; background-color: #f76565; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 질문</button>
             </th:block>
             <th:block th:if="${reply != 'not_yet'}">
                     <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/community/list(currentPageNo=1, reply='not_yet', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" onclick="reply(this)">답변을 기다리는 질문</button>
@@ -140,7 +140,7 @@
               <!--<span class="questions-item__footer__comments text-gray" th:text="${community.communityState}"></span>-->
               <span class="questions-item__footer__comments text-gray">
                 댓글
-              <span class="questions-item__footer__comments__content " th:text="${community.commentCnt}" th:style="${community.commentCnt > 0 ? 'color:#ed4a4a;':''}" th:styleappend="${community.commentCnt > 0 ? 'font-weight: bold;':''}"/>
+              <span class="questions-item__footer__comments__content " th:text="${community.commentCnt}" th:style="${community.commentCnt > 0 ? 'color:#f76565;':''}" th:styleappend="${community.commentCnt > 0 ? 'font-weight: bold;':''}"/>
 
 
               </span>
@@ -156,7 +156,8 @@
         </th:block>
 </section>
 
-     <input type="hidden"  id="memberId" th:value="${SessionUser == null ? null : SessionUser.memberId}  "/>
+<!--로그인 체크 필요 없게되면 추후 삭제 예정-->
+<input type="hidden"  id="memberId" th:value="${session.loginMember == null? null: session.loginMember.memberId} "/>
 
 
 
@@ -196,7 +197,7 @@
 
 <script>
 
-
+/*로그인 체크 필요 없게되면 추후 삭제 예정*/
     function loginCheck(){
 
         let memberId = document.getElementById("memberId").value;
@@ -243,7 +244,7 @@
 
   function newCommunityFocus(){
       let sort = document.getElementsByClassName("sort")[0].id;
-          document.getElementById(sort).style.backgroundColor='#ed4a4a';
+          document.getElementById(sort).style.backgroundColor='#f76565';
           document.getElementById(sort).style.color='white';
 
 
@@ -251,7 +252,7 @@
 
           if(sort == 'activeList'){
               document.getElementById(sort).style.backgroundColor='white';
-              document.getElementById(sort).style.color='#ed4a4a';
+              document.getElementById(sort).style.color='#f76565';
 
 
           }else{
@@ -265,7 +266,7 @@
 
     function newCommentFocus(){
         let sort = document.getElementsByClassName("sort")[1].id;
-        document.getElementById(sort).style.backgroundColor='#ed4a4a';
+        document.getElementById(sort).style.backgroundColor='#f76565';
         document.getElementById(sort).style.color='white';
 
 
@@ -273,7 +274,7 @@
 
             if(sort == 'activeList'){
                 document.getElementById(sort).style.backgroundColor='white';
-                document.getElementById(sort).style.color='#ed4a4a';
+                document.getElementById(sort).style.color='#f76565';
 
 
             }else{
@@ -289,7 +290,7 @@
 
     function mostPopularFocus(){
         let sort = document.getElementsByClassName("sort")[2].id;
-        document.getElementById(sort).style.backgroundColor='#ed4a4a';
+        document.getElementById(sort).style.backgroundColor='#f76565';
         document.getElementById(sort).style.color='white';
 
 
@@ -297,7 +298,7 @@
 
             if(sort == 'activeList'){
                 document.getElementById(sort).style.backgroundColor='white';
-                document.getElementById(sort).style.color='#ed4a4a';
+                document.getElementById(sort).style.color='#f76565';
 
 
             }else{
