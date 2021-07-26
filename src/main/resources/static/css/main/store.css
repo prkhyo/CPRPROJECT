@@ -1,0 +1,214 @@
+@charset "EUC-KR";
+
+.store {
+    margin: 20px;
+    padding: 10px;
+}
+
+.today_sale_label {
+    margin: 320px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.store_option {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    align-items: flex-start;
+    position: relative;
+    min-height: 49px;
+    width: 1256px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.store_option_free {
+    margin-left: 0px;
+    padding: 4px;
+}
+
+.store_option_select {
+    margin-right: 0px;
+    padding: 4px;
+
+}
+
+.store_items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    align-items: flex-start;
+    position: relative;
+    min-height: 49px;
+    width: 1256px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-left: 7.5%;
+
+}
+
+.store_item {
+    margin: 4px;
+    padding: 4px;
+    width: 80%;
+
+}
+
+.store_item img {
+    margin: 4px;
+    padding: 4px;
+    width: 306px;
+    height: 306px;
+    border-radius: 8px;
+}
+
+.store_item_img {
+    width: 306px;
+    height: 306px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.store_item_imgScale {
+    border-radius: 8px;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.3s ease-in-out;
+}
+
+.store_item_imgScale:hover {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+.store_item_header {
+    margin-left: 20px;
+}
+
+.store_item_header_brand {
+    font-weight: inherit;
+    font-size: 13px;
+    color: gray;
+}
+
+.store_item_header_name {
+    font-weight: bold;
+    font-size: 15px;
+    height: 20px;
+}
+
+.store_item_header_sale {
+    font-weight: bold;
+    font-size: 20px;
+    color: #f76565;
+}
+
+.store_item_header_price {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.store_item_header_priceline {
+    font-weight: inherit;
+    font-size: 18px;
+}
+
+.store_item_header_scope {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.store_item_header_reviewCnt {
+    font-size: 13px;
+    color: gray;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    display: none;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #f76565;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 100%;
+}
+
+p {
+    margin: 0px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+

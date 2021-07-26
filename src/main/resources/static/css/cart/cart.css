@@ -457,10 +457,11 @@
     padding-left: 12px;
 }
 
+
 .product-small-item__title {
     min-width: 0;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: bold;
     color: #000;
     line-height: 21px;
     overflow-wrap: break-word;
@@ -861,8 +862,8 @@
 }
 
 ._3SroY {
-    background-color: #ed4a4a;
-    border-color: #ed4a4a;
+    background-color: #f76565;
+    border-color: #f76565;
     color: #fff;
 }
 
@@ -1152,3 +1153,24 @@ ol, ul {
     list-style: none;
 }
 
+.sellerName{
+ margin-bottom: 0px;
+
+}
+
+a{
+  text-decoration: none;
+}
+
+.selectDelete{
+    border: 1px;
+    border-color:#424242;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    color: #424242;
+
+
+
+}

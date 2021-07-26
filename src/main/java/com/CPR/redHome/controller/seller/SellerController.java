@@ -22,9 +22,9 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping("/product/regist")
-    public String registProduct(@Login MemberDto memberDto, Model model) {
+    public String registProduct(@Login MemberDto loginMember, Model model) {
 
-        model.addAttribute("memberId", memberDto.getMemberId());
+        model.addAttribute("memberId", loginMember.getMemberId());
 
         return "seller/productRegistration";
     }

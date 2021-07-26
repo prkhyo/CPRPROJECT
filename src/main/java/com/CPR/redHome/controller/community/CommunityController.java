@@ -11,17 +11,13 @@ import com.CPR.redHome.service.community.CommunityService;
 import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,14 +30,14 @@ public class CommunityController {
 
     @GetMapping("/community/list")
     public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                    @RequestParam(defaultValue="1") int currentPageNo, @Login MemberDto memberDto) {
+                                    @RequestParam(defaultValue="1") int currentPageNo) {
 
         List<CommunityViewDto> communityList = Collections.emptyList();
 
         int communityTotalCnt = communityService.countAllCommunities(reply, criteria);
 
         criteria.setCurrentPageNo(currentPageNo);
-        Pagination pagination = new Pagination(criteria, communityTotalCnt, 10, 2);
+        Pagination pagination = new Pagination(criteria, communityTotalCnt, 8, 3);
 
         int firstRecordIndex = pagination.getFirstRecordIndex();
 
@@ -49,8 +45,6 @@ public class CommunityController {
           communityList = communityService.getCommunityList(reply, orderType, firstRecordIndex, criteria);
        }
 
-
-        model.addAttribute("member", memberDto);
         model.addAttribute("communityList", communityList);
         model.addAttribute("pageMaker",pagination);
 
@@ -60,7 +54,7 @@ public class CommunityController {
 
     @GetMapping("/community/detail")
     public String communityDetailPage(@RequestParam Long communityId, Model model, @ModelAttribute("criteria")Criteria criteria, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                      @RequestParam Integer commentCurrentPage, @Login MemberDto memberDto){
+                                      @RequestParam Integer commentCurrentPage){
 
 
         model.addAttribute("currentPageNo", criteria.getCurrentPageNo());
@@ -76,8 +70,6 @@ public class CommunityController {
         model.addAttribute("community", communityDto );
         model.addAttribute("commentPageMaker", pagination);
         model.addAttribute("commentCurrentPage",commentCurrentPage);
-        model.addAttribute("member", memberDto);
-
 
 
         return "community/community_detail";
@@ -161,12 +153,12 @@ public class CommunityController {
     }
 
     @PostMapping("/community/communityInsert")
-    public String communityInsert(@Login MemberDto memberDto, @RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
+    public String communityInsert(@Login MemberDto loginMember, @RequestParam(value="communityImg", required = false) MultipartFile file, String communityTitle, String  communityContents, HttpServletRequest request) {
 
         CommunityDto communityDto = new CommunityDto();
         communityDto.setCommunityTitle(communityTitle);
         communityDto.setCommunityContents(communityContents);
-        communityDto.setMemberId(memberDto.getMemberId());
+        communityDto.setMemberId(loginMember.getMemberId());
 
 
         try {

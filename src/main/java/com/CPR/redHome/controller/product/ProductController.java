@@ -29,8 +29,8 @@ public class ProductController {
     private final QuestionService questionService;
 
     @GetMapping("/product/detail")
-    public String productDetailPage(Model model, @RequestParam Long productId, @RequestParam(defaultValue = "1") int questionCurrentPageNo,
-                                    @Login MemberDto memberDto){
+    public String productDetailPage(Model model, @RequestParam Long productId,
+                                    @RequestParam(defaultValue = "1") int questionCurrentPageNo){
 
 
         ProductViewDto productDto = productService.selectProduct(productId);
@@ -46,7 +46,7 @@ public class ProductController {
         Criteria questionCriteria = new Criteria();
         questionCriteria.setCurrentPageNo(questionCurrentPageNo);
 
-        Pagination questionPagination = new Pagination(questionCriteria, questionCnt, 3, 2);
+        Pagination questionPagination = new Pagination(questionCriteria, questionCnt, 8, 5);
 
         int firstRecordIndex = questionPagination.getFirstRecordIndex();
 
@@ -57,33 +57,19 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
-        model.addAttribute("member", memberDto);
 
 
         return "product/product_detail";
     }
 
 
-    /*제품리스트 페이지로 이동(메인페이지 완성되면 삭제할 예정)*/
-    @GetMapping("/product/list")
-    public String productListPage(Model model){
-
-
-        List<ProductViewDto> productList = productService.selectProductList();
-        model.addAttribute("productList", productList);
-
-        return "product/product_list_test";
-    }
-
-
-
 
     @GetMapping("/product/insertTo/cart")
-    public String productInsertToCart(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+    public String productInsertToCart(@Login MemberDto loginMember, @RequestParam Long productId, @RequestParam Integer quantity){
 
 
         CartDto cartDto = new CartDto();
-        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setMemberId(loginMember.getMemberId());
         cartDto.setProductId(productId);
         cartDto.setQuantity(quantity);
 
@@ -98,10 +84,10 @@ public class ProductController {
 
 
     @GetMapping("/product/moveTo/payment")
-    public  String productMoveToPayment(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+    public  String productMoveToPayment(@Login MemberDto loginMember, @RequestParam Long productId, @RequestParam Integer quantity){
 
         CartDto cartDto = new CartDto();
-        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setMemberId(loginMember.getMemberId());
         cartDto.setProductId(productId);
         cartDto.setQuantity(quantity);
 
@@ -117,7 +103,21 @@ public class ProductController {
     }
 
 
+    @GetMapping("/store")
+    public String storePage(Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+                            @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
+
+        List<ProductViewDto> productList = productService.selectProductList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo);
+        model.addAttribute("productList", productList);
+
+        model.addAttribute("storeOrder", storeOrder);
+        model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
+        model.addAttribute("productThemeNo", productThemeNo);
+        model.addAttribute("searchProductKeyword", searchProductKeyword);
+
+        return "product/store";
+    }
 
 
 }

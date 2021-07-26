@@ -26,7 +26,8 @@
 
 </head>
 <body>
-
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
 
 <main class="qna-detail">
     <article class="qna-detail__container container">
@@ -80,9 +81,9 @@
 
                     </div>
                     <!---->
-                    <div class ="shareSns" id="shareSns" style="visibility: hidden">
-                        <div class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-1" data-popout="true"  style="position: absolute; left:765px; transform: translateX(-50%);">
-                            <div class="animated-popout drop-down__content share-drop-down open open-active">
+                    <div class ="shareSns" id="shareSns" style="visibility: hidden; ">
+                        <div class="popout1 popout--prepared1 popout--axis-11 popout--dir-21 popout--cross-dir-11" data-popout="true"  style="position: absolute; left:450px; transform: translateX(-50%);">
+                            <div class="drop-down__content share-drop-down">
                                 <div class="share-list share-drop-down__content">
                                     <button class="share-list__button" type="button" onclick="shareFacebook()">
                                         <svg class="icon" aria-label="페이스북 공유" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
@@ -163,8 +164,8 @@
                         <input type="hidden" name="commentCurrentPage" id="commentCurrentPage" th:value="${commentCurrentPage}">
                         <input type="hidden" name="communityTitle" th:value="${community.communityTitle}">
                         <input type="hidden"  id="communityAccountId" th:value="${community.accountId}">
-                        <input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
-                        <input type="hidden"  id="accountId" th:value="${member == null ? null : member.accountId}  "/>
+                        <input type="hidden"  id="memberId" th:value="${session.loginMember == null? null: session.loginMember.memberId} "/>
+                        <input type="hidden"  id="accountId" th:value="${session.loginMember == null? null: session.loginMember.accountId} "/>
                     </form>
 
 
@@ -225,15 +226,12 @@
 </main>
 
 
-
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
 
 
 
 <script>
-
-
-
-
 
 
     function characterCheck(obj){
@@ -262,7 +260,6 @@
         }
 
     }
-
 
 
    function commentTocomment(accountId){

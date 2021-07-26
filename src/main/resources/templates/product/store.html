@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="/static/css/main/selectbox.css">
+  <link rel="stylesheet" type="text/css" href="/css/main/store.css">
+  <script th:src="@{/js/selectbox.min.js}"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+</head>
+<body>
+
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
+
+<!--배너-->
+<th:block th:include="/fragments/banner.html"></th:block>
+
+
+<!--제품 리스트-->
+
+<br>
+
+<div class="store_option">
+    <div class="store_option_free">
+      <label class="switch">
+        <input type="checkbox" id="deliverycheckbox" name="deliverycheckbox" onchange="chargeOptionChange()">
+        <span class="slider round"></span>
+      </label>
+      <p th:if="${deliveryChargeOPtion != 'noCharge'}">배송</p>
+      <p th:unless="${deliveryChargeOPtion != 'noCharge'}">무료배송</p>
+    </div>
+
+
+    <div class="store_option_select">
+      <select name="storeOrder" class="justselect1" id="storeOrder" style="border: 1px solid #dbdbdb; border-radius: 3px; color: #424242; min-height: 30px; " onchange="commonSubmit()">
+        <option th:value="${storeOrder}" selected disabled hidden>
+          <th:block th:if="${storeOrder != 'best' and storeOrder != 'high' and storeOrder != 'low'}">
+            최신순
+          </th:block>
+          <th:block th:if="${storeOrder == 'best'}">
+            인기순
+          </th:block>
+          <th:block th:if="${storeOrder == 'high'}">
+            높은가격순
+          </th:block>
+          <th:block th:if="${storeOrder == 'low'}">
+            낮은가격순
+          </th:block>
+        </option>
+        <option value="new" th:text="최신순"></option>
+        <option value="best" th:text="인기순"></option>
+        <option value="high" th:text="높은가격순"></option>
+        <option value="low" th:text="낮은가격순"></option>
+      </select>
+    </div>
+</div>
+
+<th:block th:each="product : ${productList}">
+ <th:block th:if ="${productStat.index % 4 == 0 }">
+   <div class="store_items" >
+ </th:block>
+   <div class="store_item">
+     <div class="store_item_img">
+       <a th:href="@{${'/product/detail?productId='+product.productId}}">
+         <div class="store_item_imgScale">
+           <img alt="" th:src="@{${'/display?fileName='+product.productMainImage}}">
+         </div>
+       </a>
+     </div>
+     <div class="store_item_header"  style="margin-top: 5px;">
+
+       <div>
+         <span class="store_item_header_name" th:text="${product.productId}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_name" th:text="${product.productTitle}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_price" th:text="${#numbers.formatDecimal(product.productPrice, 0, 'COMMA', 0, 'POINT')}"></span>
+       </div>
+       <div>
+         <span class="store_item_header_scope">${reviewGrade}</span>
+         <span class="store_item_header_reviewCnt">리뷰 ${reviewCnt}</span>
+       </div>
+     </div>
+   </div>
+   <th:block th:if="${productStat.index % 4 == 3 }">
+     </div>
+   </th:block>
+   <th:block th:if="${productStat.index == #lists.size(productList) - 1 and productStat.index % 4 != 3 }">
+     </div>
+   </th:block>
+</th:block>
+
+
+<br>
+
+
+
+
+
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
+
+<script>
+
+  function commonSubmit(){
+    let productThemeNo_ = document.getElementById("productThemeNo").value;
+    let searchProductKeyword_ = document.getElementById("searchProductKeyword").value;
+    let deliveryChargeOPtion_ = document.getElementById("deliveryChargeOPtion").value;
+    let storeOrder_ = document.getElementById("storeOrder").value;
+
+    location.href='/store?deliveryChargeOPtion='+deliveryChargeOPtion_+'&storeOrder='+storeOrder_+'&productThemeNo='+productThemeNo_+'&searchProductKeyword='+searchProductKeyword_;
+
+  }
+
+
+  document.addEventListener("DOMContentLoaded", function(){
+       if(document.getElementById("deliveryChargeOPtion").value == 'noCharge'){
+
+         document.getElementById("deliverycheckbox").checked = true;
+
+       }else{
+
+         document.getElementById("deliverycheckbox").checked = false;
+
+       }
+  });
+
+
+  function chargeOptionChange(){
+
+    if(document.getElementById("deliverycheckbox").checked == false){
+            document.getElementById("deliveryChargeOPtion").value ='all';
+    }else{
+            document.getElementById("deliveryChargeOPtion").value ='noCharge';
+    }
+
+    commonSubmit();
+
+  }
+
+</script>
+
+</body>
+
+
+</html>

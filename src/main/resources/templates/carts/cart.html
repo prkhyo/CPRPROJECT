@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="/css/cart/cart.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/cart/cart.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/cart/top2.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/cart/bottom.css"/>
-
     <script src="../../static/js/cart/clickListener.js"></script>
 
 
 </head>
 <body>
 
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
 
 <div class="layout">
     <div class="commerce-cart-wrap">
@@ -22,7 +20,7 @@
             <div class="container">
                 <div class="commerce-cart row">
                     <div class="commerce-cart__content-wrap col-12 col-md-7 col-lg-8">
-                        <div class="commerce-cart__content">
+                        <div class="commerce-cart__content" >
                             <div data-sticky-enabled="false" data-sticky-disabled="true" data-sticky-always="false"
                                  data-sticky-ignore="true" data-direction="top" data-offset="81"
                                  class="sticky-container commerce-cart__header-wrap" style="">
@@ -38,21 +36,21 @@
                                         </label>
                                     </span>
                                     <span class="commerce-cart__header__right">
-                                        <button class="selectDelete" id="selectDelete" value="delete">선택삭제</button>
+                                        <button class="selectDelete" id="selectDelete" value="delete" >선택삭제</button>
                                     </span>
                                 </div>
                             </div>
 
 
                             <div th:each="data : ${carts}">
-                                <ul class="commerce-cart__content__group-list">
+                                <ul class="commerce-cart__content__group-list" style="padding-left: 0px;" >
                                     <li class="commerce-cart__content__group-item">
                                         <article class="commerce-cart__group">
                                             <h1 class="commerce-cart__group__header sellerName">[[${data.name}]]</h1>
-                                            <ul class="commerce-cart__group__item-list">
+                                            <ul class="commerce-cart__group__item-list" style="padding-left: 0px;">
                                                 <li class="commerce-cart__group__item">
                                                     <article class="commerce-cart__delivery-group">
-                                                        <ul class="commerce-cart__delivery-group__product-list">
+                                                        <ul class="commerce-cart__delivery-group__product-list" style="padding-left: 0px; ">
                                                             <li class="commerce-cart__delivery-group__product-item">
                                                                 <article class="carted-product">
                                                                     <div class="carted-product__select">
@@ -70,14 +68,13 @@
                                                                             <img class='imageLocation'
                                                                                  th:src="@{${'/display?fileName=' + data.mainImageUrl}}">
                                                                         </div>
-                                                                        <div class="product-small-item__content">
+                                                                        <div class="product-small-item__content" style="text-decoration: none;">
                                                                             <h1 class="product-small-item__title">
                                                                                 [[${data.title}]]</h1>
                                                                         </div>
                                                                     </a>
-                                                                    </a>
 
-                                                                    <ul class="carted-product__option-list">
+                                                                    <ul class="carted-product__option-list" style="padding-left: 0px;">
                                                                         <li class="carted-product__option-list__item">
                                                                             <article class="selling-option-item">
                                                                                 <div class="selling-option-item__controls">
@@ -164,6 +161,10 @@
     </div>
 
 </div>
+
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
+
 </body>
 
 <script src="/js/cart/cartPage.js"></script>

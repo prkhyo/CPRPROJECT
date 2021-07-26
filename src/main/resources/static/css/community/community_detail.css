@@ -49,7 +49,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 
 
 .qna-detail__content__header-subtitle {
-    color: #ed4a4a;
+    color: #f76565;
     font-size: 15px;
     font-weight: 700;
     margin: 5px 20%;
@@ -378,7 +378,7 @@ ul {
     height: 39.5px;
     width: 53px;
     border-radius: 4px;
-    color: #ed4a4a;
+    color: #f76565;
     font-weight: bolder;
     font-size: 15px;
     background-color: white;
@@ -552,8 +552,8 @@ article{
     line-height: 30px;
 }
 .button--color-blue {
-    background-color: #ed4a4a;
-    border-color: #ed4a4a;
+    background-color: #f76565;
+    border-color: #f76565;
     color: #fff;
     margin-bottom: 30px;
 }
@@ -602,9 +602,9 @@ article{
 }
 
 #boardList_btn{
-    background-color: #ed4a4a;
+    background-color: #f76565;
     color: white;
-    border: 1px solid #ed4a4a;
+    border: 1px solid #f76565;
 
 }
 
@@ -648,7 +648,7 @@ article{
 }
 
 .page-item>#pageNum:hover{
-    color: #ed4a4a;
+    color: #f76565;
     text-decoration: underline;
 }
 
@@ -684,9 +684,9 @@ article{
 
 
 .page-item.active:hover{
-    border: 1px solid #ed4a4a;
+    border: 1px solid #f76565;
     border-radius: 4px;
-    background-color: #ed4a4a;
+    background-color: #f76565;
     padding: 1px 0px 5px 0px;
     width: 27px;
     height: 19px;
@@ -720,9 +720,9 @@ article{
 
 .page-item.active{
 
-    border: 1px solid #ed4a4a;
+    border: 1px solid #f76565;
     border-radius: 4px;
-    background-color: #ed4a4a;
+    background-color: #f76565;
     padding: 1px 0px 5px 0px;
     width: 27px;
     height: 19px;
@@ -750,19 +750,19 @@ article{
 
 
 
-.popout--cross-dir-1{
+.popout--cross-dir-11{
     display: block;
     transform: translateX(-50%);
 
 
 }
 
-.popout--axis-1.popout--dir-2.popout--cross-dir-1 .share-drop-down:after {
+.popout--axis-11.popout--dir-21.popout--cross-dir-11 .share-drop-down:after {
     margin-left: 0;
     transform: translateX(-50%);
 }
 
-.popout--axis-1.popout--dir-2 .share-drop-down:after {
+.popout--axis-11.popout--dir-21 .share-drop-down:after {
     content: "";
     position: relative;
    display: block;

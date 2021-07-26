@@ -29,13 +29,13 @@ public class QuestionController {
 
 
     @PostMapping("/question/questionInsert")
-    public String questionInsert(@Login MemberDto memberDto, @RequestParam String questionCategory, Long productId,
+    public String questionInsert(@Login MemberDto loginMember, @RequestParam String questionCategory, Long productId,
                                  String secretQuestion, String questionContents){
 
         QuestionDto questionDto = new QuestionDto();
         questionDto.setQuestionContents(questionContents);
         questionDto.setProductId(productId);
-        questionDto.setMemberId(memberDto.getMemberId());
+        questionDto.setMemberId(loginMember.getMemberId());
 
         if(secretQuestion != null){
             questionDto.setSecretQuestion("true");

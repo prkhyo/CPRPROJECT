@@ -75,14 +75,15 @@
 </head>
 <body>
 
-
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
 
 <div class="production-selling">
     <div class="production-selling-overview container">
         <nav class="commerce-category-breadcrumb-wrap production-selling-overview__category">
             <ol class="commerce-category-breadcrumb">
-                <li class="commerce-category-breadcrumb__entry"><a class="link" href="/store/category?category=0&amp;affect_type= ProductSaleDetail&amp;affect_id=691947" th:text="${productDto.productThemeName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
-                <li class="commerce-category-breadcrumb__entry"><a class="link" href="/store/category?category=0_6&amp;affect_type= ProductSaleDetail&amp;affect_id=691947" th:text="${productDto.productCategoryName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
+                <li class="commerce-category-breadcrumb__entry"><a class="link" th:href="@{${'/store?productThemeNo='+productDto.productThemeId}}" th:text="${productDto.productThemeName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
+                <li class="commerce-category-breadcrumb__entry"><a class="link" th:text="${productDto.productCategoryName}"></a><svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg></li>
             </ol>
         </nav>
         <div class="production-selling-overview__container row">
@@ -105,7 +106,7 @@
                         <span class="production-selling-header__title__name" style="width: 300px; margin-right: 20px;" th:text="${productDto.productTitle}"></span>
                     </h1>
                     <div class="production-selling-header__action" >
-                        <div class="drop-down" >
+                        <div class="drop-down1" >
                             <button class="production-selling-header__action__button" type="button" style="position: absolute; top:65px;" onclick="showShare()" ondblclick="hideShare()">
                                 <svg class="icon" aria-label="공유하기" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                                     <path d="M9.64 14.646a4.5 4.5 0 1 1 0-5.292l4.54-2.476a4.5 4.5 0 1 1 .63.795l-4.675 2.55c.235.545.365 1.146.365 1.777s-.13 1.232-.365 1.777l4.675 2.55a4.5 4.5 0 1 1-.63.795l-4.54-2.476zM18 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM6 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM18 23a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
@@ -858,8 +859,8 @@
 
 
 <div class ="shareSns" id="shareSns" style="visibility: hidden;">
-    <div class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-1" data-popout="true"  style="position: absolute; left:765px; transform: translateX(-50%);">
-        <div class="animated-popout drop-down__content share-drop-down open open-active">
+    <div class="popout1 popout--prepared1 popout--axis-11 popout--dir-21 popout--cross-dir-11" data-popout="true"  style="position: absolute; left:765px; transform: translateX(-50%);">
+        <div class="drop-down__content share-drop-down">
             <div class="share-list share-drop-down__content">
                 <button class="share-list__button" type="button" onclick="shareFacebook()">
                     <svg class="icon" aria-label="페이스북 공유" width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
@@ -899,12 +900,18 @@
 </div>
 
 
-
 <input type="hidden" id="product_quantity" th:value="${productDto.productQuantity}">
 <input type="hidden" id="product_price_comma" th:value="${#numbers.formatDecimal(productDto.productPrice, 0, 'COMMA', 0, 'POINT')}">
 <input type="hidden" id="product_price" th:value="${productDto.productPrice}">
 <input type="hidden" id="product_title" th:value="${productDto.productTitle}">
-<input type="hidden"  id="memberId" th:value="${member == null ? null : member.memberId}  "/>
+<input type="hidden" id="memberId" th:value="${session.loginMember == null? null : session.loginMember.memberId} "/>
+
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
+
+
+
+
 
 <!--최종 구매 정보-->
 <input type="hidden" id="productId" th:value="${productDto.productId}">
