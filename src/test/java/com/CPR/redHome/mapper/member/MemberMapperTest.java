@@ -1,6 +1,7 @@
 package com.CPR.redHome.mapper.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.dto.member.MemberJoinDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ class MemberMapperTest {
         //when
         MemberDto result = memberMapper.selectMemberByAccountId(member.getAccountId());
 
+
         //then
         Assertions.assertThat(result.getMemberPassword()).isEqualTo(member.getMemberPassword());
 
@@ -41,18 +43,18 @@ class MemberMapperTest {
     public void joinMemberTest() {
 
         //given
-        MemberDto memberDto = new MemberDto();
-        memberDto.setAccountId("뚱땡");
-        memberDto.setMemberPassword("1234");
-        memberDto.setName("한뚱땡");
-        memberDto.setTelephone("010-1234-1234");
-        memberDto.setEmail("fatShort@gmail.fat.com");
-        memberDto.setAddress("뚱떙월드");
-        memberDto.setBirthdate("1991-11-27");
+        MemberJoinDto member = new MemberJoinDto();
+        member.setAccountId("뚱땡");
+        member.setMemberPassword("1234");
+        member.setName("한뚱땡");
+        member.setTelephone("010-1234-1234");
+        member.setEmail("fatShort@gmail.fat.com");
+        member.setAddress("뚱떙월드");
+        member.setBirthdate("1991-11-27");
 
 
         //when
-        memberMapper.joinMember(memberDto);
+        memberMapper.joinMember(member);
 
         //then
         Assertions.assertThat(memberMapper.selectMemberByAccountId("뚱땡")).isNotNull();

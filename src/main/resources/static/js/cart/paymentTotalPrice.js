@@ -1,5 +1,5 @@
-Number.prototype.format = function (){
-    if(this==0) return 0;
+Number.prototype.format = function () {
+    if (this == 0) return 0;
 
     let reg = /(^[+-]?\d+)(\d{3})/;
     let n = (this + '');
@@ -8,13 +8,12 @@ Number.prototype.format = function (){
 
     return n;
 };
-String.prototype.format = function(){
+String.prototype.format = function () {
     var num = parseFloat(this);
-    if( isNaN(num) ) return "0";
+    if (isNaN(num)) return "0";
 
     return num.format();
 };
-
 
 
 function calculatePrice(point) {
@@ -26,7 +25,6 @@ function calculatePrice(point) {
     let productTotalSum = document.querySelector('.productTotalSum');
     let deliveryTotalCharge = document.querySelector('.deliveryTotalCharge');
     let pointTotalUse = document.querySelectorAll('.totalPoint');
-
 
 
     // 초기 값
@@ -59,17 +57,17 @@ calculatePrice(0);
 function pointUse() {
 
     //사용 포인트
-    let usedPoint1 = document.querySelectorAll('.usedPoint')[0].value;
+    let usedPoint1 = parseInt(document.querySelectorAll('.usedPoint')[0].value);
     // 보유 포인트
-    let havePoint = document.querySelectorAll('.havePoint')[0].outerText;
+    let havePoint = parseInt(document.querySelectorAll('.havePoint')[0].outerText);
     // 최종금액
-    let finalPrice = document.querySelectorAll('.finalPrice')[0].outerText;
+    let finalPrice = parseInt(document.querySelectorAll('.finalPrice')[0].outerText);
 
     if (havePoint - usedPoint1 < 0) {
         alert("사용 포인트가 보유 포인트 보다 적습니다.")
 
-    }else if (usedPoint1 > finalPrice) {
-        alert("결제금액을 오버합니다.")
+    } else if (usedPoint1 > finalPrice) {
+        alert("결제금액 초과")
 
         document.querySelectorAll('.usedPoint')[0].value = finalPrice.format();
         // 잔여 포인트 변경
@@ -79,6 +77,7 @@ function pointUse() {
 
         calculatePrice(finalPrice);
     } else {
+
         // 잔여 포인트 변경
         document.querySelectorAll('.havePoint')[0].outerText = (havePoint - usedPoint1).format();
         // 포인트 적용
@@ -99,13 +98,13 @@ function addPoint() {
 
         addPoint.innerText = Math.round(finalPrice * 0.001).format()
     } else if (gradeId == 2) {
-        addPoint.innerText =  Math.round(finalPrice * 0.002).format()
+        addPoint.innerText = Math.round(finalPrice * 0.002).format()
     } else if (gradeId == 3) {
-        addPoint.outerText =  Math.round(finalPrice * 0.003).format()
+        addPoint.outerText = Math.round(finalPrice * 0.003).format()
     } else if (gradeId == 4) {
-        addPoint.outerText =  Math.round(finalPrice * 0.004).format()
+        addPoint.outerText = Math.round(finalPrice * 0.004).format()
     } else if (gradeId == 5) {
-        addPoint.outerText =  Math.round(finalPrice * 0.005).format()
+        addPoint.outerText = Math.round(finalPrice * 0.005).format()
     }
 
 }

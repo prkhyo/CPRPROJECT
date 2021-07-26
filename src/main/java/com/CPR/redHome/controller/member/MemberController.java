@@ -5,20 +5,22 @@ import com.CPR.redHome.dto.member.MemberJoinDto;
 import com.CPR.redHome.dto.member.MemberLoginDto;
 import com.CPR.redHome.dto.member.SessionUser;
 import com.CPR.redHome.service.member.MemberService;
+import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Controller
@@ -40,7 +42,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute("memberLoginDto") MemberLoginDto loginData, BindingResult bindingResult, HttpServletRequest request) throws NoSuchAlgorithmException {
 
         log.info("login!!{}", loginData.getAccountId());
 
@@ -86,28 +88,70 @@ public class MemberController {
         return "member/join";
     }
 
+
+    @PostMapping("join/checkId")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String checkId(@RequestBody String accountId) {
+        String result = memberService.checkAccountIdDuplicate(accountId);
+
+        return result;
+    }
+
+
     @PostMapping("/join")
     public String joinMember(@Validated @ModelAttribute("member") MemberJoinDto member,
-                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         //
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "member/join";
         }
 
-        //성공시
-        MemberDto memberDto = new MemberDto();
-        memberDto.setAccountId(member.getAccountId());
-        memberDto.setMemberPassword(member.getMemberPassword());
-        memberDto.setName(member.getName());
-        memberDto.setTelephone(member.getTelephone());
-        memberDto.setEmail(member.getEmail());
-        memberDto.setAddress(member.getAddress());
-        memberDto.setBirthdate(member.getBirthdate());
 
-        memberService.joinMember(memberDto);
+        memberService.joinMember(member);
 
-        return "member/login";
+        return "redirect:/login";
     }
+
+    @GetMapping("/close")
+    public String closeMember() {
+
+        return "member/close_member";
+    }
+
+
+    @PostMapping("/close")
+    public String deleteMember(@RequestParam("memberId") Long memberId, HttpServletRequest request) {
+        memberService.deleteMember(memberId);
+
+        HttpSession session = request.getSession(false);
+        //세션 삭제
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+
+
+    }
+
+    @GetMapping("/update")
+    public String updateMemberInfo(@Login MemberDto loginmember, Model model) {
+
+        MemberDto member = memberService.selectMemberByMemberId(loginmember.getMemberId());
+        model.addAttribute("member", member);
+
+        return "member/update";
+    }
+
+    @PostMapping("/update")
+    public String sendUpdateMemberInfo(@ModelAttribute MemberDto memberDto) {
+
+        memberService.updateMember(memberDto);
+
+
+        return "redirect:/update";
+    }
+
 
 }

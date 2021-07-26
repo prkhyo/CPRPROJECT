@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="/css/member/join.css"/>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script src="/js/member/join.js"></script>
+    <script src="/js/member/phoneNumberCheck.js"></script>
+
+    <script src="/js/cart/addressapi.js"></script>
+</head>
+<body>
+
+<div>
+    <section class="container user-sign-up">
+        <a th:href="@{/}">
+            <img src="../../img/redhome_kor.jpg" style="width: 100px; padding-left: 120px; align-self: center">
+        </a>
+        <div class="user-sign-up__form-wrap">
+            <h1 class="user-sign-up__title">회원가입</h1>
+            <div class="user-sign-up__sns">
+            </div>
+            <form class="user-sign-up__form" th:object="${member}" th:action method="post" name="frm">
+                <div class="user-sign-up-form__form-group">
+                    <div class="user-sign-up-form__form-group__input">
+                        <div th:if="${#fields.hasGlobalErrors()}">
+                            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+                               th:text="${err}">글로벌 오류 메시지</p>
+                        </div>
+
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">아이디</div>
+
+                            <div class="user-sign-up-form__form-group__input">
+                                <div class="display_button_check">
+                                    <input type="text" id="accountId" placeholder="아이디" class="form-control"
+                                           value="" th:field="*{accountId}" th:errorclass="field-error">
+                                    <button class="check_button" type="button" onclick="checkId()">중복확인</button>
+                                </div>
+
+                            </div>
+                            <div class="field-error" th:errors="*{accountId}"></div>
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">비밀번호</div>
+                            <div class="user-sign-up-form__form-group__description">4자 이상 입력해주세요.</div>
+                            <div class="user-sign-up-form__form-group__input">
+                                <input type="password" placeholder="비밀번호" class="form-control" value=""
+                                       th:field="*{memberPassword}" th:errorclass="field-error" id="password">
+                            </div>
+                            <div class="field-error" th:errors="*{memberPassword}"></div>
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">비밀번호 확인</div>
+                            <div class="user-sign-up-form__form-group__input">
+                                <input type="password" onkeyup="rightPassword()" placeholder="비밀번호 확인" class="form-control"
+                                       id="password2">
+                                <div class="field-error" id="passwordMessage"></div>
+                            </div>
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">이름</div>
+                            <div class="user-sign-up-form__form-group__description">이름을 입력해주세요.</div>
+                            <div class="user-sign-up-form__form-group__input">
+                                <input placeholder="이름" class="form-control" value="" th:field="*{name}"
+                                       th:errorclass="field-error" name="name">
+                            </div>
+                            <div class="field-error" th:errors="*{name}"></div>
+
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">휴대폰번호</div>
+                            <div class="user-sign-up-form__form-group__input">
+                                <div class="input-group email-input">
+                                    <input maxlength="13"
+                                           onkeyup="inputPhoneNumber(this)"
+                                           placeholder="전화번호" class="form-control" value="" th:field="*{telephone}"
+                                           th:errorclass="field-error" name="name">
+                                </div>
+                                <div class="field-error" th:errors="*{telephone}"></div>
+                            </div>
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">이메일</div>
+                            <div class="user-sign-up-form__form-group__description">8자 이상 입력해주세요.</div>
+                            <div class="user-sign-up-form__form-group__input">
+                                <input type="email" placeholder="이메일" class="form-control" value="" th:field="*{email}"
+                                       th:errorclass="field-error" name="email">
+                            </div>
+                            <div class="field-error" th:errors="*{email}"></div>
+                        </div>
+                        <div class="user-sign-up-form__form-group">
+                            <div class="user-sign-up-form__form-group__label">주소</div>
+                            <div class="display_button_check" style="padding-bottom: 10px">
+                                <button class="check_button" type="button" style="margin-left: 0px"
+                                        onclick="sample4_execDaumPostcode()" value="우편번호 찾기">주소찾기
+                                </button>
+                                <input class="form-control" type="text" id="sample4_postcode" placeholder="우편번호" readonly>
+                            </div>
+                            <div class="_3cYTk" style="margin-bottom: 10px">
+                                <input class="form-control"
+                                       type="text"
+                                       id="sample4_roadAddress" placeholder="도로명주소" readonly>
+                            </div>
+                            <div class="_3cYTk">
+                                <input class="form-control"
+                                       type="hidden"
+                                       id="sample4_jibunAddress" placeholder="지번주소">
+                                <span id="guide" style="color:#999;display:none"></span>
+                            </div>
+                            <div class="_3cYTk">
+                                <input class="form-control" type="text"
+                                       id="sample4_detailAddress"
+
+                                       placeholder="상세주소">
+                            </div>
+                            <input id="finalAddress" type="text" th:field="*{address}" th:type="hidden">
+                            <div>
+                                <div class="field-error" th:errors="*{address}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="user-sign-up-form__form-group">
+                    <div class="user-sign-up-form__form-group__label">생년월일</div>
+                    <div class="user-sign-up-form__form-group__description">8글자로 입력해주세요 예)20110728</div>
+                    <div class="user-sign-up-form__form-group__input">
+                        <input type="text" placeholder="생년월일" class="form-control" value="" maxlength="8"
+                               th:field="*{birthdate}" th:errorclass="field-error" name="birthdate">
+                    </div>
+                    <div class="field-error" th:errors="*{birthdate}"></div>
+                </div>
+
+                <button class="user-sign-up__submit" type="button" onclick="gatherAddress()" th:type="submit">회원가입 완료</button>
+            </form>
+            <p class="user-sign-up__sign-in">이미 아이디가 있으신가요?<a href="/login" class="user-sign-up__sign-in__link">로그인</a>
+            </p>
+        </div>
+    </section>
+</div>
+</body>
+</html>

@@ -12,7 +12,7 @@ function payment() {
     let  checked = document.querySelector('input[name="selectCheck()"]:checked');
 
     if(check !==  checked){
-        alert("동의 해주세용 ")
+        alert("동의 해주세요. ")
     }else if (receiver == "") {
         alert("받는 사람을 입력해 주세요.");
     } else if (phone == "") {
@@ -97,7 +97,7 @@ function dataSend() {
     for (let i = 0; i < unitPrice.length; i++) {
         let data = new Object();
 
-        data.orderId = orderId;
+        data.orderNo = orderId;
         data.address = add4;
         data.accountId = accountId;
         data.memberId = parseFloat(memberId);
@@ -126,7 +126,6 @@ function dataSend() {
 //  server로 값 전달
 function ajax(data) {
 
-    // console.log("data   " + data);
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.open("POST", "/cart/payments");

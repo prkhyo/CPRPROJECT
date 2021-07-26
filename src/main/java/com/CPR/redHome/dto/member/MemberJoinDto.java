@@ -16,7 +16,6 @@ public class MemberJoinDto {
 
 
     @NotEmpty(message = "아이디를 입력해주세요")
-    @Length(min=4, max = 20, message = "아이디는 4~20글자 사이로 작성해야 합니다. ")
     private String accountId;
 
     @NotEmpty(message = "비밀번호를 입력해주세요")

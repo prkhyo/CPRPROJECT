@@ -1,5 +1,6 @@
 package com.CPR.redHome.dto.cart;
 
+import com.CPR.redHome.dto.seller.ImageDto;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
@@ -9,13 +10,13 @@ import org.apache.ibatis.type.Alias;
 @NoArgsConstructor
 @Alias("cartDto")
 @ToString
-public class CartDto {
+public class CartDto extends ImageDto {
 
     private Long cartId;
     private Long memberId;
     private Long productId;
 
-// 상품 정보
+    // 상품 정보
     private String title;
     private String img;
 
@@ -23,7 +24,7 @@ public class CartDto {
     private Integer quantity;
     private Integer deliveryCharge;
 
-// 회원 정보
+    // 회원 정보
     private String name;
 
 }

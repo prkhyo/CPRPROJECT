@@ -69,7 +69,6 @@ function ajax(data, method, url) {
             var status = httpRequest.status;
             if (status === 0 || (status >= 200 && status < 400)) {
                 // The request has been completed successfully
-                console.log(httpRequest.responseText);
                 location.reload();
             } else {
                 // Oh no! There has been an error with the request!
