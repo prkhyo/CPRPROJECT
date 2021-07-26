@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원관리페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .main{
+            width: 360px;
+            margin:0 auto;
+        }
+
+        .main-title{
+            font-size: 20px;
+            font-weight: 700;
+            margin : 30px 0;
+        }
+
+        .form-group{
+            margin: 0 0 30px;
+        }
+
+        .group-label{
+            display: block;
+            margin: 0 0 12px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #292929;
+            line-height: 21px;
+            word-break: keep-all;
+        }
+
+        .group-description{
+            margin: 0;
+            font-size: 13px;
+            color: #757575;
+            line-height: 1.4;
+        }
+
+        .group-input{
+            margin: 10px 0 0;
+        }
+
+        .submitBtn{
+            background-color: #ed4a4a;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 26px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            margin : 0 0 30px;
+        }
+
+
+        /*전체*/
+
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            // 회원 등급 선택해서 표시해줌.
+            $("#gradeId option").each(function(){
+                if($(this).val()=="[[${memberDetails.gradeId}]]"){
+                    $(this).attr("selected","selected"); // attr적용안될경우 prop으로
+                }
+            });
+
+            // 회원 권한 선택해서 표시해줌.
+            $("#role option").each(function(){
+                if($(this).val()=="[[${memberDetails.role}]]"){
+                    $(this).attr("selected","selected"); // attr적용안될경우 prop으로
+                }
+            });
+
+        });
+
+        function updateMember(){
+            var frm = document.frm;
+
+            if(!frm.point.value || frm.point.value == ""){
+                alert("포인트를 입력하세요");
+                frm.point.focus();
+                return false;
+            }
+
+            if(!frm.gradeId.value || frm.gradeId.value == ""){
+                alert("회원레벨을 선택하세요");
+                frm.gradeId.focus();
+                return false;
+            }
+
+            if(!frm.role.value || frm.role.value == ""){
+                alert("회원권한을 선택하세요");
+                frm.role.focus();
+                return false;
+            }
+
+            frm.method = "post";
+            frm.action = "/admin/member/update";
+            frm.submit();
+        }
+
+    </script>
+</head>
+<body>
+<div class="main">
+    <h3 class="main-title">회원권한 변경 페이지</h3>
+    <form name="frm">
+        <div class="form-group">
+            <div class="group-label">회원번호</div>
+            <div class="group-input">
+                <input type="text" placeholder="회원번호" class="form-control" th:value="${memberDetails.memberId}" name="memberId" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">회원아이디</div>
+            <div class="group-input">
+                <input type="text" placeholder="회원아이디" class="form-control" th:value="${memberDetails.accountId}" name="accountId" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">회원이름</div>
+            <div class="group-input">
+                <input type="text" placeholder="회원이름" class="form-control" th:value="${memberDetails.name}" name="name" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">회원주소</div>
+            <div class="group-input">
+                <input type="text" placeholder="회원주소" class="form-control" th:value="${memberDetails.address}" name="address" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">포인트</div>
+            <div class="group-input">
+                <input type="text" placeholder="포인트" class="form-control" th:value="${memberDetails.point}" name="point">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">회원레벨</div>
+            <div class="group-input">
+<!--                <input type="select" placeholder="회원레벨선택" class="form-control" th:value="${memberDetails.gradeId}" name="gradeId">-->
+                <select id="gradeId" name="gradeId">
+                    <option>회원등급선택</option>
+                    <option value="1">브론즈</option>
+                    <option value="2">실버</option>
+                    <option value="3">골드</option>
+                    <option value="4">플래티넘</option>
+                    <option value="5">다이아몬드</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="group-label">회원권한</div>
+            <div class="group-input">
+<!--                <input type="text" placeholder="회원권한" class="form-control" th:value="${memberDetails.role}" name="role">-->
+                <select id="role" name="role">
+                    <option>회원권한선택</option>
+                    <option value="USER">기본회원</option>
+                    <option value="SELLER">판매자</option>
+                    <option value="ADMIN">관리자</option>
+                </select>
+            </div>
+        </div>
+        <button class="submitBtn" type="button" onclick="updateMember()">회원수정</button>
+    </form>
+</div>
+</body>
+</html>

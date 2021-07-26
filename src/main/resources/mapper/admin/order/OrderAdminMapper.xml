@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.CPR.redHome.mapper.admin.order.OrderAdminMapper">
+
+    <!-- order columns -->
+    <sql id="orderColumns">
+        o.order_id as orderId
+            ,o.order_number as orderNo
+            ,m.account_id as accountId
+            ,o.order_receiver as receiver
+            ,o.order_date as orderDate
+            ,o.order_unit_price as price
+            ,o.order_delivery_charge as deliveryCharge
+            ,o.order_state as orderState
+            ,o.order_request as orderRequest
+            ,o.order_point_used as usedPoint
+    </sql>
+
+    <sql id="search">
+        <if test="searchType == 'search_orderNo'">
+            o.order_number like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_accountId'">
+            m.account_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_orderDate'">
+            o.order_date like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_orderState'">
+            o.order_state like CONCAT('%',#{searchKeyword},'%')
+        </if>
+    </sql>
+
+    <select id="selectTotalCnt" resultType="Integer">
+        SELECT COUNT(*)
+        FROM orders o
+        INNER JOIN member m
+        on o.member_id = m.member_id
+        <where>
+            <if test="searchType != null">
+                <include refid="search"></include>
+            </if>
+        </where>
+    </select>
+
+    <!-- 주문 조회. -->
+    <select id="selectOrders" resultType="com.CPR.redHome.dto.cart.OrderDto">
+        SELECT
+            <include refid="orderColumns"/>
+        FROM
+             orders o
+        INNER JOIN
+                 member m
+        ON
+            o.member_id = m.member_id
+        <where>
+            <if test="criteria.searchType != null">
+                <if test="criteria.searchType == 'search_orderNo'">
+                    o.order_number like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_accountId'">
+                    m.account_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_orderDate'">
+                    o.order_date like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_orderState'">
+                    o.order_state like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+            </if>
+        </where>
+
+    </select>
+
+    <!-- 선택 주문 조회 -->
+    <select id="selectOrderById" parameterType="Integer" resultType="com.CPR.redHome.dto.cart.OrderDto">
+        SELECT
+            <include refid="orderColumns"/>
+        FROM
+            orders o, member m
+        WHERE
+            o.member_id = m.member_id AND o.order_id = #{value}
+    </select>
+
+    <!-- 수정 주문 update -->
+    <update id="updateOrder" parameterType="com.CPR.redHome.dto.cart.OrderDto">
+        UPDATE
+            orders
+        SET
+            order_receiver = #{receiver}
+          ,order_state = #{orderState}
+          ,order_request = #{orderRequest}
+        WHERE
+            order_number = #{orderNo}
+    </update>
+
+    <!--    delete order-->
+    <delete id="deleteOrder" parameterType="Integer">
+        DELETE FROM
+            orders
+        WHERE
+            order_id = #{orderId}
+    </delete>
+
+    <!-- 월별 주문 수 조회 -->
+    <select id="selectOrderByMonth" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when month = 01 then 1 end) as "1월",
+            COUNT(case when month = 02 then 1 end) as "2월",
+            COUNT(case when month = 03 then 1 end) as "3월",
+            COUNT(case when month = 04 then 1 end) as "4월",
+            COUNT(case when month = 05 then 1 end) as "5월",
+            COUNT(case when month = 06 then 1 end) as "6월",
+            COUNT(case when month = 07 then 1 end) as "7월",
+            COUNT(case when month = 08 then 1 end) as "8월",
+            COUNT(case when month = 09 then 1 end) as "9월",
+            COUNT(case when month = 10 then 1 end) as "10월",
+            COUNT(case when month = 11 then 1 end) as "11월",
+            COUNT(case when month = 12 then 1 end) as "12월"
+        FROM (SELECT substr(order_date,6,2) month from orders) T
+    </select>
+
+    <!-- 주문 상태 별 주문 수 조회 -->
+    <select id="selectOrderByState" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when order_state = '결제 확인' then 1 end) as "결제확인",
+            COUNT(case when order_state = '배송 준비 중' then 1 end) as "배송준비중",
+            COUNT(case when order_state = '배송 중' then 1 end) as "배송중",
+            COUNT(case when order_state = '배송 완료' then 1 end) as "배송완료"
+        FROM orders
+    </select>
+
+
+
+
+</mapper>

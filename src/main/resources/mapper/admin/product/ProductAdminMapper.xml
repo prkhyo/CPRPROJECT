@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.CPR.redHome.mapper.admin.product.ProductAdminMapper">
+
+    <sql id ="search">
+        <if test="searchType == 'search_productId'">
+            product_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productTitle'">
+            product_title like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productCategoryId'">
+            product_category_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+        <if test="searchType == 'search_productThemeId'">
+            product_theme_id like CONCAT('%',#{searchKeyword},'%')
+        </if>
+    </sql>
+
+    <!-- product columns -->
+    <sql id="productColumns">
+        product_id as productId
+            ,product_title as productTitle
+            ,product_main_image as productMainImage
+            ,product_price as productPrice
+            ,product_delivery_charge as productDeliveryCharge
+            ,product_quantity as productQuantity
+            ,product_category_id as productCategoryId
+            ,member_id as memberId
+            ,product_theme_id as productThemeId
+    </sql>
+
+    <select id="selectTotalCnt" resultType="Integer">
+        SELECT count(*)
+        FROM product
+        <where>
+            <if test="searchType != null">
+                <include refid="search"></include>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectProducts" resultType="com.CPR.redHome.dto.product.ProductDto">
+        SELECT
+            <include refid="productColumns"/>
+        FROM product
+
+        <where>
+            <if test="criteria.searchType != null">
+                <if test="criteria.searchType == 'search_productId'">
+                    product_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productTitle'">
+                    product_title like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productCategoryId'">
+                    product_category_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+                <if test="criteria.searchType == 'search_productThemeId'">
+                    product_theme_id like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
+            </if>
+        </where>
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+    </select>
+
+    <!-- productId로 상품 조회 -->
+    <select id="selectProductByProductId" parameterType="Integer" resultType="com.CPR.redHome.dto.product.ProductDto">
+        SELECT
+            <include refid="productColumns"/>
+        FROM
+            product
+        WHERE
+            product_id = #{value}
+    </select>
+
+    <update id="updateProduct" parameterType="com.CPR.redHome.dto.product.ProductDto">
+        UPDATE
+            product
+        SET
+            product_title = #{productTitle}
+            ,product_main_image = #{productMainImage}
+            ,product_price = #{productPrice}
+            ,product_delivery_charge = #{productDeliveryCharge}
+            ,product_quantity = #{productQuantity}
+            ,product_theme_id = #{productThemeId}
+            ,product_category_id = #{productCategoryId}
+        WHERE
+            product_id = #{productId}
+    </update>
+
+    <!-- 상품 delete -->
+    <delete id="deleteProduct" parameterType="Integer">
+        DELETE FROM
+            product
+        WHERE
+            product_id = #{productId}
+    </delete>
+
+
+
+    <!-- 가격대 별 상품 수 조회 -->
+    <select id="selectProductByPrice" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_price BETWEEN 0 and 9999 then 1 end) as "만원미만",
+            COUNT(case when product_price BETWEEN 10000 and 99999 then 1 end) as "만원대",
+            COUNT(case when product_price BETWEEN 100000 and 199999 then 1 end) as "10만원대",
+            COUNT(case when product_price BETWEEN 200000 and 299999 then 1 end) as "20먼원대",
+            COUNT(case when product_price BETWEEN 300000 and 399999 then 1 end) as "30만원대",
+            COUNT(case when product_price BETWEEN 400000 and 499999 then 1 end) as "40만원대",
+            COUNT(case when product_price > 500000 then 1 end) as "50만원이상"
+        FROM (SELECT product_price FROM product) T
+    </select>
+
+    <!-- 카테고리 별 상품 수 조회 -->
+    <select id="selectProductByCategory" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_category_id = 1 then 1 end) as "서랍",
+            COUNT(case when product_category_id = 2 then 1 end) as "책상",
+            COUNT(case when product_category_id = 3 then 1 end) as "의자",
+            COUNT(case when product_category_id = 4 then 1 end) as "옷장",
+            COUNT(case when product_category_id = 5 then 1 end) as "침대",
+            COUNT(case when product_category_id > 5 then 1 end) as "기타"
+        FROM (SELECT product_category_id FROM product) T
+    </select>
+
+    <!-- 테마 별 상품 수 조회 -->
+    <select id="selectProductByTheme" resultType="java.util.LinkedHashMap">
+        SELECT
+            COUNT(case when product_theme_id = 1 then 1 end) as "노래방",
+            COUNT(case when product_theme_id = 2 then 1 end) as "도서관",
+            COUNT(case when product_theme_id = 3 then 1 end) as "오피스",
+            COUNT(case when product_theme_id = 4 then 1 end) as "영화관",
+            COUNT(case when product_theme_id = 5 then 1 end) as "카페",
+            COUNT(case when product_theme_id = 6 then 1 end) as "헬스장",
+            COUNT(case when product_theme_id = 7 then 1 end) as "PC방",
+            COUNT(case when product_theme_id > 7 then 1 end) as "기타"
+        FROM (SELECT product_theme_id FROM product) T
+    </select>
+
+
+
+
+</mapper>
