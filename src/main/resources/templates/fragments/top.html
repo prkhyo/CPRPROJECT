@@ -45,19 +45,19 @@
                             </div>
                         </div>
 
-                        <th:block th:if="${SessionUser}==null">
+                        <th:block th:if="${session.loginMember}==null">
                                 <div class="layout-navigation-bar-login">
                                     <a class="layout-navigation-bar-login__item noDeco" href="/login">
                                         로그인
                                     </a>
-                                    <a class="layout-navigation-bar-login__item noDeco" href="/signup">
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/join">
                                         회원가입
                                     </a>
                                 </div>
                         </th:block>
-                        <th:block th:unless="${SessionUser}==null">
+                        <th:block th:unless="${session.loginMember}==null">
                                 <a class="layout-navigation-primary__menu__item noDeco userName" href="/board"
-                               th:unless="${SessionUser}==null" th:text="|${SessionUser.accountId} 님|" style="font-size: 15px;">
+                               th:unless="${session.loginMember}==null" th:text="|${session.loginMember.accountId} 님|" style="font-size: 15px;">
                                 </a>
                                 <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet">
@@ -67,14 +67,14 @@
                                    <!-- <span class="layout-navigation-bar-icon__ticker">3</span>-->
                                 </a>
                             <div class="drop-down layout-navigation-bar-user-section">
-                                <button class="layout-navigation-bar-user-button layout-navigation-bar-user-button--open"  type="button" th:aria-label="${SessionUser.accountId}" onclick="myOn()" ondblclick="myOut()">
+                                <button class="layout-navigation-bar-user-button layout-navigation-bar-user-button--open"  type="button"  onclick="myOn()" ondblclick="myOut()">
                                     <div class="layout-navigation-bar-user-button__image" id="userImage">
                                         <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
                                     </div>
                                 </button>
                             </div>
                                 <div class="drop-down layout-navigation-bar-upload-button" >
-                                    <form th:unless="${SessionUser}==null" th:action="@{/logout}" method="post">
+                                    <form th:unless="${session.loginMember}==null" th:action="@{/logout}" method="post">
                                         <button class="layout-navigation-bar-upload-button__button" type="submit" th:method="post"
                                                 th:action="@{/logout}" style="color: #ed4a4a; background-color: white; border: 1px solid #dbdbdb;">
                                             로그아웃
@@ -83,7 +83,7 @@
                                 </div>
                         </th:block>
                         <div class="drop-down layout-navigation-bar-upload-button">
-                            <button class="layout-navigation-bar-upload-button__button">
+                            <button class="layout-navigation-bar-upload-button__button" onclick="location.href='/community/list'">
                                 글쓰기
                             </button>
                         </div>
@@ -158,7 +158,7 @@
             </li>
             <li class="layout-navigation-bar-user-menu__item-wrap">
             <li class="layout-navigation-bar-user-menu__item-wrap">
-                <form th:unless="${SessionUser}==null" th:action="@{/logout}" method="post">
+                <form th:unless="${session.loginMember}==null" th:action="@{/logout}" method="post">
                     <button class="layout-navigation-bar-user-menu__item" type="submit" th:method="post"
                             th:action="@{/logout}">
                         로그아웃
@@ -171,5 +171,6 @@
    </div>
 <input type="hidden" id="productThemeNo" name="productThemeNo" th:value="${productThemeNo}">
 <input type="hidden" id="deliveryChargeOPtion" name="deliveryChargeOPtion" th:value="${deliveryChargeOPtion}">
+<!--<input type="hidden" id="sessionUser"  th:value="${SessionUser == null ? null : SessionUser}">-->
 </body>
 </html>

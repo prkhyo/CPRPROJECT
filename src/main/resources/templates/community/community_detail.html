@@ -164,8 +164,8 @@
                         <input type="hidden" name="commentCurrentPage" id="commentCurrentPage" th:value="${commentCurrentPage}">
                         <input type="hidden" name="communityTitle" th:value="${community.communityTitle}">
                         <input type="hidden"  id="communityAccountId" th:value="${community.accountId}">
-                        <input type="hidden"  id="memberId" th:value="${SessionUser == null ? null : SessionUser.memberId}  "/>
-                        <input type="hidden"  id="accountId" th:value="${SessionUser == null ? null : SessionUser.accountId}  "/>
+                        <input type="hidden"  id="memberId" th:value="${session.loginMember == null? null: session.loginMember.memberId} "/>
+                        <input type="hidden"  id="accountId" th:value="${session.loginMember == null? null: session.loginMember.accountId} "/>
                     </form>
 
 

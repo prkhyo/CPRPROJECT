@@ -59,9 +59,9 @@
 
 .product-question__wrap__type-select__box--select {
     color: #fff;
-    background-color: #ed4a4a;
+    background-color: #f76565;
     font-weight: 700;
-    border-color: #ed4a4a;
+    border-color: #f76565;
 }
 
 .product-question .form-check-label, .product-question .form-control, .product-question__page .form-check-label, .product-question__page .form-control {
@@ -135,8 +135,8 @@ select.form-control[multiple], textarea.form-control {
 }
 
 .button--color-blue {
-    background-color: #ed4a4a;
-    border-color: #ed4a4a;
+    background-color: #f76565;
+    border-color: #f76565;
     color: #fff;
 }
 
@@ -148,8 +148,8 @@ select.form-control[multiple], textarea.form-control {
 
 @media (min-width: 768px) {
     .button--color-blue:active, .button--color-blue:hover {
-        border-color: #cb3d3d;
-        background-color: #cb3d3d;
+        border-color: #DA4E4EFF;
+        background-color: #DA4E4EFF;
     }
 }
 

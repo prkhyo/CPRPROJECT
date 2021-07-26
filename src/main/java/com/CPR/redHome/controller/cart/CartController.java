@@ -26,9 +26,9 @@ public class CartController {
 
 
     @GetMapping("/cart")
-    public String getCart(@Login MemberDto memberDto, Model model) {
+    public String getCart(@Login MemberDto loginMember, Model model) {
 
-        model.addAttribute("carts", cartService.getCartList(memberDto.getMemberId()));
+        model.addAttribute("carts", cartService.getCartList(loginMember.getMemberId()));
 
         return "carts/cart";
     }
@@ -53,7 +53,7 @@ public class CartController {
 
     @PostMapping("/cart/payments")
     @ResponseStatus(HttpStatus.OK)
-    public void test(@Login MemberDto memberDto, @RequestBody List<OrderDto> orderDto) {
+    public void test(@Login MemberDto loginMember, @RequestBody List<OrderDto> orderDto) {
 
         // 결제 내역에 추가
         cartService.insertOrders(orderDto);
@@ -68,7 +68,7 @@ public class CartController {
         Integer point = orderDto.get(0).getAddPoint(); // 적립되는 포인트 꺼내기어 넣기
 
         forPoint.setAddPoint(point);
-        forPoint.setMemberId(memberDto.getMemberId());
+        forPoint.setMemberId(loginMember.getMemberId());
 
         cartService.addPoint(forPoint);
     }

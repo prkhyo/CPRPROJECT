@@ -15,8 +15,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -31,8 +29,8 @@ public class ProductController {
     private final QuestionService questionService;
 
     @GetMapping("/product/detail")
-    public String productDetailPage(Model model, @RequestParam Long productId, @RequestParam(defaultValue = "1") int questionCurrentPageNo,
-                                    @Login MemberDto memberDto){
+    public String productDetailPage(Model model, @RequestParam Long productId,
+                                    @RequestParam(defaultValue = "1") int questionCurrentPageNo){
 
 
         ProductViewDto productDto = productService.selectProduct(productId);
@@ -48,7 +46,7 @@ public class ProductController {
         Criteria questionCriteria = new Criteria();
         questionCriteria.setCurrentPageNo(questionCurrentPageNo);
 
-        Pagination questionPagination = new Pagination(questionCriteria, questionCnt, 3, 2);
+        Pagination questionPagination = new Pagination(questionCriteria, questionCnt, 8, 5);
 
         int firstRecordIndex = questionPagination.getFirstRecordIndex();
 
@@ -59,7 +57,6 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
-        model.addAttribute("SessionUser", memberDto);
 
 
         return "product/product_detail";
@@ -68,11 +65,11 @@ public class ProductController {
 
 
     @GetMapping("/product/insertTo/cart")
-    public String productInsertToCart(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+    public String productInsertToCart(@Login MemberDto loginMember, @RequestParam Long productId, @RequestParam Integer quantity){
 
 
         CartDto cartDto = new CartDto();
-        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setMemberId(loginMember.getMemberId());
         cartDto.setProductId(productId);
         cartDto.setQuantity(quantity);
 
@@ -87,10 +84,10 @@ public class ProductController {
 
 
     @GetMapping("/product/moveTo/payment")
-    public  String productMoveToPayment(@Login MemberDto memberDto, @RequestParam Long productId, @RequestParam Integer quantity){
+    public  String productMoveToPayment(@Login MemberDto loginMember, @RequestParam Long productId, @RequestParam Integer quantity){
 
         CartDto cartDto = new CartDto();
-        cartDto.setMemberId(memberDto.getMemberId());
+        cartDto.setMemberId(loginMember.getMemberId());
         cartDto.setProductId(productId);
         cartDto.setQuantity(quantity);
 
@@ -107,7 +104,7 @@ public class ProductController {
 
 
     @GetMapping("/store")
-    public String storePage(Model model,  @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+    public String storePage(Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
                             @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
 
@@ -118,8 +115,6 @@ public class ProductController {
         model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
         model.addAttribute("productThemeNo", productThemeNo);
         model.addAttribute("searchProductKeyword", searchProductKeyword);
-
-
 
         return "product/store";
     }

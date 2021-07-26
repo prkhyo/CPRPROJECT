@@ -9,10 +9,17 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script src="/js/cart/addressapi.js"></script>
+
+
+
+
+
 <body>
 
+<!-- 페이지 상단 -->
+<th:block th:include="/fragments/top.html"></th:block>
 
-<div class="layout">
+<div class="layout" style="margin-bottom: 350px;">
 
     <main class="_3z82S">
 
@@ -210,7 +217,7 @@
                                 <div class="_1aYv1">본인은 만 14세 이상이고, 위 내용을 확인하였습니다.</div>
                             </div>
                         </div>
-                        <!--                                <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>-->
+
                         <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">
                             결제하기
                         </button>
@@ -220,9 +227,16 @@
         </section>
 
     </main>
-
 </div>
+
+
+<!-- 페이지 하단 -->
+<th:block th:include="/fragments/bottom.html"></th:block>
+
+
 </body>
+
+
 
 <script src="/js/cart/pgAPI.js"></script>
 <script src="/js/cart/paymentTotalPrice.js"></script>
