@@ -44,8 +44,4 @@ public class ProductDto {
 
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> afe7f6096369c7b335f67c6c750a8e62712886ff
