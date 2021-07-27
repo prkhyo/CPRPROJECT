@@ -4,6 +4,7 @@ package com.CPR.redHome.dto.order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 @Alias("OrderedDto")
+@ToString
 public class OrderedDto {
 
     private Long orderId;
@@ -23,6 +25,7 @@ public class OrderedDto {
     private String orderRequest;
     private String orderAddress;
     private String orderState;
+    private Integer orderProductQuantity;
 
     private Integer orderUnitPrice;
     private String productMainImage;

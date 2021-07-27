@@ -13,15 +13,20 @@
            o.order_request as orderRequest,
            o.order_address as orderAddress,
            o.order_state as orderState,
+           o.order_product_quantity as orderProductQuantity,
            p.product_main_image as productMainImage,
            p.product_title as productTitle
     from orders o join product p
-    on o.product_id = p.product_id
-    where o.member_id = #{memberId};
+                       on o.product_id = p.product_id
+    where o.member_id = #{memberId}
+    order by order_id asc
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+
 </select>
 
-<select id="countOrders" resultType="Long">
+<select id="countOrders" resultType="Integer">
        select count(order_id) from orders
+        where member_id =#{memberId}
 </select>
 
 
