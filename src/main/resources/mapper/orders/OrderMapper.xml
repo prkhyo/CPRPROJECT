@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.order.OrderMapper">
+<select id="selectAllOrdersByMemberId" resultType="OrderedDto">
+    select o.order_id as orderId,
+           o.order_number as orderNumber,
+           o.product_id as productId,
+           o.order_receiver as receiver,
+           o.order_date as orderDate,
+           o.order_unit_price as orderUnitPrice,
+           o.order_delivery_charge as orderDeliveryCharge,
+           o.order_point_used as orderPointUsed,
+           o.order_request as orderRequest,
+           o.order_address as orderAddress,
+           o.order_state as orderState,
+           p.product_main_image as productMainImage,
+           p.product_title as productTitle
+    from orders o join product p
+    on o.product_id = p.product_id
+    where o.member_id = #{memberId};
+</select>
+
+<select id="countOrders" resultType="Long">
+       select count(order_id) from orders
+</select>
+
+
+</mapper>

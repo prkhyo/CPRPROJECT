@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+
+    <script src="/js/cart/addressapi.js"></script>
+    <script src="/js/member/phoneNumberCheck.js"></script>
+
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+</head>
+
+<body>
+<div class="edit-user-info">
+    <div class="myhome-nav myhome-nav--owner">
+        <nav class="page-navigation myhome-nav__owner">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item"><a class="active" href="/user_shopping_pages/order_list"
+                                                     target="_self">나의
+                    쇼핑</a></li>
+                <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="page-navigation myhome-nav__contents">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">주문내역 확인</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container review-my-home">
+        <div class="review-my-home__search">
+            <div class="review-my-home__search__title">주문내역</div>
+        </div>
+        <div class="virtualized-list review-my-home__review-list"
+             style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
+            <div>
+
+                <div th:each="order:${orderList}" class="review-my-home__review-list__item">
+                    <img class="review-my-home__review-list__item__image"
+                         th:src=@{${'/display?fileName='+order.productTitle}}">
+                    <a class="review-my-home__review-list__item__wrap" href="/productions/214065/selling">
+                        <span class="review-my-home__review-list__item__wrap__brand">홈앤하우스</span>
+                        <span class="review-my-home__review-list__item__wrap__name" th:value="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
+                        <span class="review-my-home__review-list__item__wrap__option" ></span>
+                        <span class="review-my-home__review-list__item__wrap__delivery-info" th:value="${order.orderState}">배송 준비</span></a>
+                    <div class="review-my-home__review-list__item__review-btn">
+                        <div class="review-my-home__review-list__item__review-btn__from">오늘의집 구매</div>
+                        <button class="_3Z6oR _1myYS _1BDvx review-my-home__review-list__item__review-btn__button">
+                            리뷰쓰기
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+<script src="/js/member/memberUpdate.js"></script>
+
+</html>
