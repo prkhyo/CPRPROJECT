@@ -5,10 +5,12 @@ import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
+import com.CPR.redHome.dto.review.ReviewViewDto;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.product.ProductService;
 import com.CPR.redHome.service.question.QuestionService;
+import com.CPR.redHome.service.review.ReviewService;
 import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,10 +29,11 @@ public class ProductController {
 
     private final ProductService productService;
     private final QuestionService questionService;
+    private final ReviewService reviewService;
 
     @GetMapping("/product/detail")
     public String productDetailPage(Model model, @RequestParam Long productId,
-                                    @RequestParam(defaultValue = "1") int questionCurrentPageNo){
+                                    @RequestParam(defaultValue = "1") int questionCurrentPageNo, @RequestParam(defaultValue = "1") int reviewCurrentPageNo){
 
 
         ProductViewDto productDto = productService.selectProduct(productId);
@@ -38,11 +41,10 @@ public class ProductController {
         model.addAttribute("productDto", productDto);
         model.addAttribute("productImageList", productImageList);
 
+        //문의 페이징
         int questionCnt = questionService.countAllQuestions(productId);
         model.addAttribute("questionCnt", questionCnt);
 
-        //리뷰 맡은 사람도 리뷰 페이징하려면 리뷰 criteria, pagination을 따로 만들어야 할 것 같아서
-        // 코드 길어지더라도 criteria를 파라미터로 안받고 밑에 코드처럼 따로 직접 생성했어요!
         Criteria questionCriteria = new Criteria();
         questionCriteria.setCurrentPageNo(questionCurrentPageNo);
 
@@ -57,6 +59,27 @@ public class ProductController {
         }
         model.addAttribute("questionList", questionList);
         model.addAttribute("questionPageMaker",questionPagination);
+
+
+        //리뷰 페이징
+        int reviewCnt = reviewService.selectReviewCnt(productId);
+        model.addAttribute("reviewCnt", reviewCnt);
+
+        Criteria reviewCriteria = new Criteria();
+        reviewCriteria.setCurrentPageNo(reviewCurrentPageNo);
+
+        Pagination reviewPagination = new Pagination(reviewCriteria, reviewCnt, 8, 5);
+
+        int reviewFirstRecordIndex = reviewPagination.getFirstRecordIndex();
+
+        List<ReviewViewDto> reviewList = Collections.emptyList();
+
+        if(reviewCnt > 0){
+            reviewList = reviewService.selectReviewList(productId, reviewFirstRecordIndex, reviewCriteria);
+        }
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("reviewPageMaker",reviewPagination);
+
 
 
         return "product/product_detail";

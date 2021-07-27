@@ -2363,6 +2363,7 @@ li:first-child>.production-selling-navigation__item {
     display: -moz-flex;
     display: -ms-flexbox;
     display: flex;
+    margin-bottom: 25px;
 }
 
 
@@ -2386,7 +2387,7 @@ li:first-child>.production-selling-navigation__item {
 .production-review-item__writer__info__name {
     font-size: 13px;
     color: #424242;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
 }
 
 .production-review-item__writer__info__total-star-wrap {
@@ -2418,8 +2419,8 @@ li:first-child>.production-selling-navigation__item {
 }
 
 .production-review-item__writer__info__date {
-    vertical-align: 3px;
-    margin-left: 5px;
+    /*vertical-align: 3px;*/
+    margin-left: 10px;
     font-family: Tahoma,sans;
     font-size: 13px;
     color: #757575;
@@ -3784,4 +3785,19 @@ tr{
     margin: 0 1px;
     border-width: 0 9px 9px;
     border-color: transparent transparent #fff;
+}
+
+.reivew_gtitle{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.reivew_g{
+    font-weight: bold;
+}
+
+
+.production-review-item__container:last-child{
+
+    border-bottom: none;
 }
