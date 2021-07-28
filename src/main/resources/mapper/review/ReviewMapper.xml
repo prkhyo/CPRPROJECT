@@ -22,7 +22,8 @@
                review_contents      as reviewContents,
                review_created_date  as reviewCreatedDate,
                product_id           as productId,
-               m.account_id           as accountId
+               m.account_id         as accountId,
+               help                 as help
 
         from review as r
                  inner join member as m on r.member_id = m.member_id
@@ -33,6 +34,69 @@
 
 
     </select>
+
+    <select id="selectHelpList" parameterType="java.lang.Long" resultType="ReviewHelpDto">
+        select help_id     as helpId,
+               rh.review_id   as reviewId,
+               rh.member_id   as memberId,
+               help_state  as helpState
+        from review_help as rh
+           inner join review as r on rh.review_id =r.review_id
+        where  rh.review_id = ${reviewId}
+
+    </select>
+
+
+    <delete id="deleteReviewHelp">
+
+        delete from review_help
+        where review_id = ${reviewId} and member_id = ${memberId}
+
+
+    </delete>
+
+    <insert id="insertReviewHelp">
+
+        insert into review_help(review_id, member_id)
+        values( ${reviewId}, ${memberId} )
+
+    </insert>
+
+
+
+
+    <select id="selectReviewGradeList" resultType="java.lang.Integer" parameterType="java.lang.Long">
+
+        select  review_grade  as reviewGrade
+        from review
+        where product_id = ${productId}
+
+
+    </select>
+
+
+    <select id="selectParticularGradeCnt" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+
+        select count(*)
+        from review
+        where review_grade = ${reviewGrade}
+
+
+    </select>
+
+    <update id="updateHelpCntIncrease"  parameterType="java.lang.Long">
+
+        update review set help = help + 1 where review_id = ${reviewId}
+
+    </update>
+
+    <update id="updateHelpCntDecrease"  parameterType="java.lang.Long">
+
+        update review set help = help - 1 where review_id = ${reviewId}
+
+    </update>
+
+
 
 
 </mapper>

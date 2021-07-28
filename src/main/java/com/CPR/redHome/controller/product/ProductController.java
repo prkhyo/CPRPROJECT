@@ -5,6 +5,7 @@ import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
+import com.CPR.redHome.dto.review.ReviewHelpDto;
 import com.CPR.redHome.dto.review.ReviewViewDto;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class ProductController {
     private final ReviewService reviewService;
 
     @GetMapping("/product/detail")
-    public String productDetailPage(Model model, @RequestParam Long productId,
+    public String productDetailPage(Model model, @RequestParam Long productId, @Login MemberDto loginMember,
                                     @RequestParam(defaultValue = "1") int questionCurrentPageNo, @RequestParam(defaultValue = "1") int reviewCurrentPageNo){
 
 
@@ -77,8 +80,59 @@ public class ProductController {
         if(reviewCnt > 0){
             reviewList = reviewService.selectReviewList(productId, reviewFirstRecordIndex, reviewCriteria);
         }
+
+        //특정 리뷰가 현재 로그인한 사용자에게 도움된 리뷰인지 아닌지 체크
+        if(loginMember != null) {
+            for (int i = 0; i < reviewList.size(); i++) {
+                List<ReviewHelpDto> helpList = reviewService.selectHelpList(reviewList.get(i).getReviewId());
+                if (helpList.size() > 0) {
+                    for (int j = 0; j < helpList.size(); j++) {
+                        if (helpList.get(j).getMemberId() == loginMember.getMemberId()) {
+                            for (int k = 0; k < reviewList.size(); k++) {
+                                if (helpList.get(j).getReviewId() == reviewList.get(k).getReviewId()) {
+                                    reviewList.get(k).setHelpState("helpful");
+
+                                }//if
+                            }//for
+                        }//if
+                    }//for
+                }//if
+            }//for
+        }
+
+
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("reviewPageMaker",reviewPagination);
+
+
+        //평균 별점 계산
+        int reviewGradeSum = 0;
+        double reviewGradeAvg = 0;
+
+        if(reviewCnt > 0){
+            List<Integer> reviewGradeList = reviewService.selectReviewGradeList(productId);
+
+            for(int i = 0; i < reviewGradeList.size(); i++){
+                reviewGradeSum += reviewGradeList.get(i);
+            }
+            reviewGradeAvg = reviewGradeSum/reviewCnt;
+
+
+            //각 별점의 수, 백분율 값 가져오기
+            Map<String, Integer> reviewGradeCntList = new HashMap<String, Integer>();
+            Map<String, Double> reviewGradePerList = new HashMap<String, Double>();
+
+            for(int i = 1; i < 6; i++){
+                reviewGradeCntList.put("grade"+i, reviewService.selectParticularGradeCnt(i));
+                reviewGradePerList.put("gradePercent"+i, (double) reviewService.selectParticularGradeCnt(i)/reviewCnt*100);
+            }
+            model.addAttribute("reviewGradeCntList",reviewGradeCntList);
+            model.addAttribute("reviewGradePerList",reviewGradePerList);
+        }
+        model.addAttribute("reviewGradeAvg",reviewGradeAvg);
+
+
+
 
 
 

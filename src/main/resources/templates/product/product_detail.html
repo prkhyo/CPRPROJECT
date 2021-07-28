@@ -122,11 +122,12 @@
 												<use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use>
 											</svg>
 										</span>
-                                <span class="reivew_gtitle">3.8</span>
-                                <span class="production-selling-header__review__text">
+                                <span class="reivew_gtitle" th:text="${reviewGradeAvg}" ></span>
+                                <span class="writeRiview" th:if="${reviewCnt == 0}">첫 리뷰 쓰기</span>
+                                <span class="production-selling-header__review__text" th:unless="${reviewCnt == 0}">
 											<span class="number" th:text="${reviewCnt}"></span>
 											<span class="postfix">개 리뷰</span>
-										</span>
+								</span>
                             </a>
                         </p>
                         <p class="production-selling-header__price">

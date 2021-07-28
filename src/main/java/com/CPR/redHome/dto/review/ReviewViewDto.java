@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -30,6 +31,10 @@ public class ReviewViewDto {
     private Long productId;
 
     private String accountId;
+
+    private Long help;
+
+    private String helpState; //helpful, unhelpful
 
 
 
