@@ -27,6 +27,11 @@
                         <a class="layout-navigation-primary__menu__item noDeco" th:href="@{/community/list}">
                             커뮤니티
                         </a>
+                        <th:block th:if="${session.loginMember} != null">
+                        <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'ADMIN'" th:href="@{/admin}">
+                            관리자 페이지
+                        </a>
+                        </th:block>
                     </nav>
 
                     <div class="layout-navigation-primary__right">
@@ -153,7 +158,7 @@
             </li>
             <li class="layout-navigation-bar-user-menu__item-wrap">
             <li class="layout-navigation-bar-user-menu__item-wrap">
-                <a class="layout-navigation-bar-user-menu__item" href="/partner/applications/new">판매자 신청</a>
+                <a class="layout-navigation-bar-user-menu__item" th:if="${session.loginMember}!=null" th:onclick="applyNewSeller([[${session.loginMember.getAccountId()}]],[[${session.loginMember.getRole()}]])">판매자 신청</a>
             </li>
             </li>
             <li class="layout-navigation-bar-user-menu__item-wrap">

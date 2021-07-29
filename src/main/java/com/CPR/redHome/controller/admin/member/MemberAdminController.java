@@ -1,6 +1,7 @@
 package com.CPR.redHome.controller.admin.member;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.dto.member.SessionUser;
 import com.CPR.redHome.paging.Criteria;
 import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.admin.member.MemberAdminService;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,6 +71,37 @@ public class MemberAdminController {
         memberAdminService.deleteMember(memberId);
         return "redirect:/admin/member";
     }
+
+    // member 판매자 신청
+    @Transactional
+    @GetMapping(value ="/admin/member/applyNewSeller/{accountId}")
+    public String applyNewSeller(@PathVariable String accountId, HttpServletRequest request){
+        memberAdminService.updateMemberRole(accountId);
+//        HttpSession session = request.getSession(true);
+//        String a = session.getAttribute("loginMember").toString();
+//        System.out.println("a = " + a);
+//        String role = "APPLY_SELLER";
+//        session.setAttribute("role", role);
+
+        return "redirect:/";
+    }
+
+    // 판매자 권한 승인
+    @Transactional
+    @GetMapping(value="/admin/member/permitSeller/{memberId}")
+    public String permitNewSeller(@PathVariable int memberId){
+        memberAdminService.permitNewSeller(memberId);
+        return "redirect:/admin/member";
+    }
+
+    // 판매자 권한 반려
+    @Transactional
+    @GetMapping(value="/admin/member/rejectSeller/{memberId}")
+    public String rejectNewSeller(@PathVariable int memberId){
+        memberAdminService.rejectNewSeller(memberId);
+        return "redirect:/admin/member";
+    }
+
 
     // 멤버페이지 통계
     @GetMapping("/admin/member/chart")

@@ -16,6 +16,9 @@
         <if test="searchType == 'search_memberLevel'">
             grade_id like CONCAT('%',#{searchKeyword},'%')
         </if>
+        <if test="searchType == 'search_memberRole'">
+            role like CONCAT('%',#{searchKeyword},'%')
+        </if>
     </sql>
 
     <sql id="memberColumns">
@@ -62,6 +65,9 @@
                 <if test="criteria.searchType == 'search_memberLevel'">
                     grade_id like CONCAT('%',#{criteria.searchKeyword},'%')
                 </if>
+                <if test="criteria.searchType == 'search_memberRole'">
+                    role like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
             </if>
 
         </where>
@@ -97,6 +103,37 @@
         WHERE
             member_id = #{memberId}
     </delete>
+
+    <!-- member 판매자 신청 -->
+    <update id="updateMemberRole" parameterType="String">
+        UPDATE
+            member
+        SET
+            role = 'APPLY_SELLER'
+        WHERE
+            account_id = #{accountId}
+    </update>
+
+    <!-- 판매 권한 승인 -->
+    <update id="permitNewSellr" parameterType="Integer">
+        UPDATE
+            member
+        SET
+            role = 'SELLER'
+        WHERE
+            member_id = #{memberId}
+    </update>
+
+    <!-- 판매 권한 반려-->
+    <update id="rejectNewSellr" parameterType="Integer">
+        UPDATE
+            member
+        SET
+            role = 'ROLE_USER'
+        WHERE
+            member_id = #{memberId}
+    </update>
+
 
     <!-- 연령대 별 회원 조회 -->
     <select id="selectMemberByAge" resultType="java.util.LinkedHashMap">

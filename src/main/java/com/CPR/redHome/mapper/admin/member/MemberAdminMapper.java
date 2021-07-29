@@ -25,6 +25,16 @@ public interface MemberAdminMapper {
     // member delete
     void deleteMember(int memberId);
 
+    // 판매자 신청
+    void updateMemberRole(String accountId);
+
+    // 판매 권한 승인
+    void permitNewSellr(int memberId);
+
+    // 판매 권한 반려
+    void rejectNewSellr(int memberId);
+
+
     // 나이대 별 회원 수 조회
     LinkedHashMap<String, Integer> selectMemberByAge();
 

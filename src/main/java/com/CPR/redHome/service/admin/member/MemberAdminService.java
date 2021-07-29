@@ -24,6 +24,16 @@ public interface MemberAdminService {
     // member delete
     void deleteMember(int memberId);
 
+    // member 판매자 신청
+    void updateMemberRole(String accountId);
+
+    // 판매자 권한 승인
+    void permitNewSeller(int memberId);
+
+    // 판매자 권한 반려
+    void rejectNewSeller(int memberId);
+
+
     // @@@@@@@ 회원 통계 @@@@@@@@
     // 연령대 별 회원 수 조회
     JSONObject selectMemberByAge();
