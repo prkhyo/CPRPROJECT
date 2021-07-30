@@ -7,12 +7,10 @@ import com.CPR.redHome.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.HashMap;
 
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,32 +19,28 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/review/help/increase")
-    public String reviewHelpIncrease(@RequestParam Long productId, @RequestParam Long reviewId, @Login MemberDto loginMember,
-                                   @RequestParam(defaultValue = "1") int questionCurrentPageNo, @RequestParam(defaultValue = "1") int reviewCurrentPageNo){
-
-        reviewService.updateHelpCntIncrease(reviewId);
+    @PostMapping("/review/help/increase")
+    @ResponseBody
+    public void reviewHelpIncrease(@RequestBody HashMap<String, Long> map, @Login MemberDto loginMember){
+        System.out.println(map.get("reviewId"));
+        reviewService.updateHelpCntIncrease(map.get("reviewId"));
         System.out.println("증가");
-        reviewService.insertReviewHelp(reviewId, loginMember.getMemberId());
+        reviewService.insertReviewHelp(map.get("reviewId"), loginMember.getMemberId());
         System.out.println("추가완료");
 
-        return "redirect:/product/detail?productId="+productId+"&questionCurrentPageNo="+questionCurrentPageNo+"&reviewCurrentPageNo="+reviewCurrentPageNo;
     }
 
 
-    @GetMapping("/review/help/decrease")
-    public String reviewHelpDecrease(@RequestParam Long productId, @RequestParam Long reviewId, @Login MemberDto loginMember,
-                                   @RequestParam(defaultValue = "1") int questionCurrentPageNo, @RequestParam(defaultValue = "1") int reviewCurrentPageNo){
-
-        reviewService.updateHelpCntDecrease(reviewId);
+    @PostMapping("/review/help/decrease")
+    @ResponseBody
+    public void reviewHelpDecrease(@RequestBody HashMap<String, Long> map, @Login MemberDto loginMember){
+        System.out.println(map.get("reviewId"));
+        reviewService.updateHelpCntDecrease(map.get("reviewId"));
         System.out.println("감소");
-        reviewService.deleteReviewHelp(reviewId, loginMember.getMemberId());
-        System.out.println("삭제완ㄽ");
+        reviewService.deleteReviewHelp(map.get("reviewId"), loginMember.getMemberId());
+        System.out.println("삭제완료");
 
-        return "redirect:/product/detail?productId="+productId+"&questionCurrentPageNo="+questionCurrentPageNo+"&reviewCurrentPageNo="+reviewCurrentPageNo;
 
     }
-
-
 
 }

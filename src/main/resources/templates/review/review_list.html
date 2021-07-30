@@ -93,37 +93,37 @@
 
         <div class="production-review-feed__list" >
             <th:block th:each= "review : ${reviewList}" >
-             <div class="production-review-item__container">
-                <article class="production-review-item">
-                    <div class="production-review-item__writer">
-                        <a href="/users/1063334"><img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1507536237_kakao_534582360.jpg/36/36" class="production-review-item__writer__img" alt=""></a>
-                        <div class="production-review-item__writer__info">
-                            <p class="production-review-item__writer__info__name" th:text="${review.accountId}"></p>
-                            <button class="production-review-item__writer__info__total-star-wrap" type="button">
+                <div class="production-review-item__container">
+                    <article class="production-review-item">
+                        <div class="production-review-item__writer">
+                            <a href="/users/1063334"><img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1507536237_kakao_534582360.jpg/36/36" class="production-review-item__writer__img" alt=""></a>
+                            <div class="production-review-item__writer__info">
+                                <p class="production-review-item__writer__info__name" th:text="${review.accountId}"></p>
+                                <button class="production-review-item__writer__info__total-star-wrap" type="button">
 															<span class="production-review-item__writer__info__total-star" aria-label="별점 5.0점">
 																<svg fill="#ed4a4a" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-5"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-5" fill="#DBDBDB"></use><use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use></svg>
 															</span>
-                                <svg class="production-review-item__writer__info__total-star__down-icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M1.8 2.5l-.97.94L5 7.5l4.17-4.06-.97-.94L5 5.63z"></path></svg>
-                            </button>
-                            <span class="reivew_g" th:text="${review.reviewGrade}"></span><span class="production-review-item__writer__info__date" th:text="${#temporals.format(review.reviewCreatedDate,'yyyy.MM.dd')}"></span>
+                                    <svg class="production-review-item__writer__info__total-star__down-icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M1.8 2.5l-.97.94L5 7.5l4.17-4.06-.97-.94L5 5.63z"></path></svg>
+                                </button>
+                                <span class="reivew_g" th:text="${review.reviewGrade}"></span><span class="production-review-item__writer__info__date" th:text="${#temporals.format(review.reviewCreatedDate,'yyyy.MM.dd')}"></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <button type="button" class="production-review-item__img__btn">
-                        <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 3x">
-                    </button>
-                    <p class="production-review-item__description" th:text="${review.reviewContents}"></p>
-                    <div class="production-review-item__help">
-                        <button type="button" class="production-review-item__help__btn" th:id="${review.reviewId}" th:onclick="'help('+${review.reviewId}+')'" th:text="${review.helpState == 'helpful'?'∨ 도움됨':'도움이 돼요'}"></button>
-                        <input type="hidden" class="allReview" th:name="${review.reviewId}" id="whetherTohelp" th:value="${review.helpState}"/>
-                        <input type="hidden"  th:name="${review.reviewId}" id="whetherToClick" th:value="false"/>
-                        <div class="production-review-item__help__text" th:if="${review.help != 0}">
-                            <span class="production-review-item__help__text__number" th:text="${review.help}" ></span>
-                            <span class="production-review-item__help__text">명에게 도움이 되었습니다.</span>
+                        <button type="button" class="production-review-item__img__btn">
+                            <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 3x">
+                        </button>
+                        <p class="production-review-item__description" th:text="${review.reviewContents}"></p>
+                        <div class="production-review-item__help">
+                            <button type="button" class="production-review-item__help__btn" th:id="${review.reviewId}" th:onclick="'help('+${review.reviewId}+')'" th:text="${review.helpState == 'helpful'?'∨ 도움됨':'도움이 돼요'}"></button>
+                            <input type="hidden" class="allReview" th:name="${review.reviewId}" id="whetherTohelp" th:value="${review.helpState}"/>
+                            <input type="hidden"  th:name="${review.reviewId}" id="whetherToClick" th:value="false"/>
+                            <div class="production-review-item__help__text" th:if="${review.help != 0}">
+                                <span class="production-review-item__help__text__number" th:text="${review.help}" ></span>
+                                <span class="production-review-item__help__text">명에게 도움이 되었습니다.</span>
+                            </div>
                         </div>
-                    </div>
-                </article>
-             </div>
+                    </article>
+                </div>
 
 
             </th:block>
@@ -174,3 +174,4 @@
 
 </body>
 </html>
+

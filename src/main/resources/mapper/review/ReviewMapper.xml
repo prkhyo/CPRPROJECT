@@ -36,7 +36,7 @@
     </select>
 
     <select id="selectHelpList" parameterType="java.lang.Long" resultType="ReviewHelpDto">
-        select help_id     as helpId,
+        select help_id        as helpId,
                rh.review_id   as reviewId,
                rh.member_id   as memberId,
                help_state  as helpState
