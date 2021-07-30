@@ -44,7 +44,6 @@ public class OrderAdminController {
     }
 
     // 주문 수정 페이지 조회
-    @Transactional(readOnly = true)
     @GetMapping("/admin/order/update/{orderId}")
     public String adminOrdertModify(@PathVariable int orderId, Model model){
         model.addAttribute("orderDetails", orderAdminService.selectOrderByOrderId(orderId));
@@ -52,7 +51,6 @@ public class OrderAdminController {
     }
 
     // order 수정 내용 update
-    @Transactional
     @PostMapping("/admin/order/update")
     public String adminOrderUpdate(OrderDto orderDto){
         orderAdminService.updateOrder(orderDto);
@@ -60,7 +58,6 @@ public class OrderAdminController {
     }
 
     // order delete
-    @Transactional
     @GetMapping(value = "/admin/order/delete/{orderId}")
     public String adminOrderDelete(@PathVariable int orderId) {
         orderAdminService.deleteOrder(orderId);

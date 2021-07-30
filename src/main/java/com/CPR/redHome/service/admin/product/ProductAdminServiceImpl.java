@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
     // totalCnt
     @Override
+    @Transactional(readOnly = true)
     public int countAll(Criteria criteria) {
         int cnt = productAdminMapper.selectTotalCnt(criteria);
         return cnt;
@@ -29,6 +31,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
     // 상품 조회
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDto> getProductList(int firstRecordIndex, Criteria criteria) {
         List<ProductDto> productDtos = productAdminMapper.selectProducts(firstRecordIndex, criteria);
 
@@ -37,25 +40,29 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
     // productId로 상품 정보 조회
     @Override
-    public ProductDto selectProductByProductId(int productId) {
+    @Transactional(readOnly = true)
+    public ProductDto selectProductByProductId(Long productId) {
         ProductDto productDto = productAdminMapper.selectProductByProductId(productId);
         return productDto;
     }
 
     // 상품 정보 update
     @Override
+    @Transactional
     public void updateProduct(ProductDto productDto) {
         productAdminMapper.updateProduct(productDto);
     }
 
     // 상품 delete
     @Override
-    public void deleteProduct(int productId) {
+    @Transactional
+    public void deleteProduct(Long productId) {
         productAdminMapper.deleteProduct(productId);
     }
 
     // 가격대 별 상품 수 조회
     @Override
+    @Transactional(readOnly = true)
     public JSONObject selectProductByPrice() {
 
         // 가격대 별 상품 수 DB에서 받아옴.
@@ -69,6 +76,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
     // 카테고리 별 상품 수
     @Override
+    @Transactional(readOnly = true)
     public JSONObject selectProductByCategory() {
         // 카테고리 별 상품 수 DB에서 받아옴.
         LinkedHashMap<String, Integer> map = productAdminMapper.selectProductByCategory();
@@ -81,6 +89,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
     // 재고수량 별 상품 수 조회
     @Override
+    @Transactional(readOnly = true)
     public JSONObject selectProductByTheme() {
         // 테마 별 상품 수 DB에서 받아옴.
         LinkedHashMap<String, Integer> map = productAdminMapper.selectProductByTheme();

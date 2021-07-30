@@ -13,13 +13,13 @@ public interface ProductAdminService {
     List<ProductDto> getProductList(int firstRecordIndex, Criteria criteria);
 
     // productId로 상품 조회
-    ProductDto selectProductByProductId(int productId);
+    ProductDto selectProductByProductId(Long productId);
 
     // 상품 update
     void updateProduct(ProductDto productDto);
 
     // 상품 delete
-    void deleteProduct(int productId);
+    void deleteProduct(Long productId);
 
     //@@@@@ 상품 통계 @@@@@
     // 가격대 별 상품 수

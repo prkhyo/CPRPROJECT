@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>회원 관리 페이지</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/main/top2.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/top2.css">
     <link rel="stylesheet" type="text/css" href="/css/admin/admin.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -20,10 +20,30 @@
 
         }
 
+        function permitMember(no, accountId){
+            if(!confirm(accountId+" 회원의 판매자 권한 신청을 승인하시겠습니까?")){
+                alert("판매자 권한 승인을 취소하였습니다.");
+            } else {
+                location.href = "/admin/member/permitSeller/" + no;
+                alert("판매자 권한을 승인하였습니다.")
+            }
+        }
+
+        function rejectMember(no, accountId){
+            if(!confirm(accountId+" 회원의 판매자 권한 신청을 반려하시겠습니까?")){
+                alert("판매자 권한 반려를 취소하였습니다.");
+            } else {
+                location.href = "/admin/member/rejectSeller/" + no;
+                alert("판매자 권한 신청을 반려하였습니다.")
+            }
+        }
+
         function updateMember(no){
             location.href = "/admin/member/update/" + no;
         }
 
+
+        // 검색
         function searchMember(){
            let type = document.getElementById('searchType').value;
            let keyword = document.getElementById('searchKeyword').value;
@@ -41,6 +61,24 @@
 
             document.getElementById('memberSearchFrm').submit();
         }
+
+        // 판매자 신청 회원 조회
+        window.onload =function() {
+            var targetSel = document.getElementById('searchType');
+            document.getElementById('selNewSeller').addEventListener('click', function () {
+                var keyword = document.getElementById('searchKeyword').value = 'APPLY_SELLER';
+                for (var i = 0; i < targetSel.children.length; i++) {
+                    if (targetSel.children[i].value === 'search_memberRole') {
+                        targetSel.children[i].setAttribute('selected', '');
+                    }
+                }
+                var type = targetSel.value;
+
+            })
+        }
+
+
+
     </script>
 
 </head>
@@ -61,9 +99,11 @@
                 <option value="search_memberName" th:selected="${criteria.searchType == 'search_memberName'}">이름</option>
                 <option value="search_memberEmail" th:selected="${criteria.searchType == 'search_memberEmail'}">이메일</option>
                 <option value="search_memberLevel" th:selected="${criteria.searchType == 'search_memberLevel'}">레벨</option>
+                <option value="search_memberRole" th:selected="${criteria.searchType == 'search_memberRole'}">권한</option>
             </select>
             <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
             <button onclick="searchMember()">검색</button>
+            <button id="selNewSeller">판매자 권한 신청 회원 보기</button>
         </form>
     </div>
     <br><br>
@@ -73,37 +113,35 @@
             <th>No</th>
             <th>회원권한</th>
             <th>아이디</th>
-            <th>비밀번호</th>
             <th>이름</th>
             <th>전화번호</th>
             <th>이메일</th>
             <th>등록날짜</th>
-            <th>주소</th>
             <th>생년월일</th>
             <th>포인트</th>
             <th>레벨</th>
             <th>수정</th>
             <th>삭제</th>
+            <th>권한승인</th>
+            <th>권한반려</th>
         </tr>
         </thead>
         <tbody>
-<!--        <th>-->
             <tr th:each="member : ${memberDtos}">
                 <td th:text="${member.memberId}"></td>
                 <td th:text="${member.role}"></td>
                 <td th:text="${member.accountId}"></td>
-                <td th:text="${member.memberPassword}"></td>
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.telephone}"></td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.createdDate}"></td>
-                <td th:text="${member.address}"></td>
                 <td th:text="${member.birthdate}"></td>
                 <td th:text="${member.point}"></td>
                 <td th:text="${member.gradeId}"></td>
                 <td><button th:onclick="updateMember([[${member.memberId}]])">수정</button></td>
                 <td><button th:onclick="deleteMember([[${member.memberId}]],[[${member.accountId}]])">삭제</button></td>
-<!--            </tr>-->
+                <td><button th:if="${member.role} == 'APPLY_SELLER'" th:onclick="permitMember([[${member.memberId}]],[[${member.accountId}]])">승인</button></td>
+                <td><button th:if="${member.role} == 'APPLY_SELLER'" th:onclick="rejectMember([[${member.memberId}]],[[${member.accountId}]])">반려</button></td>
         </th>
         </tbody>
     </table>

@@ -16,7 +16,6 @@ public class ProductAdminApiController {
     private final ProductAdminService productAdminService;
 
     // 가격 별 상품 수 조회
-    @Transactional(readOnly = true)
     @GetMapping("/api/admin/product/chart/byPrice")
     public ResponseEntity<JSONObject> listByPrice() {
         ResponseEntity<JSONObject> entity=null;
@@ -33,7 +32,6 @@ public class ProductAdminApiController {
     }
 
     // 카테고리 별 상품 수 조회
-    @Transactional(readOnly = true)
     @GetMapping("/api/admin/product/chart/byCategory")
     public ResponseEntity<JSONObject> listByCategory() {
         ResponseEntity<JSONObject> entity=null;
@@ -50,7 +48,6 @@ public class ProductAdminApiController {
     }
 
     // 테마 별 상품 수 조회
-    @Transactional(readOnly = true)
     @GetMapping("/api/admin/product/chart/byTheme")
     public ResponseEntity<JSONObject> listByTheme() {
         ResponseEntity<JSONObject> entity=null;

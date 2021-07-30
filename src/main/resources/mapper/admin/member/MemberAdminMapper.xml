@@ -16,6 +16,9 @@
         <if test="searchType == 'search_memberLevel'">
             grade_id like CONCAT('%',#{searchKeyword},'%')
         </if>
+        <if test="searchType == 'search_memberRole'">
+            role like CONCAT('%',#{searchKeyword},'%')
+        </if>
     </sql>
 
     <sql id="memberColumns">
@@ -62,6 +65,9 @@
                 <if test="criteria.searchType == 'search_memberLevel'">
                     grade_id like CONCAT('%',#{criteria.searchKeyword},'%')
                 </if>
+                <if test="criteria.searchType == 'search_memberRole'">
+                    role like CONCAT('%',#{criteria.searchKeyword},'%')
+                </if>
             </if>
 
         </where>
@@ -69,7 +75,7 @@
     </select>
 
     <!-- memberId 해당 회원 조회 -->
-    <select id="selectMemberById" parameterType="Integer" resultType="com.CPR.redHome.dto.member.MemberDto">
+    <select id="selectMemberById" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.member.MemberDto">
         SELECT
             <include refid="memberColumns"/>
         FROM
@@ -91,12 +97,43 @@
     </update>
 
     <!-- member delete -->
-    <delete id="deleteMember" parameterType="Integer">
+    <delete id="deleteMember" parameterType="java.lang.Long">
         DELETE FROM
             member
         WHERE
             member_id = #{memberId}
     </delete>
+
+    <!-- member 판매자 신청 -->
+    <update id="updateMemberRole" parameterType="String">
+        UPDATE
+            member
+        SET
+            role = 'APPLY_SELLER'
+        WHERE
+            account_id = #{accountId}
+    </update>
+
+    <!-- 판매 권한 승인 -->
+    <update id="permitNewSeller" parameterType="java.lang.Long">
+        UPDATE
+            member
+        SET
+            role = 'SELLER'
+        WHERE
+            member_id = #{memberId}
+    </update>
+
+    <!-- 판매 권한 반려-->
+    <update id="rejectNewSeller" parameterType="java.lang.Long">
+        UPDATE
+            member
+        SET
+            role = 'ROLE_USER'
+        WHERE
+            member_id = #{memberId}
+    </update>
+
 
     <!-- 연령대 별 회원 조회 -->
     <select id="selectMemberByAge" resultType="java.util.LinkedHashMap">
