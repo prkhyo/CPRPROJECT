@@ -12,7 +12,7 @@
 <section class="production-selling-section" th:fragment="reviewList">
     <header class="production-selling-section__header">
         <h1 class="production-selling-section__title">리뷰 <span class="count" th:text="${reviewCnt}"></span></h1>
-        <div class="production-selling-section__right"></div>
+        <div class="production-selling-section__right"><button type="button">리뷰쓰기</button></div>
     </header>
 
     <div class="production-question-feed" th:if="${reviewCnt == 0}" style="margin-top: 50px;">
