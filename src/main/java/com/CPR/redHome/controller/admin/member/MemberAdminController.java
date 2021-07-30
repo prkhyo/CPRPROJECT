@@ -25,7 +25,6 @@ public class MemberAdminController {
     private final MemberAdminService memberAdminService;
 
     // 전체 회원 조회
-    @Transactional(readOnly = true)
     @GetMapping("/admin/member")
     public String adminMember(@ModelAttribute Criteria criteria, Model model,
                               @RequestParam(defaultValue = "1") int currentPageNo){
@@ -49,7 +48,6 @@ public class MemberAdminController {
     }
 
     // memberId로 회원 조회
-    @Transactional(readOnly = true)
     @GetMapping("/admin/member/update/{memberId}")
     public String adminSelectMemberById(@PathVariable int memberId, Model model){
         model.addAttribute("memberDetails",memberAdminService.selectMemberById(memberId));
@@ -57,7 +55,6 @@ public class MemberAdminController {
     }
     
     // member 수정 내용 update
-    @Transactional
     @PostMapping("/admin/member/update")
     public String adminMemberUpdate(MemberDto memberDto){
         memberAdminService.updateMember(memberDto);
@@ -65,7 +62,6 @@ public class MemberAdminController {
     }
 
     // member 삭제
-    @Transactional
     @GetMapping(value = "/admin/member/delete/{memberId}")
     public String adminMemberDelete(@PathVariable int memberId) {
         memberAdminService.deleteMember(memberId);
@@ -73,7 +69,6 @@ public class MemberAdminController {
     }
 
     // member 판매자 신청
-    @Transactional
     @GetMapping(value ="/admin/member/applyNewSeller/{accountId}")
     public String applyNewSeller(@PathVariable String accountId, HttpServletRequest request){
         memberAdminService.updateMemberRole(accountId);
@@ -87,7 +82,6 @@ public class MemberAdminController {
     }
 
     // 판매자 권한 승인
-    @Transactional
     @GetMapping(value="/admin/member/permitSeller/{memberId}")
     public String permitNewSeller(@PathVariable int memberId){
         memberAdminService.permitNewSeller(memberId);
@@ -95,7 +89,6 @@ public class MemberAdminController {
     }
 
     // 판매자 권한 반려
-    @Transactional
     @GetMapping(value="/admin/member/rejectSeller/{memberId}")
     public String rejectNewSeller(@PathVariable int memberId){
         memberAdminService.rejectNewSeller(memberId);

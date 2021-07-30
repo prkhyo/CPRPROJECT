@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,12 +23,14 @@ public class OrderAdminServiceImpl implements OrderAdminService{
     private final MakeJsonForChartServcie makeJsonForChartServcie;
 
     @Override
+    @Transactional(readOnly = true)
     public int countAll(Criteria criteria) {
         int cnt = orderAdminMapper.selectTotalCnt(criteria);
         return cnt;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<OrderDto> getOrderList(int firstRecordIndex, Criteria criteria) {
         List<OrderDto> orderDtos = orderAdminMapper.selectOrders(firstRecordIndex, criteria);
         return orderDtos;
@@ -35,24 +38,28 @@ public class OrderAdminServiceImpl implements OrderAdminService{
 
     // 선택 주문 조회
     @Override
+    @Transactional(readOnly = true)
     public OrderDto selectOrderByOrderId(int orderId) {
         return orderAdminMapper.selectOrderById(orderId);
     }
 
     // 수정 주문 update
     @Override
+    @Transactional
     public void updateOrder(OrderDto orderDto) {
         orderAdminMapper.updateOrder(orderDto);
     }
 
     // order delete
     @Override
+    @Transactional
     public void deleteOrder(int orderId) {
         orderAdminMapper.deleteOrder(orderId);
     }
 
     // 월별 주문량 조회
     @Override
+    @Transactional(readOnly = true)
     public JSONObject selectOrderByMonth() {
         // 월별 주문수 DB에서 받아옴.
         LinkedHashMap<String, Integer> map = orderAdminMapper.selectOrderByMonth();
@@ -65,6 +72,7 @@ public class OrderAdminServiceImpl implements OrderAdminService{
 
     // 상태 별 주문 수.
     @Override
+    @Transactional(readOnly = true)
     public JSONObject selectOrderByState() {
         // 상태별 주문수 DB에서 받아옴.
         LinkedHashMap<String, Integer> map = orderAdminMapper.selectOrderByState();

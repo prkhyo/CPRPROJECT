@@ -17,7 +17,6 @@ public class OrderAdminApiController {
     private final OrderAdminService orderAdminService;
 
     // 월별 주문 수
-    @Transactional(readOnly = true)
     @GetMapping("/api/admin/order/chart/byMonth")
     public ResponseEntity<JSONObject> listByMonth() {
         ResponseEntity<JSONObject> entity=null;
@@ -34,7 +33,6 @@ public class OrderAdminApiController {
     }
 
     // 상태별 주문 수
-    @Transactional(readOnly = true)
     @GetMapping("/api/admin/order/chart/byState")
     public ResponseEntity<JSONObject> listByState() {
         ResponseEntity<JSONObject> entity=null;
