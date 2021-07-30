@@ -11,24 +11,24 @@
 <!--리뷰-->
 <section class="production-selling-section" th:fragment="reviewList">
     <header class="production-selling-section__header">
-        <h1 class="production-selling-section__title">리뷰 <span class="count" th:text="${reviewCnt}"></span></h1>
+        <h1 class="production-selling-section__title">리뷰 <span class="count" th:text="${productDto.totalReviewCnt}"></span></h1>
         <div class="production-selling-section__right"><button type="button">리뷰쓰기</button></div>
     </header>
 
-    <div class="production-question-feed" th:if="${reviewCnt == 0}" style="margin-top: 50px;">
+    <div class="production-question-feed" th:if="${productDto.totalReviewCnt == 0}" style="margin-top: 50px;">
         <div class="production-question-feed__list__empty">첫 리뷰를 남겨주세요! </div>
     </div>
 
 
-    <div class="production-review-feed" th:unless="${reviewCnt == 0}">
+    <div class="production-review-feed" th:unless="${productDto.totalReviewCnt == 0}">
         <div class="production-review-feed__header-v2">
             <div class="production-review-feed__header-v2__stars">
                 <div class="production-review-feed__header-v2__stars__badge">
                     <span class="badge__mobile">${r_grade}</span>
                     <span class="icon" aria-label="별점 ${r_grade}점">
-						<svg fill="#ed4a4a" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use></svg>
+						<svg fill="#f76565" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use></svg>
 					</span>
-                    <span class="badge__pc" th:text="${reviewGradeAvg}"></span>
+                    <span class="badge__pc" th:text="${productDto.reviewGradeAvg}"></span>
                 </div>
                 <div class="production-review-feed__header-v2__stars__avg">
                     <div class="production-review-feed__header-v2__stars__avg-warp">
@@ -41,36 +41,36 @@
                             <div class="production-review-feed__header-v2__stars__avg__number label_selected" th:text="${reviewGradeCntList.grade5}"></div>
                         </div>
                         <div class="production-review-feed__header-v2__stars__avg__container">
-                            <div class="production-review-feed__header-v2__stars__avg__label">4점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__label" >4점</div>
                             <div class="production-review-feed__header-v2__stars__avg__bar">
                                 <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
                                 <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent4+'%'}"></div>
                             </div>
-                            <div class="production-review-feed__header-v2__stars__avg__number" th:text="${reviewGradeCntList.grade4}"></div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade4}"></div>
                         </div>
                         <div class="production-review-feed__header-v2__stars__avg__container">
-                            <div class="production-review-feed__header-v2__stars__avg__label">3점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__label" >3점</div>
                             <div class="production-review-feed__header-v2__stars__avg__bar">
                                 <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
                                 <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent3+'%'}"></div>
                             </div>
-                            <div class="production-review-feed__header-v2__stars__avg__number" th:text="${reviewGradeCntList.grade3}"></div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade3}"></div>
                         </div>
                         <div class="production-review-feed__header-v2__stars__avg__container">
-                            <div class="production-review-feed__header-v2__stars__avg__label">2점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__label" >2점</div>
                             <div class="production-review-feed__header-v2__stars__avg__bar">
                                 <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
                                 <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent2+'%'}"></div>
                             </div>
-                            <div class="production-review-feed__header-v2__stars__avg__number" th:text="${reviewGradeCntList.grade2}"></div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade2}"></div>
                         </div>
                         <div class="production-review-feed__header-v2__stars__avg__container">
-                            <div class="production-review-feed__header-v2__stars__avg__label">1점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__label" >1점</div>
                             <div class="production-review-feed__header-v2__stars__avg__bar">
                                 <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
                                 <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent1+'%'}"></div>
                             </div>
-                            <div class="production-review-feed__header-v2__stars__avg__number" th:text="${reviewGradeCntList.grade1}"></div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade1}"></div>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                 <p class="production-review-item__writer__info__name" th:text="${review.accountId}"></p>
                                 <button class="production-review-item__writer__info__total-star-wrap" type="button">
 															<span class="production-review-item__writer__info__total-star" aria-label="별점 5.0점">
-																<svg fill="#ed4a4a" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-5"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-5" fill="#DBDBDB"></use><use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use></svg>
+																<svg fill="#f76565" width="14px" height="14px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-5"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-5" fill="#DBDBDB"></use><use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use></svg>
 															</span>
                                     <svg class="production-review-item__writer__info__total-star__down-icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M1.8 2.5l-.97.94L5 7.5l4.17-4.06-.97-.94L5 5.63z"></path></svg>
                                 </button>

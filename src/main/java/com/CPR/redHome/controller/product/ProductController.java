@@ -41,7 +41,6 @@ public class ProductController {
 
         ProductViewDto productDto = productService.selectProduct(productId);
         List<ProductImageDto> productImageList = productService.selectProductImgList(productId);
-        model.addAttribute("productDto", productDto);
         model.addAttribute("productImageList", productImageList);
 
         //문의 페이징
@@ -66,7 +65,6 @@ public class ProductController {
 
         //리뷰 페이징
         int reviewCnt = reviewService.selectReviewCnt(productId);
-        model.addAttribute("reviewCnt", reviewCnt);
 
         Criteria reviewCriteria = new Criteria();
         reviewCriteria.setCurrentPageNo(reviewCurrentPageNo);
@@ -105,7 +103,7 @@ public class ProductController {
         model.addAttribute("reviewPageMaker",reviewPagination);
 
 
-        //평균 별점 계산
+        //특정 제품에 대한 평균 별점 계산
         int reviewGradeSum = 0;
         double reviewGradeAvg = 0;
 
@@ -129,12 +127,10 @@ public class ProductController {
             model.addAttribute("reviewGradeCntList",reviewGradeCntList);
             model.addAttribute("reviewGradePerList",reviewGradePerList);
         }
-        model.addAttribute("reviewGradeAvg",reviewGradeAvg);
 
-
-
-
-
+        productDto.setTotalReviewCnt(reviewCnt);
+        productDto.setReviewGradeAvg(reviewGradeAvg);
+        model.addAttribute("productDto", productDto);
 
         return "product/product_detail";
     }

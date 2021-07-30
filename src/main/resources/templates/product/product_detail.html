@@ -116,16 +116,16 @@
                         <p class="production-selling-header__review-wrap">
                             <a class="production-selling-header__review" href="#">
 										<span class="production-selling-header__review__icon" aria-label="별점 4.7점">
-											<svg fill="#ed4a4a" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+											<svg fill="#f76565" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
 												<defs><path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs>
 												<use xlink:href="#star-path-0" fill="#DBDBDB"></use>
 												<use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use>
 											</svg>
 										</span>
-                                <span class="reivew_gtitle" th:text="${reviewGradeAvg}" ></span>
-                                <span class="writeRiview" th:if="${reviewCnt == 0}">첫 리뷰 쓰기</span>
-                                <span class="production-selling-header__review__text" th:unless="${reviewCnt == 0}">
-											<span class="number" th:text="${reviewCnt}"></span>
+                                <span class="reivew_gtitle" th:text="${productDto.reviewGradeAvg}" ></span>
+                                <span class="writeRiview" th:if="${productDto.totalReviewCnt == 0}">첫 리뷰 쓰기</span>
+                                <span class="production-selling-header__review__text" th:unless="${productDto.totalReviewCnt == 0}">
+											<span class="number" th:text="${productDto.totalReviewCnt}"></span>
 											<span class="postfix">개 리뷰</span>
 								</span>
                             </a>
@@ -202,7 +202,7 @@
                         <a class="production-selling-navigation__item"  onclick="tabMove('#production-selling-information')">상품정보</a>
                     </li>
                     <li>
-                        <a class="production-selling-navigation__item" onclick="tabMove('#production-selling-review')" >리뷰<span class="production-selling-navigation__item__count" th:text="${reviewCnt}"></span></a>
+                        <a class="production-selling-navigation__item" onclick="tabMove('#production-selling-review')" >리뷰<span class="production-selling-navigation__item__count" th:text="${productDto.totalReviewCnt}"></span></a>
                     </li>
                     <li>
                         <a class="production-selling-navigation__item " onclick="tabMove('#production-selling-question')">문의<span class="production-selling-navigation__item__count" th:text="${questionCnt}"></span></a>
