@@ -45,7 +45,7 @@ public class ProductAdminContorller {
 
     // 상품 수정 페이지 조회
     @GetMapping("/admin/product/update/{productId}")
-    public String adminProductModify(@PathVariable int productId, Model model){
+    public String adminProductModify(@PathVariable Long productId, Model model){
         model.addAttribute("productDetails", productAdminService.selectProductByProductId(productId));
         return "/admin/product/productUpdate";
     }
@@ -59,7 +59,7 @@ public class ProductAdminContorller {
 
     // 상품 삭제
     @GetMapping(value = "/admin/product/delete/{productId}")
-    public String adminProductDelete(@PathVariable int productId) {
+    public String adminProductDelete(@PathVariable Long productId) {
         productAdminService.deleteProduct(productId);
         return "redirect:/admin/product";
     }

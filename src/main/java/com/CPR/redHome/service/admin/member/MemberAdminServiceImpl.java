@@ -40,7 +40,7 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     // memberId로 회원 조회
     @Transactional(readOnly = true)
     @Override
-    public MemberDto selectMemberById(int memberId) {
+    public MemberDto selectMemberById(Long memberId) {
         return memberAdminMapper.selectMemberById(memberId);
     }
 
@@ -54,7 +54,7 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     // member delete
     @Transactional
     @Override
-    public void deleteMember(int memberId) {
+    public void deleteMember(Long memberId) {
         memberAdminMapper.deleteMember(memberId);
     }
 
@@ -68,15 +68,15 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     // 판매자 권한 승인
     @Transactional
     @Override
-    public void permitNewSeller(int memberId) {
-        memberAdminMapper.permitNewSellr(memberId);
+    public void permitNewSeller(Long memberId) {
+        memberAdminMapper.permitNewSeller(memberId);
     }
 
     // 판매자 권한 반려
     @Transactional
     @Override
-    public void rejectNewSeller(int memberId) {
-        memberAdminMapper.rejectNewSellr(memberId);
+    public void rejectNewSeller(Long memberId) {
+        memberAdminMapper.rejectNewSeller(memberId);
     }
 
 

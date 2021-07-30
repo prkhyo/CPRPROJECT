@@ -16,22 +16,22 @@ public interface MemberAdminService {
     List<MemberDto> getMemberList(int firstRecordIndex, Criteria criteria);
 
     // memberId로 회원 조회
-    MemberDto selectMemberById(int memberId);
+    MemberDto selectMemberById(Long memberId);
 
     // 수정된 member update
     void updateMember(MemberDto memberDto);
 
     // member delete
-    void deleteMember(int memberId);
+    void deleteMember(Long memberId);
 
     // member 판매자 신청
     void updateMemberRole(String accountId);
 
     // 판매자 권한 승인
-    void permitNewSeller(int memberId);
+    void permitNewSeller(Long memberId);
 
     // 판매자 권한 반려
-    void rejectNewSeller(int memberId);
+    void rejectNewSeller(Long memberId);
 
 
     // @@@@@@@ 회원 통계 @@@@@@@@

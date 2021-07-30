@@ -75,7 +75,7 @@
     </select>
 
     <!-- memberId 해당 회원 조회 -->
-    <select id="selectMemberById" parameterType="Integer" resultType="com.CPR.redHome.dto.member.MemberDto">
+    <select id="selectMemberById" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.member.MemberDto">
         SELECT
             <include refid="memberColumns"/>
         FROM
@@ -97,7 +97,7 @@
     </update>
 
     <!-- member delete -->
-    <delete id="deleteMember" parameterType="Integer">
+    <delete id="deleteMember" parameterType="java.lang.Long">
         DELETE FROM
             member
         WHERE
@@ -115,7 +115,7 @@
     </update>
 
     <!-- 판매 권한 승인 -->
-    <update id="permitNewSellr" parameterType="Integer">
+    <update id="permitNewSeller" parameterType="java.lang.Long">
         UPDATE
             member
         SET
@@ -125,7 +125,7 @@
     </update>
 
     <!-- 판매 권한 반려-->
-    <update id="rejectNewSellr" parameterType="Integer">
+    <update id="rejectNewSeller" parameterType="java.lang.Long">
         UPDATE
             member
         SET

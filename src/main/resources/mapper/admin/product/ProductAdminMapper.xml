@@ -31,7 +31,7 @@
             ,product_theme_id as productThemeId
     </sql>
 
-    <select id="selectTotalCnt" resultType="Integer">
+    <select id="selectTotalCnt" resultType="java.lang.Integer">
         SELECT count(*)
         FROM product
         <where>
@@ -66,7 +66,7 @@
     </select>
 
     <!-- productId로 상품 조회 -->
-    <select id="selectProductByProductId" parameterType="Integer" resultType="com.CPR.redHome.dto.product.ProductDto">
+    <select id="selectProductByProductId" parameterType="java.lang.Long" resultType="com.CPR.redHome.dto.product.ProductDto">
         SELECT
             <include refid="productColumns"/>
         FROM
@@ -91,7 +91,7 @@
     </update>
 
     <!-- 상품 delete -->
-    <delete id="deleteProduct" parameterType="Integer">
+    <delete id="deleteProduct" parameterType="java.lang.Long">
         DELETE FROM
             product
         WHERE

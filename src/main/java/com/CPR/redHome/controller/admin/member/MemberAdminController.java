@@ -49,7 +49,7 @@ public class MemberAdminController {
 
     // memberId로 회원 조회
     @GetMapping("/admin/member/update/{memberId}")
-    public String adminSelectMemberById(@PathVariable int memberId, Model model){
+    public String adminSelectMemberById(@PathVariable Long memberId, Model model){
         model.addAttribute("memberDetails",memberAdminService.selectMemberById(memberId));
         return "admin/member/memberUpdate";
     }
@@ -63,7 +63,7 @@ public class MemberAdminController {
 
     // member 삭제
     @GetMapping(value = "/admin/member/delete/{memberId}")
-    public String adminMemberDelete(@PathVariable int memberId) {
+    public String adminMemberDelete(@PathVariable Long memberId) {
         memberAdminService.deleteMember(memberId);
         return "redirect:/admin/member";
     }
@@ -72,25 +72,20 @@ public class MemberAdminController {
     @GetMapping(value ="/admin/member/applyNewSeller/{accountId}")
     public String applyNewSeller(@PathVariable String accountId, HttpServletRequest request){
         memberAdminService.updateMemberRole(accountId);
-//        HttpSession session = request.getSession(true);
-//        String a = session.getAttribute("loginMember").toString();
-//        System.out.println("a = " + a);
-//        String role = "APPLY_SELLER";
-//        session.setAttribute("role", role);
 
         return "redirect:/";
     }
 
     // 판매자 권한 승인
     @GetMapping(value="/admin/member/permitSeller/{memberId}")
-    public String permitNewSeller(@PathVariable int memberId){
+    public String permitNewSeller(@PathVariable Long memberId){
         memberAdminService.permitNewSeller(memberId);
         return "redirect:/admin/member";
     }
 
     // 판매자 권한 반려
     @GetMapping(value="/admin/member/rejectSeller/{memberId}")
-    public String rejectNewSeller(@PathVariable int memberId){
+    public String rejectNewSeller(@PathVariable Long memberId){
         memberAdminService.rejectNewSeller(memberId);
         return "redirect:/admin/member";
     }

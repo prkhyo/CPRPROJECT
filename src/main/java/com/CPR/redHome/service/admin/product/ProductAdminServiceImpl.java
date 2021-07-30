@@ -41,7 +41,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
     // productId로 상품 정보 조회
     @Override
     @Transactional(readOnly = true)
-    public ProductDto selectProductByProductId(int productId) {
+    public ProductDto selectProductByProductId(Long productId) {
         ProductDto productDto = productAdminMapper.selectProductByProductId(productId);
         return productDto;
     }
@@ -56,7 +56,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
     // 상품 delete
     @Override
     @Transactional
-    public void deleteProduct(int productId) {
+    public void deleteProduct(Long productId) {
         productAdminMapper.deleteProduct(productId);
     }
 

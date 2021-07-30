@@ -17,22 +17,22 @@ public interface MemberAdminMapper {
     List<MemberDto> selectMembers(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
 
     // memberId로 회원 조회
-    MemberDto selectMemberById(int memberId);
+    MemberDto selectMemberById(Long memberId);
 
     // 수정 member update
     void updateMember(MemberDto memberDto);
 
     // member delete
-    void deleteMember(int memberId);
+    void deleteMember(Long memberId);
 
     // 판매자 신청
     void updateMemberRole(String accountId);
 
     // 판매 권한 승인
-    void permitNewSellr(int memberId);
+    void permitNewSeller(Long memberId);
 
     // 판매 권한 반려
-    void rejectNewSellr(int memberId);
+    void rejectNewSeller(Long memberId);
 
 
     // 나이대 별 회원 수 조회
