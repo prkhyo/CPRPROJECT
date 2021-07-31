@@ -15,11 +15,11 @@ function reviewSort(sort){
 
 function reviewPageMove(page){
 
-    let productId_ = document.getElementById("productId").value;
-    let questionCurrentPageNo_ = document.getElementById("questionCurrentPageNo").value;
+    let productId = document.getElementById("productId").value;
+    let questionCurrentPageNo = document.getElementById("questionCurrentPageNo").value;
     let reviewSort = document.getElementById("reviewSort").value;
 
-    location.href ='/product/detail?questionCurrentPageNo='+questionCurrentPageNo_+'&reviewCurrentPageNo='+page+'&productId='+productId_+'&reviewSort='+reviewSort+'#production-selling-review';
+    location.href ='/product/detail?questionCurrentPageNo='+questionCurrentPageNo+'&reviewCurrentPageNo='+page+'&productId='+productId+'&reviewSort='+reviewSort+'#production-selling-review';
 
 }
 
@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // 로그인 체크 필요 없게되면 추후 수정 예정
 function logincheck(){
-    let sessionUser_ = document.getElementById("memberId").value;
+    let sessionUser = document.getElementById("memberId").value;
 
-    if(sessionUser_ == null || sessionUser_ == ''){
+    if(sessionUser == null || sessionUser == ''){
         alert('로그인 후 이용가능합니다.');
         location.href ='/login';
     }else{
@@ -165,12 +165,12 @@ function helpIncrease(reviewId){
 
 
 function pageReload(){
-    let productId_ = document.getElementById("productId").value;
-    let questionCurrentPageNo_ = document.getElementById("questionCurrentPageNo").value;
-    let reviewCurrentPageNo_ = document.getElementById("reviewCurrentPageNo").value;
+    let productId = document.getElementById("productId").value;
+    let questionCurrentPageNo = document.getElementById("questionCurrentPageNo").value;
+    let reviewCurrentPageNo = document.getElementById("reviewCurrentPageNo").value;
 
 
-    location.href="/product/detail?productId="+productId_+"&questionCurrentPageNo="+questionCurrentPageNo_+"&reviewCurrentPageNo="+reviewCurrentPageNo_+'#production-selling-review';
+    location.href="/product/detail?productId="+productId+"&questionCurrentPageNo="+questionCurrentPageNo+"&reviewCurrentPageNo="+reviewCurrentPageNo+'#production-selling-review';
 
 }
 
