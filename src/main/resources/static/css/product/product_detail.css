@@ -2218,6 +2218,10 @@ li:first-child>.production-selling-navigation__item {
     display: flex;
     margin: 0 -3px;
 }
+.production-review-feed__filter__order--active{
+    color: #f76565;
+}
+
 
 .production-review-feed__filter__order {
     cursor: pointer;
@@ -2232,9 +2236,7 @@ li:first-child>.production-selling-navigation__item {
     transition: opacity .1s;
 }
 
-.production-review-feed__filter__order--active {
-    color: #f76565;
-}
+
 
 .production-review-feed__filter__order--photo {
     padding-left: 12px;
@@ -3828,3 +3830,6 @@ tr{
     margin-right: 10px;
 
 }
+
+
+

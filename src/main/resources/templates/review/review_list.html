@@ -25,7 +25,7 @@
             <div class="production-review-feed__header-v2__stars">
                 <div class="production-review-feed__header-v2__stars__badge">
                     <span class="badge__mobile">${r_grade}</span>
-                    <span class="icon" aria-label="별점 ${r_grade}점">
+                    <span class="icon" >
 						<svg fill="#f76565" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use></svg>
 					</span>
                     <span class="badge__pc" th:text="${productDto.reviewGradeAvg}"></span>
@@ -80,8 +80,8 @@
             <div class="production-review-feed__filter-wrap">
                 <div class="production-review-feed__filter">
                     <div class="production-review-feed__filter__order-list">
-                        <button class="production-review-feed__filter__order production-review-feed__filter__order--active" aria-pressed="true" type="button">별점순</button>
-                        <button class="production-review-feed__filter__order" aria-pressed="false" type="button">최신순</button>
+                        <button class="production-review-feed__filter__order"  th:aria-pressed="${reviewSort != 'reviewGrade'?true : false}" type="button" onclick="reviewSort('reviewNew')" th:style="${reviewSort != 'reviewGrade'? 'color:#f76565;' :''}">최신순</button>
+                        <button class="production-review-feed__filter__order"  th:aria-pressed="${reviewSort == 'reviewGrade'?true : false}" type="button" onclick="reviewSort('reviewGrade')" th:style="${reviewSort == 'reviewGrade'? 'color:#f76565;' :'' }">별점순</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                 <div class="production-review-item__container">
                     <article class="production-review-item">
                         <div class="production-review-item__writer">
-                            <a href="/users/1063334"><img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1507536237_kakao_534582360.jpg/36/36" class="production-review-item__writer__img" alt=""></a>
+                            <a href="/users/1063334"><img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" class="production-review-item__writer__img" alt=""></a>
                             <div class="production-review-item__writer__info">
                                 <p class="production-review-item__writer__info__name" th:text="${review.accountId}"></p>
                                 <button class="production-review-item__writer__info__total-star-wrap" type="button">
@@ -164,9 +164,8 @@
             </th:block>
         </ul>
     </div>
-
+    <input type="hidden" id="reviewSort" th:value="${reviewSort}  "/>
     <input type="hidden" id="reviewCurrentPageNo" th:value="${reviewPageMaker.criteria.currentPageNo}  "/>
-
 </section>
 
 

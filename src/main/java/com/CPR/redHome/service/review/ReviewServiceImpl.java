@@ -24,9 +24,9 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReviewViewDto> selectReviewList(Long productId, int firstRecordIndex, Criteria criteria) {
+    public List<ReviewViewDto> selectReviewList(Long productId, int firstRecordIndex, Criteria criteria, String reviewSort) {
 
-        List<ReviewViewDto> reviewList = reviewMapper.selectReviewList(productId, firstRecordIndex, criteria);
+        List<ReviewViewDto> reviewList = reviewMapper.selectReviewList(productId, firstRecordIndex, criteria, reviewSort);
 
         return reviewList;
     }

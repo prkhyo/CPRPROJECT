@@ -1,9 +1,25 @@
+
+
+function reviewSort(sort){
+
+    let productId = document.getElementById("productId").value;
+    let questionCurrentPageNo = document.getElementById("questionCurrentPageNo").value;
+
+    location.href ='/product/detail?productId='+productId+'&questionCurrentPageNo='+questionCurrentPageNo+'&reviewSort='+sort+'#production-selling-review';
+
+
+}
+
+
+
+
 function reviewPageMove(page){
 
     let productId_ = document.getElementById("productId").value;
     let questionCurrentPageNo_ = document.getElementById("questionCurrentPageNo").value;
+    let reviewSort = document.getElementById("reviewSort").value;
 
-    location.href ='/product/detail?questionCurrentPageNo='+questionCurrentPageNo_+'&reviewCurrentPageNo='+page+'&productId='+productId_+'#production-selling-review';
+    location.href ='/product/detail?questionCurrentPageNo='+questionCurrentPageNo_+'&reviewCurrentPageNo='+page+'&productId='+productId_+'&reviewSort='+reviewSort+'#production-selling-review';
 
 }
 
@@ -19,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         console.log(classSet[i].nextElementSibling.value);
     }
+
+
 
 });
 

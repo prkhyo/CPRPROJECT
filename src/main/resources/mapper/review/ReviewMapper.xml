@@ -28,7 +28,14 @@
         from review as r
                  inner join member as m on r.member_id = m.member_id
 
-        order by reviewId desc
+
+
+        <if test="reviewSort != 'reviewGrade'">
+            order by reviewId desc
+        </if>
+        <if test="reviewSort == 'reviewGrade'">
+            order by reviewGrade desc
+        </if>
 
             limit #{firstRecordIndex}, #{criteria.recordsPerPage}
 

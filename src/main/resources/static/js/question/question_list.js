@@ -2,8 +2,9 @@ function pageMove(page){
 
     let productId_ = document.getElementById("productId").value;
     let reviewCurrentPageNo_ = document.getElementById("reviewCurrentPageNo").value;
+    let reviewSort = document.getElementById("reviewSort").value;
 
-    location.href ='/product/detail?questionCurrentPageNo='+page+'&reviewCurrentPageNo='+reviewCurrentPageNo_+'&productId='+productId_+'#production-selling-question';
+    location.href ='/product/detail?questionCurrentPageNo='+page+'&reviewCurrentPageNo='+reviewCurrentPageNo_+'&productId='+productId_+'&reviewSort='+reviewSort+'#production-selling-question';
 
 }
 
