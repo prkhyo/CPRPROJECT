@@ -72,7 +72,7 @@
                 </div>
                 <div class="question-form__header__title form-group">
                     <input placeholder="제목을 적어주세요." class="form-control" maxlength="61"
-                           size="1" type="text" name="communityTitle" id="communityTitle" onblur="title_InsertCheck()"/>
+                           size="1" type="text" name="communityTitle" id="communityTitle" onblur="titleInsertCheck()"/>
                     <p class="error" id="title_error" style="display: none; margin-top: 5px;" >제목을 7자 이상으로 적어주세요.</p>
                 </div>
             </header>
@@ -82,7 +82,7 @@
                     <div class="question-form__body__content__wrap">
                         <textarea class="question-form__body__content__input" name="communityContents" id="communityContents" rows="10" cols="50" placeholder="내용을 적어주세요.
 참고가 되는 사진을 같이 공유해주시면 더 좋은 답변을 얻을 수 있습니다.
-            " onblur="Content_InsertCheck()"></textarea>
+            " onblur="contentInsertCheck()"></textarea>
                     </div>
                     <p class="error" id="content_error" style="display: none; margin-top: 5px;">궁금한 내용을 텍스트로 적어주세요.</p>
                 </div>
@@ -121,55 +121,54 @@
 
 
     function communityInsertSubmit(form){
-        let community_Title_value = form.communityTitle.value.trim();
-        let community_Content_value = form.communityContents.value.trim();
-        if(community_Title_value == null || community_Title_value == ''){
+        let communityTitlevalue = form.communityTitle.value.trim();
+        let communityContentvalue = form.communityContents.value.trim();
+        if(communityTitlevalue == null || communityTitlevalue == ''){
             alert('제목을 입력해주세요.');
             return false;
 
-        }else if(community_Content_value == null || community_Content_value == ''){
+        }else if(communityContentvalue == null || communityContentvalue == ''){
             alert('내용을 입력해주세요.');
             return false;
         }
-        alert('제출 !!.');
         form.submit();
     }
 
 
-   function title_InsertCheck(){
-       let community_Title_value = document.communityInsertForm.communityTitle.value.trim();
-       let community_Title = document.getElementById("communityTitle");
+   function titleInsertCheck(){
+       let communityTitlevalue = document.communityInsertForm.communityTitle.value.trim();
+       let communityTitle = document.getElementById("communityTitle");
 
-       if(community_Title_value.length < 7){
-           let title_error =  document.getElementById("title_error");
-           title_error.style.display='block';
-           community_Title.style.border ='solid 1px #ed4a4a';
-           community_Title.value ='';
+       if(communityTitlevalue.length < 7){
+           let titleError =  document.getElementById("title_error");
+           titleError.style.display='block';
+           communityTitle.style.border ='solid 1px #ed4a4a';
+           communityTitle.value ='';
            return;
 
        }else{
-           title_error.style.display='none';
-           community_Title.style.border ='solid 1px #dbdbdb';
+           titleError.style.display='none';
+           communityTitle.style.border ='solid 1px #dbdbdb';
        }
 
    }
 
 
-   function Content_InsertCheck(){
-       let community_Content_value = document.communityInsertForm.communityContents.value.trim();
-       let community_Content = document.getElementById("communityContents");
+   function contentInsertCheck(){
+       let communityContentvalue = document.communityInsertForm.communityContents.value.trim();
+       let communityContent = document.getElementById("communityContents");
 
-       if(community_Content_value == null || community_Content_value == ''){
-           let content_error =  document.getElementById("content_error");
-           content_error.style.display='block';
-           community_Content.style.border ='solid 1px #ed4a4a';
-           community_Content.value ='';
+       if(communityContentvalue == null || communityContentvalue == ''){
+           let contentError =  document.getElementById("content_error");
+           contentError.style.display='block';
+           communityContent.style.border ='solid 1px #ed4a4a';
+           communityContent.value ='';
 
            return;
 
        }else{
-           content_error.style.display='none';
-           community_Content.style.border ='solid 1px #dbdbdb';
+           contentError.style.display='none';
+           communityContent.style.border ='solid 1px #dbdbdb';
        }
    }
 

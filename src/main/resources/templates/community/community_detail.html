@@ -288,8 +288,8 @@
 
        let position = content.indexOf(':');
        if(position != -1){
-           let context_ = content.substring(position+1);
-           return context_;
+           let context = content.substring(position+1);
+           return context;
        }else{
            return content;
        }
@@ -342,8 +342,8 @@
 
                     for (var i = 0; i < parseData.length; i++){
                         dateFormatChange(parseData[i].commentCreatedDate);
-                        let member__= commentMemberIdExtraction(parseData[i].commentContents);
-                        let content__= commentContentExtraction(parseData[i].commentContents);
+                        let member= commentMemberIdExtraction(parseData[i].commentContents);
+                        let content= commentContentExtraction(parseData[i].commentContents);
                         let loginId = document.getElementById("accountId").value;
 
 
@@ -358,9 +358,9 @@
                         comments += '</span></a>';
                         comments += '<span className="comment-feed__item__content__content" style="white-space:pre-line; display:block; font-size: 15px; font-family: inherit ; margin-top: 5px; ">';
                         comments += '<span style="color: #424242;  background-color: #FFB6C1; " >';
-                        comments +=  member__;
+                        comments +=  member;
                         comments += '</span><span>';
-                        comments +=  content__
+                        comments +=  content;
                         comments += '</span>'
                         comments += '</span></p><footer className="comment-feed__item__footer">';
                         comments += '<time className="comment-feed__item__footer__time" style="font-weight: bold;  color: #757575; font-size: 14px;" >';
@@ -424,11 +424,11 @@
 
     function commentInsert(form){
 
-        let community_Id = form.communityId.value.trim();
-        let comment_Contents = form.commentContents.value.trim();
-        let member_Id = form.memberId.value;
+        let communityId = form.communityId.value.trim();
+        let commentContents = form.commentContents.value.trim();
+        let memberId = form.memberId.value;
 
-        if(comment_Contents == null || comment_Contents == ''){
+        if(commentContents == null || commentContents == ''){
             alert('답글을 입력해주세요.');
             form.commentContents.focus();
             return;
@@ -441,9 +441,9 @@
             // 객체 생성
             var commentDto = new Object() ;
 
-            commentDto.communityId = community_Id;
-            commentDto.commentContents = comment_Contents;
-            commentDto.memberId = member_Id;
+            commentDto.communityId = communityId;
+            commentDto.commentContents = commentContents;
+            commentDto.memberId = memberId;
 
             // 리스트에 생성된 객체 삽입
             commentList.push(commentDto) ;
@@ -483,10 +483,10 @@
 
 
 
-  function commentDelete(comm_id){
+  function commentDelete(commId){
 
       var commentDto = new Object() ;
-      commentDto.commentId = comm_id;
+      commentDto.commentId = commId;
 
         var xhr = new XMLHttpRequest();
 
