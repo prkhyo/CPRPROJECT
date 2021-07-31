@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.review.ReviewMapper">
+    <insert id="insertReview" parameterType="ReviewDto">
+        insert into review(review_grade,
+                           review_img,
+                           review_contents,
+                           review_created_date,
+                           product_id,
+                           member_id)
+        values (#{reviewGrade},
+                #{reviewImg},
+                #{reviewContents},
+                #{reviewCreatedDate},
+                #{productId},
+                #{memberId})
+    </insert>
+    <select id="selectReviewByReviewId" resultType="ReviewDto">
+        select review_id           as reviewId,
+               review_grade        as reviewGrade,
+               review_img          as reviewImg,
+               review_contents     as reviewContents,
+               review_created_date as reviewCreatedDate,
+               product_id          as productId,
+               member_id           as memberId
+        from review
+        where review_id = #{reviewId}
+    </select>
+    <select id="selectReviewByMemberId" resultType="ReviewDto">
+        select review_id           as reviewId,
+               review_grade        as reviewGrade,
+               review_img          as reviewImg,
+               review_contents     as reviewContents,
+               review_created_date as reviewCreatedDate,
+               product_id          as productId,
+               member_id           as memberId
+        from review
+        where member_id = #{memberId}
+    </select>
+    <select id="selectReviewByProductId" resultType="ReviewDto">
+        select review_id           as reviewId,
+               review_grade        as reviewGrade,
+               review_img          as reviewImg,
+               review_contents     as reviewContents,
+               review_created_date as reviewCreatedDate,
+               product_id          as productId,
+               member_id           as memberId
+        from review
+        where product_id = #{productId}
+    </select>
+    <delete id="deleteReview" parameterType="Long">
+        delete
+        from review
+        where review_id = #{reviewId}
+    </delete>
+    <update id="updateReview" parameterType="ReviewDto">
+        update review
+        set review_grade    = #{reviewGrade},
+            review_img      = #{reviewImg},
+            review_contents = #{reviewContents}
+        where review_id = #{reviewId}
+
+    </update>
+    <select id="countAllReviewByMemberId" resultType="Integer">
+        select count(review_id) from review
+        where member_id = #{memberId}
+    </select>
+    <select id="countAllReviewByProductId" resultType="Integer">
+        select count(review_id) from review
+        where member_id = #{productId}
+    </select>
+</mapper>
