@@ -11,8 +11,6 @@ function reviewSort(sort){
 }
 
 
-
-
 function reviewPageMove(page){
 
     let productId = document.getElementById("productId").value;
@@ -37,6 +35,26 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
+    //리뷰 퍼센트 바 각 별점의 수가 제일 많은 태그 selected 처리
+    let reviewGrade = document.querySelectorAll(".production-review-feed__header-v2__stars__avg__number");
+    let reviewGradeLabel = document.querySelectorAll(".production-review-feed__header-v2__stars__avg__label");
+
+    let array = [];
+    for(let i = 0; i < reviewGrade.length; i++){
+        array.push(reviewGrade[i].innerText);
+    }
+    array.sort(function(a, b)  {
+        return b - a;
+    });
+
+    for(let i = 0; i < 5; i++){
+        if(reviewGrade[i].innerText === array[0]){
+            reviewGrade[i].classList.add("label_selected");
+            reviewGradeLabel[i].classList.add("label_selected");
+
+        }
+    }
+    
 
 });
 
