@@ -42,29 +42,6 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductViewDto> productList = productMapper.selectProductList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo);
 
-        int totalReviewCnt = 0;
-        int reviewGradeSum = 0;
-        double reviewGradeAvg = 0;
-
-        for(int i = 0; i < productList.size(); i++) {
-
-            //전체 상품리스트에 대해 각각의 상품마다 총 리뷰수 구하기
-            totalReviewCnt = reviewMapper.selectReviewCnt(productList.get(i).getProductId());
-            productList.get(i).setTotalReviewCnt(totalReviewCnt);
-
-            //전체 상품리스트에 대해 각각의 상품마다 평균 별점 계산
-            if (totalReviewCnt > 0) {
-                List<Integer> reviewGradeList = reviewMapper.selectReviewGradeList(productList.get(i).getProductId());
-
-                for (int j = 0; j < reviewGradeList.size(); j++) {
-                    reviewGradeSum += reviewGradeList.get(j);
-                }
-                reviewGradeAvg = reviewGradeSum / totalReviewCnt;
-                productList.get(i).setReviewGradeAvg(reviewGradeAvg);
-            }
-
-        }
-
             return productList;
     }
 

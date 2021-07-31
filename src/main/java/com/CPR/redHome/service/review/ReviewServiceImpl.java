@@ -31,18 +31,12 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewList;
     }
 
-    @Override
-    public List<Integer> selectReviewGradeList(Long productId) {
 
-        List<Integer> reviewGradeList = reviewMapper.selectReviewGradeList(productId);
-
-        return reviewGradeList;
-    }
 
     @Override
-    public int selectParticularGradeCnt(int reviewGrade) {
+    public int selectParticularGradeCnt(int reviewGrade, Long productId) {
 
-        int particularGradeCnt = reviewMapper.selectParticularGradeCnt(reviewGrade);
+        int particularGradeCnt = reviewMapper.selectParticularGradeCnt(reviewGrade, productId);
 
         return particularGradeCnt;
     }

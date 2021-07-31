@@ -13,9 +13,7 @@ public interface ReviewService {
 
     List<ReviewViewDto> selectReviewList(Long productId, int firstRecordIndex, Criteria criteria, String reviewSort);
 
-    List<Integer> selectReviewGradeList(Long productId);
-
-    int selectParticularGradeCnt(int reviewGrade);
+    int selectParticularGradeCnt(int reviewGrade, Long productId);
 
     List<ReviewHelpDto> selectHelpList(Long reviewId);
 

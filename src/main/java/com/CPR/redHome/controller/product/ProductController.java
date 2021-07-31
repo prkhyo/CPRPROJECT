@@ -106,33 +106,20 @@ public class ProductController {
         model.addAttribute("reviewPageMaker",reviewPagination);
 
 
-        //특정 제품에 대한 평균 별점 계산
-        int reviewGradeSum = 0;
-        double reviewGradeAvg = 0;
-
         if(reviewCnt > 0){
-            List<Integer> reviewGradeList = reviewService.selectReviewGradeList(productId);
-
-            for(int i = 0; i < reviewGradeList.size(); i++){
-                reviewGradeSum += reviewGradeList.get(i);
-            }
-            reviewGradeAvg = reviewGradeSum/reviewCnt;
-
 
             //각 별점의 수, 백분율 값 가져오기
             Map<String, Integer> reviewGradeCntList = new HashMap<String, Integer>();
             Map<String, Double> reviewGradePerList = new HashMap<String, Double>();
 
             for(int i = 1; i < 6; i++){
-                reviewGradeCntList.put("grade"+i, reviewService.selectParticularGradeCnt(i));
-                reviewGradePerList.put("gradePercent"+i, (double) reviewService.selectParticularGradeCnt(i)/reviewCnt*100);
+                reviewGradeCntList.put("grade"+i, reviewService.selectParticularGradeCnt(i, productId));
+                reviewGradePerList.put("gradePercent"+i, (double) reviewService.selectParticularGradeCnt(i, productId)/reviewCnt*100);
             }
             model.addAttribute("reviewGradeCntList",reviewGradeCntList);
             model.addAttribute("reviewGradePerList",reviewGradePerList);
         }
 
-        productDto.setTotalReviewCnt(reviewCnt);
-        productDto.setReviewGradeAvg(reviewGradeAvg);
         model.addAttribute("productDto", productDto);
 
         return "product/product_detail";

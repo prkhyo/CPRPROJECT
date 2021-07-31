@@ -19,11 +19,9 @@ public interface ReviewMapper {
     List<ReviewViewDto> selectReviewList(@RequestParam Long productId, @RequestParam int firstRecordIndex,
                                          @RequestParam Criteria criteria, @RequestParam String reviewSort);
 
-    //특정 제품에 대한 리뷰 점수 리스트 가져오기(페이징X 전체)
-    List<Integer> selectReviewGradeList(Long productId);
 
     //특정 제품에 대한 특정 리뷰 점수의 수 가져오기
-    int selectParticularGradeCnt(int reviewGrade);
+    int selectParticularGradeCnt(int reviewGrade, Long productId);
 
     //특정 리뷰에 대해 로그인유저가 좋아요(=도움됨)한 리스트 가져오기
     List<ReviewHelpDto> selectHelpList(Long reviewId);

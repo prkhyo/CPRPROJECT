@@ -27,7 +27,7 @@
 
         from review as r
                  inner join member as m on r.member_id = m.member_id
-
+        where r.product_id = ${productId}
 
 
         <if test="reviewSort != 'reviewGrade'">
@@ -71,22 +71,12 @@
 
 
 
-
-    <select id="selectReviewGradeList" resultType="java.lang.Integer" parameterType="java.lang.Long">
-
-        select  review_grade  as reviewGrade
-        from review
-        where product_id = ${productId}
-
-
-    </select>
-
-
     <select id="selectParticularGradeCnt" resultType="java.lang.Integer" parameterType="java.lang.Integer">
 
         select count(*)
         from review
-        where review_grade = ${reviewGrade}
+        where review_grade = ${reviewGrade} and
+              product_id = ${productId}
 
 
     </select>
