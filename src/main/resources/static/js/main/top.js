@@ -15,14 +15,14 @@ function myOut(){
 function storeSearch(){
     console.log('검색');
 
-    let productThemeNo_ = document.getElementById("productThemeNo").value;
-    let keyword_ = document.getElementById('searchProductKeyword').value;
-    console.log(keyword_);
-    if(keyword_ == null || keyword_ == ''){
+    let productThemeNo = document.getElementById("productThemeNo").value;
+    let keyword = document.getElementById('searchProductKeyword').value;
+    console.log(keyword);
+    if(keyword == null || keyword == ''){
         alert('검색 키워드를 입력해 주세요.');
         return false;
     }
-    location.href='/store?searchProductKeyword='+keyword_+'&productThemeNo='+productThemeNo_;
+    location.href='/store?searchProductKeyword='+keyword+'&productThemeNo='+productThemeNo;
 }
 
 // 판매자 신청
