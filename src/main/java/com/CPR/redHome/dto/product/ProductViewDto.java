@@ -44,6 +44,10 @@ public class ProductViewDto {
 
     private List<ProductImageDto> productImageDtos;
 
+    private int totalReviewCnt;
+
+    private double reviewGradeAvg;
+
 
 
 

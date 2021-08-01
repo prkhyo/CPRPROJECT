@@ -1,8 +1,8 @@
 
 function loginCheck(){
-    let sessionUser_ = document.getElementById("memberId").value;
+    let sessionUser = document.getElementById("memberId").value;
 
-    if(sessionUser_ == null || sessionUser_ == ''){
+    if(sessionUser == null || sessionUser == ''){
         alert('로그인 후 구매 가능합니다.');
         location.href ='/login';
     }else{
@@ -14,10 +14,10 @@ function loginCheck(){
 function cartInsert(){
     if(loginCheck() == -1) {
 
-        let productId_ = document.getElementById("productId").value;
-        let quantity_ = document.getElementById("quantity").value;
+        let productId = document.getElementById("productId").value;
+        let quantity = document.getElementById("quantity").value;
 
-        location.href='/product/insertTo/cart?productId='+ productId_ +'&quantity='+ quantity_;
+        location.href='/product/insertTo/cart?productId='+ productId +'&quantity='+ quantity;
     }
 
 
@@ -27,10 +27,10 @@ function cartInsert(){
 function payment(){
     if(loginCheck() == -1) {
 
-        let productId_ = document.getElementById("productId").value;
-        let quantity_ = document.getElementById("quantity").value;
+        let productId = document.getElementById("productId").value;
+        let quantity = document.getElementById("quantity").value;
 
-        location.href='/product/moveTo/payment?productId='+ productId_ +'&quantity='+ quantity_;
+        location.href='/product/moveTo/payment?productId='+ productId +'&quantity='+ quantity;
     }
 
 
