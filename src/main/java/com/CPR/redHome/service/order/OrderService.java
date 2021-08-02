@@ -15,4 +15,9 @@ public interface OrderService {
 
    Integer countOrderByMemberId(Long memberId);
 
+   List<OrderedDto> selectReviewWriteList(Long memberId);
+
+   OrderedDto selectOrderByOrderId(Long orderId);
+
+
 }

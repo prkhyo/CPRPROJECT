@@ -78,4 +78,7 @@
         select member_id from member
         where account_id=#{accountId}
     </select>
+
+
+
 </mapper>

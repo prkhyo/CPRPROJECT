@@ -26,7 +26,9 @@ public class OrderedDto {
     private String orderAddress;
     private String orderState;
     private Integer orderProductQuantity;
+    private boolean reviewExist;
 
+    /*product와 join*/
     private Integer orderUnitPrice;
     private String productMainImage;
     private String productTitle;

@@ -12,11 +12,18 @@ import java.util.List;
 public interface OrderMapper {
     //구매 내역을 가져오거나 조회가능 한지 구현
 
+
+    //orderId로 구매내역가져오기
+    OrderedDto selectOrderByOrderId(Long orderId);
+
     //모든 구매내역 가져오기
     List<OrderedDto> selectAllOrdersByMemberId(@Param("memberId") Long memberId, @Param("criteria") Criteria criteria, @Param("firstRecordIndex") int firstRecordIndex);
 
     //구매 목록 세기
     Integer countOrders(Long memberId);
 
-
+    //배송 완료이면서, 리뷰가 없는 주문 가져오기
+    List<OrderedDto> selectReviewWriteList(Long memberId);
 }
+
+

@@ -22,14 +22,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
-
-
-    @GetMapping("/order")
-    public String orderList(@Login MemberDto loginMember, Model model, Criteria criteria){
+    //구매목록
+    @GetMapping("/orders")
+    public String neOrderList(@Login MemberDto loginMember, Model model, Criteria criteria){
 
         int cnt = orderService.countOrderByMemberId(loginMember.getMemberId());
 
-        Pagination pagination = new Pagination(criteria, cnt, 5, 2);
+        Pagination pagination = new Pagination(criteria, cnt, 5, 5);
 
         int firstRecordIndex = pagination.getFirstRecordIndex();
 
@@ -44,6 +43,18 @@ public class OrderController {
        model.addAttribute("pageMaker", pagination);
 
 
-        return "order/order_list";
+        return "order/order_list_new";
+    }
+
+
+    //리뷰 작성 가능한 목록
+    @GetMapping("/order/review/list")
+    public String reviewList(@Login MemberDto loginMember, Model model){
+
+        List<OrderedDto> orderReviewList= orderService.selectReviewWriteList(loginMember.getMemberId());
+
+        model.addAttribute("orderReviewList",orderReviewList);
+
+    return "review/review_list";
     }
 }

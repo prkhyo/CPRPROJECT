@@ -238,7 +238,7 @@
                         </div>
                     </div>
 
-
+                    <div th:if="${SessionUser}!=null"  th:text="${session.loginMember.email}"></div>
                     <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart">
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"
                              stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet">

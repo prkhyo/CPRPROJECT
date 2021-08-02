@@ -17,6 +17,7 @@ public class MainController {
     public String home(@Login MemberDto loginMember, Model model){
 
 
+
         model.addAttribute("SessionUser",loginMember);
         return "main";
     }

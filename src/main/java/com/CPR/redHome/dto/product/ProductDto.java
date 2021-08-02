@@ -31,6 +31,7 @@ public class ProductDto {
 
     private Integer productCategoryId; //join
 
+
     private Integer productThemeId; //join
 
     private String productDescription;

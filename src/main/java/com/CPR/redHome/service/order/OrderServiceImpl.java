@@ -26,5 +26,13 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.countOrders(memberId);
     }
 
+    @Override
+    public List<OrderedDto> selectReviewWriteList(Long memberId) {
+        return orderMapper.selectReviewWriteList(memberId);
+    }
 
+    @Override
+    public OrderedDto selectOrderByOrderId(Long orderId) {
+        return orderMapper.selectOrderByOrderId(orderId);
+    }
 }
