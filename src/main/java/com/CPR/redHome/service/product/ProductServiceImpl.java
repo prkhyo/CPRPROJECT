@@ -44,6 +44,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductViewDto> selectSellerList(String storeOrder, String deliveryChargeOPtion, String searchProductKeyword, Integer productThemeNo, Long memberId) {
+
+        List<ProductViewDto> productList = productMapper.selectSellerList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo, memberId);
+
+        return productList;
+    }
+
+    @Override
     public void insertProductToCart(CartDto cartDto) {
         productMapper.insertProductToCart(cartDto);
     }

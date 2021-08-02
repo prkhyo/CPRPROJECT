@@ -16,6 +16,10 @@ public interface ProductService {
     List<ProductViewDto> selectProductList(String storeOrder, String deliveryChargeOPtion,
                                            String searchProductKeyword, Integer productThemeNo);
 
+    List<ProductViewDto> selectSellerList(String storeOrder, String deliveryChargeOPtion,
+                                           String searchProductKeyword, Integer productThemeNo, Long memberId);
+
+
     void insertProductToCart(CartDto cartDto);
 
     String selectShoppingCartNo(Long productId);

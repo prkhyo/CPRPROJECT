@@ -99,6 +99,65 @@
 
 </select>
 
+<select id="selectSellerList" resultType="ProductViewDto">
+
+    select product_id              as productId,
+    product_title           as productTitle,
+    p.created_date          as createdDate,
+    product_price           as productPrice,
+    product_delivery_charge as productDeliveryCharge,
+    product_quantity        as productQuantity,
+    account_id              as accountId,
+    product_category_name   as productCategoryName,
+    p.product_theme_id      as productThemeId,
+    product_theme_name      as productThemeName,
+    product_description     as productDescription,
+    product_main_image      as productMainImage
+    from (select * from product where member_id = #{memberId}) p
+    inner join product_theme pt on p.product_theme_id = pt.product_theme_id
+    inner join product_category pc on p.product_category_id = pc.product_category_id
+    inner join member m on p.member_id = m.member_id
+
+    <where>
+
+
+        <if test="searchProductKeyword != null">
+            product_title like CONCAT('%',#{searchProductKeyword},'%')
+        </if>
+
+        <if test="searchProductKeyword != null and deliveryChargeOPtion =='noCharge'">and</if>
+
+        <if test="deliveryChargeOPtion == 'noCharge'">
+            product_delivery_charge = 0
+        </if>
+
+        <if test="(searchProductKeyword != null or deliveryChargeOPtion =='noCharge') and productThemeNo != null">and</if>
+
+        <if test="productThemeNo != null">
+            p.product_theme_id = ${productThemeNo}
+        </if>
+
+    </where>
+
+    <if test="storeOrder != 'best' and storeOrder != 'high' and storeOrder != 'low'">
+        order by productId desc
+    </if>
+    <if test="storeOrder == 'best'">
+        order by productQuantity asc
+    </if>
+    <if test="storeOrder == 'high'">
+        order by productPrice desc
+    </if>
+    <if test="storeOrder == 'low'">
+        order by productPrice asc
+    </if>
+
+    <if test="productThemeNo == null">
+        limit 20
+    </if>
+
+</select>
+
 
 
 <insert id="insertProductToCart" parameterType="cartDto">

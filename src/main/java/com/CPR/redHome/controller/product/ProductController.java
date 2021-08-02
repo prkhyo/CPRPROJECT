@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -117,6 +118,22 @@ public class ProductController {
         model.addAttribute("searchProductKeyword", searchProductKeyword);
 
         return "product/store";
+    }
+
+    // 판매자 페이지 이동.
+    @GetMapping("/seller/{memberId}")
+    public String sellerStorePage(@PathVariable Long memberId, Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+                               @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
+
+        List<ProductViewDto> productList = productService.selectSellerList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo, memberId);
+        model.addAttribute("productList", productList);
+
+        model.addAttribute("storeOrder", storeOrder);
+        model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
+        model.addAttribute("productThemeNo", productThemeNo);
+        model.addAttribute("searchProductKeyword", searchProductKeyword);
+
+        return "seller/sellerStore";
     }
 
 
