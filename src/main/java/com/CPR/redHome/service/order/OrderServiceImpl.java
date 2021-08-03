@@ -35,4 +35,9 @@ public class OrderServiceImpl implements OrderService{
     public OrderedDto selectOrderByOrderId(Long orderId) {
         return orderMapper.selectOrderByOrderId(orderId);
     }
+
+    @Override
+    public void reviewExist(Long orderId) {
+        orderMapper.reviewExist(orderId);
+    }
 }

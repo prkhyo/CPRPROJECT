@@ -24,6 +24,9 @@ public interface OrderMapper {
 
     //배송 완료이면서, 리뷰가 없는 주문 가져오기
     List<OrderedDto> selectReviewWriteList(Long memberId);
+
+    //review 가 있다고 바꿔주기
+    void reviewExist(Long orderId);
 }
 
 

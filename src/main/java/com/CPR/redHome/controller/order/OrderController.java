@@ -43,12 +43,12 @@ public class OrderController {
        model.addAttribute("pageMaker", pagination);
 
 
-        return "order/order_list_new";
+        return "order/order_list";
     }
 
 
     //리뷰 작성 가능한 목록
-    @GetMapping("/order/review/list")
+    @GetMapping("/review/list")
     public String reviewList(@Login MemberDto loginMember, Model model){
 
         List<OrderedDto> orderReviewList= orderService.selectReviewWriteList(loginMember.getMemberId());

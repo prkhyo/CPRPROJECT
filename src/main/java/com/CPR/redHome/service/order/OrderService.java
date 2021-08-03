@@ -19,5 +19,6 @@ public interface OrderService {
 
    OrderedDto selectOrderByOrderId(Long orderId);
 
+   void reviewExist(Long orderId);
 
 }
