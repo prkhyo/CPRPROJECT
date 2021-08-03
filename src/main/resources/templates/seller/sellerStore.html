@@ -11,7 +11,7 @@
 <body>
 
 <!-- 페이지 상단 -->
-<th:block th:include="/fragments/top.html"></th:block>
+<th:block th:include="/seller/sellerTop.html"></th:block>
 
 <!--배너-->
 <th:block th:include="/fragments/banner.html"></th:block>
@@ -21,6 +21,11 @@
 
 <br>
 <input type="text" id="memberId" th:value="${session.loginMember.memberId}" hidden="hidden">
+<div align="center" style="color: #f76565">
+  <h2>내 판매 상품</h2>
+</div>
+<br>
+
 <div class="store_option">
     <div class="store_option_free">
       <label class="switch">

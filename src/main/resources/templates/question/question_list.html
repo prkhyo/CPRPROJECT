@@ -30,7 +30,12 @@
                                 <article class="production-question-feed__item" data-qna-id="3793373" style="margin-bottom: 40px;">
                                     <header class="production-question-feed__item__header" >
                                         <span class="production-question-feed__item__header_category" th:text="${question.questionCategoryName}" style="float: left;" ></span>
-                                        <span class="" th:classappend="${question.questionState == '답변대기'}?'unanswered':'answered'" th:text="${question.questionState}" ></span>
+                                        <span class="" th:classappend="${question.questionState == '답변대기'}?'unanswered':'answered'">
+                                            <a th:if="${session.loginMember !=null && question.questionState == '답변대기' && productDto.accountId == session.loginMember.accountId}" onclick="writeAnswer()" style="color: brown; cursor: pointer">답변하기</a>
+                                            <input type="hidden" id="questionId" th:value="${question.questionId}">
+                                            <input type="hidden" th:unless="${session.loginMember !=null && question.questionState == '답변대기' && productDto.accountId == session.loginMember.accountId}" th:text="${question.questionState}"/>
+                                        </span>
+<!--                                        <span class="" th:classappend="${question.questionState == '답변대기'}?'unanswered':'answered'" th:text="${question.questionState}" ></span>-->
                                         <th:block th:if="${session.loginMember != null}">
                                             <th:block th:if="${question.userAccountId == session.loginMember.accountId}">
                                         <button class="production-question-feed__item__header__delete" type="button" th:onclick="'questionDelete('+${question.questionId}+')'">삭제</button>
@@ -70,6 +75,11 @@
                                         <p class="production-question-feed__item__answer__author">
                                             <span class="author" th:text="${question.sellerAccountId}" style="margin-right: 8px;"></span><span class="date" th:text="${#temporals.format(question.answerDate,'yyyy년 MM월 dd일 HH시 mm분')}"></span>
                                         </p>
+                                        <th:block th:if="${session.loginMember != null}">
+                                            <th:block th:if="${question.userAccountId == session.loginMember.accountId}">
+                                                <button class="production-question-feed__item__header__delete" type="button" th:onclick="'answerDelete('+${question.answerId}+')'" style="cursor: pointer">답변삭제</button>
+                                            </th:block>
+                                        </th:block>
                                         <p class="production-question-feed__item__content" th:text="${question.answerContents}" style="margin-top: 5px;"></p>
                                     </div>
                                            </th:block>

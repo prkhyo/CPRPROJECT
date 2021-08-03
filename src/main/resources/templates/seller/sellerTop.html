@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/main/top.css"/>
+    <script th:src="@{/js/main/top.js}"></script>
+</head>
+<body>
+
+
+
+<header class="layout-navigation-bar">
+        <div class="layout-navigation-primary-wrap">
+            <div class="layout-navigation-primary" style="position:relative">
+                <div class="layout-navigation-primary__content">
+                    <div class="layout-navigation-primary__left">
+                        <a th:href="@{/}" class="noDeco layout-navigation-logo">
+                            <img src="../../img/redhome_kor.jpg" style="width: 100px;" >
+                        </a>
+                    </div>
+
+                    <nav class="layout-navigation-primary__menu" style="display:block">
+                        <a class="layout-navigation-primary__menu__item noDeco" href="/store">
+                            스토어
+                        </a>
+                        <a class="layout-navigation-primary__menu__item noDeco" th:href="@{/community/list}">
+                            커뮤니티
+                        </a>
+                        <th:block th:if="${session.loginMember} != null">
+                        <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'ADMIN'" th:href="@{/admin}">
+                            관리자 페이지
+                        </a>
+                        </th:block>
+                        <th:block th:if="${session.loginMember} != null">
+                            <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'SELLER'" th:href="@{/seller/{memberId}(memberId=${session.loginMember.memberId})}">
+                                판매자 페이지
+                            </a>
+                        </th:block>
+                    </nav>
+
+                    <div class="layout-navigation-primary__right">
+                        <div class="layout-navigation-bar-search">
+                            <div class="layout-navigation-search">
+                                <div class="layout-navigation-search__header">
+                                    <div class="layout-navigation-search__combobox">
+                                        <div class="layout-navigation-search__input">
+                                            <img src="../../img/ohsu_2.PNG"
+                                                 style="position:absolute; padding-top:6px; padding-left:6px;" onclick="storeSearch()">
+                                            <input type="text" class="layout-navigation-search__input__text"
+                                                   placeholder="레드홈 통합검색" id="searchProductKeyword" name="searchProductKeyword" th:attr="value=${searchProductKeyword}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <th:block th:if="${session.loginMember}==null">
+                                <div class="layout-navigation-bar-login">
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/login">
+                                        로그인
+                                    </a>
+                                    <a class="layout-navigation-bar-login__item noDeco" href="/join">
+                                        회원가입
+                                    </a>
+                                </div>
+                        </th:block>
+                        <th:block th:unless="${session.loginMember}==null">
+                                <a class="layout-navigation-primary__menu__item noDeco userName" href="/board"
+                               th:unless="${session.loginMember}==null" th:text="|${session.loginMember.accountId} 님|" style="font-size: 15px;">
+                                </a>
+                                <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet">
+                                        <path stroke-linecap="round" d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z"></path>
+                                        <path d="M1 2h3v3"></path>
+                                    </svg>
+                                   <!-- <span class="layout-navigation-bar-icon__ticker">3</span>-->
+                                </a>
+                            <div class="drop-down layout-navigation-bar-user-section">
+                                <button class="layout-navigation-bar-user-button layout-navigation-bar-user-button--open"  type="button"  onclick="myOn()" ondblclick="myOut()">
+                                    <div class="layout-navigation-bar-user-button__image" id="userImage">
+                                        <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
+                                    </div>
+                                </button>
+                            </div>
+                                <div class="drop-down layout-navigation-bar-upload-button" >
+                                    <form th:unless="${session.loginMember}==null" th:action="@{/logout}" method="post">
+                                        <button class="layout-navigation-bar-upload-button__button" type="submit" th:method="post"
+                                                th:action="@{/logout}" style="color: #ed4a4a; background-color: white; border: 1px solid #dbdbdb;">
+                                            로그아웃
+                                        </button>
+                                    </form>
+                                </div>
+                        </th:block>
+                        <div class="drop-down layout-navigation-bar-upload-button">
+                            <button class="layout-navigation-bar-upload-button__button" onclick="myOn2()">
+                                글쓰기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-navigation-secondary-wrap">
+            <div class="layout-navigation-secondary" style="position:relative">
+                <div class="layout-navigation-secondary__content">
+                    <nav class="layout-navigation-secondary__menu">
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/seller/{memberId}(memberId=${session.loginMember.memberId})}">
+                            내 판매상품
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=2">
+                            답을 기다리는 문의
+                        </a>
+                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=3">
+                            주문 관리
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="popup" class="popout popout--prepared popout--axis-1 popout--dir-0 popout--cross-dir-2" data-popout="true"
+     style="position: absolute; z-index: 1000; right: 230px; bottom: 380px; display: none;">
+      <div class="animated-popout drop-down__content layout-navigation-bar-user-section__content open open-active">
+        <ul class="layout-navigation-bar-user-menu">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <a class="layout-navigation-bar-user-menu__item" href="/mypage">마이페이지</a>
+            </li>
+            </li>
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <a class="layout-navigation-bar-user-menu__item" href="/user_shopping_pages/order_list">나의 쇼핑</a>
+            </li>
+            </li>
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <a class="layout-navigation-bar-user-menu__item" href="/competitions/feed">이벤트</a>
+            </li>
+            </li>
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <a class="layout-navigation-bar-user-menu__item"
+                   href="https://pro.ohou.se/?utm_source=ohouse&amp;utm_medium=web&amp;utm_campaign=prosignup&amp;utm_content=myhome">전문가
+                    신청</a>
+            </li>
+            </li>
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <a class="layout-navigation-bar-user-menu__item" th:if="${session.loginMember}!=null" th:onclick="applyNewSeller([[${session.loginMember.getAccountId()}]],[[${session.loginMember.getRole()}]])">판매자 신청</a>
+            </li>
+            </li>
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+            <li class="layout-navigation-bar-user-menu__item-wrap">
+                <form th:unless="${session.loginMember}==null" th:action="@{/logout}" method="post">
+                    <button class="layout-navigation-bar-user-menu__item" type="submit" th:method="post"
+                            th:action="@{/logout}">
+                        로그아웃
+                    </button>
+                </form>
+            </li>
+            </li>
+        </ul>
+      </div>
+   </div>
+
+    <div id="popup2" class="popout popout--prepared popout--axis-1 popout--dir-0 popout--cross-dir-2" data-popout="true"
+         style="position: absolute; z-index: 1000; right: 230px; bottom: 380px; display: none;" th:if="${session.loginMember} != null">
+        <div class="animated-popout drop-down__content layout-navigation-bar-user-section__content open open-active">
+            <ul class="layout-navigation-bar-user-menu">
+                <th:block th:if="${session.loginMember} != null">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" href="/community/add">커뮤니티에 질문하기</a>
+                </li>
+                </li>
+                </th:block>
+                <th:block th:if="${session.loginMember} != null">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                <li class="layout-navigation-bar-user-menu__item-wrap">
+                    <a class="layout-navigation-bar-user-menu__item" th:if="${session.loginMember.role} == 'SELLER'" href="/product/regist">상품 올리기</a>
+                </li>
+                </li>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+
+<input type="hidden" id="productThemeNo" name="productThemeNo" th:value="${productThemeNo}">
+<input type="hidden" id="deliveryChargeOPtion" name="deliveryChargeOPtion" th:value="${deliveryChargeOPtion}">
+<!--<input type="hidden" id="sessionUser"  th:value="${SessionUser == null ? null : SessionUser}">-->
+</body>
+</html>
