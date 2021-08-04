@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/mypage")
 @RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
 
     //구매목록
-    @GetMapping("/orders")
+    @GetMapping("/mypage/orders")
     public String neOrderList(@Login MemberDto loginMember, Model model, Criteria criteria){
 
         int cnt = orderService.countOrderByMemberId(loginMember.getMemberId());
@@ -48,7 +47,7 @@ public class OrderController {
 
 
     //리뷰 작성 가능한 목록
-    @GetMapping("/review/list")
+    @GetMapping("/mypage/review/list")
     public String reviewList(@Login MemberDto loginMember, Model model){
 
         List<OrderedDto> orderReviewList= orderService.selectReviewWriteList(loginMember.getMemberId());

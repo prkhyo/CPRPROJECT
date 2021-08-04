@@ -22,7 +22,8 @@ public class ReviewController {
 
     //[참고]리뷰 작성 가능한 목록은 orderController에서 구현
 
-    //리뷰쓰기 클릭시
+
+    //리뷰쓰기버튼으로 작성 폼 입장
     @GetMapping("/mypage/review/write/{orderId}")
     public String writeReview(@PathVariable Long orderId, Model model){
        OrderedDto order =  orderService.selectOrderByOrderId(orderId);
@@ -33,13 +34,19 @@ public class ReviewController {
     }
 
 
-
+    //리뷰 제출
     @PostMapping("/mypage/review/submit/{orderId}")
     public String insertReview(@RequestParam("imgFile") MultipartFile file,
                                ReviewDto reviewDto,
                                @PathVariable Long orderId,
                                HttpServletRequest request){
-        System.out.println("file = " + file);
+
+        //뒤로 가기 버튼으로 되돌어 갔을 시 제출 막기
+        //뒤로 가기 버튼으로 되돌어 갔을 시 제출 막기
+            if(orderService.selectOrderByOrderId(orderId).isReviewExist()==true){
+                return "error/submit_error";
+            }
+
         try {
             reviewService.insertReview(reviewDto, file, request);
             orderService.reviewExist(orderId);

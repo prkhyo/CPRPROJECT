@@ -59,7 +59,7 @@
 
 
                 <!-- enctype="multipart/form-data"-->
-                <form id="reviewForm" class="review-modal__form" th:action="@{/mypage/review/submit/{orderId}(orderId=${order.orderId})}" method="post"  enctype="multipart/form-data">
+                <form name="reviewForm" class="review-modal__form" th:action="@{/mypage/review/submit/{orderId}(orderId=${order.orderId})}" method="post"  enctype="multipart/form-data">
                     <div class="review-modal__form__product"><img class="review-modal__form__product__image"
                                                                   th:src="@{${'/display?fileName='+order.productMainImage}}">
                         <div class="review-modal__form__product__contents">
@@ -110,11 +110,13 @@
                     </div>
                     <div class="review-modal__section">
                         <div class="review-modal__section__title">리뷰 작성</div>
-                        <textarea name="reviewContents" maxlength="255" id="reviewContent" placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)"
+                        <textarea name="reviewContents" maxlength="255" id="reviewContent"
+                                  onkeyup="countWord()"
+                                  placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)"
                                   class="form-control text-area-input review-modal__form__review-input"
                                   style="height: 55.5px;"></textarea>
                         <div class="review-modal__form__review-input__length">
-                            <!--<span class="review-modal__form__review-input__length__value">0</span>--></div>
+                            <span class="review-modal__form__review-input__length__value" id="count">0</span></div>
                     </div>
 
 
@@ -125,7 +127,7 @@
 
                 </form>
                 <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit"
-                        type="submit" style="background-color: #ed4a4a ; border-color: #ed4a4a" form="reviewForm">
+                        type="button" onclick="submitReview()" style="background-color: #ed4a4a ; border-color: #ed4a4a" >
                     완료
                 </button>
             </div>
@@ -142,12 +144,38 @@
 </script>
 <script>
 
-    let content = document.getElementById('reviewContent');
 
-    if((content.length)<20){
-        alert("최소한 20자 이상 적어야 합니다.")
-
+    function countWord(){
+        document.getElementById('count').innerHTML = document.getElementById('reviewContent').value.trim().length;
     }
+
+
+ function submitReview(){
+
+
+
+
+
+
+    const frm = document.reviewForm;
+
+    if(!frm.reviewContents.value || frm.reviewContents.value == ""){
+        alert("리뷰를 작성해 입력하세요");
+        frm.reviewContents.focus();
+        return false;
+    }
+    if(frm.reviewContents.value.trim().length < 20){
+        alert("리뷰는 최소한 20자 이상이어야 합니다.")
+        frm.reviewContents.focus();
+        return false;
+    }
+
+
+    frm.reviewContents.value = frm.reviewContents.value.trim();
+
+    frm.submit();
+    }
+
 
 
 </script>

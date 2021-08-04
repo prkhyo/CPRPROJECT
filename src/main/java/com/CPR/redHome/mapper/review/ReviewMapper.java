@@ -24,9 +24,6 @@ public interface ReviewMapper {
     //productId의 리뷰 세기
     int countAllReviewByProductId(Long productId);
 
-    //제품의 리뷰 다 가져오기
-    List<ReviewDto> selectReviewByProductId(Long productId);
-
     //리뷰 삭제
     void deleteReview(Long reviewId);
 

@@ -37,17 +37,6 @@
         from review
         where member_id = #{memberId}
     </select>
-    <select id="selectReviewByProductId" resultType="ReviewDto">
-        select review_id           as reviewId,
-               review_grade        as reviewGrade,
-               review_img          as reviewImg,
-               review_contents     as reviewContents,
-               review_created_date as reviewCreatedDate,
-               product_id          as productId,
-               member_id           as memberId
-        from review
-        where product_id = #{productId}
-    </select>
     <delete id="deleteReview" parameterType="Long">
         delete
         from review
