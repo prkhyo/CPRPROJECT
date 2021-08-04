@@ -108,10 +108,10 @@
 
 .page-item.active{
 
-    border: 1px solid #ed4a4a;
+    border: 1px solid #f76565;
     border-radius: 4px;
-    background-color: #ed4a4a;
-    padding: 1px 0px 5px 0px;
+    background-color: #f76565;
+    padding: 5px 0px 5px 0px;
     width: 27px;
     height: 19px;
     color: white;
