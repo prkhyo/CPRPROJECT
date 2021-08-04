@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<script type="text/javascript" body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+  window.history.forward();
+  function noBack(){window.history.forward();}
+</script>
+
+
+<h1> 이미 제출된 형식입니다!</h1>
+<a th:href="@{/mypage/review/list}">되돌아가기</a>
+
+
+
+
+
+</body>
+</html>

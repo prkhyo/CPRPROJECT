@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
+
+    <script src="/js/cart/addressapi.js"></script>
+    <script src="/js/member/phoneNumberCheck.js"></script>
+
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+    <!--글씨체-->
+    <link rel="stylesheet" media="screen"
+          href="https://static.ohou.se/assets/v3/layout/application_react-790a108e6a9b26136290c8bea25696fec3e4701284512f9eed313b7dbb352615.css">
+
+
+    <!--꼭필요-->
+    <link rel="stylesheet" type="text/css" href="https://static.ohou.se/dist/css/53-14401fea.chunk.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div class="edit-user-info">
+    <div class="myhome-nav myhome-nav--owner">
+        <nav class="page-navigation myhome-nav__owner">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item"><a class="active" href="/user_shopping_pages/order_list"
+                                                     target="_self">나의
+                    쇼핑</a></li>
+                <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="page-navigation myhome-nav__contents">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">주문내역 확인</a>
+                </li>
+                <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container review-my-home">
+        <div class="review-my-home__search">
+            <div class="review-my-home__search__title">리뷰작성</div>
+        </div>
+        <div class="virtualized-list review-my-home__review-list"
+             style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
+            <div class="review-modal">
+
+
+
+                <!-- enctype="multipart/form-data"-->
+                <form name="reviewForm" class="review-modal__form" th:action="@{/mypage/review/submit/{orderId}(orderId=${order.orderId})}" method="post"  enctype="multipart/form-data">
+                    <div class="review-modal__form__product"><img class="review-modal__form__product__image"
+                                                                  th:src="@{${'/display?fileName='+order.productMainImage}}">
+                        <div class="review-modal__form__product__contents">
+                            <!--<div class="review-modal__form__product__contents__brand" >레이디가구</div>-->
+                            <div class="review-modal__form__product__contents__name" th:text="${order.productTitle}">글린
+                                LED 3단 서랍침대 매트포함 (SS/Q)
+                                4colors
+                            </div>
+                            <div class="review-modal__form__product__contents__options"
+                                 th:text="'가격 : '+${order.orderUnitPrice}">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
+                            </div>
+                            <div class="review-modal__form__product__contents__options"
+                                 th:text="'수량 : '+${order.orderProductQuantity}">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-modal__section">
+                        <div class="review-modal__section__title">별점 평가</div>
+                        <select class="form-control empty" name="reviewGrade">
+                            <option value="0" disabled="">별점</option>
+                            <option value="1">1 점</option>
+                            <option value="2">2 점</option>
+                            <option value="3">3 점</option>
+                            <option value="4">4 점</option>
+                            <option value="5">5 점</option>
+                        </select>
+                    </div>
+
+                    <div class="review-modal__section">
+                        <div class="review-modal__section__title">사진 첨부 (선택)
+                            <img class="review-modal__form__photo-point">
+                        </div>
+                        <div class="review-modal__section__explain">사진을 첨부해주세요. (최대 1장)</div>
+
+                        <!----------------------- 사진 첨부 -------------------->
+
+                        <!--내꼬니꼬용-->
+                        <div>
+                            <input name="reviewImg" type="text" disabled class="file_name_only" hidden>
+                            <input name="imgFile" id="img_File" class="fileUpload" type="file"
+                                   onchange="previewPic(event);" placeholder="이미지 이름이 나타납니다." style="display: none">
+                            <label  for="img_File" class="button button&#45;&#45;color-blue-inverted button&#45;&#45;size-50 button&#45;&#45;shape-4 upload-button" style="border-color: #ed4a4a; color:#ed4a4a ">파일 불러오기</label>
+                        </div>
+                        <div id="preview" style="width:60%; overflow:hidden; margin-top: 5%;">
+                        </div>
+
+                        <!-------------------------------------------------------------->
+                    </div>
+                    <div class="review-modal__section">
+                        <div class="review-modal__section__title">리뷰 작성</div>
+                        <textarea name="reviewContents" maxlength="255" id="reviewContent"
+                                  onkeyup="countWord()"
+                                  placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)"
+                                  class="form-control text-area-input review-modal__form__review-input"
+                                  style="height: 55.5px;"></textarea>
+                        <div class="review-modal__form__review-input__length">
+                            <span class="review-modal__form__review-input__length__value" id="count">0</span></div>
+                    </div>
+
+
+                    <div class="">
+                        <input th:value="${order.productId}" name="productId" hidden>
+                        <input th:value="${session.loginMember.memberId}" name="memberId" hidden>
+                    </div>
+
+                </form>
+                <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit"
+                        type="button" onclick="submitReview()" style="background-color: #ed4a4a ; border-color: #ed4a4a" >
+                    완료
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+
+
+
+
+
+</script>
+<script>
+
+
+    function countWord(){
+        document.getElementById('count').innerHTML = document.getElementById('reviewContent').value.trim().length;
+    }
+
+
+ function submitReview(){
+
+
+
+
+
+
+    const frm = document.reviewForm;
+
+    if(!frm.reviewContents.value || frm.reviewContents.value == ""){
+        alert("리뷰를 작성해 입력하세요");
+        frm.reviewContents.focus();
+        return false;
+    }
+    if(frm.reviewContents.value.trim().length < 20){
+        alert("리뷰는 최소한 20자 이상이어야 합니다.")
+        frm.reviewContents.focus();
+        return false;
+    }
+
+
+    frm.reviewContents.value = frm.reviewContents.value.trim();
+
+    frm.submit();
+    }
+
+
+
+</script>
+
+<script>
+    function previewPic(event) {
+
+        let reader = new FileReader();
+        let previewDiv = document.getElementById("preview");
+
+        while (previewDiv.hasChildNodes())
+            previewDiv.removeChild(previewDiv.firstChild);
+
+        reader.onload = function (event) {
+            let img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            previewDiv.appendChild(img);
+            img.style.width="100%";
+            img.style.height="100%";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+
+    }
+
+
+
+
+    $(function () {
+        var fileTarget = $('.fileUpload');
+        fileTarget.on('change', function () { // 값이 변경되면
+            if (window.FileReader) { // modern browser
+                var filename = $(this)[0].files[0].name;
+            } else { // old IE
+                var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+            }
+            // 추출한 파일명 삽입
+            $(this).siblings('.file_name_only').val(filename);
+        });
+    });
+</script>
+
+</body>
+
+
+</html>

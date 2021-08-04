@@ -57,6 +57,7 @@ public class CartController {
 
         // 결제 내역에 추가
         cartService.insertOrders(orderDto);
+
         // 결제 완료로 인해 카트에서 제거
         cartService.cartDelete(orderDto);
 
