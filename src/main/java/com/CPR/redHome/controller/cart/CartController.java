@@ -55,6 +55,11 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public void test(@Login MemberDto loginMember, @RequestBody List<OrderDto> orderDto) {
 
+        for (OrderDto dto : orderDto) {
+            log.info(dto);
+
+        }
+
         // 결제 내역에 추가
         cartService.insertOrders(orderDto);
 
