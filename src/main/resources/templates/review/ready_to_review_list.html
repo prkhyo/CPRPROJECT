@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
+
+  <script src="/js/cart/addressapi.js"></script>
+  <script src="/js/member/phoneNumberCheck.js"></script>
+
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+</head>
+
+<body>
+<div class="edit-user-info">
+  <div class="myhome-nav myhome-nav--owner">
+    <nav class="page-navigation myhome-nav__owner">
+      <ul style="transform: translateX(0px);">
+        <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
+        <li class="page-navigation__item"><a class="" href="/user_shopping_pages/order_list"
+                                             target="_self">나의
+          쇼핑</a></li>
+        <li class="page-navigation__item"><a class="active" href="/production_reviews/write" target="_self">나의 리뷰</a>
+        </li>
+        <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
+        </li>
+      </ul>
+    </nav>
+    <nav class="page-navigation myhome-nav__contents">
+      <ul style="transform: translateX(0px);">
+        <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">리뷰 쓰기</a>
+        </li>
+        <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container review-my-home">
+    <div class="review-my-home__search">
+      <div class="review-my-home__search__title">주문내역</div>
+    </div>
+    <div class="virtualized-list review-my-home__review-list"
+         style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
+      <div>
+
+        <div th:each="order:${orderReviewList}" class="review-my-home__review-list__item price_setting">
+          <img class="review-my-home__review-list__item__image"
+               th:src="@{${'/display?fileName='+order.productMainImage}}">
+          <a class="review-my-home__review-list__item__wrap" href="/productions/214065/selling" >
+            <!--   <span class="review-my-home__review-list__item__wrap__brand">홈앤하우스</span>-->
+            <div class="wrapping">
+              <span class="review-my-home__review-list__item__wrap__name" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
+              <!--<span class="review-my-home__review-list__item__wrap__name wrapping_in" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>-->
+            </div>
+            <span class="review-my-home__review-list__item__wrap__option" th:text="'수량 : '+${order.orderProductQuantity}+'개'"></span>
+            <span class="review-my-home__review-list__item__wrap__option " th:text="'가격 : '+${order.orderUnitPrice}+'원'"></span>
+            <span class="review-my-home__review-list__item__wrap__delivery-info" th:text="${order.orderState}">배송 준비</span></a>
+          <!--<div class="_3Z6oR _1BDvx price" th:text="'총 금액 : '+${order.orderProductQuantity}*${order.orderUnitPrice}+'원   '">
+          </div>
+-->
+          <div class="review-my-home__review-list__item__review-btn">
+
+            <div class="review-my-home__review-list__item__review-btn__from">오늘의집 구매</div>
+            <button class="_3Z6oR _1myYS _1BDvx review-my-home__review-list__item__review-btn__button"
+                    th:onclick="|location.href='@{/mypage/review/write/{orderId}(orderId=${order.orderId})}'|">
+              리뷰쓰기
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- <div class="paging">
+           <ul class="pagination">
+               &lt;!&ndash;이전  버튼&ndash;&gt;
+               <th:block th:if="${pageMaker.hasPreviousPage}">
+                   <li class="page-item">
+                       <a class ="page-link" id="Previous"  th:href="@{/order/list(currentPageNo=${pageMaker.firstPage} - 1)}" tabindex="-1">Prev</a>
+                   </li>
+               </th:block>
+               &lt;!&ndash;페이지 번호&ndash;&gt;
+               <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
+                   <li class="page-item" th:classappend="${pageMaker.criteria.currentPageNo == page} ?'active':''"
+                       th:attr="id=${pageMaker.criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
+                       <a class ="page-link" id="pageNum"  th:href="@{/mypage/order(currentPageNo=${page})}" th:text="${page}"></a>
+                   </li>
+               </th:block>
+               &lt;!&ndash;다음 버튼&ndash;&gt;
+               <th:block th:if="${pageMaker.hasNextPage}">
+                   <li class="page-item" >
+                       <a class ="page-link" id="Next" th:href="@{/mypage/order(currentPageNo=${pageMaker.lastPage}+1)}"  tabindex="-1">Next</a>
+                   </li>
+               </th:block>
+
+           </ul>
+       </div>-->
+    </div>
+  </div>
+</div>
+</div>
+</body>
+
+
+
+</html>

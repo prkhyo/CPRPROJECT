@@ -96,7 +96,7 @@
             #{item.productId},
             #{item.receiver},
             #{item.price},
-            #{ittem.deliveryCharge},
+            #{item.deliveryCharge},
             #{item.usedPoint},
             #{item.orderRequest},
             #{item.address}

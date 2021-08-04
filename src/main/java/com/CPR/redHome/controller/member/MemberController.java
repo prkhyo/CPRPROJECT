@@ -145,10 +145,14 @@ public class MemberController {
     }
 
     @PostMapping("/update")
-    public String sendUpdateMemberInfo(@ModelAttribute MemberDto memberDto) {
+    public String sendUpdateMemberInfo(@ModelAttribute MemberDto memberDto,HttpServletRequest request) {
 
         memberService.updateMember(memberDto);
 
+
+        HttpSession session = request.getSession(false);
+        //세션에 로그인 회원 정보 보관
+        session.setAttribute(SessionUser.LOGIN_MEMBER, memberDto);
 
         return "redirect:/update";
     }
