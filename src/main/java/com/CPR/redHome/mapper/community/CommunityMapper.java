@@ -16,7 +16,7 @@ import java.util.List;
 public interface CommunityMapper {
 
     //총 커뮤니티 글 수 가져오기
-   int selectCommunityTotalCnt(@Param("") String reply, @Param("") Criteria criteria);
+   int selectCommunityTotalCnt(@Param("reply") String reply, @Param("criteria") Criteria criteria);
 
    //전체 커뮤니티 글 가져오기
    List<CommunityViewDto> selectAllCommunities(@Param("reply") String reply, @Param("orderType") String orderType,  @Param("firstRecordIndex") int firstRecordIndex,
