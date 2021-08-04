@@ -28,7 +28,7 @@
 
         <include refid="selectAll"/>
         where o.member_id = #{memberId}
-        order by orderDate asc
+        order by orderDate desc
         limit #{firstRecordIndex}, #{criteria.recordsPerPage}
 
     </select>

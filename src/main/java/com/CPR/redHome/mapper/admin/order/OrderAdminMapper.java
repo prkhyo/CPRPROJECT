@@ -3,8 +3,7 @@ package com.CPR.redHome.mapper.admin.order;
 import com.CPR.redHome.dto.cart.OrderDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
-import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,10 +11,10 @@ import java.util.List;
 @Mapper
 public interface OrderAdminMapper {
 
-    int selectTotalCnt(@RequestParam Criteria criteria);
+    int selectTotalCnt(@Param("criteria") Criteria criteria);
 
     // 주문 조회
-    List<OrderDto> selectOrders(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
+    List<OrderDto> selectOrders(@Param("firstRecordIndex") int firstRecordIndex, @Param("criteria") Criteria criteria);
 
     // orderId로 특정 주문 조회
     OrderDto selectOrderById(int orderId);

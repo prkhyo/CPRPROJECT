@@ -25,32 +25,33 @@
 
 </head>
 <body>
+  <th:block th:include="/fragments/top.html"></th:block>
 <div class="edit-user-info">
     <div class="myhome-nav myhome-nav--owner">
         <nav class="page-navigation myhome-nav__owner">
             <ul style="transform: translateX(0px);">
                 <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-                <li class="page-navigation__item"><a class="active" href="/user_shopping_pages/order_list"
+                <li class="page-navigation__item"><a class="active" href="/mypage/orders"
                                                      target="_self">나의
                     쇼핑</a></li>
-                <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+                <li class="page-navigation__item"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a>
                 </li>
-                <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
+                <li class="page-navigation__item"><a class="" href="/member/" target="_self">설정</a>
                 </li>
             </ul>
         </nav>
         <nav class="page-navigation myhome-nav__contents">
             <ul style="transform: translateX(0px);">
-                <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">주문내역 확인</a>
+                <li class="page-navigation__item"><a class="active" th:href="@{/mypage/orders}" target="_self">주문내역 확인</a>
                 </li>
-                <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+                <li class="page-navigation__item"><a class="" th:href="@{/update}" target="_self">내가 쓴 글</a>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="container review-my-home">
         <div class="review-my-home__search">
-            <div class="review-my-home__search__title">리뷰작성</div>
+            <div class="review-my-home__search__title" th:href="@{/mypage/review/list}">리뷰작성</div>
         </div>
         <div class="virtualized-list review-my-home__review-list"
              style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">

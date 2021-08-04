@@ -330,7 +330,7 @@
 
 </head>
 <body>
-
+<th:block th:include="/fragments/top.html"></th:block>
 <!--마이페이지 배너-->
 <div class="myhome-nav myhome-nav--owner">
     <nav class="page-navigation myhome-nav__owner">
@@ -339,7 +339,7 @@
             <li class="page-navigation__item"><a class="active" href="/user_shopping_pages/order_list"
                                                  target="_self">나의
                 쇼핑</a></li>
-            <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+            <li class="page-navigation__item"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a>
             </li>
             <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
             </li>
@@ -347,7 +347,7 @@
     </nav>
     <nav class="page-navigation myhome-nav__contents">
         <ul style="transform: translateX(0px);">
-            <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">주문내역 확인</a>
+            <li class="page-navigation__item"><a class="active" href="/mypage/orders" target="_self">주문내역 확인</a>
             </li>
             <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
             </li>
@@ -400,11 +400,10 @@
 
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section>
+
 
 
 
@@ -430,7 +429,6 @@
                         <a class ="page-link" id="Next" th:href="@{/mypage/orders(currentPageNo=${pageMaker.lastPage}+1)}"  tabindex="-1">Next</a>
                     </li>
                 </th:block>
-
             </ul>
         </div>
 
