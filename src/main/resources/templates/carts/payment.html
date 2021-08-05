@@ -9,11 +9,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script src="/js/cart/addressapi.js"></script>
-
-
-
-
-
+<script src="/js/member/phoneNumberCheck.js"></script>
 <body>
 
 <!-- 페이지 상단 -->
@@ -43,8 +39,9 @@
                             <div class="_3Bt8k">
                                 <input class="_3ASDR phone"
                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                       onkeyup="inputPhoneNumber(this)"
                                        type="tel" placeholder="입력해주세요" size="1"
-                                       maxlength="11" value="">
+                                       maxlength="13" value="">
                             </div>
                         </div>
                         <div class="BenKu">
@@ -155,7 +152,7 @@
                             <input class="_3ASDR _1qwAY _2g2V7 _2LuZZ usedPoint" name="mileageCost" type="tel"
                                    pattern="\d*"
                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                   placeholder="0">
+                                   placeholder="0"  value="0">
                             <button class="_1eWD8 _2wuTD _3VwZT _1V1t- _2LuZZ" type="button" onclick="pointUse()">적용
                             </button>
                         </div>
@@ -218,31 +215,36 @@
                             </div>
                         </div>
 
-                        <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">
-                            결제하기
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-</div>
+                        <!-- 결제 api 넘어가지 않고 넘어가기 -->
+                        <button class="_1eWD8 _3SroY _27do9 _3Bxwj" onclick="dataSend()" type="button">결제하기</button>
 
 
-<!-- 페이지 하단 -->
+                        <!-- <button class="_1eWD8 _3SroY _27do9 _3Bxwj" name="payButton" onclick="payment()" type="button">
+                             결제하기
+                         </button>-->
+                     </div>
+                 </div>
+             </div>
+         </section>
+     </main>
+ </div>
+
+
+ <!-- 페이지 하단 -->
 <th:block th:include="/fragments/bottom.html"></th:block>
 
 
+
+
+
 </body>
-
-
 
 <script src="/js/cart/pgAPI.js"></script>
 <script src="/js/cart/paymentTotalPrice.js"></script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 
 
 </html>

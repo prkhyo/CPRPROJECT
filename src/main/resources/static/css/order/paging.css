@@ -1,0 +1,120 @@
+/* 페이징 */
+
+.paging{
+    margin-top: 50px;
+    margin-bottom: 70px;
+    text-align:center
+
+}
+
+.page-item{
+    display:inline-block
+
+}
+
+
+
+.page-item>.page-link{
+    font-size: 15px;
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #424242;
+
+}
+
+#pageNum{
+    font-size: 15px;
+    text-align: center;
+    margin-left: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+
+
+
+}
+
+.page-item>#pageNum:hover{
+    color: #ed4a4a;
+    text-decoration: underline;
+}
+
+
+.page-item.active>#pageNum{
+    color: white;
+    font-weight: bold;
+}
+
+
+.page-item.active>#pageNum:hover{
+    text-decoration: none;
+}
+
+
+
+#Previous,#Next{
+    color: #757575;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 4px 8px 4px 8px;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+
+
+
+
+
+
+
+
+.page-item.active:hover{
+    border: 1px solid #ed4a4a;
+    border-radius: 4px;
+    background-color: #ed4a4a;
+    padding: 1px 0px 5px 0px;
+    width: 27px;
+    height: 19px;
+    color: white;
+
+
+}
+
+
+
+
+
+#questionCategory_filters{
+
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    height: 40px;
+    width: 103px;
+    background-color: #ffffff;
+    color: #424242;
+    padding: 0px 3px 0px 3px;
+    border-radius: 4px;
+    border: solid 1px #bdbdbd;
+    background-color: #ffffff;
+    font-weight: bold;
+
+
+
+}
+
+
+.page-item.active{
+
+    border: 1px solid #f76565;
+    border-radius: 4px;
+    background-color: #f76565;
+    padding: 5px 0px 5px 0px;
+    width: 27px;
+    height: 19px;
+    color: white;
+
+}
+

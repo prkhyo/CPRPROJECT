@@ -6,6 +6,7 @@ import com.CPR.redHome.dto.community.CommunityDto;
 import com.CPR.redHome.dto.community.CommunityViewDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
@@ -15,11 +16,11 @@ import java.util.List;
 public interface CommunityMapper {
 
     //총 커뮤니티 글 수 가져오기
-   int selectCommunityTotalCnt(@RequestParam String reply, @RequestParam Criteria criteria);
+   int selectCommunityTotalCnt(@Param("reply") String reply, @Param("criteria") Criteria criteria);
 
    //전체 커뮤니티 글 가져오기
-   List<CommunityViewDto> selectAllCommunities(@RequestParam String reply, @RequestParam String orderType,  @RequestParam int firstRecordIndex,
-                                          @RequestParam Criteria criteria);
+   List<CommunityViewDto> selectAllCommunities(@Param("reply") String reply, @Param("orderType") String orderType,  @Param("firstRecordIndex") int firstRecordIndex,
+                                          @Param("criteria") Criteria criteria);
 
    //특정 커뮤니티 글에 대한 총 코멘트 수 가져오기
     int selectCommentsCnt(Long communityId);
@@ -28,7 +29,7 @@ public interface CommunityMapper {
     CommunityViewDto selectCommunity(Long communityId);
 
     //특정 커뮤니티 글에 대한 전체 코멘트 가져오기
-    List<CommentViewDto> selectAllComments(@RequestParam Long communityId, @RequestParam int recordsPerPage, @RequestParam int firstRecordIndex);
+    List<CommentViewDto> selectAllComments(@Param("communityId") Long communityId, @Param("recordsPerPage") int recordsPerPage, @Param("firstRecordIndex") int firstRecordIndex);
 
     //커뮤니티 글 조회수 증가
     void updateCommunityHitCnt(Long communityId);

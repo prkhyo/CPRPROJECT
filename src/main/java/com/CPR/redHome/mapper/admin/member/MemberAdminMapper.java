@@ -3,18 +3,17 @@ package com.CPR.redHome.mapper.admin.member;
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface MemberAdminMapper {
     // 오늘
-    int selectTotalCnt(@RequestParam Criteria criteria);
+    int selectTotalCnt(@Param("criteria") Criteria criteria);
 
-    List<MemberDto> selectMembers(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
+    List<MemberDto> selectMembers(@Param("firstRecordIndex") int firstRecordIndex, @Param("criteria") Criteria criteria);
 
     // memberId로 회원 조회
     MemberDto selectMemberById(Long memberId);

@@ -3,7 +3,7 @@ package com.CPR.redHome.mapper.admin.product;
 import com.CPR.redHome.dto.product.ProductDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 @Mapper
 public interface ProductAdminMapper {
     // paging 위한 totalcnt
-    int selectTotalCnt(@RequestParam Criteria criteria);
+    int selectTotalCnt(@Param("criteria") Criteria criteria);
 
     // 상품 조회
-    List<ProductDto> selectProducts(@RequestParam int firstRecordIndex, @RequestParam Criteria criteria);
+    List<ProductDto> selectProducts(@Param("firstRecordIndex") int firstRecordIndex, @Param("criteria") Criteria criteria);
 
     // productId로 상품 조회
     ProductDto selectProductByProductId(Long productId);

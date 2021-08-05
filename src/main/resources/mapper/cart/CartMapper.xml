@@ -86,7 +86,7 @@
         insert into orders (
         order_number, member_id, product_id, order_receiver,
         order_unit_price, order_delivery_charge, order_point_used,
-        order_request, order_address ) values
+        order_request, order_address,order_product_quantity ) values
 
 
         <foreach collection="list" item="item" separator=",">
@@ -96,10 +96,11 @@
             #{item.productId},
             #{item.receiver},
             #{item.price},
-            #{ittem.deliveryCharge},
+            #{item.deliveryCharge},
             #{item.usedPoint},
             #{item.orderRequest},
-            #{item.address}
+            #{item.address},
+            #{item.quantity}
             )
         </foreach>
 

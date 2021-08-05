@@ -1,5 +1,3 @@
-
-
 function payment() {
     let receiver = document.querySelectorAll('.receiver')[0].value;
     let phone = document.querySelectorAll('.phone')[0].value;
@@ -109,7 +107,7 @@ function dataSend() {
         data.deliveryCharge = deliveryCharge[i].outerText;
         // data.totalPoint = totalPoint[0].outerText;
         data.price = parseInt(unitPrice[i].outerText);
-        data.qty = parseInt(qty[i].outerText);
+        data.quantity = parseInt(qty[i].outerText);
         data.usedPoint = parseFloat(usedPoint / unitPrice.length);
         data.totalPoint = parseInt(usedPoint);
         data.addPoint =  parseInt(addPoints[0].outerText);
@@ -120,6 +118,8 @@ function dataSend() {
     const jsonData = JSON.stringify(forJson);
 
     ajax(jsonData)
+
+    location.href = "/mypage/orders";
 
 }
 

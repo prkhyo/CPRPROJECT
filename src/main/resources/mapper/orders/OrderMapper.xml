@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.order.OrderMapper">
+
+    <sql id="selectAll">
+        select o.order_id               as orderId,
+               o.order_number           as orderNumber,
+               o.product_id             as productId,
+               o.order_receiver         as receiver,
+               o.order_date             as orderDate,
+               o.order_unit_price       as orderUnitPrice,
+               o.order_delivery_charge  as orderDeliveryCharge,
+               o.order_point_used       as orderPointUsed,
+               o.order_request          as orderRequest,
+               o.order_address          as orderAddress,
+               o.order_state            as orderState,
+               o.review_exist           as reviewExist,
+               o.order_product_quantity as orderProductQuantity,
+               p.product_main_image     as productMainImage,
+               p.product_title          as productTitle
+        from orders o
+                 join product p
+                      on o.product_id = p.product_id
+    </sql>
+
+
+    <select id="selectAllOrdersByMemberId" resultType="OrderedDto">
+
+        <include refid="selectAll"/>
+        where o.member_id = #{memberId}
+        order by orderDate desc
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+
+    </select>
+
+    <select id="countOrders" resultType="Integer">
+        select count(order_id)
+        from orders
+        where member_id = #{memberId}
+    </select>
+    <select id="selectReviewWriteList" resultType="OrderedDto">
+        select o.order_id               as orderId,
+               o.order_number           as orderNumber,
+               o.product_id             as productId,
+               o.order_receiver         as receiver,
+               o.order_date             as orderDate,
+               o.order_unit_price       as orderUnitPrice,
+               o.order_delivery_charge  as orderDeliveryCharge,
+               o.order_point_used       as orderPointUsed,
+               o.order_request          as orderRequest,
+               o.order_address          as orderAddress,
+               o.order_state            as orderState,
+               o.review_exist           as reviewExist,
+               o.order_product_quantity as orderProductQuantity,
+               p.product_main_image     as productMainImage,
+               p.product_title          as productTitle
+        from orders o
+                 join product p
+                      on o.product_id = p.product_id
+        where o.member_id = #{memberId}
+          and o.order_state = '배송 완료'
+          and o.review_exist = false;
+    </select>
+    <select id="selectOrderByOrderId" resultType="OrderedDto">
+        <include refid="selectAll"/>
+        where o.order_id = #{orderId}
+    </select>
+    <update id="reviewExist" parameterType="Long">
+        update orders
+        set review_exist = true
+        where order_id = #{orderId}
+    </update>
+
+
+</mapper>

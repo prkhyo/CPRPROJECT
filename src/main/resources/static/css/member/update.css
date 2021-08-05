@@ -91,7 +91,7 @@
 }
 
 .page-navigation__item > a.active, .page-navigation__item > a:not(.active):hover {
-    color: #ed4a4a;
+    color: #f76565;
 }
 
 .myhome-nav__owner .page-navigation__item > a.active:after, .myhome-nav__owner .page-navigation__item > a.active:before {
@@ -372,7 +372,7 @@
 .form-control:focus{
 
     outline: none !important;
-    border:1px solid #af1c29;
+    border:1px solid orangered;
 
 
 }

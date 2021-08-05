@@ -4,6 +4,7 @@ import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.mapper.product.ProductMapper;
+import com.CPR.redHome.mapper.review.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper productMapper;
+    private final ReviewMapper reviewMapper;
 
     @Override
     public ProductViewDto selectProduct(Long productId) {
@@ -40,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductViewDto> productList = productMapper.selectProductList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo);
 
-        return productList;
+            return productList;
     }
 
     @Override

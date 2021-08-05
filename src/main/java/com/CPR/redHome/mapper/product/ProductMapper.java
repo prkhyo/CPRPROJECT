@@ -4,6 +4,7 @@ import com.CPR.redHome.dto.cart.CartDto;
 import com.CPR.redHome.dto.product.ProductImageDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public interface ProductMapper {
     List<ProductImageDto> selectProductImgList(Long productId);
 
     //제품리스트 가져오기
-    List<ProductViewDto> selectProductList(@RequestParam String storeOrder, @RequestParam String deliveryChargeOPtion,
-                                           @RequestParam String searchProductKeyword, @RequestParam Integer productThemeNo);
+    List<ProductViewDto> selectProductList(@Param("storeOrder") String storeOrder, @Param("deliveryChargeOPtion") String deliveryChargeOPtion,
+                                           @Param("searchProductKeyword") String searchProductKeyword, @Param("productThemeNo") Integer productThemeNo);
 
     //판매자 제품리스트 가져오기
     List<ProductViewDto> selectSellerList(@RequestParam String storeOrder, @RequestParam String deliveryChargeOPtion,

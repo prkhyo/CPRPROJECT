@@ -17,7 +17,15 @@
            product_theme_name      as productThemeName,
            product_description     as productDescription,
            product_main_image      as productMainImage,
-           address                 as address
+           address                 as address,
+           (select count(sr.review_id)
+            from review sr
+                     inner join product sp on sp.product_id = sr.product_id
+            where sp.product_id = p.product_id)   as totalReviewCnt,
+           (select round(avg(sr.review_grade),1)
+            from review sr
+                     inner join product sp on sp.product_id = sr.product_id
+            where sp.product_id = p.product_id)    as reviewGradeAvg
     from product p
              inner join product_theme pt on p.product_theme_id = pt.product_theme_id
              inner join product_category pc on p.product_category_id = pc.product_category_id
@@ -53,11 +61,19 @@
            p.product_theme_id      as productThemeId,
            product_theme_name      as productThemeName,
            product_description     as productDescription,
-           product_main_image      as productMainImage
-    from product p
-             inner join product_theme pt on p.product_theme_id = pt.product_theme_id
-             inner join product_category pc on p.product_category_id = pc.product_category_id
-             inner join member m on p.member_id = m.member_id
+           product_main_image      as productMainImage,
+           (select count(sr.review_id)
+            from review sr
+                  inner join product sp on sp.product_id = sr.product_id
+            where sp.product_id = p.product_id)   as totalReviewCnt,
+           (select round(avg(sr.review_grade),1)
+            from review sr
+                  inner join product sp on sp.product_id = sr.product_id
+            where sp.product_id = p.product_id)    as reviewGradeAvg
+          from product p
+          inner join product_theme pt on p.product_theme_id = pt.product_theme_id
+          inner join product_category pc on p.product_category_id = pc.product_category_id
+          inner join member m on p.member_id = m.member_id
 
     <where>
 
@@ -84,7 +100,7 @@
         order by productId desc
     </if>
     <if test="storeOrder == 'best'">
-        order by productQuantity asc
+        order by totalReviewCnt desc
     </if>
     <if test="storeOrder == 'high'">
         order by productPrice desc

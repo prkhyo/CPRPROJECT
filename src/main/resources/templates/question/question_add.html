@@ -25,7 +25,7 @@
             </div>
             <div class="product-question__wrap__sub-title product-question__wrap__sub-title" id="question_sub_title">문의내용</div>
             <textarea placeholder="문의 내용을 입력하세요" maxlength="1000" class="form-control text-area-input error product-question__wrap__question" name="questionContents" id="questionContents"
-                      style="height: 39px; font-family: inherit" onblur="questionContents_InsertCheck()" onfocus="originalState()"></textarea>
+                      style="height: 39px; font-family: inherit" onblur="questionContentsInsertCheck()" onfocus="originalState()"></textarea>
             <div class="form-check checkbox-input product-question__checkbox">
                 <label class="form-check-label">
                     <input class="form-check" type="checkbox" name="secretQuestion" value="true">
@@ -52,28 +52,28 @@
    function questionInsertSubmit(form){
 
 
-       let questionCategory_ = document.getElementsByClassName("product-question__wrap__type-select__box--select").item(0).id;
+       let questionCategory = document.getElementsByClassName("product-question__wrap__type-select__box--select").item(0).id;
 
-       let questionContents_value = document.questionInsertForm.questionContents.value.trim();
-       if(questionContents_value == null || questionContents_value == ''){
+       let questionContentsValue = document.questionInsertForm.questionContents.value.trim();
+       if(questionContentsValue == null || questionContentsValue == ''){
            alert('내용을 입력해주세요.');
            return false;
        }
 
-       document.questionInsertForm.action = "/question/questionInsert?questionCategory="+questionCategory_;
+       document.questionInsertForm.action = "/question/questionInsert?questionCategory="+questionCategory;
        form.submit();
 
    }
 
 
 
-   function questionContents_InsertCheck(){
+   function questionContentsInsertCheck(){
 
        let questionSubtitle = document.getElementById("question_sub_title");
-       let questionContents_value = document.questionInsertForm.questionContents.value.trim();
+       let questionContentsValue = document.questionInsertForm.questionContents.value.trim();
        let questionContents = document.getElementById("questionContents");
 
-       if(questionContents_value == null || questionContents_value == ''){
+       if(questionContentsValue == null || questionContentsValue == ''){
            questionContents.style.border ='solid 1px #ed4a4a';
            questionSubtitle.style.color = '#ed4a4a';
 

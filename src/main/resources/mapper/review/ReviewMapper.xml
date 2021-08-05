@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.CPR.redHome.mapper.review.ReviewMapper">
+
+
+    <select id="selectReviewCnt" resultType="java.lang.Integer" parameterType="java.lang.Long">
+
+        select count(*)
+        from review
+        where product_id = ${productId}
+
+
+    </select>
+
+
+
+    <select id="selectReviewList" resultType="ReviewViewDto">
+
+        select review_id            as reviewId,
+               review_grade         as reviewGrade,
+               review_img           as reviewImg,
+               review_contents      as reviewContents,
+               review_created_date  as reviewCreatedDate,
+               product_id           as productId,
+               m.account_id         as accountId,
+               help                 as help
+
+        from review as r
+                 inner join member as m on r.member_id = m.member_id
+        where r.product_id = ${productId}
+
+
+        <if test="reviewSort != 'reviewGrade'">
+            order by reviewId desc
+        </if>
+        <if test="reviewSort == 'reviewGrade'">
+            order by reviewGrade desc
+        </if>
+
+            limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+
+
+    </select>
+
+    <select id="selectHelpList" parameterType="java.lang.Long" resultType="ReviewHelpDto">
+        select help_id        as helpId,
+               rh.review_id   as reviewId,
+               rh.member_id   as memberId,
+               help_state  as helpState
+        from review_help as rh
+           inner join review as r on rh.review_id =r.review_id
+        where  rh.review_id = ${reviewId}
+
+    </select>
+
+
+    <delete id="deleteReviewHelp">
+
+        delete from review_help
+        where review_id = ${reviewId} and member_id = ${memberId}
+
+
+    </delete>
+
+    <insert id="insertReviewHelp">
+
+        insert into review_help(review_id, member_id)
+        values( ${reviewId}, ${memberId} )
+
+    </insert>
+
+
+
+    <select id="selectParticularGradeCnt" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+
+        select count(*)
+        from review
+        where review_grade = ${reviewGrade} and
+              product_id = ${productId}
+
+
+    </select>
+
+    <update id="updateHelpCntIncrease"  parameterType="java.lang.Long">
+
+        update review set help = help + 1 where review_id = ${reviewId}
+
+    </update>
+
+    <update id="updateHelpCntDecrease"  parameterType="java.lang.Long">
+
+        update review set help = help - 1 where review_id = ${reviewId}
+
+    </update>
+
+
+
+
+    <insert id="insertReview" parameterType="ReviewDto">
+        insert into review(review_grade,
+                           review_img,
+                           review_contents,
+                           review_created_date,
+                           product_id,
+                           member_id)
+        values (#{reviewGrade},
+                #{reviewImg},
+                #{reviewContents},
+                #{reviewCreatedDate},
+                #{productId},
+                #{memberId})
+    </insert>
+    <select id="selectReviewByReviewId" resultType="ReviewDto">
+        select review_id           as reviewId,
+               review_grade        as reviewGrade,
+               review_img          as reviewImg,
+               review_contents     as reviewContents,
+               review_created_date as reviewCreatedDate,
+               product_id          as productId,
+               member_id           as memberId
+        from review
+        where review_id = #{reviewId}
+    </select>
+    <select id="selectReviewByMemberId" resultType="ReviewDto">
+        select review_id           as reviewId,
+               review_grade        as reviewGrade,
+               review_img          as reviewImg,
+               review_contents     as reviewContents,
+               review_created_date as reviewCreatedDate,
+               product_id          as productId,
+               member_id           as memberId
+        from review
+        where member_id = #{memberId}
+    </select>
+    <delete id="deleteReview" parameterType="Long">
+        delete
+        from review
+        where review_id = #{reviewId}
+    </delete>
+    <update id="updateReview" parameterType="ReviewDto">
+        update review
+        set review_grade    = #{reviewGrade},
+            review_img      = #{reviewImg},
+            review_contents = #{reviewContents}
+        where review_id = #{reviewId}
+
+    </update>
+    <select id="countAllReviewByMemberId" resultType="Integer">
+        select count(review_id) from review
+        where member_id = #{memberId}
+    </select>
+    <select id="countAllReviewByProductId" resultType="Integer">
+        select count(review_id) from review
+        where member_id = #{productId}
+    </select>
+</mapper>

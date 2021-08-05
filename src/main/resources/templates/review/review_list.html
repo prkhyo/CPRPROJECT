@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<th:block th:include="/fragments/top.html"></th:block>
+
+<!--리뷰-->
+<section class="production-selling-section" th:fragment="reviewList">
+    <header class="production-selling-section__header">
+        <h1 class="production-selling-section__title">리뷰 <span class="count" th:text="${productDto.totalReviewCnt}"></span></h1>
+        <div class="production-selling-section__right"><button type="button">리뷰쓰기</button></div>
+    </header>
+
+    <div class="production-question-feed" th:if="${productDto.totalReviewCnt == 0}" style="margin-top: 50px;">
+        <div class="production-question-feed__list__empty">첫 리뷰를 남겨주세요! </div>
+    </div>
+
+
+    <div class="production-review-feed" th:unless="${productDto.totalReviewCnt == 0}">
+        <div class="production-review-feed__header-v2">
+            <div class="production-review-feed__header-v2__stars">
+                <div class="production-review-feed__header-v2__stars__badge">
+                    <span class="badge__mobile">${r_grade}</span>
+                    <span class="icon" >
+						<svg fill="#f76565" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use></svg>
+					</span>
+                    <span class="badge__pc" th:text="${productDto.reviewGradeAvg}"></span>
+                </div>
+                <div class="production-review-feed__header-v2__stars__avg">
+                    <div class="production-review-feed__header-v2__stars__avg-warp">
+                        <div class="production-review-feed__header-v2__stars__avg__container">
+                            <div class="production-review-feed__header-v2__stars__avg__label">5점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__bar">
+                                <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
+                                <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent5+'%'}"></div>
+                            </div>
+                            <div class="production-review-feed__header-v2__stars__avg__number" th:text="${reviewGradeCntList.grade5}" ></div>
+                        </div>
+                        <div class="production-review-feed__header-v2__stars__avg__container">
+                            <div class="production-review-feed__header-v2__stars__avg__label" >4점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__bar">
+                                <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
+                                <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent4+'%'}"></div>
+                            </div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade4}" ></div>
+                        </div>
+                        <div class="production-review-feed__header-v2__stars__avg__container">
+                            <div class="production-review-feed__header-v2__stars__avg__label" >3점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__bar">
+                                <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
+                                <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent3+'%'}"></div>
+                            </div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade3}" ></div>
+                        </div>
+                        <div class="production-review-feed__header-v2__stars__avg__container">
+                            <div class="production-review-feed__header-v2__stars__avg__label" >2점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__bar">
+                                <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
+                                <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent2+'%'}"></div>
+                            </div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade2}" ></div>
+                        </div>
+                        <div class="production-review-feed__header-v2__stars__avg__container">
+                            <div class="production-review-feed__header-v2__stars__avg__label" >1점</div>
+                            <div class="production-review-feed__header-v2__stars__avg__bar">
+                                <div class="production-review-feed__header-v2__stars__avg__bar__bg"></div>
+                                <div class="production-review-feed__header-v2__stars__avg__bar__color" th:style="${'width:'+reviewGradePerList.gradePercent1+'%'}"></div>
+                            </div>
+                            <div class="production-review-feed__header-v2__stars__avg__number"  th:text="${reviewGradeCntList.grade1}" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter">
+            <div class="production-review-feed__filter-wrap">
+                <div class="production-review-feed__filter">
+                    <div class="production-review-feed__filter__order-list">
+                        <button class="production-review-feed__filter__order"  th:aria-pressed="${reviewSort != 'reviewGrade'?true : false}" type="button" onclick="reviewSort('reviewNew')" th:style="${reviewSort != 'reviewGrade'? 'color:#f76565;' :''}">최신순</button>
+                        <button class="production-review-feed__filter__order"  th:aria-pressed="${reviewSort == 'reviewGrade'?true : false}" type="button" onclick="reviewSort('reviewGrade')" th:style="${reviewSort == 'reviewGrade'? 'color:#f76565;' :'' }">별점순</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="production-review-feed__list" >
+            <th:block th:each= "review : ${reviewList}" >
+                <div class="production-review-item__container">
+                    <article class="production-review-item">
+                        <div class="production-review-item__writer">
+                            <a href="/users/1063334"><img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144 3x" class="production-review-item__writer__img" alt=""></a>
+                            <div class="production-review-item__writer__info">
+                                <p class="production-review-item__writer__info__name" th:text="${review.accountId}"></p>
+                                <button class="production-review-item__writer__info__total-star-wrap" type="button">
+															<span class="production-review-item__writer__info__total-star" aria-label="별점 5.0점">
+																<svg fill="#f76565" width="14px" height="14px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-5"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-5" fill="#DBDBDB"></use><use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use></svg>
+															</span>
+                                    <svg class="production-review-item__writer__info__total-star__down-icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M1.8 2.5l-.97.94L5 7.5l4.17-4.06-.97-.94L5 5.63z"></path></svg>
+                                </button>
+                                <span class="reivew_g" th:text="${review.reviewGrade}"></span><span class="production-review-item__writer__info__date" th:text="${#temporals.format(review.reviewCreatedDate,'yyyy.MM.dd')}"></span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="production-review-item__img__btn">
+                            <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 3x">
+                        </button>
+                        <p class="production-review-item__description" th:text="${review.reviewContents}"></p>
+                        <div class="production-review-item__help">
+                            <button type="button" class="production-review-item__help__btn" th:id="${review.reviewId}" th:onclick="'help('+${review.reviewId}+')'" th:text="${review.helpState == 'helpful'?'∨ 도움됨':'도움이 돼요'}"></button>
+                            <input type="hidden" class="allReview" th:name="${review.reviewId}" id="whetherTohelp" th:value="${review.helpState}"/>
+                            <input type="hidden"  th:name="${review.reviewId}" id="whetherToClick" th:value="false"/>
+                            <div class="production-review-item__help__text" th:if="${review.help != 0}">
+                                <span class="production-review-item__help__text__number" th:text="${review.help}" ></span>
+                                <span class="production-review-item__help__text">명에게 도움이 되었습니다.</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+
+            </th:block>
+        </div><!-- feed__list -->
+
+
+        <ul class="_2BEHX production-review__paginator">
+            <!--이전버튼-->
+            <th:block th:if="${reviewPageMaker.hasPreviousPage}">
+                <li>
+                    <button class="_2XI47 _1gwhd" type="button" th:onclick="'reviewPageMove('+${reviewPageMaker.firstPage - 1}+')'">
+                        <svg width="1em" height="1em" viewBox="0 0 24 24" style="transform: scaleX(-1);">
+                            <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </th:block>
+
+
+
+            <th:block th:each="page: ${#numbers.sequence(reviewPageMaker.firstPage,reviewPageMaker.lastPage)}">
+                <li>
+                    <button class="_3b4ci" type="button" id="pageNum" th:classappend="${reviewPageMaker.criteria.currentPageNo == page} ?'R16_p':''" th:text="${page == 0 ? '': page}"
+                            th:onclick="'reviewPageMove('+${page}+')'"></button>
+                </li>
+            </th:block>
+
+
+            <!-- 다음버튼-->
+            <th:block th:if="${reviewPageMaker.hasNextPage}">
+                <li>
+                    <button class="_2XI47 _3I7ex" type="button" th:onclick="'reviewPageMove('+${reviewPageMaker.lastPage + 1}+')'">
+                        <svg width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+    <input type="hidden" id="reviewSort" th:value="${reviewSort}  "/>
+    <input type="hidden" id="reviewCurrentPageNo" th:value="${reviewPageMaker.criteria.currentPageNo}  "/>
+</section>
+
+
+
+
+</body>
+</html>
+
