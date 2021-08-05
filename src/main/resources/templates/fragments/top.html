@@ -33,7 +33,7 @@
                         </a>
                         </th:block>
                         <th:block th:if="${session.loginMember} != null">
-                            <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'SELLER'" th:href="@{/seller/{memberId}(memberId=${session.loginMember.memberId})}">
+                            <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'SELLER'" th:href="@{/sellerStore/{memberId}(memberId=${session.loginMember.memberId})}">
                                 판매자 페이지
                             </a>
                         </th:block>

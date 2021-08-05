@@ -33,7 +33,7 @@
                         </a>
                         </th:block>
                         <th:block th:if="${session.loginMember} != null">
-                            <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'SELLER'" th:href="@{/seller/{memberId}(memberId=${session.loginMember.memberId})}">
+                            <a class="layout-navigation-primary__menu__item noDeco" th:if="${session.loginMember.getRole} == 'SELLER'" th:href="@{/sellerStore/{memberId}(memberId=${session.loginMember.memberId})}">
                                 판매자 페이지
                             </a>
                         </th:block>
@@ -105,11 +105,11 @@
             <div class="layout-navigation-secondary" style="position:relative">
                 <div class="layout-navigation-secondary__content">
                     <nav class="layout-navigation-secondary__menu">
-                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/seller/{memberId}(memberId=${session.loginMember.memberId})}">
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerStore/{memberId}(memberId=${session.loginMember.memberId})}">
                             내 판매상품
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=2">
-                            답을 기다리는 문의
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId})}">
+                            내 상품문의
                         </a>
                         <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=3">
                             주문 관리

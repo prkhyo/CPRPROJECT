@@ -108,7 +108,7 @@
             <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
                 <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
                     th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-                    <a class ="page-link" id="pageNum"  th:href="@{/admin/member(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
+                    <a class ="page-link" id="pageNum"  th:href="@{/admin/product(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
                 </li>
             </th:block>
 

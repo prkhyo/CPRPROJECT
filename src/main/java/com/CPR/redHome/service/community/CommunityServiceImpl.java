@@ -189,7 +189,7 @@ public class CommunityServiceImpl implements CommunityService {
         UUID uuid = UUID.randomUUID(); //UUID 구하기
         filename = uuid+"."+ext;
 
-        file.transferTo( new File( request.getSession().getServletContext().getRealPath("/")+"fileUpload\\community\\uploadCommunityImg\\" +filename) );  // 저장할 경로를 설정
+        file.transferTo( new File( request.getSession().getServletContext().getRealPath("/fileUpload/community/uploadCommunityImg") + File.separator +filename) );  // 저장할 경로를 설정
 
 
         return filename;

@@ -121,7 +121,7 @@ public class ProductController {
     }
 
     // 판매자 페이지 이동.
-    @GetMapping("/seller/{memberId}")
+    @GetMapping("/sellerStore/{memberId}")
     public String sellerStorePage(@PathVariable Long memberId, Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
                                @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
@@ -133,7 +133,7 @@ public class ProductController {
         model.addAttribute("productThemeNo", productThemeNo);
         model.addAttribute("searchProductKeyword", searchProductKeyword);
 
-        return "seller/sellerStore";
+        return "seller/seller_store";
     }
 
 
