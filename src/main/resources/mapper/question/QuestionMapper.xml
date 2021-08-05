@@ -30,6 +30,15 @@
 
 
     </select>
+
+    <select id="selectQuestion" resultType="QuestionViewDto">
+
+        select  question_id as questionId,
+                question_contents as questionContents
+        from question
+        where question_id = #{questionId}
+
+    </select>
     
     <select id="selectQuestionCnt" resultType="java.lang.Integer" parameterType="java.lang.Long">
 
@@ -66,6 +75,23 @@
 
     </insert>
 
+    <update id="updateQuestionState" parameterType="Long">
+        update
+            question
+        set
+            question_state = '답변완료'
+        where
+            question_id = #{questionId}
+    </update>
+
+    <update id="questionStateAfterDelete" parameterType="Long">
+        update
+            question
+        set
+            question_state = '답변대기'
+        where
+            question_id = #{questionId}
+    </update>
 
     <delete id="deleteQuestion" parameterType="java.lang.Long">
 

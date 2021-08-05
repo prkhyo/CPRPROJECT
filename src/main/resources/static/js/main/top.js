@@ -2,13 +2,24 @@ function myOn(){
     document.getElementById("popup").style['display'] = 'block';
     document.getElementById("popup").style['display'] = 'block';
     document.getElementById("userImage").style['borderColor'] = '#ed4a4a';
-
-
 }
 
 function myOut(){
     document.getElementById("popup").style['display'] = 'none';
     document.getElementById("userImage").style['borderColor'] = 'white';
+}
+
+// 글쓰기 버튼 1번 클릭 하면 팝업 / 다시 클릭하면 팝업 꺼짐.
+var cnt = 0;
+function myOn2(){
+    if(cnt==0){
+        document.getElementById("popup2").style['display'] = 'block';
+        document.getElementById("popup2").style['display'] = 'block';
+        cnt=1;
+    } else if(cnt!=0) {
+        document.getElementById("popup2").style['display'] = 'none';
+        cnt=0;
+    }
 }
 
 

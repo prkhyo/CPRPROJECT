@@ -71,7 +71,6 @@
         <tr>
             <th>제품번호</th>
             <th>제품이름</th>
-            <th>제품사진</th>
             <th>제품가격</th>
             <th>재고량</th>
             <th>제품타입번호</th>
@@ -84,7 +83,6 @@
             <tr th:each="product : ${productDtos}">
                 <td th:text="${product.productId}"></td>
                 <td th:text="${product.productTitle}"></td>
-                <td th:text="${product.productMainImage}"></td>
                 <td th:text="${product.productPrice}"></td>
                 <td th:text="${product.productQuantity}"></td>
                 <td th:text="${product.productThemeId}"></td>
@@ -100,7 +98,7 @@
             <!--이전  버튼-->
             <th:block th:if="${pageMaker.hasPreviousPage}">
                 <li class="page-item">
-                    <a class ="page-link" id="Previous"  th:href="@{/admin/member(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
+                    <a class ="page-link" id="Previous"  th:href="@{/admin/product(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
                 </li>
             </th:block>
 
@@ -110,7 +108,7 @@
             <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
                 <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
                     th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-                    <a class ="page-link" id="pageNum"  th:href="@{/admin/member(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
+                    <a class ="page-link" id="pageNum"  th:href="@{/admin/product(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
                 </li>
             </th:block>
 
@@ -118,7 +116,7 @@
             <!--다음 버튼-->
             <th:block th:if="${pageMaker.hasNextPage}">
                 <li class="page-item" >
-                    <a class ="page-link" id="Next" th:href="@{/admin/member(currentPageNo=${pageMaker.lastPage} + 1, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
+                    <a class ="page-link" id="Next" th:href="@{/admin/product(currentPageNo=${pageMaker.lastPage} + 1, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
                 </li>
             </th:block>
 

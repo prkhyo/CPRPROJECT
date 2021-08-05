@@ -22,6 +22,18 @@ function writeQuestion(){
 
 }
 
+function writeAnswer(){
+    let productId = document.getElementById("productId").value;
+    let questionId = document.getElementById("questionId").value;
+    let sessionUser_ = document.getElementById("memberId").value;
+    if(sessionUser_ == null || sessionUser_ == ''){
+        alert('로그인 후 문의 글 작성이 가능합니다.');
+        location.href ='/login';
+    }else{
+        location.href = '/answer/add?productId='+productId+'&questionId='+questionId;
+    }
+}
+
 
 function questionDelete(questionId){
     let productId = document.getElementById("productId").value;
@@ -30,4 +42,12 @@ function questionDelete(questionId){
     location.href = '/question/questionDelete?questionId='+questionId+"&questionCurrentPageNo="+questionCurrentPageNo+"&productId="+productId;
 
 
+}
+
+function answerDelete(answerId){
+    let productId_ = document.getElementById("productId").value;
+    let questionCurrentPageNo_ = document.getElementById("questionCurrentPageNo").value;
+    let questionId_ = document.getElementById("questionId").value;
+
+    location.href = '/answer/answerDelete?answerId='+answerId+'&questionCurrentPageNo='+questionCurrentPageNo_+"&productId="+productId_+"&questionId="+questionId_;
 }

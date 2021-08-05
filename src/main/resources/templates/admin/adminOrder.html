@@ -105,7 +105,7 @@
             <!--이전  버튼-->
             <th:block th:if="${pageMaker.hasPreviousPage}">
                 <li class="page-item">
-                    <a class ="page-link" id="Previous"  th:href="@{/admin/member(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
+                    <a class ="page-link" id="Previous"  th:href="@{/admin/order(currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
                 </li>
             </th:block>
 
@@ -115,7 +115,7 @@
             <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
                 <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
                     th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-                    <a class ="page-link" id="pageNum"  th:href="@{/admin/member(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
+                    <a class ="page-link" id="pageNum"  th:href="@{/admin/order(currentPageNo=${page}, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
                 </li>
             </th:block>
 
@@ -123,7 +123,7 @@
             <!--다음 버튼-->
             <th:block th:if="${pageMaker.hasNextPage}">
                 <li class="page-item" >
-                    <a class ="page-link" id="Next" th:href="@{/admin/member(currentPageNo=${pageMaker.lastPage} + 1, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
+                    <a class ="page-link" id="Next" th:href="@{/admin/order(currentPageNo=${pageMaker.lastPage} + 1, searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
                 </li>
             </th:block>
 
