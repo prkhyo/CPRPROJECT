@@ -12,6 +12,8 @@
                o.order_delivery_charge  as orderDeliveryCharge,
                o.order_point_used       as orderPointUsed,
                o.order_request          as orderRequest,
+               o.order_receiver         as orderReceiver,
+               o.phone_number           as phoneNumber,
                o.order_address          as orderAddress,
                o.order_state            as orderState,
                o.review_exist           as reviewExist,
@@ -51,6 +53,7 @@
                o.order_address          as orderAddress,
                o.order_state            as orderState,
                o.review_exist           as reviewExist,
+               o.phone_number           as phoneNumber,
                o.order_product_quantity as orderProductQuantity,
                p.product_main_image     as productMainImage,
                p.product_title          as productTitle

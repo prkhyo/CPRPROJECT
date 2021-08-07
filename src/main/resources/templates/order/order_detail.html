@@ -4,12 +4,46 @@
 
     <title>오늘 시작하는 인테리어, 오늘의집</title>
 
+    <!--  <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+      <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
+      <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+      <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>-->
+    <meta name="description" content="No.1 인테리어 필수앱. 1000만 회원 집 구경하고, 궁금했던 제품 정보 확인부터 구매까지 한 번에!">
+
+
+    <head>
+
+        <title>만지만지만지만지님의 마이홈에 놀러오세요</title>
+        <meta name="description" content="No.1 인테리어 필수앱. 1000만 회원 집 구경하고, 궁금했던 제품 정보 확인부터 구매까지 한 번에!">
+
+        <!-- 폰트 -->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&amp;display=swap&amp;subset=korean"
+              rel="stylesheet">
+
+        <link rel="stylesheet" media="screen"
+              href="https://static.ohou.se/assets/v3/layout/application_react-790a108e6a9b26136290c8bea25696fec3e4701284512f9eed313b7dbb352615.css">
+
+        <!--버튼 css-->
+        <link rel="stylesheet" media="screen" href="https://static.ohou.se/dist/css/App-843a6369.chunk.css">
+
+
+        <link rel="stylesheet" media="screen"
+              href="https://static.ohou.se/dist/css/templates-Commerce-Cart-14d4037d.chunk.css">
+
+        <![endif]-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/7f85a56ba4.css">
+
+
+        <meta name="webview-title" content="주문상세정보" data-react-helmet="true">
+
+
+    <title>오늘 시작하는 인테리어, 오늘의집</title>
+
     <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
     <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
     <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
     <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
     <meta name="description" content="No.1 인테리어 필수앱. 1000만 회원 집 구경하고, 궁금했던 제품 정보 확인부터 구매까지 한 번에!">
-
 
 
     <!--글자가 안 깨지고 내려가게-->
@@ -18,9 +52,8 @@
 
 
     <!--화면에 맞게-->
-   <link rel="stylesheet" media="screen"
+    <link rel="stylesheet" media="screen"
           href="https://static.ohou.se/dist/css/templates-Order-OrderList-OrderList-09da7272.chunk.css">
-
 
 
     <style data-emotion="css 1mhf76m-HeaderLink" data-s="">.css-1mhf76m-HeaderLink {
@@ -201,7 +234,6 @@
     }</style>
 
 
-
     <style data-emotion="css d2162a-ProductActions" data-s="">.css-d2162a-ProductActions {
         display: -webkit-box;
         display: -webkit-flex;
@@ -323,6 +355,29 @@
             line-height: 20px;
         }
     }</style>
+<style>
+    .detail_form {
+        padding: 5% 2%;
+    }
+    .order_info{
+        padding-bottom: 10%;
+    }
+    .order_type{
+        font-weight: bold;
+        margin-bottom: 3%;
+    }
+    .wrap_cross{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2%;
+    }
+    .wrap_element{
+        width: 20%;
+    }
+    .wrap_element2{
+        width: 80%;
+    }
+</style>
 
 </head>
 <body>
@@ -354,14 +409,14 @@
 <div class="order-list container">
     <div class="order-list__content">
         <div class="review-my-home__search">
-            <div class="review-my-home__search__title">주문내역</div>
+            <div class="review-my-home__search__title">주문내역 상세정보</div>
         </div>
 
-        <!--구매내역 반복-->
-        <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
+        <!--구매내역-->
+        <section class="css-12lzt4u-List e1yy3fi630">
             <div class="css-1l0e9nh-Header e1yy3fi629">
-                <div class="css-1q29q5y-HeaderTitle e1yy3fi628" th:text="${order.orderNumber}+' | '+${order.orderDate}">57244440 | 2021.05.14</div>
-                <a class="css-1mhf76m-HeaderLink e1yy3fi627" href="/orders/57244440" th:href="@{/mypage/order/detail/{orderId}(orderId=${order.orderId})}">상세보기</a></div>
+                <div class="css-1q29q5y-HeaderTitle e1yy3fi628">주문번호 : 57244440 | 주문일자 : 2021.05.14</div>
+                </div>
             <div>
                 <div>
                     <div class="css-92bd9c-Item e1yy3fi626">
@@ -369,19 +424,14 @@
                             <picture>
                                 <img class="css-1gfeya1-ProductImage e1yy3fi624"
                                      th:src="@{${'/display?fileName='+order.productMainImage}}">
-                            <!--srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/
-                            productions/15650448025678_7pGSb.jpg?w=180&amp;h=180&amp;c=c
-                             1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/
-                             productions/15650448025678_7pGSb.jpg?w=256&amp;h=256&amp;c=c 2x,
-                             https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/
-                             15650448025678_7pGSb.jpg?w=360&amp;h=360&amp;c=c 3x">-->
                             </picture>
                             <div class="css-1typuwb-Explain e1yy3fi623">
                                 <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
-                                    <a  class="css-1nto2s9-ProductNameLink e1yy3fi620"
-                                        href="/productions/324144/selling" th:text="${order.productTitle}">[기간한정]
-                                    글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
-                                    <div class="css-1c7n34t-ProductDelivery e1yy3fi617" th:text="${order.orderState}" style="padding-top:10px" >구매확정 </div>
+                                    <a class="css-1nto2s9-ProductNameLink e1yy3fi620"
+                                       th:href="@{${'/product/detail?productId='+order.productId}}">[기간한정]
+                                        글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
+                                    <div class="css-1c7n34t-ProductDelivery e1yy3fi617" style="padding-top:10px" th:value="${order.orderState}">구매확정
+                                    </div>
                                 </div>
                                 <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
                                     <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
@@ -390,44 +440,74 @@
                                     <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'수량 : '+${order.orderProductQuantity}+'개'">349,000원 | 1개</div>
 
                                 </div>
-                            </div>
-                        </div>
-                        <div class="css-d2162a-ProductActions e1yy3fi615">
+                                <div class="css-wkgebe-Actions e9h75ud2">
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="ezu2kv83 detail_form">
+
+
+                        <div class="order_type">배송지 정보</div>
+
+                        <div class=" eukl7io4 order_info">
+                            <div class=" eukl7io3">
+                                <div class=" e1fwbpos2 wrap_cross">
+                                    <div class=" e1fwbpos1 wrap_element" >받는 사람</div>
+                                    <div class=" e1fwbpos0 wrap_element2" th:text="${order.orderReceiver}">주현지</div>
+                                </div>
+                                <div class=" e1fwbpos2 wrap_cross">
+                                    <div class=" e1fwbpos1 wrap_element">연락처</div>
+                                    <div class=" e1fwbpos0 wrap_element2" th:text="${order.phoneNumber}">010-4012-6595</div>
+                                </div>
+                                <div class=" e1fwbpos2 wrap_cross">
+                                    <div class=" e1fwbpos1 wrap_element">주소</div>
+                                    <div class=" e1fwbpos0 wrap_element2" th:text="${order.orderAddress}">(16237) 경기 수원시 팔달구 우만동 513-4 (우만동)
+                                        동진빌라401호
+                                    </div>
+                                </div>
+                                <div class=" e1fwbpos2 wrap_cross">
+                                    <div class=" e1fwbpos1 wrap_element">배송메모</div>
+                                    <div class=" e1fwbpos0 wrap_element2" th:text="${order.orderRequest}">5.28일날 이사가기 때문에 28일 이후로 받아야합니다.배송전에 꼭
+                                        연락부탁드려요!
+                                    </div>
+                                </div>
+                                <div class=" e1fwbpos2">
+                                    <div class=" e1fwbpos1  ">결제금액</div>
+                                    <div class=" e1fwbpos0  " th:text="'상품 금액 : '+${order.orderUnitPrice}*${order.orderProductQuantity}+' 원'">5.28일날 이사가기 때문에 28일 이후로 받아야합니다.배송전에 꼭
+                                    <div class=" e1fwbpos0 " th:text="'배송 금액 : '+${order.orderDeliveryCharge}+' 원'">5.28일날 이사가기 때문에 28일 이후로 받아야합니다.배송전에 꼭
+                                    <div class=" e1fwbpos0 " th:text="'사용 포인트 : '+${order.orderPointUsed}+' 원'">5.28일날 이사가기 때문에 28일 이후로 받아야합니다.배송전에 꼭
+                                    <div class=" e1fwbpos0 " th:text="'총  금액 : '+${order.orderDeliveryCharge}+' 원'">5.28일날 이사가기 때문에 28일 이후로 받아야합니다.배송전에 꼭
+                                        연락부탁드려요!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                <div class=" ekrx5n61">
+                                    <div class=" e1fwbpos2 wrap_cross">
+                                        <div class=" e1fwbpos1 wrap_element" >주문자</div>
+                                        <div class=" e1fwbpos0 wrap_element2" th:text="${session.loginMember.name}">주현지 (닉네임: 만지만지만지만지, 회원번호: 13720204)</div>
+                                    </div>
+                                    <div class="e1fwbpos2 wrap_cross">
+                                        <div class="e1fwbpos1 wrap_element ">연락처</div>
+                                        <div class="e1fwbpos0 wrap_element2" th:text="${session.loginMember.telephone}">010-4012-6595</div>
+                                    </div>
+                                    <div class="e1fwbpos2 wrap_cross">
+                                        <div class="e1fwbpos1 wrap_element">이메일</div>
+                                        <div class="e1fwbpos0 wrap_element2" th:text="${session.loginMember.email}">guswl6595@naver.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
         </section>
 
-
-        <!-------페이징 -------->
-        <div class="paging">
-            <ul class="pagination">
-                <!--이전  버튼-->
-                <th:block th:if="${pageMaker.hasPreviousPage}">
-                    <li class="page-item">
-                        <a class ="page-link" id="Previous"  th:href="@{/order/list(currentPageNo=${pageMaker.firstPage} - 1)}" tabindex="-1">Prev</a>
-                    </li>
-                </th:block>
-                <!--페이지 번호-->
-                <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
-                    <li class="page-item" th:classappend="${pageMaker.criteria.currentPageNo == page} ?'active':''"
-                        th:attr="id=${pageMaker.criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-                        <a class ="page-link" id="pageNum"  th:href="@{/mypage/orders(currentPageNo=${page})}" th:text="${page}"></a>
-                    </li>
-                </th:block>
-                <!--다음 버튼-->
-                <th:block th:if="${pageMaker.hasNextPage}">
-                    <li class="page-item" >
-                        <a class ="page-link" id="Next" th:href="@{/mypage/orders(currentPageNo=${pageMaker.lastPage}+1)}"  tabindex="-1">Next</a>
-                    </li>
-                </th:block>
-            </ul>
-        </div>
-
     </div>
-
 </div>
+
 </body>
 </html>
+
+

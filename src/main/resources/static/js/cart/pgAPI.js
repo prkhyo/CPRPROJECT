@@ -54,7 +54,7 @@ function dataSend() {
 
 ////////////////////////////  사용자 정보  //////////////////////////////////////
     let receiver = document.querySelectorAll('.receiver')[0].value;
-    let phone = document.querySelectorAll('.phone')[0].value;
+    let phoneNumber = document.querySelectorAll('.phone')[0].value;
     let add1 = document.querySelectorAll('.add1')[0].value;
     let add2 = document.querySelectorAll('.add2')[0].value;
     let add3 = document.querySelectorAll('.add4')[0].value;
@@ -102,7 +102,7 @@ function dataSend() {
         data.productId = parseInt(productId[i].value);
         data.cartId = parseInt(cartId[i].value);
         data.receiver = receiver;
-        data.phoneNumber = phone;
+        data.phoneNumber = phoneNumber;
         data.orderRequest = request;
         data.deliveryCharge = deliveryCharge[i].outerText;
         // data.totalPoint = totalPoint[0].outerText;

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -55,5 +56,17 @@ public class OrderController {
         model.addAttribute("orderReviewList",orderReviewList);
 
     return "review/ready_to_review_list";
+    }
+
+
+    //구매 내역 상세보기
+    @GetMapping("/mypage/order/detail/{orderId}")
+    public String orderDetail(@PathVariable Long orderId, Model model){
+        OrderedDto orderedDto = orderService.selectOrderByOrderId(orderId);
+
+        model.addAttribute("order", orderedDto);
+
+
+        return "order/order_detail";
     }
 }
