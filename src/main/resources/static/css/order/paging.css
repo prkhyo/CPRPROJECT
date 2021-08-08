@@ -65,17 +65,11 @@
 
 
 
-
-
-
-
-
-
 .page-item.active:hover{
     border: 1px solid #ed4a4a;
     border-radius: 4px;
     background-color: #ed4a4a;
-    padding: 1px 0px 5px 0px;
+    padding: 5px 0px 5px 0px;
     width: 27px;
     height: 19px;
     color: white;

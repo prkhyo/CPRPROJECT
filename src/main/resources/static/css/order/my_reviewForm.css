@@ -1,0 +1,151 @@
+@charset "EUC-KR";
+
+
+.review-my-home__search__title2{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.virtualized-list{
+    text-align: center;
+
+}
+
+.review-modal__form__product__image{
+    width: 150px;
+    height: 150px;
+    float: left;
+    border-radius: 4px;
+    display: block;
+
+
+}
+
+.review-modal__form__product{
+    margin-left: 28%;
+    width: 600px;
+    height: 170px;
+    border: 1px solid #f8f7f7;
+    border-radius: 2px;
+    background-color: #f8f7f7;
+    text-align: center;
+    display: block;
+    padding: 30px;
+    padding-top: 45px;
+
+}
+
+.review-modal__form__product__contents__name{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 160px;
+}
+
+.option_price{
+    text-align: left;
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+.review-modal__section{
+    text-align: left;
+    margin-left: 28%;
+
+
+
+}
+
+.section_imgupload{
+    height: 100px;
+}
+
+
+
+.review-modal__section__title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #424242;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+#select_grade{
+border: 1px solid #dbdbdb;
+border-radius: 3px;
+color: #424242;
+min-height: 30px;
+    width: 100px;
+}
+
+.review-modal__section__explain{
+    font-size: 14px;
+    margin-bottom: 20px;
+
+}
+
+.upload-button{
+
+    border: 1px solid #f76565;
+    background-color: white;
+    border-radius: 4px;
+    color: #f76565;
+    font-weight: bold;
+    width: 600px;
+    padding: 10px 275.5px;
+}
+
+
+#reviewContent{
+
+    padding-bottom: 25px;
+    min-height: 110px;
+    font-size: 15px;
+    resize: none;
+    line-height: 20px;
+    padding-top: 9px;
+    transition: .2s border-color, .2s box-shadow, .2s background-color;
+    box-sizing: border-box;
+    width: 655px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    border: solid 1px #dbdbdb;
+    background-color: #ffffff;
+    color: #424242;
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
+
+}
+
+.review-modal__form__review-input.form-control {
+    padding-bottom: 25px;
+    min-height: 110px;
+    font-size: 15px;
+}
+
+.form-group.error .form-control, .form-control.error {
+    border-color: #f77;
+}
+
+.button--color-blue{
+    margin-left: 28%;
+    display: block;
+    visibility: visible;
+    margin-top: 20px;
+    background-color: #f76565;
+    border-color: #f76565;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    width: 655px;
+    height: 45px;
+    padding: 0;
+    line-height: 43px;
+    margin-bottom: 30px;
+    font-size: 15px;
+}

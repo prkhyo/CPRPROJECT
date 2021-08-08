@@ -1,0 +1,144 @@
+@charset "EUC-KR";
+
+/*마이페이지 메뉴 바*/
+
+
+.page-navigation>ul {
+    text-align: center;
+    white-space: nowrap;
+    list-style: none;
+
+}
+
+
+
+.page-navigation__item>a {
+    padding: 0 10px;
+    font-weight: 700;
+    height:40px;
+    transition: color .15s ease;
+
+}
+
+
+.item1>a{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.item2>a, .item3>a{
+    padding-left: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.item4>a{
+    padding-left: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.page-navigation__item>a.active, .page-navigation__item>a:not(.active):hover {
+    color: #f76565;
+}
+
+
+.myhome-nav__owner .page-navigation__item>a.active:after {
+    margin-top: -8px;
+    border-color: transparent transparent #fff;
+}
+
+
+.myhome-nav__owner .page-navigation__item > a.active:before {
+    margin-top: -10px;
+    border-color: transparent transparent #dbdbdb;
+}
+
+
+.page-navigation__item{
+  float: left;
+
+}
+
+.page-navigation__item a{
+    text-decoration: none;
+    color: #424242;
+}
+
+.page-navigation ul{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+
+}
+
+
+.myhome-nav__contents ul{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+.myhome-nav--owner a{
+    font-size: 18px;
+}
+
+.myhome-nav__contents a{
+    font-size: 15px;
+}
+
+
+.myhome-nav__owner, .myhome-nav__contents{
+
+    height: 40px;
+    border-bottom: 1px solid #ededed;
+    width: 100%;
+
+
+}
+
+
+.myhome-nav__owner .page-navigation__item>a.active:after, .myhome-nav__owner .page-navigation__item>a.active:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 100%;
+    width: 0;
+    height: 41px;
+    border-style: solid;
+    background-color: transparent;
+    margin-left: 10%;
+    border-width: 0 5px 10px;
+    bottom: 100%;
+    z-index: 1;
+}
+
+.page-navigation__item>a.active:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 32%;
+    height: 4px;
+    background: #f76565;
+    top: 37px;
+}
+
+
+.item6>a{
+
+    padding-left: 18px;
+}
+
+.item7>a{
+    padding-left: 25px;
+
+}
+
+
+.item8>a{
+    margin-left: 10px;
+
+}
+

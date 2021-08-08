@@ -1,0 +1,128 @@
+@charset "EUC-KR";
+
+
+.order-list{
+    margin: 75px auto;
+    margin-top: 50px;
+    box-shadow: 0 1px 3px 0 #dbdbdb;
+    padding: 30px;
+    color: #292929;
+    width: 72%;
+
+
+}
+
+.review-my-home__search__title{
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+
+}
+
+
+.css-1gfeya1-ProductImage{
+
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    margin-left: 20px;
+    border-radius: 4px;
+    float: left;
+    margin-bottom: 20px;
+
+}
+
+
+.css-1q29q5y-HeaderTitle{
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 400px;
+    margin-right: 55%;
+
+
+}
+
+
+
+.css-1mhf76m-HeaderLink{
+    text-align: right;
+    font-size: 13px;
+
+
+
+}
+.css-1mhf76m-HeaderLink:after {
+    content: " >";
+}
+
+.css-1l0e9nh-Header a, .css-lx7s3c-ExplainWrap a{
+    text-decoration: none;
+    color: #424242;
+}
+
+.css-1l0e9nh-Header{
+   margin-bottom: 20px;
+
+}
+
+.css-12lzt4u-List{
+    margin-bottom: 20px;
+    margin-top: 40px;
+    display: block;
+
+}
+
+
+
+
+.css-1nto2s9-ProductNameLink{
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.e1yy3fi622_title{
+
+    margin-top: 30px;
+
+}
+
+.css-92bd9c-Item{
+   border-top: 2px solid #ebebeb;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+
+.css-1ih37x6-Content{
+    margin-top: 20px;
+
+}
+
+.e1yy3fi617{
+   font-size: 14px;
+    font-weight: bold;
+    color: #f76565;
+    margin-bottom: 5px;
+
+}
+
+
+.e1yy3fi618_price{
+    width: 130px;
+    float: left;
+    margin-right: 10px;
+}
+
+.e1yy3fi620{
+    margin-top: 20px;
+    padding-top: 20px;
+}
