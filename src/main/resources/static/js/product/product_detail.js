@@ -1,9 +1,24 @@
 
-function loginCheck(){
+function writeReview(review){
+
+    if(loginCheck(review) == -1) {
+        location.href='/mypage/review/list';
+    }
+
+}
+
+
+
+function loginCheck(review){
     let sessionUser = document.getElementById("memberId").value;
 
     if(sessionUser == null || sessionUser == ''){
-        alert('로그인 후 구매 가능합니다.');
+        if(review === 'review'){
+            alert('로그인 후 리뷰 작성이 가능합니다.');
+        }else{
+            alert('로그인 후 구매 가능합니다.');
+        }
+        
         location.href ='/login';
     }else{
         return -1;
