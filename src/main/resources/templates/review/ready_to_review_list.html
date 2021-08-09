@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
-  <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
-  <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/order/common_mypage.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/order/my_review.css"/>
   <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
-  <!--화면에 맞게-->
-
-
 
   <script src="/js/cart/addressapi.js"></script>
   <script src="/js/member/phoneNumberCheck.js"></script>
@@ -23,27 +19,26 @@
 <th:block th:include="/fragments/top.html"></th:block>
 <div class="edit-user-info">
   <div class="myhome-nav myhome-nav--owner">
-    <nav class="page-navigation myhome-nav__owner">
+    <nav class="page-navigation myhome-nav__owner" >
       <ul style="transform: translateX(0px);">
-        <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-        <li class="page-navigation__item"><a class="" href="/mypage/orders"
+          <li class="page-navigation__item item1"><a class="" href="/mypage" target="_self">프로필</a></li>
+          <li class="page-navigation__item item2"><a class="" href="/mypage/orders"
                                              target="_self">나의
           쇼핑</a></li>
-        <li class="page-navigation__item"><a class="active" href="/mypage/review/list" target="_self">나의 리뷰</a>
-        </li>
-        <li class="page-navigation__item"><a class="" href="/upate" target="_self">회원정보 수정</a>
-        </li>
+          <li class="page-navigation__item item3"><a class="active" href="/mypage/review/list" target="_self">나의 리뷰</a>
+          </li>
+          <li class="page-navigation__item item4"><a class="" href="/update" target="_self">회원정보 수정</a></li>
       </ul>
     </nav>
-    <nav class="page-navigation myhome-nav__contents">
+    <nav class="page-navigation myhome-nav__contents" >
       <ul style="transform: translateX(0px);">
-        <li class="page-navigation__item"><a class="active" href="/mypage/orders" target="_self">리뷰내역</a>
-        </li>
-        <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 리뷰</a>
-        </li>
+          <li class="page-navigation__item item7" style="float:left;"><a class="active" href="/mypage/orders" target="_self">리뷰내역</a></li>
+          <li class="page-navigation__item item8"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 리뷰</a></li>
       </ul>
     </nav>
   </div>
+ </div>
+<section class="review_List">
   <div class="container review-my-home">
     <div class="review-my-home__search">
       <div class="review-my-home__search__title">주문내역</div>
@@ -105,8 +100,7 @@
        </div>-->
     </div>
   </div>
-</div>
-</div>
+</section>
 </body>
 
 
