@@ -60,7 +60,7 @@ public class OrderController {
 
 
     //구매 내역 상세보기
-    @GetMapping("/mypage/order/detail/{orderId}")
+    @GetMapping("/mypage/orders/{orderId}")
     public String orderDetail(@PathVariable Long orderId, Model model){
         OrderedDto orderedDto = orderService.selectOrderByOrderId(orderId);
 

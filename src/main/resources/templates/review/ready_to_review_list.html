@@ -26,20 +26,20 @@
     <nav class="page-navigation myhome-nav__owner">
       <ul style="transform: translateX(0px);">
         <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-        <li class="page-navigation__item"><a class="" href="/user_shopping_pages/order_list"
+        <li class="page-navigation__item"><a class="" href="/mypage/orders"
                                              target="_self">나의
           쇼핑</a></li>
-        <li class="page-navigation__item"><a class="active" th:href="@{/mypage/review/list}" target="_self">나의 리뷰</a>
+        <li class="page-navigation__item"><a class="active" href="/mypage/review/list" target="_self">나의 리뷰</a>
         </li>
-        <li class="page-navigation__item"><a class="" href="/users/13093528/edit" target="_self">설정</a>
+        <li class="page-navigation__item"><a class="" href="/upate" target="_self">회원정보 수정</a>
         </li>
       </ul>
     </nav>
     <nav class="page-navigation myhome-nav__contents">
       <ul style="transform: translateX(0px);">
-        <li class="page-navigation__item"><a class="active" th:href="@{/mypage/review/list}" target="_self">리뷰 쓰기</a>
+        <li class="page-navigation__item"><a class="active" href="/mypage/orders" target="_self">리뷰내역</a>
         </li>
-        <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+        <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 리뷰</a>
         </li>
       </ul>
     </nav>
@@ -55,7 +55,7 @@
         <div th:each="order:${orderReviewList}" class="review-my-home__review-list__item price_setting">
           <img class="review-my-home__review-list__item__image"
                th:src="@{${'/display?fileName='+order.productMainImage}}">
-          <a class="review-my-home__review-list__item__wrap" href="/productions/214065/selling" >
+          <a class="review-my-home__review-list__item__wrap" th:href="@{${'/product/detail?productId='+order.productId}}" >
             <!--   <span class="review-my-home__review-list__item__wrap__brand">홈앤하우스</span>-->
             <div class="wrapping">
               <span class="review-my-home__review-list__item__wrap__name" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>

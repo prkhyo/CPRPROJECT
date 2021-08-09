@@ -15,8 +15,10 @@ public class OrderServiceImpl implements OrderService{
 
     private final OrderMapper orderMapper;
 
+
     @Override
     public List<OrderedDto> selectAllOrdersById(Long memberId, Criteria criteria,int firstRecordIndex) {
+
 
         return orderMapper.selectAllOrdersByMemberId(memberId,criteria,firstRecordIndex);
     }

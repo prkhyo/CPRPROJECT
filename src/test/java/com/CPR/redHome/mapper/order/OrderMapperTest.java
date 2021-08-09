@@ -58,7 +58,7 @@ class OrderMapperTest {
 
         //then
         assertThat(orderList.get(0).getOrderState()).isEqualTo("배송 완료");
-        assertThat(orderList.get(0).isReviewExist()).isFalse();
+        assertThat(orderList.get(0).getReviewExist()).isFalse();
 
 
 
