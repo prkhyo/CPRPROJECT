@@ -22,6 +22,11 @@ public interface ProductMapper {
     List<ProductViewDto> selectProductList(@Param("storeOrder") String storeOrder, @Param("deliveryChargeOPtion") String deliveryChargeOPtion,
                                            @Param("searchProductKeyword") String searchProductKeyword, @Param("productThemeNo") Integer productThemeNo);
 
+    //판매자 제품리스트 가져오기
+    List<ProductViewDto> selectSellerList(@RequestParam String storeOrder, @RequestParam String deliveryChargeOPtion,
+                                           @RequestParam String searchProductKeyword, @RequestParam Integer productThemeNo, Long memberId);
+
+
     //제품 장바구니에 넣기
     void insertProductToCart(CartDto cartDto);
 

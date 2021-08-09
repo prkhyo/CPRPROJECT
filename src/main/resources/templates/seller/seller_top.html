@@ -105,29 +105,14 @@
             <div class="layout-navigation-secondary" style="position:relative">
                 <div class="layout-navigation-secondary__content">
                     <nav class="layout-navigation-secondary__menu">
-                        <a class="layout-navigation-secondary__menu__item layout-navigation-secondary__menu__item--active noDeco" href="/store" >
-                            전체
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerStore/{memberId}(memberId=${session.loginMember.memberId})}">
+                            내 판매상품
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=1">
-                            노래방
-                        </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=2">
-                            도서관
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId})}">
+                            내 상품문의
                         </a>
                         <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=3">
-                            오피스
-                        </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=4">
-                            영화관
-                        </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=5">
-                            카페
-                        </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=6">
-                            헬스장
-                        </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=7">
-                            pc방
+                            주문 관리
                         </a>
                     </nav>
                 </div>
@@ -141,7 +126,7 @@
         <ul class="layout-navigation-bar-user-menu">
             <li class="layout-navigation-bar-user-menu__item-wrap">
             <li class="layout-navigation-bar-user-menu__item-wrap">
-                <a class="layout-navigation-bar-user-menu__item" href="/mypage/orders">마이페이지</a>
+                <a class="layout-navigation-bar-user-menu__item" href="/mypage">마이페이지</a>
             </li>
             </li>
             <li class="layout-navigation-bar-user-menu__item-wrap">
