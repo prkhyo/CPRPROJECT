@@ -13,7 +13,7 @@
 <section class="production-selling-section" th:fragment="reviewList">
     <header class="production-selling-section__header">
         <h1 class="production-selling-section__title">리뷰 <span class="count" th:text="${productDto.totalReviewCnt}"></span></h1>
-        <div class="production-selling-section__right"><button type="button">리뷰쓰기</button></div>
+        <div class="production-selling-section__right"><button type="button" onclick="writeReview('review')">리뷰쓰기</button></div>
     </header>
 
     <div class="production-question-feed" th:if="${productDto.totalReviewCnt == 0}" style="margin-top: 50px;">
@@ -110,9 +110,11 @@
                             </div>
                         </div>
 
+                        <th:block th:if="${review.reviewImg != null}">
                         <button type="button" class="production-review-item__img__btn">
-                            <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/161710555311169461.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 3x">
+                            <img class="production-review-item__img" th:src="@{${'/fileUpload/review/reviewProduct/'+review.reviewImg}}">
                         </button>
+                        </th:block>
                         <p class="production-review-item__description" th:text="${review.reviewContents}"></p>
                         <div class="production-review-item__help">
                             <button type="button" class="production-review-item__help__btn" th:id="${review.reviewId}" th:onclick="'help('+${review.reviewId}+')'" th:text="${review.helpState == 'helpful'?'∨ 도움됨':'도움이 돼요'}"></button>

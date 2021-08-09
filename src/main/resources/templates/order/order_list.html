@@ -4,324 +4,10 @@
 
     <title>오늘 시작하는 인테리어, 오늘의집</title>
 
-    <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/common_mypage.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/my_orders.css"/>
     <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
     <meta name="description" content="No.1 인테리어 필수앱. 1000만 회원 집 구경하고, 궁금했던 제품 정보 확인부터 구매까지 한 번에!">
-
-
-    <!--글자가 안 깨지고 내려가게-->
-    <link rel="stylesheet" media="screen"
-          href="https://static.ohou.se/assets/v3/layout/application_react-790a108e6a9b26136290c8bea25696fec3e4701284512f9eed313b7dbb352615.css">
-
-
-    <!--화면에 맞게-->
-    <link rel="stylesheet" media="screen"
-          href="https://static.ohou.se/dist/css/templates-Order-OrderList-OrderList-09da7272.chunk.css">
-
-
-    <style data-emotion="css 1mhf76m-HeaderLink" data-s="">.css-1mhf76m-HeaderLink {
-        position: relative;
-        display: block;
-        font-size: 13px;
-        line-height: 25px;
-        text-align: right;
-        padding-right: 40px;
-        margin-left: auto;
-        min-width: 50px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1mhf76m-HeaderLink {
-            line-height: 20px;
-        }
-    }
-
-    .css-1mhf76m-HeaderLink::after {
-        position: absolute;
-        display: block;
-        width: 4px;
-        height: 4px;
-        content: '';
-        top: 11px;
-        right: 30px;
-        border: 2px solid #000000;
-        border-width: 1px 1px 0 0;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-
-    @media (max-width: 767px) {
-        .css-1mhf76m-HeaderLink::after {
-            top: 7px;
-        }
-    }</style>
-    <style data-emotion="css 92bd9c-Item" data-s="">.css-92bd9c-Item {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        padding: 20px;
-        min-height: 110px;
-    }
-
-    @media (max-width: 767px) {
-        .css-92bd9c-Item {
-            display: block;
-        }
-    }</style>
-    <style data-emotion="css 1ih37x6-Content" data-s="">.css-1ih37x6-Content {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        width: 100%;
-    }
-
-    @media (min-width: 768px) {
-        .css-1ih37x6-Content {
-            -webkit-flex: 1 0 0px;
-            -ms-flex: 1 0 0px;
-            flex: 1 0 0px;
-            -webkit-align-items: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-    }</style>
-    <style data-emotion="css 1gfeya1-ProductImage" data-s="">.css-1gfeya1-ProductImage {
-        width: 100px;
-        height: 100px;
-        margin-right: 10px;
-        border-radius: 4px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1gfeya1-ProductImage {
-            width: 75px;
-            height: 75px;
-        }
-    }</style>
-    <style data-emotion="css 1typuwb-Explain" data-s="">.css-1typuwb-Explain {
-        -webkit-flex: 1 0 0px;
-        -ms-flex: 1 0 0px;
-        flex: 1 0 0px;
-        height: 100%;
-    }
-
-    @media (min-width: 768px) {
-        .css-1typuwb-Explain {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-align-items: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-    }</style>
-    <style data-emotion="css lx7s3c-ExplainWrap" data-s="">.css-lx7s3c-ExplainWrap {
-        margin-right: 10px;
-    }
-
-    @media (min-width: 768px) {
-        .css-lx7s3c-ExplainWrap {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -webkit-flex: 1 0 0px;
-            -ms-flex: 1 0 0px;
-            flex: 1 0 0px;
-            max-width: 45%;
-        }
-    }</style>
-    <style data-emotion="css 161p789-BrandNameLink" data-s="">.css-161p789-BrandNameLink {
-        display: block;
-        font-size: 16px;
-        line-height: 20px;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 767px) {
-        .css-161p789-BrandNameLink {
-            font-size: 13px;
-            line-height: 15px;
-        }
-    }</style>
-    <style data-emotion="css 1nto2s9-ProductNameLink" data-s="">.css-1nto2s9-ProductNameLink {
-        display: block;
-        font-size: 18px;
-        line-height: 25px;
-        font-weight: bold;
-    }
-
-    @media (max-width: 767px) {
-        .css-1nto2s9-ProductNameLink {
-            font-size: 15px;
-            line-height: 20px;
-        }
-    }</style>
-    <style data-emotion="css 1u68l27-ProductOption" data-s="">.css-1u68l27-ProductOption {
-        font-size: 18px;
-        line-height: 30px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1u68l27-ProductOption {
-            font-size: 14px;
-            line-height: 20px;
-            margin-top: 10px;
-        }
-    }</style>
-    <style data-emotion="css 1fnh3w3-ProductPriceAndCount" data-s="">.css-1fnh3w3-ProductPriceAndCount {
-        font-size: 18px;
-        line-height: 30px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1fnh3w3-ProductPriceAndCount {
-            font-size: 14px;
-            line-height: 20px;
-        }
-    }</style>
-
-
-    <style data-emotion="css d2162a-ProductActions" data-s="">.css-d2162a-ProductActions {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        width: 150px;
-        min-height: 110px;
-    }
-
-    @media (max-width: 767px) {
-        .css-d2162a-ProductActions {
-            width: 100%;
-            min-height: auto;
-            margin-top: 10px;
-            -webkit-flex-direction: inherit;
-            -ms-flex-direction: inherit;
-            flex-direction: inherit;
-        }
-    }</style>
-    <style data-emotion="css 1l8zinj-ActionButton" data-s="">.css-1l8zinj-ActionButton {
-        display: block;
-        width: 150px;
-        height: 50px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1l8zinj-ActionButton {
-            display: inline-block;
-            width: auto;
-            -webkit-flex: 1 0 0px;
-            -ms-flex: 1 0 0px;
-            flex: 1 0 0px;
-        }
-    }
-
-    .css-1l8zinj-ActionButton:last-of-type {
-        margin: 10px 0 0;
-    }
-
-    @media (max-width: 767px) {
-        .css-1l8zinj-ActionButton:last-of-type {
-            margin: 0 0 0 10px;
-        }
-    }
-
-    .css-1l8zinj-ActionButton:only-of-type {
-        margin: auto 0;
-    }</style>
-    <style data-emotion="css 6uwgcg-SellerContent" data-s="">.css-6uwgcg-SellerContent {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        text-align: center;
-        width: calc(100% - 40px);
-        height: 65px;
-        margin: 0 auto;
-        padding: 5px;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-        font-size: 14px;
-    }
-
-    @media (max-width: 767px) {
-        .css-6uwgcg-SellerContent {
-            margin: 0;
-            width: 100%;
-            padding: 5px 0;
-        }
-    }</style>
-    <style data-emotion="css xojhz4-DeliveryCost" data-s="">.css-xojhz4-DeliveryCost {
-        color: #757575;
-        margin-bottom: 15px;
-    }</style>
-    <style data-emotion="css 1l9rf24-SellerNickname" data-s="">.css-1l9rf24-SellerNickname {
-        font-weight: bold;
-    }</style>
-
-    <!---->
-    <style data-emotion="css 12lzt4u-List" data-s="">.css-12lzt4u-List {
-        margin-bottom: 30px;
-    }</style>
-
-    <!--구분선-->
-    <style data-emotion="css 1l0e9nh-Header" data-s="">.css-1l0e9nh-Header {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        height: 50px;
-        border-bottom: #ededed 2px solid;
-        padding-left: 20px;
-    }</style>
-    <!--글씨체 볼드-->
-    <style data-emotion="css 1q29q5y-HeaderTitle" data-s="">.css-1q29q5y-HeaderTitle {
-        min-width: 160px;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 25px;
-    }
-
-    @media (max-width: 767px) {
-        .css-1q29q5y-HeaderTitle {
-            font-size: 14px;
-            line-height: 20px;
-        }
-    }</style>
-
-
 
 </head>
 <body>
@@ -330,22 +16,16 @@
 <div class="myhome-nav myhome-nav--owner">
     <nav class="page-navigation myhome-nav__owner">
         <ul style="transform: translateX(0px);">
-            <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-            <li class="page-navigation__item"><a class="active" href="/mypage/orders"
-                                                 target="_self">나의
-                쇼핑</a></li>
-            <li class="page-navigation__item"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a>
-            </li>
-            <li class="page-navigation__item"><a class="" href="/upate" target="_self">회원정보 수정</a>
-            </li>
+            <li class="page-navigation__item item1"><a class="" href="/mypage" target="_self">프로필</a></li>
+            <li class="page-navigation__item item2"><a class="active" href="/mypage/orders" target="_self">나의 쇼핑</a></li>
+            <li class="page-navigation__item item3"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a></li>
+            <li class="page-navigation__item item4"><a class="" href="/update" target="_self">회원정보 수정</a></li>
         </ul>
     </nav>
     <nav class="page-navigation myhome-nav__contents">
         <ul style="transform: translateX(0px);">
-            <li class="page-navigation__item"><a class="active" href="/mypage/orders" target="_self">주문내역 확인</a>
-            </li>
-            <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
-            </li>
+            <li class="page-navigation__item item5"><a class="active" href="/mypage/orders" target="_self">주문내역 확인</a></li>
+            <li class="page-navigation__item item6"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a></li>
         </ul>
     </nav>
 </div>
@@ -364,7 +44,7 @@
                 </div>
                 <a class="css-1mhf76m-HeaderLink e1yy3fi627" href="/orders/57244440"
                    th:href="@{/mypage/orders/{orderId}(orderId=${order.orderId})}">상세보기</a></div>
-            <div>
+
                 <div>
                     <div class="css-92bd9c-Item e1yy3fi626">
                         <a th:href="@{${'/product/detail?productId='+order.productId}}">
@@ -375,7 +55,7 @@
                                          th:src="@{${'/display?fileName='+order.productMainImage}}">
                                 </picture>
                                 <div class="css-1typuwb-Explain e1yy3fi623">
-                                    <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                                    <div class="css-lx7s3c-ExplainWrap e1yy3fi622 e1yy3fi622_title">
                                         <a class="css-1nto2s9-ProductNameLink e1yy3fi620"
                                            th:href="@{${'/product/detail?productId='+order.productId}}"
                                            href="/productions/324144/selling" th:text="${order.productTitle}">[기간한정]
@@ -384,10 +64,10 @@
                                              th:text="${order.orderState}" style="padding-top:10px">구매확정
                                         </div>
                                     </div>
-                                    <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                                    <div class="css-lx7s3c-ExplainWrap e1yy3fi622 e1yy3fi622_quantity">
                                         <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
                                         </div>-->
-                                        <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618"
+                                        <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618 e1yy3fi618_price"
                                              th:text="'가격 : '+${order.orderUnitPrice}+'원'">349,000원 | 1개
                                         </div>
                                         <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618"
@@ -398,11 +78,9 @@
                             </div>
                         </a>
                         <div class="css-d2162a-ProductActions e1yy3fi615">
-
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
 
