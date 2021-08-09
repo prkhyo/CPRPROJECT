@@ -37,11 +37,11 @@
                         <div class="BenKu">
                             <div class="_10zXy ">연락처</div>
                             <div class="_3Bt8k">
-                                <input class="_3ASDR phone"
-                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                <input  class="_3ASDR phone"
+                                       oninput="this.value = this.value.replace(/[^-0-9.]/g, '');"
                                        onkeyup="inputPhoneNumber(this)"
                                        type="tel" placeholder="입력해주세요" size="1"
-                                       maxlength="13" value="">
+                                       maxlength="13" value="" name="phoneNumber">
                             </div>
                         </div>
                         <div class="BenKu">

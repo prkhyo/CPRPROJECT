@@ -22,7 +22,7 @@ public interface ReviewMapper {
 
 
     //특정 제품에 대한 특정 리뷰 점수의 수 가져오기
-    int selectParticularGradeCnt(int reviewGrade, Long productId);
+    int selectParticularGradeCnt(@Param("reviewGrade") int reviewGrade,@Param("productId") Long productId);
 
     //특정 리뷰에 대해 로그인유저가 좋아요(=도움됨)한 리스트 가져오기
     List<ReviewHelpDto> selectHelpList(Long reviewId);
