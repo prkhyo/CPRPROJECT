@@ -53,3 +53,4 @@ function applyNewSeller(accountId, memberRole){
         alert("관리자 ID는 판매자를 신청할 수 없습니다.");
     }
 }
+

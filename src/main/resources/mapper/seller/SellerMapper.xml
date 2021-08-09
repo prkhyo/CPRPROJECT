@@ -27,5 +27,94 @@
 
     </insert>
 
+    <sql id="query">
+        select p.product_id as productId,
+               p.product_title as productTitle,
+               p.product_main_image as productMainImage,
+               q.question_id as questionId,
+               q.question_contents as questionContents,
+               q.member_id as memberId,
+               q.question_state as questionState,
+               q.question_date as questionDate,
+               m.account_id as userAccountId
+        from
+            product p
+        inner join
+            question q
+            on p.product_id = q.product_id
+        inner join
+            member m
+            on q.member_id = m.member_id
+        where
+            m.member_id = #{memberId}
+        order by
+            q.question_date desc
+    </sql>
+
+    <sql id ="search" >
+        <if test="criteria.searchType == 'search_productTitle'">
+            productTitle like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_questionContents'">
+            questionContents like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_userAccountId'">
+            userAccountId like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+    </sql>
+
+    <select id="selectSellerQuestionTotalCnt" parameterType="Long" resultType="Integer">
+        select count(*)
+        from
+            (
+                <include refid="query"></include>
+            ) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="search"></include>
+            </if>
+
+            <if test="criteria.searchType != null and reply == 'not_yet'">and</if>
+
+                <if test="reply == 'not_yet'">
+                    questionState = '답변대기'
+                </if>
+        </where>
+    </select>
+
+    <select id="selectSellerQuestion" resultType="QuestionViewDto">
+        select
+            productId,
+            productTitle,
+            productMainImage,
+            questionContents,
+            questionId,
+            memberId,
+            questionState,
+            questionDate,
+            userAccountId
+        from
+            (<include refid="query"></include>) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="search"></include>
+            </if>
+
+            <if test="criteria.searchType != null and reply == 'not_yet'">and</if>
+
+            <if test="reply == 'not_yet'">
+                questionState = '답변대기'
+            </if>
+        </where>
+
+        <if test="orderType == 'latest'">
+            order by questionDate desc
+        </if>
+        <if test="orderType == 'old'">
+            order by questionDate asc
+        </if>
+
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+    </select>
 
 </mapper>

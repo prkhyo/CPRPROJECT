@@ -17,11 +17,10 @@
   <section id="questions-header">
     <div class="container">
       <div class="questions-header__title">
-        <h1 class="text-heading-1 text-black bold">내 상품 문의</h1>
-        <p class="text-caption-1">고객들의 문의에 답변을 달아주세요.</p>
+        <h1 class="text-heading-1 text-black bold">내 주문 관리</h1>
       </div>
       <form id="questions-header__form" class="sticky-top"
-            th:action="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
+            th:action="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
         <input name="utf8" type="hidden" value="✓">
         <div class="sticky-content">
           <div class="questions-header__form__wrap row">
@@ -29,15 +28,14 @@
               <div class="questions-header__form__search__input">
                 <select id="questionCategory_filters"  name="searchType"  onchange="" >
                   <option class="filter-select__list__entry"   value="" th:selected="${criteria.searchType == null}">선택하세요</option>
-                  <option class="filter-select__list__entry " value="search_productTitle" th:text="제목"  th:selected="${criteria.searchType == 'search_productTitle'}" />
-                  <option class="filter-select__list__entry" value="search_questionContents" th:text="문의내용" th:selected="${criteria.searchType == 'search_questionContents'}"/>
-                  <option class="filter-select__list__entry" value="search_userAccountId" th:text="아이디" th:selected="${criteria.searchType == 'search_userAccountId'}"/>
+                  <option class="filter-select__list__entry" value="search_productTitle" th:text="상품명" th:selected="${criteria.searchType == 'search_productTitle'}"/>
+                  <option class="filter-select__list__entry" value="search_userAccountId" th:text="구매자아이디" th:selected="${criteria.searchType == 'search_userAccountId'}"/>
                 </select>
                 <img src="/img/redhome_search.PNG"
                      style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn" onclick="search()">
                 <input type="text" name="searchKeyword"
                        id="questions-header__form__search" th:attr="value=${criteria.searchKeyword}"
-                       class="form-control" placeholder="문의 검색."
+                       class="form-control" placeholder="주문 검색."
                        autocomplete="off"/>
               </div>
             </div>
@@ -72,23 +70,17 @@
         </dl>
         <ul class="filter-select__list" id="filter-select__list" >
           <li class="filter-select__list__entry" th:classappend="${orderType == 'latest' and orderType != 'mostPopular'} ?'active':''" >
-            <a class="filter-select__list_newCommunity sort"  th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='latest', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  th:id="${orderType == 'latest'} ?'activeList':'notactiveList1'" onmouseover="newCommunityFocus()" >최신순</a>
+            <a class="filter-select__list_newCommunity sort"  th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='latest', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  th:id="${orderType == 'latest'} ?'activeList':'notactiveList1'" onmouseover="newCommunityFocus()" >최신순</a>
           </li>
           <li class="filter-select__list__entry" th:classappend="${orderType == 'old'} ?'active':''"  >
-            <a class="filter-select__list_newComment sort" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='old', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'old'} ?'activeList':'notactiveList2'" onmouseover="newCommentFocus()">오래된순</a>
+            <a class="filter-select__list_newComment sort" th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='old', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'old'} ?'activeList':'notactiveList2'" onmouseover="newCommentFocus()">오래된순</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="questions-filter__actions">
-      <th:block th:if="${reply == 'not_yet'}">
-        <button class="set-reply btn btn-normal btn-sm" id="not_yet" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=1, reply='replyState_all', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" style="color: white; background-color: #f76565; width: 210px;" onclick="reply(this)"> ⅴ 답변을 기다리는 문의</button>
-      </th:block>
-      <th:block th:if="${reply != 'not_yet'}">
-        <button class="set-reply btn btn-normal btn-sm" id="replyState_all" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=1, reply='not_yet', orderType =${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" onclick="reply(this)">답변을 기다리는 문의</button>
-      </th:block>
-    </div>
+
+
 
 
 
@@ -97,26 +89,81 @@
   </div>
 </section>
 
+<section>
+  <div class="order-list container">
+    <div class="order-list__content">
+      <div class="review-my-home__search">
+        <div class="review-my-home__search__title">주문내역</div>
+      </div>
 
+      <!--구매내역 반복-->
+      <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
+        <div class="css-1l0e9nh-Header e1yy3fi629">
+          <div class="css-1q29q5y-HeaderTitle e1yy3fi628" th:text="${order.orderNumber}+' | '+${order.orderDate}+' | '+${order.accountId}">57244440 | 2021.05.14 | id</div>
+        <div>
+          <div>
+            <div class="css-92bd9c-Item e1yy3fi626">
+              <div class="css-1ih37x6-Content e1yy3fi625">
+                <picture>
+                  <img class="css-1gfeya1-ProductImage e1yy3fi624"
+                       th:src="@{${'/display?fileName='+order.productMainImage}}">
+                  <!--srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/
+                  productions/15650448025678_7pGSb.jpg?w=180&amp;h=180&amp;c=c
+                   1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/
+                   productions/15650448025678_7pGSb.jpg?w=256&amp;h=256&amp;c=c 2x,
+                   https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/
+                   15650448025678_7pGSb.jpg?w=360&amp;h=360&amp;c=c 3x">-->
+                </picture>
+                <div class="css-1typuwb-Explain e1yy3fi623">
+                  <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                    <a  class="css-1nto2s9-ProductNameLink e1yy3fi620"
+                        href="/productions/324144/selling" th:text="${order.productTitle}">[기간한정]
+                      글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
+                    <div class="css-1c7n34t-ProductDelivery e1yy3fi617" th:text="${order.orderState}" style="padding-top:10px" >구매확정 </div>
+                  </div>
+                  <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                    <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
+                    </div>-->
+                    <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'가격 : '+${order.orderUnitPrice}+'원'">349,000원 | 1개</div>
+                    <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'수량 : '+${order.orderProductQuantity}+'개'">349,000원 | 1개</div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="css-d2162a-ProductActions e1yy3fi615">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+    </div>
+
+  </div>
+</section>
 
 
 
 
 <section id="questions-list" class="container">
-  <th:block th:each= "question : ${questionList}" >
+  <th:block th:each= "order : ${orderList}" >
 <!--    <a class="questions-item__link" th:href="@{/product/detail(productId=${question.productId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >-->
       <article class="questions-item">
-        <a class="questions-item__link" th:href="@{/product/detail(productId=${question.productId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >
-        <th:block th:if="${question.productMainImage ne null }">
+        <a class="questions-item__link" th:href="@{/product/detail(productId=${order.productId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >
+        <th:block th:if="${order.productMainImage ne null }">
           <div class="questions-item__image">
             <div class="image-wrap square">
-              <img th:src="@{${'/display?fileName='+question.productMainImage}}">
+              <img th:src="@{${'/display?fileName='+order.productMainImage}}">
             </div>
           </div>
         </th:block>
 
 
-        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="'<'+ ${question.productId} + '> '+ ${question.productTitle}"></h1>
+        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="'<'+ ${order.productId} + '> '+ ${order.productTitle}"></h1>
         <p class="questions-item__content text-caption-1" th:text="${question.questionContents}"></p>
         </a>
         <footer class="questions-item__footer">

@@ -2,8 +2,10 @@ package com.CPR.redHome.controller.seller;
 
 import com.CPR.redHome.dto.member.MemberDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
+import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
 import com.CPR.redHome.paging.Criteria;
+import com.CPR.redHome.paging.Pagination;
 import com.CPR.redHome.service.product.ProductService;
 import com.CPR.redHome.service.question.QuestionService;
 import com.CPR.redHome.service.seller.SellerService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -45,10 +48,49 @@ public class SellerController {
     }
 
     @GetMapping("/sellerQuestion/{memberId}")
-    public String sellerQuestionPage(@PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("orderType") String orderType,
+    public String sellerQuestionPage(@PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
                                      @RequestParam(defaultValue="1") int currentPageNo){
+        List<QuestionViewDto> questionList = Collections.emptyList();
+
+        int questionTotalCnt = sellerService.countAllSellerQuestions(memberId,reply,criteria);
+
+        criteria.setCurrentPageNo(currentPageNo);
+        Pagination pagination = new Pagination(criteria, questionTotalCnt, 5, 5);
+
+        int firstRecordIndex = pagination.getFirstRecordIndex();
+
+        if(questionTotalCnt > 0){
+            questionList = sellerService.getQuestionList(memberId, reply, orderType, firstRecordIndex, criteria);
+        }
+
+        model.addAttribute("questionList", questionList);
+        model.addAttribute("pageMaker",pagination);
 
         return "seller/seller_question";
     }
+
+    @GetMapping("/sellerOrder/{memberId}")
+    public String sellerOrderPage(@PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
+                                     @RequestParam(defaultValue="1") int currentPageNo){
+        List<QuestionViewDto> questionList = Collections.emptyList();
+
+        int questionTotalCnt = sellerService.countAllSellerQuestions(memberId,reply,criteria);
+
+        criteria.setCurrentPageNo(currentPageNo);
+        Pagination pagination = new Pagination(criteria, questionTotalCnt, 5, 5);
+
+        int firstRecordIndex = pagination.getFirstRecordIndex();
+
+        if(questionTotalCnt > 0){
+            questionList = sellerService.getQuestionList(memberId, reply, orderType, firstRecordIndex, criteria);
+        }
+
+        model.addAttribute("questionList", questionList);
+        model.addAttribute("pageMaker",pagination);
+
+        return "seller/seller_order";
+    }
+
+
 
 }
