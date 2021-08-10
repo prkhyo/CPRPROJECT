@@ -182,32 +182,7 @@ public class ProductController {
         return "product/store";
     }
 
-    // 판매자 페이지 이동.
-    @GetMapping("/sellerStore/{memberId}")
-    public String sellerStorePage(@Login MemberDto loginMember,@PathVariable Long memberId, Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
-                               @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
-        try {
-            Long loginMemberId = loginMember.getMemberId();
-
-            if (loginMemberId != null) {
-                List<ProductViewDto> productList = productService.selectSellerList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo, memberId);
-                model.addAttribute("productList", productList);
-
-                model.addAttribute("storeOrder", storeOrder);
-                model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
-                model.addAttribute("productThemeNo", productThemeNo);
-                model.addAttribute("searchProductKeyword", searchProductKeyword);
-
-                return "seller/seller_store";
-            } else {
-                return "redirect:/login";
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return "redirect:/login";
-    }
 
 
 }

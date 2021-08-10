@@ -26,7 +26,8 @@ public class OrderedDto {
     private String orderAddress;
     private String orderState;
     private Integer orderProductQuantity;
-    private boolean reviewExist;
+    private Boolean reviewExist;
+    private String phoneNumber;
 
     /*product와 join*/
     private Integer orderUnitPrice;

@@ -1,5 +1,6 @@
 package com.CPR.redHome.mapper.seller;
 
+import com.CPR.redHome.dto.order.OrderedDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.dto.seller.ImageDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
@@ -16,6 +17,12 @@ public interface SellerMapper {
 
     List<QuestionViewDto> selectSellerQuestion(Long memberId, @Param("reply") String reply, @Param("orderType") String orderType,  @Param("firstRecordIndex") int firstRecordIndex,
                                                @Param("criteria") Criteria criteria);
+
+    int selectSellerOrderTotalCnt(Long memberId, Criteria criteria);
+
+    List<OrderedDto> selectSellerOrder(Long memberId, @Param("orderType") String orderType,  @Param("firstRecordIndex") int firstRecordIndex,
+                                       @Param("criteria") Criteria criteria);
+
 
     //상품 등록
     int registProducts(ProductRegistDto productRegistDto);

@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/order/order.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/order/order2.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/common_mypage.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/my_reviewForm.css"/>
     <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
-
-    <script src="/js/cart/addressapi.js"></script>
-    <script src="/js/member/phoneNumberCheck.js"></script>
-
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
-
-    <!--글씨체-->
-    <link rel="stylesheet" media="screen"
-          href="https://static.ohou.se/assets/v3/layout/application_react-790a108e6a9b26136290c8bea25696fec3e4701284512f9eed313b7dbb352615.css">
-
 
     <!--꼭필요-->
     <link rel="stylesheet" type="text/css" href="https://static.ohou.se/dist/css/53-14401fea.chunk.css">
@@ -25,39 +14,37 @@
 
 </head>
 <body>
-  <th:block th:include="/fragments/top.html"></th:block>
+<th:block th:include="/fragments/top.html"></th:block>
 <div class="edit-user-info">
     <div class="myhome-nav myhome-nav--owner">
         <nav class="page-navigation myhome-nav__owner">
             <ul style="transform: translateX(0px);">
-                <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-                <li class="page-navigation__item"><a class="active" href="/mypage/orders"
+                <li class="page-navigation__item item1"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item item2"><a class="active" href="/mypage/orders"
                                                      target="_self">나의
                     쇼핑</a></li>
-                <li class="page-navigation__item"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a>
+                <li class="page-navigation__item item3"><a class="" href="/mypage/review/list" target="_self">나의 리뷰</a>
                 </li>
-                <li class="page-navigation__item"><a class="" href="/member/" target="_self">설정</a>
-                </li>
+                <li class="page-navigation__item item4"><a class="" href="/update" target="_self">회원정보 수정</a></li>
+
             </ul>
         </nav>
         <nav class="page-navigation myhome-nav__contents">
             <ul style="transform: translateX(0px);">
-                <li class="page-navigation__item"><a class="active" th:href="@{/mypage/orders}" target="_self">주문내역 확인</a>
+                <li class="page-navigation__item item10"><a class="active" th:href="@{/mypage/orders}" target="_self">주문내역 확인</a>
                 </li>
-                <li class="page-navigation__item"><a class="" th:href="@{/update}" target="_self">내가 쓴 글</a>
+                <li class="page-navigation__item item8"><a class="" th:href="@{/update}" target="_self">내가 쓴 글</a>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="container review-my-home">
         <div class="review-my-home__search">
-            <div class="review-my-home__search__title" th:href="@{/mypage/review/list}">리뷰작성</div>
+            <div class="review-my-home__search__title2" th:href="@{/mypage/review/list}">리뷰작성</div>
         </div>
         <div class="virtualized-list review-my-home__review-list"
              style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
             <div class="review-modal">
-
-
 
                 <!-- enctype="multipart/form-data"-->
                 <form name="reviewForm" class="review-modal__form" th:action="@{/mypage/review/submit/{orderId}(orderId=${order.orderId})}" method="post"  enctype="multipart/form-data">
@@ -65,21 +52,19 @@
                                                                   th:src="@{${'/display?fileName='+order.productMainImage}}">
                         <div class="review-modal__form__product__contents">
                             <!--<div class="review-modal__form__product__contents__brand" >레이디가구</div>-->
-                            <div class="review-modal__form__product__contents__name" th:text="${order.productTitle}">글린
-                                LED 3단 서랍침대 매트포함 (SS/Q)
-                                4colors
+                            <div class="review-modal__form__product__contents__name" th:text="${order.productTitle}">
+                            </div>
+                            <div class="review-modal__form__product__contents__options option_price"
+                                 th:text="'가격 : '+${order.orderUnitPrice}">
                             </div>
                             <div class="review-modal__form__product__contents__options"
-                                 th:text="'가격 : '+${order.orderUnitPrice}">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
-                            </div>
-                            <div class="review-modal__form__product__contents__options"
-                                 th:text="'수량 : '+${order.orderProductQuantity}">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
+                                 th:text="'수량 : '+${order.orderProductQuantity}">
                             </div>
                         </div>
                     </div>
                     <div class="review-modal__section">
                         <div class="review-modal__section__title">별점 평가</div>
-                        <select class="form-control empty" name="reviewGrade">
+                        <select class="form-control empty" id="select_grade" name="reviewGrade">
                             <option value="0" disabled="">별점</option>
                             <option value="1">1 점</option>
                             <option value="2">2 점</option>
@@ -89,7 +74,7 @@
                         </select>
                     </div>
 
-                    <div class="review-modal__section">
+                    <div class="review-modal__section section_imgupload">
                         <div class="review-modal__section__title">사진 첨부 (선택)
                             <img class="review-modal__form__photo-point">
                         </div>
@@ -102,7 +87,7 @@
                             <input name="reviewImg" type="text" disabled class="file_name_only" hidden>
                             <input name="imgFile" id="img_File" class="fileUpload" type="file"
                                    onchange="previewPic(event);" placeholder="이미지 이름이 나타납니다." style="display: none">
-                            <label  for="img_File" class="button button&#45;&#45;color-blue-inverted button&#45;&#45;size-50 button&#45;&#45;shape-4 upload-button" style="border-color: #ed4a4a; color:#ed4a4a ">파일 불러오기</label>
+                            <label  for="img_File" class="button button&#45;&#45;color-blue-inverted button&#45;&#45;size-50 button&#45;&#45;shape-4 upload-button" >파일 불러오기</label>
                         </div>
                         <div id="preview" style="width:60%; overflow:hidden; margin-top: 5%;">
                         </div>
@@ -128,13 +113,12 @@
 
                 </form>
                 <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit"
-                        type="button" onclick="submitReview()" style="background-color: #ed4a4a ; border-color: #ed4a4a" >
+                        type="button" onclick="submitReview()">
                     완료
                 </button>
             </div>
         </div>
     </div>
-</div>
 </div>
 <script>
 
@@ -217,6 +201,10 @@
         });
     });
 </script>
+  <script src="/js/cart/addressapi.js"></script>
+  <script src="/js/member/phoneNumberCheck.js"></script>
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 
 </body>
 

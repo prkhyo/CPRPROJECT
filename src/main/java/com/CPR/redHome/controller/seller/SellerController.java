@@ -1,6 +1,7 @@
 package com.CPR.redHome.controller.seller;
 
 import com.CPR.redHome.dto.member.MemberDto;
+import com.CPR.redHome.dto.order.OrderedDto;
 import com.CPR.redHome.dto.product.ProductViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
@@ -47,48 +48,101 @@ public class SellerController {
 
     }
 
-    @GetMapping("/sellerQuestion/{memberId}")
-    public String sellerQuestionPage(@PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
-                                     @RequestParam(defaultValue="1") int currentPageNo){
-        List<QuestionViewDto> questionList = Collections.emptyList();
 
-        int questionTotalCnt = sellerService.countAllSellerQuestions(memberId,reply,criteria);
 
-        criteria.setCurrentPageNo(currentPageNo);
-        Pagination pagination = new Pagination(criteria, questionTotalCnt, 5, 5);
+    // 판매자 페이지 이동.
+    @GetMapping("/sellerStore/{memberId}")
+    public String sellerStorePage(@Login MemberDto loginMember,@PathVariable Long memberId, Model model, @RequestParam(required = false, defaultValue = "new") String storeOrder, @RequestParam(required = false) String deliveryChargeOPtion,
+                                  @RequestParam(required = false) String searchProductKeyword, @RequestParam(required = false) Integer productThemeNo){
 
-        int firstRecordIndex = pagination.getFirstRecordIndex();
+        try {
+            Long loginMemberId = loginMember.getMemberId();
 
-        if(questionTotalCnt > 0){
-            questionList = sellerService.getQuestionList(memberId, reply, orderType, firstRecordIndex, criteria);
+            if (loginMemberId != null) {
+                List<ProductViewDto> productList = productService.selectSellerList(storeOrder, deliveryChargeOPtion, searchProductKeyword, productThemeNo, memberId);
+                model.addAttribute("productList", productList);
+
+                model.addAttribute("storeOrder", storeOrder);
+                model.addAttribute("deliveryChargeOPtion", deliveryChargeOPtion);
+                model.addAttribute("productThemeNo", productThemeNo);
+                model.addAttribute("searchProductKeyword", searchProductKeyword);
+
+                return "seller/seller_store";
+            } else {
+                return "redirect:/login";
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
+        return "redirect:/login";
+    }
 
-        model.addAttribute("questionList", questionList);
-        model.addAttribute("pageMaker",pagination);
+    @GetMapping("/sellerQuestion/{memberId}")
+    public String sellerQuestionPage(@Login MemberDto loginMember, @PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
+                                     @RequestParam(defaultValue="1") int currentPageNo){
 
-        return "seller/seller_question";
+        try {
+            Long loginMemberId = loginMember.getMemberId();
+
+            if (loginMemberId != null) {
+                List<QuestionViewDto> questionList = Collections.emptyList();
+
+                int questionTotalCnt = sellerService.countAllSellerQuestions(memberId,reply,criteria);
+
+                criteria.setCurrentPageNo(currentPageNo);
+                Pagination pagination = new Pagination(criteria, questionTotalCnt, 5, 5);
+
+                int firstRecordIndex = pagination.getFirstRecordIndex();
+
+                if(questionTotalCnt > 0){
+                    questionList = sellerService.getQuestionList(memberId, reply, orderType, firstRecordIndex, criteria);
+                }
+
+                model.addAttribute("questionList", questionList);
+                model.addAttribute("pageMaker",pagination);
+                return "seller/seller_question";
+            } else {
+                return "redirect:/login";
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/sellerOrder/{memberId}")
-    public String sellerOrderPage(@PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
+    public String sellerOrderPage(@Login MemberDto loginMember, @PathVariable Long memberId, @ModelAttribute("criteria") Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
                                      @RequestParam(defaultValue="1") int currentPageNo){
-        List<QuestionViewDto> questionList = Collections.emptyList();
 
-        int questionTotalCnt = sellerService.countAllSellerQuestions(memberId,reply,criteria);
+        try {
+            Long loginMemberId = loginMember.getMemberId();
 
-        criteria.setCurrentPageNo(currentPageNo);
-        Pagination pagination = new Pagination(criteria, questionTotalCnt, 5, 5);
+            if (loginMemberId != null) {
 
-        int firstRecordIndex = pagination.getFirstRecordIndex();
+                List<OrderedDto> orderList = Collections.emptyList();
 
-        if(questionTotalCnt > 0){
-            questionList = sellerService.getQuestionList(memberId, reply, orderType, firstRecordIndex, criteria);
+                int SellerOrderTotalCnt = sellerService.countAllSellerOrders(memberId,criteria);
+
+                criteria.setCurrentPageNo(currentPageNo);
+                Pagination pagination = new Pagination(criteria, SellerOrderTotalCnt, 5, 5);
+
+                int firstRecordIndex = pagination.getFirstRecordIndex();
+
+                if(SellerOrderTotalCnt > 0){
+                    orderList = sellerService.getOrderList(memberId, orderType, firstRecordIndex, criteria);
+                }
+
+                model.addAttribute("orderList", orderList);
+                model.addAttribute("pageMaker",pagination);
+
+                return "seller/seller_order";
+            } else {
+                return "redirect:/login";
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
-
-        model.addAttribute("questionList", questionList);
-        model.addAttribute("pageMaker",pagination);
-
-        return "seller/seller_order";
+        return "redirect:/login";
     }
 
 

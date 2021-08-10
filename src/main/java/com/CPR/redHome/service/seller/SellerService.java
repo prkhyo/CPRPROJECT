@@ -1,5 +1,6 @@
 package com.CPR.redHome.service.seller;
 
+import com.CPR.redHome.dto.order.OrderedDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.dto.seller.ImageDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
@@ -13,7 +14,9 @@ public interface SellerService {
 
     List<QuestionViewDto> getQuestionList(Long memberId, String reply, String orderType, int firstRecordIndex, Criteria criteria);
 
+    int countAllSellerOrders(Long memberId, Criteria criteria);
 
+    List<OrderedDto> getOrderList(Long memberId, String orderType, int firstRecordIndex, Criteria criteria);
 
     //상품 등록
     int registProducts(ProductRegistDto productRegistDto);

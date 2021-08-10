@@ -73,18 +73,16 @@ public class ReviewController {
                                HttpServletRequest request){
 
         //뒤로 가기 버튼으로 되돌어 갔을 시 제출 막기
-            if(orderService.selectOrderByOrderId(orderId).isReviewExist()==true){
+            if(orderService.selectOrderByOrderId(orderId).getReviewExist()==true){
                 return "error/submit_error";
             }
 
         try {
             reviewService.insertReview(reviewDto, file, request);
             orderService.reviewExist(orderId);
-            System.out.println("==============================controller에서 잘 넘어갔다===================================");
 
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("==============================문제가 일어났따===================================");
         }
 
 

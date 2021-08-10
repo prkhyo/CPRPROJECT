@@ -1,243 +1,170 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-<!--  <link rel="stylesheet" type="text/css" href="/css/main/store.css">-->
-  <link rel="stylesheet" type="text/css" href="/css/question/question_list.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+
+  <title>내 상품 주문상태</title>
+  <link rel="stylesheet" type="text/css" href="/css/seller/order_list.css">
+
+  <!--글자가 안 깨지고 내려가게-->
+  <link rel="stylesheet" media="screen"
+        href="https://static.ohou.se/assets/v3/layout/application_react-790a108e6a9b26136290c8bea25696fec3e4701284512f9eed313b7dbb352615.css">
+
+
+  <!--화면에 맞게-->
+  <link rel="stylesheet" media="screen"
+        href="https://static.ohou.se/dist/css/templates-Order-OrderList-OrderList-09da7272.chunk.css">
+
+
 </head>
 <body>
-
-<!-- 페이지 상단 -->
 <th:block th:include="/seller/seller_top.html"></th:block>
 
 
-<div id="questions-index-page">
-  <section id="questions-header">
-    <div class="container">
-      <div class="questions-header__title">
-        <h1 class="text-heading-1 text-black bold">내 주문 관리</h1>
-      </div>
-      <form id="questions-header__form" class="sticky-top"
-            th:action="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
-        <input name="utf8" type="hidden" value="✓">
-        <div class="sticky-content">
-          <div class="questions-header__form__wrap row">
-            <div class="questions-header__form__search col">
-              <div class="questions-header__form__search__input">
-                <select id="questionCategory_filters"  name="searchType"  onchange="" >
-                  <option class="filter-select__list__entry"   value="" th:selected="${criteria.searchType == null}">선택하세요</option>
-                  <option class="filter-select__list__entry" value="search_productTitle" th:text="상품명" th:selected="${criteria.searchType == 'search_productTitle'}"/>
-                  <option class="filter-select__list__entry" value="search_userAccountId" th:text="구매자아이디" th:selected="${criteria.searchType == 'search_userAccountId'}"/>
-                </select>
-                <img src="/img/redhome_search.PNG"
-                     style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn" onclick="search()">
-                <input type="text" name="searchKeyword"
-                       id="questions-header__form__search" th:attr="value=${criteria.searchKeyword}"
-                       class="form-control" placeholder="주문 검색."
-                       autocomplete="off"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-</div>
 
+<div class="order-list container">
+  <div class="order-list__content">
+    <div class="review-my-home__search">
+      <div class="text-heading-1 text-black bold">내 상품 주문내역</div>
+        <br>
 
-
-<section id="questions-filter" class="sticky-top" >
-  <div class="questions-filter__content container">
-
-    <div class="questions-filter__filters">
-      <div class="filter-select" id="questions-filter-sort" data-modal-id="questions-filter-sort-modal">
-        <dl class="filter-select__header" role="button" onclick="showSort()" ondblclick="hideSort()">
-          <dt class="filter-select__header__name">
-            정렬<span class="icon icon-pointer-angle-down-dark-sm"></span>
-          </dt>
-          <th:block th:if="${orderType != 'latest' && orderType !='old'}">
-            <dd class="filter-select__header__value" th:text="최신순"></dd>
-          </th:block>
-          <th:block th:if="${orderType == 'latest'}">
-            <dd class="filter-select__header__value" th:text="최신순"></dd>
-          </th:block>
-          <th:block th:if="${orderType == 'old'}">
-            <dd class="filter-select__header__value" th:text="오래된순"></dd>
-          </th:block>
-
-        </dl>
-        <ul class="filter-select__list" id="filter-select__list" >
-          <li class="filter-select__list__entry" th:classappend="${orderType == 'latest' and orderType != 'mostPopular'} ?'active':''" >
-            <a class="filter-select__list_newCommunity sort"  th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='latest', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  th:id="${orderType == 'latest'} ?'activeList':'notactiveList1'" onmouseover="newCommunityFocus()" >최신순</a>
-          </li>
-          <li class="filter-select__list__entry" th:classappend="${orderType == 'old'} ?'active':''"  >
-            <a class="filter-select__list_newComment sort" th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, reply=${reply}, orderType='old', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'old'} ?'activeList':'notactiveList2'" onmouseover="newCommentFocus()">오래된순</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-
-
-
-
-
-
-  </div>
-  </div>
-</section>
-
-<section>
-  <div class="order-list container">
-    <div class="order-list__content">
-      <div class="review-my-home__search">
-        <div class="review-my-home__search__title">주문내역</div>
-      </div>
-
-      <!--구매내역 반복-->
-      <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
-        <div class="css-1l0e9nh-Header e1yy3fi629">
-          <div class="css-1q29q5y-HeaderTitle e1yy3fi628" th:text="${order.orderNumber}+' | '+${order.orderDate}+' | '+${order.accountId}">57244440 | 2021.05.14 | id</div>
-        <div>
-          <div>
-            <div class="css-92bd9c-Item e1yy3fi626">
-              <div class="css-1ih37x6-Content e1yy3fi625">
-                <picture>
-                  <img class="css-1gfeya1-ProductImage e1yy3fi624"
-                       th:src="@{${'/display?fileName='+order.productMainImage}}">
-                  <!--srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/
-                  productions/15650448025678_7pGSb.jpg?w=180&amp;h=180&amp;c=c
-                   1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/
-                   productions/15650448025678_7pGSb.jpg?w=256&amp;h=256&amp;c=c 2x,
-                   https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/
-                   15650448025678_7pGSb.jpg?w=360&amp;h=360&amp;c=c 3x">-->
-                </picture>
-                <div class="css-1typuwb-Explain e1yy3fi623">
-                  <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
-                    <a  class="css-1nto2s9-ProductNameLink e1yy3fi620"
-                        href="/productions/324144/selling" th:text="${order.productTitle}">[기간한정]
-                      글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
-                    <div class="css-1c7n34t-ProductDelivery e1yy3fi617" th:text="${order.orderState}" style="padding-top:10px" >구매확정 </div>
-                  </div>
-                  <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
-                    <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
-                    </div>-->
-                    <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'가격 : '+${order.orderUnitPrice}+'원'">349,000원 | 1개</div>
-                    <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'수량 : '+${order.orderProductQuantity}+'개'">349,000원 | 1개</div>
-
-                  </div>
+        <form id="questions-header__form" class="sticky-top"
+              th:action="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId},currentPageNo=${criteria.currentPageNo})}" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <div class="sticky-content">
+                <div class="questions-header__form__wrap row">
+                    <div class="questions-header__form__search col">
+                        <div class="questions-header__form__search__input">
+                            <select id="questionCategory_filters"  name="searchType"  onchange="" >
+                                <option class="filter-select__list__entry"   value="" th:selected="${criteria.searchType == null}">선택하세요</option>
+                                <option class="filter-select__list__entry " value="search_productTitle" th:text="상품이름"  th:selected="${criteria.searchType == 'search_productTitle'}" />
+                                <option class="filter-select__list__entry" value="search_userAccountId" th:text="구매자아이디" th:selected="${criteria.searchType == 'search_userAccountId'}"/>
+                                <option class="filter-select__list__entry" value="search_orderState" th:text="주문상태" th:selected="${criteria.searchType == 'search_orderState'}"/>
+                            </select>
+                            <img src="/img/redhome_search.PNG"
+                                 style="position: absolute; padding-top: 21px; padding-left: 21px;" class="searchBtn" onclick="search()">
+                            <input type="text" name="searchKeyword"
+                                   id="questions-header__form__search" th:attr="value=${criteria.searchKeyword}"
+                                   class="form-control2" placeholder="문의 검색."
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="css-d2162a-ProductActions e1yy3fi615">
-
-              </div>
             </div>
-          </div>
-        </div>
+        </form>
+
+        <section id="questions-filter" class="sticky-top" >
+            <div class="questions-filter__content container">
+                <div class="questions-filter__filters">
+                    <div class="filter-select" id="questions-filter-sort" data-modal-id="questions-filter-sort-modal">
+                        <dl class="filter-select__header" role="button" onclick="showSort()" ondblclick="hideSort()">
+                            <dt class="filter-select__header__name">
+                                정렬<span class="icon icon-pointer-angle-down-dark-sm"></span>
+                            </dt>
+                            <th:block th:if="${orderType != 'latest' && orderType !='old'}">
+                                <dd class="filter-select__header__value" th:text="최신순"></dd>
+                            </th:block>
+                            <th:block th:if="${orderType == 'latest'}">
+                                <dd class="filter-select__header__value" th:text="최신순"></dd>
+                            </th:block>
+                            <th:block th:if="${orderType == 'old'}">
+                                <dd class="filter-select__header__value" th:text="오래된순"></dd>
+                            </th:block>
+
+                        </dl>
+                        <ul class="filter-select__list" id="filter-select__list" >
+                            <li class="filter-select__list__entry" th:classappend="${orderType == 'latest' and orderType != 'mostPopular'} ?'active':''" >
+                                <a class="filter-select__list_newCommunity sort"  th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, orderType='latest', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}"  th:id="${orderType == 'latest'} ?'activeList':'notactiveList1'" onmouseover="newCommunityFocus()" >최신순</a>
+                            </li>
+                            <li class="filter-select__list__entry" th:classappend="${orderType == 'old'} ?'active':''"  >
+                                <a class="filter-select__list_newComment sort" th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=1, orderType='old', searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:id="${orderType == 'old'} ?'activeList':'notactiveList2'" onmouseover="newCommentFocus()">오래된순</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
       </section>
 
+      <br>
+      <!--구매내역 반복-->
+      <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
+          <div class="css-1l0e9nh-Header e1yy3fi629">
+              <div class="css-1q29q5y-HeaderTitle e1yy3fi628" th:text="${order.orderNumber}+' | '+${order.orderDate} + ' | '+${order.accountId}">57244440 | 2021.05.14 | junfe</div>
+              <a class="css-1mhf76m-HeaderLink e1yy3fi627" th:href="@{/product/detail(productId=${order.productId})}">제품보기</a></div>
+          <div>
+              <div>
+                  <div class="css-92bd9c-Item e1yy3fi626">
+                      <div class="css-1ih37x6-Content e1yy3fi625">
+                          <picture>
+                              <a th:href="@{/product/detail(productId=${order.productId})}">
+                                  <img class="css-1gfeya1-ProductImage e1yy3fi624"
+                                       th:src="@{${'/display?fileName='+order.productMainImage}}">
+                              </a>
 
+                              <!--srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/
+                              productions/15650448025678_7pGSb.jpg?w=180&amp;h=180&amp;c=c
+                               1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/
+                               productions/15650448025678_7pGSb.jpg?w=256&amp;h=256&amp;c=c 2x,
+                               https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/
+                               15650448025678_7pGSb.jpg?w=360&amp;h=360&amp;c=c 3x">-->
+                          </picture>
+                          <div class="css-1typuwb-Explain e1yy3fi623">
+                              <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                                  <a  class="css-1nto2s9-ProductNameLink e1yy3fi620"
+                                      th:href="@{/product/detail(productId=${order.productId})}" th:text="${order.productTitle}">[기간한정]
+                                      글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
+                                  <div class="css-1c7n34t-ProductDelivery e1yy3fi617" th:text="${order.orderState}" style="padding-top:10px" th:href="@{/product/detail(productId=${order.productId})}">구매확정 </div>
+                              </div>
+                              <div class="css-lx7s3c-ExplainWrap e1yy3fi622">
+                                  <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
+                                  </div>-->
+                                  <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'가격 : '+${order.orderUnitPrice}+'원'">349,000원 | 1개 | 김준철 님 | 경기도 군포시</div>
+                                  <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'수량 : '+${order.orderProductQuantity}+'개'">349,000원 | 1개 | 김준철 님 | 경기도 군포시</div>
+                                  <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'받는사람 : '+${order.orderReceiver}+'님'">349,000원 | 1개 | 김준철 님 | 경기도 군포시</div>
+                                  <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618" th:text="'받는주소 : '+${order.orderAddress}" >349,000원 | 1개 | 김준철 님 | 경기도 군포시</div>
 
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </section>
 
     </div>
 
-  </div>
-</section>
 
 
 
 
-<section id="questions-list" class="container">
-  <th:block th:each= "order : ${orderList}" >
-<!--    <a class="questions-item__link" th:href="@{/product/detail(productId=${question.productId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >-->
-      <article class="questions-item">
-        <a class="questions-item__link" th:href="@{/product/detail(productId=${order.productId}, currentPageNo=${criteria.currentPageNo}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword}, commentCurrentPage =1)}"  >
-        <th:block th:if="${order.productMainImage ne null }">
-          <div class="questions-item__image">
-            <div class="image-wrap square">
-              <img th:src="@{${'/display?fileName='+order.productMainImage}}">
-            </div>
-          </div>
+    <!-------페이징 -------->
+    <div class="paging">
+      <ul class="pagination">
+        <!--이전  버튼-->
+        <th:block th:if="${pageMaker.hasPreviousPage}">
+          <li class="page-item">
+            <a class ="page-link" id="Previous"  th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${pageMaker.firstPage} - 1)}" tabindex="-1">Prev</a>
+          </li>
         </th:block>
+        <!--페이지 번호-->
+        <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
+          <li class="page-item" th:classappend="${pageMaker.criteria.currentPageNo == page} ?'active':''"
+              th:attr="id=${pageMaker.criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
+            <a class ="page-link" id="pageNum"  th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${page})}" th:text="${page}"></a>
+          </li>
+        </th:block>
+        <!--다음 버튼-->
+        <th:block th:if="${pageMaker.hasNextPage}">
+          <li class="page-item" >
+            <a class ="page-link" id="Next" th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${pageMaker.lastPage}+1)}"  tabindex="-1">Next</a>
+          </li>
+        </th:block>
+      </ul>
+    </div>
 
+  </div>
 
-        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="'<'+ ${order.productId} + '> '+ ${order.productTitle}"></h1>
-        <p class="questions-item__content text-caption-1" th:text="${question.questionContents}"></p>
-        </a>
-        <footer class="questions-item__footer">
-            <span class="questions-item__footer__author">
-                <span class="questions-item__footer__author__content text-caption-1" th:text="${question.userAccountId}"></span>
-            </span>
-          <span class="questions-item__footer__meta text-caption-1">
-              <time datetime="2021-05-04T13:16:13+09:00" class="questions-item__footer__date text-gray" th:text="${#temporals.format(question.questionDate,'yyyy-MM-dd HH:mm:ss') }"></time>
-              <span class="questions-item__footer__comments text-gray">
-                답변상태
-              </span>
-              <a class="questions-item__footer__comments__content" th:if="${question.questionState == '답변대기'}" th:text="답변하기" style="cursor: pointer; color: #f76565" th:href="@{/answer/add(productId=${question.productId}, questionId=${question.questionId})}"></a>
-              <span class="questions-item__footer__comments__content" th:if="${question.questionState == '답변완료'}" th:text="답변완료" style="color: #9a112c"></span>
-
-              </span>
-
-        </footer>
-      </article>
-<!--    </a>-->
-  </th:block>
-</section>
-
-<!--로그인 체크 필요 없게되면 추후 삭제 예정-->
-<input type="hidden"  id="memberId" th:value="${session.loginMember == null? null: session.loginMember.memberId} "/>
-
-
-
-<div class="paging">
-  <ul class="pagination">
-    <!--이전  버튼-->
-    <th:block th:if="${pageMaker.hasPreviousPage}">
-      <li class="page-item">
-        <a class ="page-link" id="Previous"  th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${pageMaker.firstPage} - 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" tabindex="-1">Prev</a>
-      </li>
-    </th:block>
-
-
-
-    <!--페이지 번호-->
-    <th:block th:each="page: ${#numbers.sequence(pageMaker.firstPage,pageMaker.lastPage)}">
-      <li class="page-item" th:classappend="${criteria.currentPageNo == page} ?'active':''"
-          th:attr="id=${criteria.currentPageNo == page} ? 'pageActive' : 'pageNoActive'" >
-        <a class ="page-link" id="pageNum"  th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${page}, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword})}" th:text="${page == 0 ? '': page}" ></a>
-      </li>
-    </th:block>
-
-
-    <!--다음 버튼-->
-    <th:block th:if="${pageMaker.hasNextPage}">
-      <li class="page-item" >
-        <a class ="page-link" id="Next" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId}, currentPageNo=${pageMaker.lastPage} + 1, reply=${reply},orderType=${orderType} , searchType=${criteria.searchType}, searchKeyword=${criteria.searchKeyword} )}"  tabindex="-1">Next</a>
-      </li>
-    </th:block>
-
-  </ul>
 </div>
-
-<!-- 페이지 하단 -->
-<th:block th:include="/fragments/bottom.html"></th:block>
-
-
-
-
-
-
-
-<br>
-
-
-
-
-
-<!-- 페이지 하단 -->
-<th:block th:include="/fragments/bottom.html"></th:block>
 
 <script>
 
@@ -270,7 +197,7 @@
 
   function showSort(){
 
-  let sort =  document.getElementById("filter-select__list");
+    let sort =  document.getElementById("filter-select__list");
 
     sort.style.visibility='visible';
     sort.style.opacity='1';
@@ -296,41 +223,41 @@
 
     document.getElementById(sort).addEventListener('mouseout', function (){
 
-    if(sort == 'activeList'){
-    document.getElementById(sort).style.backgroundColor='white';
-    document.getElementById(sort).style.color='#f76565';
+      if(sort == 'activeList'){
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#f76565';
 
 
-  }else{
-    document.getElementById(sort).style.backgroundColor='white';
-    document.getElementById(sort).style.color='#424242';
-  }
+      }else{
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#424242';
+      }
 
-  });
+    });
 
   }
 
   function newCommentFocus(){
-  let sort = document.getElementsByClassName("sort")[1].id;
-  document.getElementById(sort).style.backgroundColor='#f76565';
-  document.getElementById(sort).style.color='white';
+    let sort = document.getElementsByClassName("sort")[1].id;
+    document.getElementById(sort).style.backgroundColor='#f76565';
+    document.getElementById(sort).style.color='white';
 
 
-  document.getElementById(sort).addEventListener('mouseout', function (){
+    document.getElementById(sort).addEventListener('mouseout', function (){
 
-  if(sort == 'activeList'){
-  document.getElementById(sort).style.backgroundColor='white';
-  document.getElementById(sort).style.color='#f76565';
+      if(sort == 'activeList'){
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#f76565';
 
 
-  }else{
-    document.getElementById(sort).style.backgroundColor='white';
-    document.getElementById(sort).style.color='#424242';
+      }else{
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#424242';
+      }
+
+    });
+
   }
-
-});
-
-}
 
 
 
@@ -342,17 +269,17 @@
 
     document.getElementById(sort).addEventListener('mouseout', function (){
 
-    if(sort == 'activeList'){
-    document.getElementById(sort).style.backgroundColor='white';
-    document.getElementById(sort).style.color='#f76565';
+      if(sort == 'activeList'){
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#f76565';
 
 
-  }else{
-    document.getElementById(sort).style.backgroundColor='white';
-    document.getElementById(sort).style.color='#424242';
-  }
+      }else{
+        document.getElementById(sort).style.backgroundColor='white';
+        document.getElementById(sort).style.color='#424242';
+      }
 
-  });
+    });
 
   }
 
@@ -363,22 +290,322 @@
     let keyword = document.getElementById('questions-header__form__search').value;
 
     if((type == null || type =='')&&(keyword == null || keyword == '')) {
-    alert('검색 종류와 검색 키워드를 입력해 주세요.');
-    return false;
-  }else if(type == null || type ==''){
-    alert('검색 종류를 선택해 주세요.');
-    return false;
-  }else if(keyword == null || keyword == ''){
-    alert('검색 키워드를 입력해 주세요.');
-    return false;
-  }
+      alert('검색 종류와 검색 키워드를 입력해 주세요.');
+      return false;
+    }else if(type == null || type ==''){
+      alert('검색 종류를 선택해 주세요.');
+      return false;
+    }else if(keyword == null || keyword == ''){
+      alert('검색 키워드를 입력해 주세요.');
+      return false;
+    }
 
     document.getElementById('questions-header__form').submit();
   }
 
 </script>
-
 </body>
 
 
+
+<style data-emotion="css 1mhf76m-HeaderLink" data-s="">.css-1mhf76m-HeaderLink {
+    position: relative;
+    display: block;
+    font-size: 13px;
+    line-height: 25px;
+    text-align: right;
+    padding-right: 40px;
+    margin-left: auto;
+    min-width: 50px;
+}
+
+@media (max-width: 767px) {
+    .css-1mhf76m-HeaderLink {
+        line-height: 20px;
+    }
+}
+
+.css-1mhf76m-HeaderLink::after {
+    position: absolute;
+    display: block;
+    width: 4px;
+    height: 4px;
+    content: '';
+    top: 11px;
+    right: 30px;
+    border: 2px solid #000000;
+    border-width: 1px 1px 0 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+@media (max-width: 767px) {
+    .css-1mhf76m-HeaderLink::after {
+        top: 7px;
+    }
+}</style>
+<style data-emotion="css 92bd9c-Item" data-s="">.css-92bd9c-Item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 110px;
+}
+
+@media (max-width: 767px) {
+    .css-92bd9c-Item {
+        display: block;
+    }
+}</style>
+<style data-emotion="css 1ih37x6-Content" data-s="">.css-1ih37x6-Content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .css-1ih37x6-Content {
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}</style>
+<style data-emotion="css 1gfeya1-ProductImage" data-s="">.css-1gfeya1-ProductImage {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+    .css-1gfeya1-ProductImage {
+        width: 75px;
+        height: 75px;
+    }
+}</style>
+<style data-emotion="css 1typuwb-Explain" data-s="">.css-1typuwb-Explain {
+    -webkit-flex: 1 0 0px;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0px;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .css-1typuwb-Explain {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}</style>
+<style data-emotion="css lx7s3c-ExplainWrap" data-s="">.css-lx7s3c-ExplainWrap {
+    margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+    .css-lx7s3c-ExplainWrap {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+        max-width: 45%;
+    }
+}</style>
+<style data-emotion="css 161p789-BrandNameLink" data-s="">.css-161p789-BrandNameLink {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+    .css-161p789-BrandNameLink {
+        font-size: 13px;
+        line-height: 15px;
+    }
+}</style>
+<style data-emotion="css 1nto2s9-ProductNameLink" data-s="">.css-1nto2s9-ProductNameLink {
+    display: block;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .css-1nto2s9-ProductNameLink {
+        font-size: 15px;
+        line-height: 20px;
+    }
+}</style>
+<style data-emotion="css 1u68l27-ProductOption" data-s="">.css-1u68l27-ProductOption {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+@media (max-width: 767px) {
+    .css-1u68l27-ProductOption {
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 10px;
+    }
+}</style>
+<style data-emotion="css 1fnh3w3-ProductPriceAndCount" data-s="">.css-1fnh3w3-ProductPriceAndCount {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+@media (max-width: 767px) {
+    .css-1fnh3w3-ProductPriceAndCount {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}</style>
+
+
+
+<style data-emotion="css d2162a-ProductActions" data-s="">.css-d2162a-ProductActions {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 150px;
+    min-height: 110px;
+}
+
+@media (max-width: 767px) {
+    .css-d2162a-ProductActions {
+        width: 100%;
+        min-height: auto;
+        margin-top: 10px;
+        -webkit-flex-direction: inherit;
+        -ms-flex-direction: inherit;
+        flex-direction: inherit;
+    }
+}</style>
+<style data-emotion="css 1l8zinj-ActionButton" data-s="">.css-1l8zinj-ActionButton {
+    display: block;
+    width: 150px;
+    height: 50px;
+}
+
+@media (max-width: 767px) {
+    .css-1l8zinj-ActionButton {
+        display: inline-block;
+        width: auto;
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+    }
+}
+
+.css-1l8zinj-ActionButton:last-of-type {
+    margin: 10px 0 0;
+}
+
+@media (max-width: 767px) {
+    .css-1l8zinj-ActionButton:last-of-type {
+        margin: 0 0 0 10px;
+    }
+}
+
+.css-1l8zinj-ActionButton:only-of-type {
+    margin: auto 0;
+}</style>
+<style data-emotion="css 6uwgcg-SellerContent" data-s="">.css-6uwgcg-SellerContent {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    width: calc(100% - 40px);
+    height: 65px;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+}
+
+@media (max-width: 767px) {
+    .css-6uwgcg-SellerContent {
+        margin: 0;
+        width: 100%;
+        padding: 5px 0;
+    }
+}</style>
+<style data-emotion="css xojhz4-DeliveryCost" data-s="">.css-xojhz4-DeliveryCost {
+    color: #757575;
+    margin-bottom: 15px;
+}</style>
+<style data-emotion="css 1l9rf24-SellerNickname" data-s="">.css-1l9rf24-SellerNickname {
+    font-weight: bold;
+}</style>
+
+<!---->
+<style data-emotion="css 12lzt4u-List" data-s="">.css-12lzt4u-List {
+    margin-bottom: 30px;
+}</style>
+
+<!--구분선-->
+<style data-emotion="css 1l0e9nh-Header" data-s="">.css-1l0e9nh-Header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 50px;
+    border-bottom: #ededed 2px solid;
+    padding-left: 20px;
+}</style>
+<!--글씨체 볼드-->
+<style data-emotion="css 1q29q5y-HeaderTitle" data-s="">.css-1q29q5y-HeaderTitle {
+    min-width: 160px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+@media (max-width: 767px) {
+    .css-1q29q5y-HeaderTitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}</style>
 </html>

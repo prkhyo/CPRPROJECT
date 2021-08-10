@@ -1,5 +1,6 @@
 package com.CPR.redHome.service.seller;
 
+import com.CPR.redHome.dto.order.OrderedDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.dto.seller.ImageDto;
 import com.CPR.redHome.dto.seller.ProductRegistDto;
@@ -27,6 +28,19 @@ public class SellerServiceImpl implements SellerService {
 
         List<QuestionViewDto> questionList = sellerMapper.selectSellerQuestion(memberId, reply, orderType, firstRecordIndex, criteria);
         return questionList;
+    }
+
+    @Override
+    public int countAllSellerOrders(Long memberId, Criteria criteria) {
+        int orderCnt = sellerMapper.selectSellerOrderTotalCnt(memberId , criteria);
+
+        return orderCnt;
+    }
+
+    @Override
+    public List<OrderedDto> getOrderList(Long memberId, String orderType, int firstRecordIndex, Criteria criteria) {
+        List<OrderedDto> orderList = sellerMapper.selectSellerOrder(memberId, orderType, firstRecordIndex, criteria);
+        return orderList;
     }
 
     @Override
