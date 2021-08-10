@@ -34,5 +34,7 @@ public class OrderedDto {
     private String productMainImage;
     private String productTitle;
 
+    private String accountId;
+
 
 }

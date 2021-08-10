@@ -18,17 +18,17 @@
     </sql>
 
     <sql id="search">
-        <if test="searchType == 'search_orderNo'">
-            o.order_number like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_orderNo'">
+            o.order_number like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_accountId'">
-            m.account_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_accountId'">
+            m.account_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_orderDate'">
-            o.order_date like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_orderDate'">
+            o.order_date like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_orderState'">
-            o.order_state like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_orderState'">
+            o.order_state like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
@@ -38,7 +38,7 @@
         INNER JOIN member m
         on o.member_id = m.member_id
         <where>
-            <if test="searchType != null">
+            <if test="criteria.searchType != null">
                 <include refid="search"></include>
             </if>
         </where>

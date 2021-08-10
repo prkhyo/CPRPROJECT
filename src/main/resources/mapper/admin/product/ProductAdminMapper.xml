@@ -4,17 +4,17 @@
 <mapper namespace="com.CPR.redHome.mapper.admin.product.ProductAdminMapper">
 
     <sql id ="search">
-        <if test="searchType == 'search_productId'">
-            product_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_productId'">
+            product_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_productTitle'">
-            product_title like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_productTitle'">
+            product_title like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_productCategoryId'">
-            product_category_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_productCategoryId'">
+            product_category_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_productThemeId'">
-            product_theme_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_productThemeId'">
+            product_theme_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
@@ -35,7 +35,7 @@
         SELECT count(*)
         FROM product
         <where>
-            <if test="searchType != null">
+            <if test="criteria.searchType != null">
                 <include refid="search"></include>
             </if>
         </where>

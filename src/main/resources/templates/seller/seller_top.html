@@ -111,7 +111,7 @@
                         <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerQuestion/{memberId}(memberId=${session.loginMember.memberId})}">
                             내 상품문의
                         </a>
-                        <a class="layout-navigation-secondary__menu__item noDeco" href="/store?productThemeNo=3">
+                        <a class="layout-navigation-secondary__menu__item noDeco" th:href="@{/sellerOrder/{memberId}(memberId=${session.loginMember.memberId})}">
                             주문 관리
                         </a>
                     </nav>

@@ -33,6 +33,10 @@ public class QuestionViewDto {
 
     private String userAccountId;
 
+    private String productMainImage;
+
+    private String productTitle;
+
 
    //답변 dto
     private Long answerId;

@@ -4,20 +4,20 @@
 <mapper namespace="com.CPR.redHome.mapper.admin.member.MemberAdminMapper">
 
     <sql id ="search">
-        <if test="searchType == 'search_accountId'">
-            account_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_accountId'">
+            account_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_memberName'">
-            name like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_memberName'">
+            name like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_memberEmail'">
-            email like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_memberEmail'">
+            email like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_memberLevel'">
-            grade_id like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_memberLevel'">
+            grade_id like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
-        <if test="searchType == 'search_memberRole'">
-            role like CONCAT('%',#{searchKeyword},'%')
+        <if test="criteria.searchType == 'search_memberRole'">
+            role like CONCAT('%',#{criteria.searchKeyword},'%')
         </if>
     </sql>
 
@@ -40,7 +40,7 @@
         SELECT count(*)
         FROM member
         <where>
-            <if test="searchType != null">
+            <if test="criteria.searchType != null">
                 <include refid="search"></include>
             </if>
         </where>

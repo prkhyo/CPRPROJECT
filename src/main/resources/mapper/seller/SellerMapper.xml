@@ -27,5 +27,183 @@
 
     </insert>
 
+    <sql id="questionQuery">
+        select p.product_id as productId,
+               p.product_title as productTitle,
+               p.product_main_image as productMainImage,
+               q.question_id as questionId,
+               q.question_contents as questionContents,
+               q.member_id as memberId,
+               q.question_state as questionState,
+               q.question_date as questionDate,
+               m.account_id as userAccountId
+        from
+            product p
+        inner join
+            question q
+            on p.product_id = q.product_id
+        inner join
+            member m
+            on q.member_id = m.member_id
+        where
+            m.member_id = #{memberId}
+        order by
+            q.question_date desc
+    </sql>
+
+    <sql id ="questionSearch" >
+        <if test="criteria.searchType == 'search_productTitle'">
+            productTitle like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_questionContents'">
+            questionContents like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_userAccountId'">
+            userAccountId like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+    </sql>
+
+    <select id="selectSellerQuestionTotalCnt" parameterType="Long" resultType="Integer">
+        select count(*)
+        from
+            (
+                <include refid="questionQuery"></include>
+            ) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="questionSearch"></include>
+            </if>
+
+            <if test="criteria.searchType != null and reply == 'not_yet'">and</if>
+
+                <if test="reply == 'not_yet'">
+                    questionState = '답변대기'
+                </if>
+        </where>
+    </select>
+
+    <select id="selectSellerQuestion" resultType="QuestionViewDto">
+        select
+            productId,
+            productTitle,
+            productMainImage,
+            questionContents,
+            questionId,
+            memberId,
+            questionState,
+            questionDate,
+            userAccountId
+        from
+            (<include refid="questionQuery"></include>) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="questionSearch"></include>
+            </if>
+
+            <if test="criteria.searchType != null and reply == 'not_yet'">and</if>
+
+            <if test="reply == 'not_yet'">
+                questionState = '답변대기'
+            </if>
+        </where>
+
+        <if test="orderType == 'latest'">
+            order by questionDate desc
+        </if>
+        <if test="orderType == 'old'">
+            order by questionDate asc
+        </if>
+
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+    </select>
+
+    <sql id="orderQuery">
+        select
+            o.order_number as orderNumber,
+            o.member_id as buyerId,
+            o.product_id as productId,
+            o.order_receiver as orderReceiver,
+            o.order_address as orderAddress,
+            o.order_date as orderDate,
+            ((o.order_unit_price+o.order_delivery_charge)*o.order_product_quantity) as totalPrice,
+            o.order_unit_price as orderUnitPrice,
+            o.order_request as orderRequest,
+            o.order_state as orderState,
+            o.order_product_quantity as orderProductQuantity,
+            p.member_id as sellerId,
+            p.product_title as productTitle,
+            p.product_main_image as productMainImage,
+            m.account_id as accountId
+        from orders o
+                 inner join
+             product p
+             on o.product_id = p.product_id
+                 inner join
+             member m
+             on o.member_id = m.member_id
+        where p.member_id = #{memberId}
+        order by o.order_date desc
+    </sql>
+
+    <sql id ="orderSearch" >
+        <if test="criteria.searchType == 'search_productTitle'">
+            productTitle like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_userAccountId'">
+            accountId like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+        <if test="criteria.searchType == 'search_orderState'">
+            orderState like CONCAT('%',#{criteria.searchKeyword},'%')
+        </if>
+
+    </sql>
+
+    <select id="selectSellerOrderTotalCnt" resultType="Integer">
+        select count(*)
+        from
+        (
+            <include refid="orderQuery"></include>
+        ) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="orderSearch"></include>
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectSellerOrder" resultType="OrderedDto">
+        select
+            orderNumber,
+            orderDate,
+            orderReceiver,
+            orderAddress,
+            productId,
+            productMainImage,
+            productTitle,
+            orderState,
+            orderUnitPrice,
+            orderProductQuantity,
+            accountId
+        from
+            (
+            <include refid="orderQuery"></include>
+            ) query
+        <where>
+            <if test="criteria.searchType != null">
+                <include refid="orderSearch"></include>
+            </if>
+        </where>
+
+        <if test="orderType == 'latest'">
+            order by orderDate desc
+        </if>
+        <if test="orderType == 'old'">
+            order by orderDate asc
+        </if>
+
+        limit #{firstRecordIndex}, #{criteria.recordsPerPage}
+    </select>
+
+    
 
 </mapper>
