@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="/css/order/common_mypage.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/my_review.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/paging.css"/>
+
+    <script src="/js/cart/addressapi.js"></script>
+    <script src="/js/member/phoneNumberCheck.js"></script>
+
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+</head>
+
+<body>
+<th:block th:include="/fragments/top.html"></th:block>
+
+<!--마이페이지 메뉴-->
+<div class="edit-user-info">
+    <div class="myhome-nav myhome-nav--owner">
+        <nav class="page-navigation myhome-nav__owner">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item item1"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item item2"><a class="" href="/mypage/orders"
+                                                           target="_self">나의
+                    쇼핑</a></li>
+                <li class="page-navigation__item item3"><a class="active" href="/mypage/review/list" target="_self">나의
+                    리뷰</a>
+                </li>
+                <li class="page-navigation__item item4"><a class="" href="/update" target="_self">회원정보 수정</a></li>
+            </ul>
+        </nav>
+        <nav class="page-navigation myhome-nav__contents">
+            <ul style="transform: translateX(0px);">
+                <li class="page-navigation__item item7" style="float:left;"><a class=""  th:href="@{/mypage/review/list}"
+                                                                               target="_self">리뷰내역</a></li>
+                <li class="page-navigation__item item8"><a class="active" th:href="@{/mypage/reviewed/list}" target="_self">내가
+                    쓴 리뷰</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<section class="review_List">
+    <div class="container review-my-home">
+        <div class="review-my-home__search">
+            <div class="review-my-home__search__title">내가 쓴 리뷰</div>
+        </div>
+        <div class="virtualized-list review-my-home__review-list"
+             style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
+            <div>
+              <!--리뷰 반복-->
+                <div th:each="review:${reviewList}" class="review-my-home__review-list__item price_setting">
+                    <img th:if="${review.reviewImg}!=null" class="review-my-home__review-list__item__image"
+                         th:src="@{${'/fileUpload/review/reviewProduct/'+review.reviewImg}}">
+                    <a class="review-my-home__review-list__item__wrap"
+                       th:href="@{${'/product/detail?productId='+review.productId}}">
+                        <div class="wrapping">
+                            <span class="review-my-home__review-list__item__wrap__name"
+                                  th:text="${review.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
+                            <!--<span class="review-my-home__review-list__item__wrap__name wrapping_in" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>-->
+                        </div>
+                        <span class="review-my-home__review-list__item__wrap__option" style="font-size: small;color: firebrick"
+                              th:text="'등급 : '+${review.reviewGrade}+'점'"></span>
+                        <div class="review-my-home__review-list__item__wrap__option" style="font-weight: bold ; padding-top:10px"
+                              th:text="${review.reviewContents}"></div>
+                        <div class="review-my-home__review-list__item__wrap__delivery-info" style="font-size: small"
+                              th:text="${review.reviewCreatedDate}">배송 준비</div></a>
+                                       <div class="review-my-home__review-list__item__review-btn">
+                       <div class="review-my-home__review-list__item__review-btn__from">수정</div>
+
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+
+</html>

@@ -48,7 +48,10 @@
 
 
     </select>
+    <select id="selectQuestionByMemberId" resultType="QuestionViewDto">
 
+
+    </select>
 
     <insert id="insertQuestion" parameterType="QuestionDto">
         insert into question(question_contents,

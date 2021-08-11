@@ -24,7 +24,7 @@
     <nav class="page-navigation myhome-nav__contents">
         <ul style="transform: translateX(0px);">
             <li class="page-navigation__item item5"><a class="active" href="/mypage/orders" target="_self">주문내역 확인</a></li>
-            <li class="page-navigation__item item6"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a></li>
+            <li class="page-navigation__item item6"><a class="" href="/mypage/community/list" target="_self">내가 쓴 글</a></li>
         </ul>
     </nav>
 </div>
@@ -38,7 +38,7 @@
         <!--구매내역 반복-->
         <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
             <div class="css-1l0e9nh-Header e1yy3fi629">
-                <div class="css-1q29q5y-HeaderTitle e1yy3fi628" id="orderTime" th:text="${order.orderNumber}+' | '+${order.orderDate}">
+                <div class="css-1q29q5y-HeaderTitle e1yy3fi628" id="orderTime" th:text="${order.orderNumber}+' | '+${#temporals.format(order.orderDate,'yyyy-MM-dd')}">
                     57244440 | 2021.05.14
                 </div>
                 <a class="css-1mhf76m-HeaderLink e1yy3fi627" href="/orders/57244440"

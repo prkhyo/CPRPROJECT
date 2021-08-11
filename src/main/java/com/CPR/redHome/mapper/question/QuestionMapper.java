@@ -33,5 +33,6 @@ public interface QuestionMapper {
     //문의 삭제
     void deleteQuestion(Long questionId);
 
+    List<QuestionViewDto> selectQuestionByMemberId(Long MemberId);
 
 }

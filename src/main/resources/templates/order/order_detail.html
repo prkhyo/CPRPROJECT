@@ -33,7 +33,7 @@
         <ul style="transform: translateX(0px);">
             <li class="page-navigation__item"><a class="active" href="/mypage/orders" target="_self">주문내역 확인</a>
             </li>
-            <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 글</a>
+            <li class="page-navigation__item"><a class="" href="/mypage/community/list" target="_self">내가 쓴 글</a>
             </li>
         </ul>
     </nav>
@@ -49,7 +49,7 @@
         <section class="css-12lzt4u-List e1yy3fi630">
             <div class="css-1l0e9nh-Header e1yy3fi629">
                 <div class="css-1q29q5y-HeaderTitle e1yy3fi628" id='orderTime'
-                     th:text="'주문번호 : '+${order.orderNumber}+' | 주문일자 : '+${order.orderDate}">주문번호 : 57244440 | 주문일자 :
+                     th:text="'주문번호 : '+${order.orderNumber}+' | 주문일자 : '+${#temporals.format(order.orderDate,'yyyy-MM-dd')}">주문번호 : 57244440 | 주문일자 :
                     2021.05.14
                 </div>
             </div>
@@ -177,8 +177,8 @@
         </section>
     </div>
 </div>
-<script src="/js/order/splitorderTime.js"></script>
 </body>
+
 </html>
 
 

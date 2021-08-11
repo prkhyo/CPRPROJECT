@@ -33,7 +33,7 @@
     <nav class="page-navigation myhome-nav__contents" >
       <ul style="transform: translateX(0px);">
           <li class="page-navigation__item item7" style="float:left;"><a class="active" href="/mypage/orders" target="_self">리뷰내역</a></li>
-          <li class="page-navigation__item item8"><a class="" href="/users/13093528/projects" target="_self">내가 쓴 리뷰</a></li>
+          <li class="page-navigation__item item8"><a class="" th:href="@{/mypage/reviewed/list}" target="_self">내가 쓴 리뷰</a></li>
       </ul>
     </nav>
   </div>
@@ -52,13 +52,15 @@
                th:src="@{${'/display?fileName='+order.productMainImage}}">
           <a class="review-my-home__review-list__item__wrap" th:href="@{${'/product/detail?productId='+order.productId}}" >
             <!--   <span class="review-my-home__review-list__item__wrap__brand">홈앤하우스</span>-->
-            <div class="wrapping">
+            <div class="wrapping" style="padding-bottom: 5%">
               <span class="review-my-home__review-list__item__wrap__name" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
               <!--<span class="review-my-home__review-list__item__wrap__name wrapping_in" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>-->
             </div>
+            <div style="padding-bottom: 5%">
             <span class="review-my-home__review-list__item__wrap__option" th:text="'수량 : '+${order.orderProductQuantity}+'개'"></span>
             <span class="review-my-home__review-list__item__wrap__option " th:text="'가격 : '+${order.orderUnitPrice}+'원'"></span>
-            <span class="review-my-home__review-list__item__wrap__delivery-info" th:text="${order.orderState}">배송 준비</span></a>
+            </div>
+              <div class="review-my-home__review-list__item__wrap__delivery-info" th:text="${order.orderState}">배송 준비</div></a>
           <!--<div class="_3Z6oR _1BDvx price" th:text="'총 금액 : '+${order.orderProductQuantity}*${order.orderUnitPrice}+'원   '">
           </div>
 -->
