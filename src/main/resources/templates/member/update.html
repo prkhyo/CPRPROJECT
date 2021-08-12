@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="/css/member/update.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/order/common_mypage.css"/>
+
 
     <script src="/js/cart/addressapi.js"></script>
     <script src="/js/member/phoneNumberCheck.js"></script>
@@ -15,27 +17,25 @@
 
 <body>
 <th:block th:include="/fragments/top.html"></th:block>
-
+<!--마이페이지 메뉴-->
 <div class="edit-user-info">
     <div class="myhome-nav myhome-nav--owner">
-        <nav class="page-navigation myhome-nav__owner" >
+        <nav class="page-navigation myhome-nav__owner">
             <ul style="transform: translateX(0px);">
-                <li class="page-navigation__item"><a class="" href="/mypage" target="_self">프로필</a></li>
-                <li class="page-navigation__item"><a class="" href="/user_shopping_pages/order_list" target="_self">나의
+                <li class="page-navigation__item item1"><a class="" href="/mypage" target="_self">프로필</a></li>
+                <li class="page-navigation__item item2"><a class="" href="/mypage/orders"
+                                                           target="_self">나의
                     쇼핑</a></li>
-                <li class="page-navigation__item"><a class="" href="/production_reviews/write" target="_self">나의 리뷰</a>
+                <li class="page-navigation__item item3"><a class="" href="/mypage/review/list" target="_self">나의
+                    리뷰</a>
                 </li>
-                <li class="page-navigation__item"><a class="active" href="/users/13093528/edit" target="_self">설정</a>
-                </li>
+                <li class="page-navigation__item item4"><a class="active" href="/update" target="_self">회원정보 수정</a></li>
             </ul>
         </nav>
         <nav class="page-navigation myhome-nav__contents">
             <ul style="transform: translateX(0px);">
                 <li class="page-navigation__item"><a class="active" href="/users/13093528" target="_self">회원정보수정</a>
                 </li>
-                <li class="page-navigation__item"><a class="" href="/users/13093528/projects" target="_self">판매자 신청</a>
-                </li>
-                <li class="page-navigation__item"><a class="" href="/users/13093528/advices" target="_self">비밀번호 변경</a>
             </ul>
         </nav>
     </div>

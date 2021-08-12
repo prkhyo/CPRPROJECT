@@ -2,6 +2,7 @@ package com.CPR.redHome.mapper.review;
 
 import com.CPR.redHome.dto.review.ReviewDto;
 import com.CPR.redHome.dto.review.ReviewHelpDto;
+import com.CPR.redHome.dto.review.ReviewSmallViewDto;
 import com.CPR.redHome.dto.review.ReviewViewDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
@@ -62,6 +63,6 @@ public interface ReviewMapper {
     //리뷰 수정
     void updateReview(ReviewDto reviewDto);
 
-
-
+    //마이페이지 리뷰 리스트 용
+    List<ReviewSmallViewDto> selectReviewSmallView(Long memberId);
 }

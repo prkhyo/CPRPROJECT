@@ -1,0 +1,321 @@
+.review-my-home__search {
+    margin: 30px 0
+}
+
+.review-my-home__search__title {
+    font-size: 18px;
+    font-weight: 700
+}
+
+
+/*chunk*/
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+a * {
+    border: none
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        margin-right: auto;
+        margin-left: auto;
+        box-sizing: border-box;
+        width: calc(100% - 80px);
+        max-width: 100%;
+        box-sizing: border-box;
+        min-height: 1px
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin-right: auto;
+        margin-left: auto;
+        box-sizing: border-box;
+        width: calc(100% - 120px);
+        max-width: 100%;
+        box-sizing: border-box;
+        min-height: 1px
+    }
+}
+
+@media (min-width: 1256px) {
+    .container {
+        margin-right: auto;
+        margin-left: auto;
+        box-sizing: border-box;
+        width: 1136px;
+        max-width: 100%;
+        box-sizing: border-box;
+        min-height: 1px
+    }
+}
+
+
+.css-92bd9c-Item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 110px;
+}
+
+@media (max-width: 767px) {
+    .css-92bd9c-Item {
+        display: block;
+    }
+}
+
+.css-1ih37x6-Content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .css-1ih37x6-Content {
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
+
+.css-1gfeya1-ProductImage {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+    .css-1gfeya1-ProductImage {
+        width: 75px;
+        height: 75px;
+    }
+}
+
+.css-1typuwb-Explain {
+    -webkit-flex: 1 0 0px;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0px;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .css-1typuwb-Explain {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
+
+.css-lx7s3c-ExplainWrap {
+    margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+    .css-lx7s3c-ExplainWrap {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+        max-width: 45%;
+    }
+}
+
+.css-161p789-BrandNameLink {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+    .css-161p789-BrandNameLink {
+        font-size: 13px;
+        line-height: 15px;
+    }
+}
+
+.css-1nto2s9-ProductNameLink {
+    display: block;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .css-1nto2s9-ProductNameLink {
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
+
+.css-1u68l27-ProductOption {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+@media (max-width: 767px) {
+    .css-1u68l27-ProductOption {
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 10px;
+    }
+}
+
+.css-1fnh3w3-ProductPriceAndCount {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+@media (max-width: 767px) {
+    .css-1fnh3w3-ProductPriceAndCount {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+.css-d2162a-ProductActions {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 150px;
+    min-height: 110px;
+}
+
+@media (max-width: 767px) {
+    .css-d2162a-ProductActions {
+        width: 100%;
+        min-height: auto;
+        margin-top: 10px;
+        -webkit-flex-direction: inherit;
+        -ms-flex-direction: inherit;
+        flex-direction: inherit;
+    }
+}
+
+.css-1l8zinj-ActionButton {
+    display: block;
+    width: 150px;
+    height: 50px;
+}
+
+@media (max-width: 767px) {
+    .css-1l8zinj-ActionButton {
+        display: inline-block;
+        width: auto;
+        -webkit-flex: 1 0 0px;
+        -ms-flex: 1 0 0px;
+        flex: 1 0 0px;
+    }
+}
+
+.css-1l8zinj-ActionButton:last-of-type {
+    margin: 10px 0 0;
+}
+
+@media (max-width: 767px) {
+    .css-1l8zinj-ActionButton:last-of-type {
+        margin: 0 0 0 10px;
+    }
+}
+
+.css-1l8zinj-ActionButton:only-of-type {
+    margin: auto 0;
+}
+
+.css-1l0e9nh-Header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 50px;
+    border-bottom: #ededed 2px solid;
+    padding-left: 20px;
+}
+
+<!--
+글씨체 볼드-- >
+.css-1q29q5y-HeaderTitle {
+    min-width: 160px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+@media (max-width: 767px) {
+    .css-1q29q5y-HeaderTitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+/*정연이가 직접 추가한 css*/
+.detail_form {
+    padding: 5% 2%;
+}
+
+.order_info {
+    padding-bottom: 10%;
+}
+
+.order_type {
+    font-weight: bold;
+    margin-bottom: 3%;
+}
+
+.wrap_cross {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+}
+
+.wrap_element {
+    width: 15%;
+}
+
+.wrap_element2 {
+    width: 85%;
+}
+
+.order-list__content {
+    margin-top: 50px;
+    box-shadow: 0 1px 3px 0 #dbdbdb;
+    padding: 30px;
+}
