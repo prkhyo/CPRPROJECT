@@ -69,7 +69,7 @@
                         <div class="review-my-home__review-list__item__wrap__option" style="font-weight: bold ; padding-top:10px"
                               th:text="${review.reviewContents}"></div>
                         <div class="review-my-home__review-list__item__wrap__delivery-info" style="font-size: small"
-                              th:text="${review.reviewCreatedDate}">배송 준비</div></a>
+                              th:text="${#temporals.format(review.reviewCreatedDate,'yyyy-MM-dd HH:mm')}">배송 준비</div></a>
                                        <div class="review-my-home__review-list__item__review-btn">
                        <div class="review-my-home__review-list__item__review-btn__from">수정</div>
 

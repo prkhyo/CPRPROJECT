@@ -58,8 +58,11 @@
 
                 <!--커뮤니티 글 반복-->
                 <div th:each="community:${communityList}" class="review-my-home__review-list__item price_setting">
+
                     <a class="review-my-home__review-list__item__wrap"
-                       th:href="@{/community/detail(communityId=${community.communityId})}">
+                       th:href="@{/community/list}">
+
+
                         <div class="wrapping">
                             <span class="review-my-home__review-list__item__wrap__name"
                                   th:text="${community.communityTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
