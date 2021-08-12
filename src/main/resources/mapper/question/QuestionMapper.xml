@@ -48,12 +48,22 @@
 
 
     </select>
-    <select id="selectQuestionByMemberId" resultType="QuestionViewDto">
+    <select id="selectQuestionByMemberId" resultType="QuestionSmallViewDto">
+        select q.question_id          as questionId,
+               q.question_contents      as questionContents,
+               q.question_date          as questionDate,
+               q.question_state         as questionState,
+               q.product_id           as productId,
+               p.product_title           as productTitle
+        from question as q
+                 inner join product as p on q.product_id = p.product_id
+        where q.member_id = ${memberId}
+        order by questionId desc
 
 
     </select>
 
-    <insert id="insertQuestion" parameterType="QuestionDto">
+    <insert id="insertQuestion" parameterType="QuestionSmallViewDto">
         insert into question(question_contents,
                              question_state,
                              question_category_id,

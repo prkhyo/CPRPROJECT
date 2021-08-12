@@ -1,6 +1,7 @@
 package com.CPR.redHome.mapper.question;
 
 import com.CPR.redHome.dto.question.QuestionDto;
+import com.CPR.redHome.dto.question.QuestionSmallViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,6 +34,7 @@ public interface QuestionMapper {
     //문의 삭제
     void deleteQuestion(Long questionId);
 
-    List<QuestionViewDto> selectQuestionByMemberId(Long MemberId);
+    //memberId로 문의글 가져오기
+    List<QuestionSmallViewDto> selectQuestionByMemberId(Long MemberId);
 
 }

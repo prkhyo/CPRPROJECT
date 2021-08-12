@@ -23,7 +23,7 @@
     <div class="myhome-nav myhome-nav--owner">
         <nav class="page-navigation myhome-nav__owner">
             <ul style="transform: translateX(0px);">
-                <li class="page-navigation__item item1"><a class="" target="_self">프로필</a></li>
+                <li class="page-navigation__item item1"><a class=""  target="_self">프로필</a></li>
                 <li class="page-navigation__item item2"><a class="active" th:href="@{/mypage/orders}"
                                                            target="_self">나의 쇼핑</a></li>
                 <li class="page-navigation__item item3"><a class="" th:href="@{/mypage/review/list}" target="_self">나의
@@ -36,8 +36,7 @@
             <ul style="transform: translateX(0px);">
                 <li class="page-navigation__item item7" style="float:left;"><a class="" th:href="@{/mypage/orders}"
                                                                                target="_self">주문내역 확인</a></li>
-                <li class="page-navigation__item item8"><a class="active" th:href="@{/mypage/reviewed/list}"
-                                                           target="_self">내가 쓴 글</a></li>
+                <li class="page-navigation__item item8"><a class="active" th:href="@{/mypage/reviewed/list}" target="_self">내가 쓴 글</a></li>
             </ul>
         </nav>
     </div>
@@ -45,38 +44,34 @@
 
 <section class="review_List">
     <div class="container review-my-home">
-        <a style="float: right; text-decoration:none ;color: black;font-weight: bold" th:href="@{/mypage/question/list}">
-            나의 문의 글 보러가기
+        <a style="float: right; text-decoration:none ;color: black;font-weight: bold"  th:href="@{/mypage/community/list}" >
+            나의 커뮤니티글 보러가기
         </a>
 
-        <div class="review-my-home_ㅡ_search">
-            <div class="review-my-home__search__title">커뮤니티글</div>
+        <div class="review-my-home__search">
+            <div class="review-my-home__search__title">문의글</div>
         </div>
         <div class="virtualized-list review-my-home__review-list"
              style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
             <div>
 
-                <!--커뮤니티 글 반복-->
-                <div th:each="community:${communityList}" class="review-my-home__review-list__item price_setting">
+              <!--커뮤니티 글 반복-->
+                <div th:each="question:${questionList}" class="review-my-home__review-list__item price_setting">
                     <a class="review-my-home__review-list__item__wrap"
-                       th:href="@{/community/detail(communityId=${community.communityId})}">
+                       th:href="@{${'/product/detail?productId='+question.productId}}">
                         <div class="wrapping">
                             <span class="review-my-home__review-list__item__wrap__name"
-                                  th:text="${community.communityTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
+                                  th:text="${question.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>
                             <!--<span class="review-my-home__review-list__item__wrap__name wrapping_in" th:text="${order.productTitle}">접이식 만능 다용도 핸드카트(35kg) 2colors</span>-->
                         </div>
-                        <span class="review-my-home__review-list__item__wrap__option"
-                              style="font-size: small;color: firebrick"
-                              th:text="'조회 '+${community.communityHit}"></span>
-                        <div class="review-my-home__review-list__item__wrap__option"
-                             style="font-size: small; padding: 10px 20px 10px 0px"
-                             th:text="${community.communityContents}"></div>
+                        <span class="review-my-home__review-list__item__wrap__option" style="font-size: small;color: firebrick"
+                              th:text="${question.questionState}"></span>
+                        <div class="review-my-home__review-list__item__wrap__option" style="font-size: small; padding: 10px 20px 10px 0px"
+                              th:text="${question.questionContents}"></div>
                         <div class="review-my-home__review-list__item__wrap__delivery-info" style="font-size: small"
-                             th:text="${#temporals.format(community.communityCreatedDate,'yyyy-MM-dd HH:mm:ss') }">날짜
-                        </div>
-                    </a>
-                    <div class="review-my-home__review-list__item__review-btn">
-                    </div>
+                              th:text="${#temporals.format(question.questionDate,'yyyy-MM-dd HH:mm:ss') }">날짜</div></a>
+                                       <div class="review-my-home__review-list__item__review-btn">
+                     </div>
                 </div>
             </div>
         </div>

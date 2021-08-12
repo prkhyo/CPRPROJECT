@@ -37,12 +37,15 @@
 
         <!--구매내역 반복-->
         <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
+
             <div class="css-1l0e9nh-Header e1yy3fi629">
                 <div class="css-1q29q5y-HeaderTitle e1yy3fi628" id="orderTime" th:text="${order.orderNumber}+' | '+${#temporals.format(order.orderDate,'yyyy-MM-dd')}">
                     57244440 | 2021.05.14
                 </div>
+
                 <a class="css-1mhf76m-HeaderLink e1yy3fi627" href="/orders/57244440"
-                   th:href="@{/mypage/orders/{orderId}(orderId=${order.orderId})}">상세보기</a></div>
+                   th:href="@{/mypage/orders/{orderId}(orderId=${order.orderId})}">상세보기</a>
+            </div>
 
                 <div>
                     <div class="css-92bd9c-Item e1yy3fi626">
@@ -54,18 +57,27 @@
                                          th:src="@{${'/display?fileName='+order.productMainImage}}">
                                 </picture>
                                 <div class="css-1typuwb-Explain e1yy3fi623">
+
                                     <div class="css-lx7s3c-ExplainWrap e1yy3fi622 e1yy3fi622_title">
-                                        <a class="css-1nto2s9-ProductNameLink e1yy3fi620"
+
+                                       <a class="css-1nto2s9-ProductNameLink e1yy3fi620"
                                            th:href="@{${'/product/detail?productId='+order.productId}}"
                                            href="/productions/324144/selling" th:text="${order.productTitle}">[기간한정]
                                             글린 LED 3단 서랍침대 매트포함 (SS/Q) 4colors</a>
-                                        <div class="css-1c7n34t-ProductDelivery e1yy3fi617"
+                                        <div id="orderState" class="css-1c7n34t-ProductDelivery e1yy3fi617"
                                              th:text="${order.orderState}" style="padding-top:10px">구매확정
                                         </div>
+                                        <button th:if="${order.orderState}=='배송 중'" style="float: right"
+                                                class="_3Z6oR _1myYS _1BDvx review-my-home__review-list__item__review-btn__button"
+                                                th:value="${order.orderId}"
+                                                onclick=receivedOrder(value) type="button" >
+                                     <!--   th:onclick="'receivedOrder('+${order.orderId}+')'" type="button">-->
+
+                                            구매확정
+                                        </button>
                                     </div>
                                     <div class="css-lx7s3c-ExplainWrap e1yy3fi622 e1yy3fi622_quantity">
-                                        <!--<div class="css-1u68l27-ProductOption e1yy3fi619">선택: 슈퍼싱글(SS)+필로우탑60T / 색상: 오크
-                                        </div>-->
+
                                         <div class="css-1fnh3w3-ProductPriceAndCount e1yy3fi618 e1yy3fi618_price"
                                              th:text="'가격 : '+${order.orderUnitPrice}+'원'">349,000원 | 1개
                                         </div>
@@ -77,7 +89,14 @@
                             </div>
                         </a>
                         <div class="css-d2162a-ProductActions e1yy3fi615">
+
                         </div>
+                    </div>
+
+                    <div class="review-my-home__review-list__item__review-btn">
+
+
+
                     </div>
                 </div>
         </section>
@@ -112,5 +131,49 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript" >
+
+/*
+    function receivedOrder(a){
+
+        let orderId = a;
+       if (confirm("물품을 받으셨습니까?"==true)){
+           location.href = "/mypage/orders/received/"+orderId;
+       }else {
+           false;
+       }
+
+    }
+*/
+
+
+
+
+
+
+    function receivedOrder(orderId) {
+        let request = new XMLHttpRequest()
+
+        if (confirm("구매 확정하시겠습니까?") == true) {
+
+            let number = parseInt(orderId)
+
+
+            request.onreadystatechange = function send() {
+                if (request.readyState == 4 && request.status == 200)
+                    document.getElementById('orderState').text='배송 완료';
+                location.reload()
+            }
+
+            request.open("put", "/mypage/orders/received");
+            request.setRequestHeader("Content-type", "application/json");
+            request.send(number);
+
+
+        } else {
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
