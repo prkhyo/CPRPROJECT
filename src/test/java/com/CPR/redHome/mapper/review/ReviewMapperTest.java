@@ -1,6 +1,7 @@
 package com.CPR.redHome.mapper.review;
 
 import com.CPR.redHome.dto.review.ReviewDto;
+import com.CPR.redHome.dto.review.ReviewSmallViewDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,26 @@ class ReviewMapperTest {
 
         //then
         assertThat(cnt).isEqualTo(5);
+
+    }
+
+    @Test
+    @DisplayName("리뷰 보여질 것만 가져오기")
+    public void test() {
+
+        //given
+        Long memberId = 1L;
+
+
+        //when
+        List<ReviewSmallViewDto> reviews = reviewMapper.selectReviewSmallView(memberId);
+        for (ReviewSmallViewDto review : reviews) {
+            System.out.println("review = " + review);
+        }
+
+        //then
+        assertThat(reviews.size()).isEqualTo(reviewMapper.selectReviewByMemberId(memberId).size());
+
 
     }
 }

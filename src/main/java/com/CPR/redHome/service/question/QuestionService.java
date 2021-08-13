@@ -1,6 +1,7 @@
 package com.CPR.redHome.service.question;
 
 import com.CPR.redHome.dto.question.QuestionDto;
+import com.CPR.redHome.dto.question.QuestionSmallViewDto;
 import com.CPR.redHome.dto.question.QuestionViewDto;
 import com.CPR.redHome.paging.Criteria;
 
@@ -21,5 +22,8 @@ public interface QuestionService {
     void questionStateAfterDelete(Long questionId);
 
     void deleteQuestion(Long questionId);
+
+    //memberId로 문의글 가져오기
+    List<QuestionSmallViewDto> selectQuestionByMemberId(Long memberId);
 
 }

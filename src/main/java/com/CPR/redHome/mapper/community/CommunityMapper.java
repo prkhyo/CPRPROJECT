@@ -54,4 +54,7 @@ public interface CommunityMapper {
 
     //커뮤니티 글 수정
     void modifyCommunity(CommunityDto communityDto);
+
+    //멤버 아이디로 리스트 가져오기
+    List<CommunityViewDto> selectCommunityByMemberId(Long memberId);
 }

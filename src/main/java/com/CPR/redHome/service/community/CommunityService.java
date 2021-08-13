@@ -47,4 +47,7 @@ public interface CommunityService {
 
     void modifyCommunity(CommunityDto communityDto, MultipartFile file, HttpServletRequest request) throws IOException;
 
+    //memberId에 따른 커뮤니티 글 가져오기
+    List<CommunityViewDto> selectCommunityByMemberId(Long memberId);
+
 }

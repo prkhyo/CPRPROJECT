@@ -19,7 +19,7 @@
 .review-my-home__review-list__item__image{
     width: 100px;
     height: 100px;
-    margin-right: 10px;
+    margin-right: 20px;
     border-radius: 4px;
     float: left;
 
@@ -41,7 +41,7 @@
 
 .review-my-home__review-list__item__wrap{
     float: left;
-    margin-top: 20px;
+    margin-top: 5px;
 
 }
 
