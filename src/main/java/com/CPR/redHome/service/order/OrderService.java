@@ -21,6 +21,8 @@ public interface OrderService {
 
    void reviewExist(Long orderId);
 
+   void receivedCheck(Long orderId);
+
    void orderStateChange(Long orderId);
 
 }

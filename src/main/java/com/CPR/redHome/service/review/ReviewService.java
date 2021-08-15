@@ -1,6 +1,7 @@
 package com.CPR.redHome.service.review;
 
 import com.CPR.redHome.dto.review.ReviewHelpDto;
+import com.CPR.redHome.dto.review.ReviewSmallViewDto;
 import com.CPR.redHome.dto.review.ReviewViewDto;
 import com.CPR.redHome.paging.Criteria;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,8 @@ public interface ReviewService {
     void insertReviewHelp(Long reviewId, Long memberId);
 
     void deleteReviewHelp(Long reviewId, Long memberId);
+
+
     //review 삽입
     void insertReview(ReviewDto reviewDto, MultipartFile multipartFile, HttpServletRequest request) throws IOException;
 
@@ -45,6 +48,8 @@ public interface ReviewService {
     //리뷰 수정
     void updateReview(ReviewDto reviewDto);
 
+    //마이페이지 리뷰 리스트 용
+    List<ReviewSmallViewDto> selectReviewSmallView(Long memberId);
 
 
 }

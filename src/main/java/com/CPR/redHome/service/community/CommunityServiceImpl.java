@@ -179,6 +179,12 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
 
+    @Override
+    public List<CommunityViewDto> selectCommunityByMemberId(Long memberId) {
+
+        return communityMapper.selectCommunityByMemberId(memberId);
+    }
+
     public String fileUpload(MultipartFile file, HttpServletRequest request) throws IOException {
 
         String filename=null;
@@ -194,10 +200,4 @@ public class CommunityServiceImpl implements CommunityService {
 
         return filename;
     }
-
-
-
-
-
-
 }

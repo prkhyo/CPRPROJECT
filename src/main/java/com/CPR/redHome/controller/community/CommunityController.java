@@ -29,7 +29,9 @@ public class CommunityController {
 
 
     @GetMapping("/community/list")
-    public String communityListPage(@ModelAttribute("criteria")Criteria criteria, Model model, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
+    public String communityListPage(@ModelAttribute("criteria")Criteria criteria,
+                                    Model model, @ModelAttribute("reply") String reply,
+                                    @ModelAttribute("orderType") String orderType,
                                     @RequestParam(defaultValue="1") int currentPageNo) {
 
         List<CommunityViewDto> communityList = Collections.emptyList();
@@ -53,7 +55,10 @@ public class CommunityController {
 
 
     @GetMapping("/community/detail")
-    public String communityDetailPage(@RequestParam Long communityId, Model model, @ModelAttribute("criteria")Criteria criteria, @ModelAttribute("reply") String reply, @ModelAttribute("orderType") String orderType,
+    public String communityDetailPage(@RequestParam Long communityId, Model model,
+                                      @ModelAttribute("criteria")Criteria criteria,
+                                      @ModelAttribute("reply") String reply,
+                                      @ModelAttribute("orderType") String orderType,
                                       @RequestParam Integer commentCurrentPage){
 
 
@@ -64,6 +69,7 @@ public class CommunityController {
         CommunityViewDto communityDto = communityService.selectCommunity(communityId);
 
         int commentTotalCnt = communityService.countAllComments(communityId);
+
         Pagination pagination = communityService.setCommentPagingData(communityId, criteria, commentCurrentPage, commentTotalCnt);
 
         model.addAttribute("commentTotalCnt", commentTotalCnt);
