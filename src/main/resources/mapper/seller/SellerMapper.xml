@@ -119,6 +119,7 @@
 
     <sql id="orderQuery">
         select
+            o.order_id as orderId,
             o.order_number as orderNumber,
             o.member_id as buyerId,
             o.product_id as productId,
@@ -173,6 +174,7 @@
     
     <select id="selectSellerOrder" resultType="OrderedDto">
         select
+            orderId,
             orderNumber,
             orderDate,
             orderReceiver,

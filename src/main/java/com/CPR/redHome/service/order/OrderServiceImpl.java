@@ -42,4 +42,9 @@ public class OrderServiceImpl implements OrderService{
     public void reviewExist(Long orderId) {
         orderMapper.reviewExist(orderId);
     }
+
+    @Override
+    public void orderStateChange(Long orderId) {
+        orderMapper.orderStateChange(orderId);
+    }
 }

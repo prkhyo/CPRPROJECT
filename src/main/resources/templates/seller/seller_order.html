@@ -24,6 +24,8 @@
 <div class="order-list container">
   <div class="order-list__content">
     <div class="review-my-home__search">
+        <br>
+        <br>
       <div class="text-heading-1 text-black bold">내 상품 주문내역</div>
         <br>
 
@@ -89,7 +91,7 @@
       <section class="css-12lzt4u-List e1yy3fi630" th:each="order:${orderList}">
           <div class="css-1l0e9nh-Header e1yy3fi629">
               <div class="css-1q29q5y-HeaderTitle e1yy3fi628" th:text="${order.orderNumber}+' | '+${order.orderDate} + ' | '+${order.accountId}">57244440 | 2021.05.14 | junfe</div>
-              <a class="css-1mhf76m-HeaderLink e1yy3fi627" th:href="@{/product/detail(productId=${order.productId})}">제품보기</a></div>
+              <a class="css-1mhf76m-HeaderLink e1yy3fi627" th:if="${order.orderState == '결제 확인'}" th:onclick="changeOrderState([[${order.orderId}]])">배송중으로 전환하기</a></div>
           <div>
               <div>
                   <div class="css-92bd9c-Item e1yy3fi626">
@@ -301,6 +303,18 @@
     }
 
     document.getElementById('questions-header__form').submit();
+  }
+
+  function changeOrderState(orderId){
+
+      if(!confirm("배송중으로 주문상태를 변경하시겠습니까?")){
+          alert("주문상태 변경을 취소하였습니다.")
+      } else {
+          console.log(orderId);
+          location.href = "/seller/changeOrderState/" + orderId;
+          alert("주문상태가 배송중으로 변경되었습니다.");
+      }
+
   }
 
 </script>

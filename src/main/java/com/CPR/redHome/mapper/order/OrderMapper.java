@@ -27,6 +27,9 @@ public interface OrderMapper {
 
     //review 가 있다고 바꿔주기
     void reviewExist(Long orderId);
+
+    //배송중으로 전환하기.
+    void orderStateChange(Long orderId);
 }
 
 

@@ -164,7 +164,7 @@
             COUNT(case when address = '경상' then 1 end) as "경상",
             COUNT(case when address = '전라' then 1 end) as "전라",
             COUNT(case when address = '제주' then 1 end) as "제주"
-        FROM (SELECT SUBSTR(address,1,2) address from member) T
+        FROM (SELECT SUBSTR(address,7,2) address from member) T
     </select>
 
     <!-- 등급 별 회원 수 조회 -->

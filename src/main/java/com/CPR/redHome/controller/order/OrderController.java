@@ -69,4 +69,11 @@ public class OrderController {
 
         return "order/order_detail";
     }
+
+    @GetMapping("/seller/changeOrderState/{orderId}")
+    public String orderStateChange(@Login MemberDto memberDto, @PathVariable Long orderId){
+        orderService.orderStateChange(orderId);
+        Long memberId = memberDto.getMemberId();
+        return "redirect:/sellerOrder/"+memberId;
+    }
 }
