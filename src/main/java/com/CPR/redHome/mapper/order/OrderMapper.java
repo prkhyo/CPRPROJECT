@@ -30,6 +30,10 @@ public interface OrderMapper {
 
     //물건 수령 확정
     void receivedCheck(Long orderId);
+
+    //배송중으로 전환하기.
+    void orderStateChange(Long orderId);
+
 }
 
 

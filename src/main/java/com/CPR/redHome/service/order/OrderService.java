@@ -23,5 +23,6 @@ public interface OrderService {
 
    void receivedCheck(Long orderId);
 
+   void orderStateChange(Long orderId);
 
 }

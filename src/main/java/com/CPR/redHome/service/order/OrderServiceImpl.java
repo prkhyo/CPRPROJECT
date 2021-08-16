@@ -45,7 +45,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void receivedCheck(Long orderId) {
-         orderMapper.receivedCheck(orderId);
+        orderMapper.receivedCheck(orderId);
+    }
+
+    @Override
+    public void orderStateChange(Long orderId) {
+        orderMapper.orderStateChange(orderId);
     }
 }
 

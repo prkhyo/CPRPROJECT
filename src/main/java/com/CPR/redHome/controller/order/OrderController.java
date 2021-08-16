@@ -71,9 +71,17 @@ public class OrderController {
 
     @PutMapping("/mypage/orders/received")
     @ResponseStatus(HttpStatus.OK)
-    public String receivedCheck(@RequestBody Long orderId){
+    public String receivedCheck(@RequestBody Long orderId) {
 
         orderService.receivedCheck(orderId);
         return "redirect:/mypage/review/list";
+    }
+
+    @GetMapping("/seller/changeOrderState/{orderId}")
+    public String orderStateChange(@Login MemberDto memberDto, @PathVariable Long orderId){
+        orderService.orderStateChange(orderId);
+        Long memberId = memberDto.getMemberId();
+        return "redirect:/sellerOrder/"+memberId;
+
     }
 }
