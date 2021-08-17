@@ -37,7 +37,7 @@ public class CommunityController {
         int communityTotalCnt = communityService.countAllCommunities(reply, criteria);
 
         criteria.setCurrentPageNo(currentPageNo);
-        Pagination pagination = new Pagination(criteria, communityTotalCnt, 8, 3);
+        Pagination pagination = new Pagination(criteria, communityTotalCnt, 5, 5);
 
         int firstRecordIndex = pagination.getFirstRecordIndex();
 
