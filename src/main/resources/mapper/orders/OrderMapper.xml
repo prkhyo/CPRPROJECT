@@ -73,6 +73,16 @@
         set review_exist = true
         where order_id = #{orderId}
     </update>
+    <update id="receivedCheck" parameterType="Long">
+        update orders
+        set order_state = '배송 완료'
+        where order_id = #{orderId}
+    </update>
 
+    <update id="orderStateChange" parameterType="Long">
+        update orders
+        set order_state = '배송중'
+        where order_id = #{orderId}
+    </update>
 
 </mapper>

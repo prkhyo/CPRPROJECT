@@ -61,8 +61,8 @@
                 <option value="search_productCategoryId" th:selected="${criteria.searchType == 'search_productCategoryId'}">카테고리타입</option>
                 <option value="search_productThemeId" th:selected="${criteria.searchType == 'search_productThemeId'}">제품타입</option>
             </select>
-            <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
-            <button onclick="searchProduct()">검색</button>
+            <input class="layout-navigation-search__input__text" type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
+            <button class="layout-navigation-bar-upload-button__button" onclick="searchProduct()">검색</button>
         </form>
     </div>
     <br><br>

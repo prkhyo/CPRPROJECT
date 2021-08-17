@@ -1,6 +1,7 @@
 package com.CPR.redHome.service.review;
 
 import com.CPR.redHome.dto.review.ReviewHelpDto;
+import com.CPR.redHome.dto.review.ReviewSmallViewDto;
 import com.CPR.redHome.dto.review.ReviewViewDto;
 import com.CPR.redHome.mapper.review.ReviewMapper;
 import com.CPR.redHome.paging.Criteria;
@@ -146,5 +147,10 @@ public class ReviewServiceImpl implements ReviewService{
 
 
         return filename;
+    }
+
+    @Override
+    public List<ReviewSmallViewDto> selectReviewSmallView(Long memberId) {
+        return reviewMapper.selectReviewSmallView(memberId);
     }
 }

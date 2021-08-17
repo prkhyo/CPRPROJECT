@@ -1,6 +1,18 @@
 @charset "EUC-KR";
 
 
+._3Z6oR {
+    border: 1px solid #f76565;
+    background-color: white;
+    border-radius: 4px;
+    color: #f76565;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 10px;
+    width: 90px;
+    line-height: 20px;
+}
+
 .order-list{
     margin: 75px auto;
     margin-top: 50px;
