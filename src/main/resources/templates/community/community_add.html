@@ -138,9 +138,8 @@
    function titleInsertCheck(){
        let communityTitlevalue = document.communityInsertForm.communityTitle.value.trim();
        let communityTitle = document.getElementById("communityTitle");
-
+       let titleError =  document.getElementById("title_error");
        if(communityTitlevalue.length < 7){
-           let titleError =  document.getElementById("title_error");
            titleError.style.display='block';
            communityTitle.style.border ='solid 1px #ed4a4a';
            communityTitle.value ='';
@@ -157,9 +156,9 @@
    function contentInsertCheck(){
        let communityContentvalue = document.communityInsertForm.communityContents.value.trim();
        let communityContent = document.getElementById("communityContents");
+       let contentError =  document.getElementById("content_error");
 
        if(communityContentvalue == null || communityContentvalue == ''){
-           let contentError =  document.getElementById("content_error");
            contentError.style.display='block';
            communityContent.style.border ='solid 1px #ed4a4a';
            communityContent.value ='';

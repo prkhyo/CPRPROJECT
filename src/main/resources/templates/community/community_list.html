@@ -129,7 +129,7 @@
                 </th:block>
 
 
-                        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="'<'+ ${community.communityId} + '> '+ ${community.communityTitle}"></h1>
+                        <h1 class="questions-item__title text-heading-5 bold text-black"th:text="${community.communityTitle}"></h1>
                         <p class="questions-item__content text-caption-1" th:text="${community.communityContents}"></p>
                 <footer class="questions-item__footer">
             <span class="questions-item__footer__author">
