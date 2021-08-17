@@ -212,8 +212,8 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     -moz-appearance: textfield;
 }
 .layout-navigation-search__input__text {
-    display: block;
-    width: 100%;
+    display: revert;
+    width: 50%;
     box-sizing: border-box;
     padding: 8px 9px 10px 39px;
     font-family: inherit;
@@ -432,11 +432,30 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
 
 .layout-navigation-bar-upload-button__button {
     display: inline-block;
+    margin: 5px;
+    border: 5px;
+    background: none;
+    font: inherit;
+    /*width: 85px;*/
+    box-sizing: border-box;
+    padding: 8px 5px 10px 5px;
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    background-color: #ed4a4a;
+    border-radius: 4px;
+    transition: background-color .1s;
+}
+
+.layout-navigation-bar-upload-button__button2 {
+    display: inline-block;
     margin: 0;
     border: none;
     background: none;
     font: inherit;
-    width: 85px;
+    width: 200px;
     box-sizing: border-box;
     padding: 8px 0 10px;
     font-size: 15px;
@@ -640,7 +659,23 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     border-radius: 2px;
 }
 
+#searchType{
 
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    height: 40px;
+    width: 103px;
+    background-color: #ffffff;
+    color: #424242;
+    padding: 0px 3px 0px 3px;
+    border-radius: 4px;
+    border: solid 1px #bdbdbd;
+    background-color: #ffffff;
+    font-weight: bold;
+
+
+
+}
 
 
 

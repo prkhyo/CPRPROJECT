@@ -60,8 +60,8 @@
                 <option value="search_orderDate" th:selected="${criteria.searchType == 'search_orderDate'}">주문날짜</option>
                 <option value="search_orderState" th:selected="${criteria.searchType == 'search_orderState'}">주문상태</option>
             </select>
-            <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
-            <button onclick="searchOrder()">검색</button>
+            <input class="layout-navigation-search__input__text" type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
+            <button class="layout-navigation-bar-upload-button__button" onclick="searchOrder()">검색</button>
         </form>
     </div>
     <br><br>

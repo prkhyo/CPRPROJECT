@@ -101,9 +101,9 @@
                 <option value="search_memberLevel" th:selected="${criteria.searchType == 'search_memberLevel'}">레벨</option>
                 <option value="search_memberRole" th:selected="${criteria.searchType == 'search_memberRole'}">권한</option>
             </select>
-            <input type="text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
-            <button onclick="searchMember()">검색</button>
-            <button id="selNewSeller">판매자 권한 신청 회원 보기</button>
+            <input type="text" class="layout-navigation-search__input__text" name="searchKeyword" id="searchKeyword" th:attr="value=${criteria.searchKeyword}">
+            <button class="layout-navigation-bar-upload-button__button" onclick="searchMember()">검색</button>
+            <button class="layout-navigation-bar-upload-button__button2" id="selNewSeller">판매자 권한 신청 회원 보기</button>
         </form>
     </div>
     <br><br>
@@ -140,8 +140,8 @@
                 <td th:text="${member.gradeId}"></td>
                 <td><button th:onclick="updateMember([[${member.memberId}]])">수정</button></td>
                 <td><button th:onclick="deleteMember([[${member.memberId}]],[[${member.accountId}]])">삭제</button></td>
-                <td><button th:if="${member.role} == 'APPLY_SELLER'" th:onclick="permitMember([[${member.memberId}]],[[${member.accountId}]])">승인</button></td>
-                <td><button th:if="${member.role} == 'APPLY_SELLER'" th:onclick="rejectMember([[${member.memberId}]],[[${member.accountId}]])">반려</button></td>
+                <td><button class="layout-navigation-bar-upload-button__button" th:if="${member.role} == 'APPLY_SELLER'" th:onclick="permitMember([[${member.memberId}]],[[${member.accountId}]])" style="color: white; background-color: #f76565">승인</button></td>
+                <td><button class="layout-navigation-bar-upload-button__button" th:if="${member.role} == 'APPLY_SELLER'" th:onclick="rejectMember([[${member.memberId}]],[[${member.accountId}]])">반려</button></td>
         </th>
         </tbody>
     </table>
