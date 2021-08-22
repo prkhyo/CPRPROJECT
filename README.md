@@ -1,6 +1,6 @@
 # readMe.md
 
-![logo](src/main/resources/static/img/readMe/logo.PNG)
+![logo](src/main/resources/static/img/readMe/logo.png)
 
 # 레드홈(Layered Home) : 인테리어 상품 판매
 
