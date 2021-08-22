@@ -1,4 +1,4 @@
-    window.onload = function (){
+    window.onload =  () => {
     const address = document.getElementById('finalAddress').value;
     const addressArr =address.split('^');
 
