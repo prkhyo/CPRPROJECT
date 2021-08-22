@@ -93,7 +93,7 @@
 
 요구분석 사항 토대로 모델링 진행
 
-![logo](src/main/resources/static/img/readMe/ERD.PNG)
+![ERD](src/main/resources/static/img/readMe/ERD.png)
 
 [https://www.erdcloud.com/d/RyyET8f2ZA9siudLF](https://www.erdcloud.com/d/RyyET8f2ZA9siudLF)
 
@@ -109,27 +109,27 @@
 
 - **회원가입**
 
-![join](src/main/resources/static/img/readMe/member/join1.PNG)
+![join](src/main/resources/static/img/readMe/member/join1.png)
 
-![join2](src/main/resources/static/img/readMe/member/join2.PNG)
+![join2](src/main/resources/static/img/readMe/member/join2.png)
 
 ---
 
 - **로그인**
 
-![login](src/main/resources/static/img/readMe/member/login.PNG)
+![login](src/main/resources/static/img/readMe/member/login.png)
 
 ---
 
 - **회원수정**
 
-![update](src/main/resources/static/img/readMe/member/update.PNG)
+![update](src/main/resources/static/img/readMe/member/update.png)
 
 ---
 
 - **회원탈퇴**
 
-![delete](src/main/resources/static/img/readMe/member/delete.PNG)
+![delete](src/main/resources/static/img/readMe/member/delete.png)
 
 ---
 
@@ -144,32 +144,32 @@
 <div markdown="1">
 
 - **상품 등록**
-![regist_product](src/main/resources/static/img/readMe/product/regist_product.png)
+    ![regist_product](src/main/resources/static/img/readMe/product/regist_product.png)
 
-![regist_product2](src/main/resources/static/img/readMe/product/regist_product2.PNG)
+    ![regist_product2](src/main/resources/static/img/readMe/product/regist_product2.png)
 - 상품 리스트 페이지
 
-  ![product_list](src/main/resources/static/img/readMe/product/product_list.PNG)
+    ![product_list](src/main/resources/static/img/readMe/product/product_list.png)
 - 장바구니 담기
 
-![cart](src/main/resources/static/img/readMe/product/cart.PNG)
+    ![cart](src/main/resources/static/img/readMe/product/cart.png)
 
 - 상품 결제
 
-![payment](src/main/resources/static/img/readMe/product/payment.PNG)
+    ![payment](src/main/resources/static/img/readMe/product/payment.png)
 
 - 상품 리뷰
 
-![review](src/main/resources/static/img/readMe/product/review.PNG)
+    ![review](src/main/resources/static/img/readMe/product/review.png)
       
 - 상품 문의 등록
 
-![regist_question](src/main/resources/static/img/readMe/product/regist_question.PNG)
+    ![regist_question](src/main/resources/static/img/readMe/product/regist_question.png)
 - 상품 문의
-![question_list](src/main/resources/static/img/readMe/product/question_list.PNG)
+    ![question_list](src/main/resources/static/img/readMe/product/question_list.png)
 - 공유하기
 
-![share](src/main/resources/static/img/readMe/product/share.PNG)
+![share](src/main/resources/static/img/readMe/product/share.png)
 
 </div>
 </details>
@@ -180,21 +180,21 @@
 
 - 커뮤니티 등록
 
-![register](src/main/resources/static/img/readMe/community/register.PNG)
+![register](src/main/resources/static/img/readMe/community/register.png)
 
 - 커뮤니티 리스트
-![community_list](src/main/resources/static/img/readMe/community/community_list.PNG)
+![community_list](src/main/resources/static/img/readMe/community/community_list.png)
 
 - 커뮤니티 상세 보기
-![detail](src/main/resources/static/img/readMe/community/detail.PNG)
+![detail](src/main/resources/static/img/readMe/community/detail.png)
 
 - 커뮤니티 답변 등록
 
-![community_register](src/main/resources/static/img/readMe/community/community_register.PNG)
+![community_register](src/main/resources/static/img/readMe/community/community_register.png)
 
 - 공유하기
 
-![share](src/main/resources/static/img/readMe/community/share.PNG)
+![share](src/main/resources/static/img/readMe/community/share.png)
 </div>
 </details>
 <br>
@@ -204,31 +204,31 @@
 
 - 판매자 권한 신청
 
-![apply](src/main/resources/static/img/readMe/seller/apply.PNG)
+![apply](src/main/resources/static/img/readMe/seller/apply.png)
 
 - 판매자 권한 승인
 
-![accept](src/main/resources/static/img/readMe/seller/accept.PNG)
+![accept](src/main/resources/static/img/readMe/seller/accept.png)
 
 - 내 판매 상품
 
-![product](src/main/resources/static/img/readMe/seller/product.PNG)
+![product](src/main/resources/static/img/readMe/seller/product.png)
 
 - 내 상품 문의
 
-![question](src/main/resources/static/img/readMe/seller/my_product_question.PNG)
+![question](src/main/resources/static/img/readMe/seller/my_product_question.png)
 
 - 주문 관리
 
-![manage](src/main/resources/static/img/readMe/seller/manage_orders.PNG)
+![manage](src/main/resources/static/img/readMe/seller/manage_orders.png)
 
 - 상품 문의 답변하기
 
-![answer1](src/main/resources/static/img/readMe/seller/answer.PNG)
+![answer1](src/main/resources/static/img/readMe/seller/answer.png)
 
-![answer2](src/main/resources/static/img/readMe/seller/answer2.PNG)
+![answer2](src/main/resources/static/img/readMe/seller/answer2.png)
 
-![answer3](src/main/resources/static/img/readMe/seller/answer3.PNG)
+![answer3](src/main/resources/static/img/readMe/seller/answer3.png)
 
 </div>
 </details>
@@ -240,26 +240,26 @@
 
 - 회원 관리 페이지
   
-![member](src/main/resources/static/img/readMe/admin/member_manage.PNG)
+![member](src/main/resources/static/img/readMe/admin/member_manage.png)
 - 상품 관리 페이지
 
-![product_manage](src/main/resources/static/img/readMe/admin/product_manage.PNG)
+![product_manage](src/main/resources/static/img/readMe/admin/product_manage.png)
 
 - 주문 관리 페이지
 
-![order_manage](src/main/resources/static/img/readMe/admin/order_manage.PNG)
+![order_manage](src/main/resources/static/img/readMe/admin/order_manage.png)
 
 - 회원 통계
 
-![mebmer_static](src/main/resources/static/img/readMe/admin/member_static.PNG)
+![mebmer_static](src/main/resources/static/img/readMe/admin/member_static.png)
 
 - 상품 통계
 
-![product_static](src/main/resources/static/img/readMe/admin/product_static.PNG)
+![product_static](src/main/resources/static/img/readMe/admin/product_static.png)
    
    
 - 주문 통계
 
-![order_static](src/main/resources/static/img/readMe/admin/order_static.PNG)
+![order_static](src/main/resources/static/img/readMe/admin/order_static.png)
 </div>
 </details>
