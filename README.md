@@ -96,7 +96,7 @@
 
 ![ERD](src/main/resources/static/img/readMe/ERD.png)
 
-[https://www.erdcloud.com/d/RyyET8f2ZA9siudLF](https://www.erdcloud.com/d/RyyET8f2ZA9siudLF)
+[https://www.erdcloud.com/d/GhGq5eWd2BFXRxwd8](https://www.erdcloud.com/d/GhGq5eWd2BFXRxwd8)
 
 ---
 
@@ -136,9 +136,23 @@
 
 ---
 
-- **내가 쓴 글 보기**
 
-- **리뷰 작성**
+- **구매 목록**
+
+![orderlist](src/main/resources/static/img/readMe/member/order_list.png)
+
+---
+
+- **리뷰 작성 리스트**
+![review_list](src/main/resources/static/img/readMe/member/review_list.png)
+  
+![review_form](src/main/resources/static/img/readMe/member/review_form.png)
+  
+
+---
+- **내가 쓴 글**
+![what_i_wrote](src/main/resources/static/img/readMe/member/what_i_wrote.png)
+
 </div>
 </details>
 <br>
