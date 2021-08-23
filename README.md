@@ -160,50 +160,52 @@
 <summary>상품</summary>
 <div markdown="1">
 
-- 상품 등록
-    ![regist_product](src/main/resources/static/img/readMe/product/regist_product.png)
-
-    ![regist_product2](src/main/resources/static/img/readMe/product/regist_product2.png)
+- **상품 등록**
   
-<br>
+![regist_product](src/main/resources/static/img/readMe/product/regist_product.png)
 
-- 상품 리스트 페이지
+![regist_product2](src/main/resources/static/img/readMe/product/regist_product2.png)
 
-    ![product_list](src/main/resources/static/img/readMe/product/product_list.png)
+---
 
-<br>
+- **상품 리스트 페이지**
   
-- 장바구니 담기
+![product_list](src/main/resources/static/img/readMe/product/product_list.png)
 
-    ![cart](src/main/resources/static/img/readMe/product/cart.png)
+---
+  
+- **장바구니 담기**
+  
+![cart](src/main/resources/static/img/readMe/product/cart.png)
 
-<br>
+---
 
 
-- 상품 결제
+- **상품 결제**
+  
+![payment](src/main/resources/static/img/readMe/product/payment.png)
 
-    ![payment](src/main/resources/static/img/readMe/product/payment.png)
+---
 
-<br>
+- **상품 리뷰**
+  
+![review](src/main/resources/static/img/readMe/product/review.png)
 
-- 상품 리뷰
+---
 
-    ![review](src/main/resources/static/img/readMe/product/review.png)
+- **상품 문의 등록**
+  
+![regist_question](src/main/resources/static/img/readMe/product/regist_question.png)
 
-<br>
+---
 
-- 상품 문의 등록
+- **상품 문의**
+  
+![question_list](src/main/resources/static/img/readMe/product/question_list.png)
 
-    ![regist_question](src/main/resources/static/img/readMe/product/regist_question.png)
+---
 
-<br>
-
-- 상품 문의
-    ![question_list](src/main/resources/static/img/readMe/product/question_list.png)
-
-<br>
-
-- 공유하기
+- **공유하기**
 
 ![share](src/main/resources/static/img/readMe/product/share.png)
 
@@ -214,29 +216,31 @@
 <summary>커뮤니티</summary>
 <div markdown="1">
 
-- 커뮤니티 등록
+- **커뮤니티 등록**
 
 ![register](src/main/resources/static/img/readMe/community/register.png)
 
-<br>
+---
 
-- 커뮤니티 리스트
+- **커뮤니티 리스트**
+
 ![community_list](src/main/resources/static/img/readMe/community/community_list.png)
 
-<br>
+---
 
-- 커뮤니티 상세 보기
+- **커뮤니티 상세 보기**
+
 ![detail](src/main/resources/static/img/readMe/community/detail.png)
 
-<br>
+---
 
-- 커뮤니티 답변 등록
+- **커뮤니티 답변 등록**
 
 ![community_register](src/main/resources/static/img/readMe/community/community_register.png)
 
-<br>
+---
 
-- 공유하기
+- **공유하기**
 
 ![share](src/main/resources/static/img/readMe/community/share.png)
 </div>
@@ -246,37 +250,37 @@
 <summary>판매자 페이지</summary>
 <div markdown="1">
 
-- 판매자 권한 신청
+- **판매자 권한 신청**
 
 ![apply](src/main/resources/static/img/readMe/seller/apply.png)
 
-<br>
+---
 
-- 판매자 권한 승인
+- **판매자 권한 승인**
 
 ![accept](src/main/resources/static/img/readMe/seller/accept.png)
 
-<br>
+---
 
-- 내 판매 상품
+- **내 판매 상품**
 
 ![product](src/main/resources/static/img/readMe/seller/product.png)
 
-<br>
+---
 
-- 내 상품 문의
+- **내 상품 문의**
 
 ![question](src/main/resources/static/img/readMe/seller/my_product_question.png)
 
-<br>
+---
 
-- 주문 관리
+- **주문 관리**
 
 ![manage](src/main/resources/static/img/readMe/seller/manage_orders.png)
 
-<br>
+---
 
-- 상품 문의 답변하기
+- **상품 문의 답변하기**
 
 ![answer1](src/main/resources/static/img/readMe/seller/answer.png)
 
@@ -292,36 +296,37 @@
 <div markdown="1">
 
 
-- 회원 관리 페이지
+- **회원 관리 페이지**
   
 ![member](src/main/resources/static/img/readMe/admin/member_manage.png)
 
-<br>
+---
 
-- 상품 관리 페이지
+- **상품 관리 페이지**
 
 ![product_manage](src/main/resources/static/img/readMe/admin/product_manage.png)
 
-<br>
+---
 
-- 주문 관리 페이지
+- **주문 관리 페이지**
 
 ![order_manage](src/main/resources/static/img/readMe/admin/order_manage.png)
 
-<br>
+---
 
-- 회원 통계
+- **회원 통계**
 
 ![mebmer_static](src/main/resources/static/img/readMe/admin/member_static.png)
 
-- 상품 통계
+---
+
+- **상품 통계**
 
 ![product_static](src/main/resources/static/img/readMe/admin/product_static.png)
 
-<br>
+---
 
-
-- 주문 통계
+- **주문 통계**
 
 ![order_static](src/main/resources/static/img/readMe/admin/order_static.png)
 </div>
