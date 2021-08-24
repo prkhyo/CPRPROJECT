@@ -59,9 +59,9 @@
         g.accumulation_rate as accumulationRate
 
         from shopping_cart as c
-        join member m on c.member_id = m.member_id
-        join grade g on m.grade_id = g.grade_id
-        join product p on c.product_id = p.product_id
+        left join member m on c.member_id = m.member_id
+        left join grade g on m.grade_id = g.grade_id
+        left join product p on c.product_id = p.product_id
         join member m2 on p.member_id = m2.member_id
 
 

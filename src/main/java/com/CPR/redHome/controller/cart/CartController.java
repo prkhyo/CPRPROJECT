@@ -42,7 +42,7 @@ public class CartController {
 
 
     @RequestMapping("/cart/payment")
-    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, @ModelAttribute OrderDto orderDto, Model model) throws NullPointerException {
+    public String getPayment(@RequestParam(value = "selectNo", required = false) List<String> ids, Model model) throws NullPointerException {
 
         model.addAttribute("point", cartService.findMemberId(Long.parseLong(ids.get(0))));
         model.addAttribute("orderDetail", cartService.getPayment(ids));
