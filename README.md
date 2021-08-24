@@ -96,7 +96,7 @@
 
 ![ERD](src/main/resources/static/img/readMe/ERD.png)
 
-[https://www.erdcloud.com/d/RyyET8f2ZA9siudLF](https://www.erdcloud.com/d/RyyET8f2ZA9siudLF)
+https://www.erdcloud.com/d/xwDzzrwA3PtaSFq7C
 
 ---
 
