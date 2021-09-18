@@ -98,7 +98,7 @@
 
 요구분석 사항 토대로 모델링 진행
 
-![ERD](src/main/resources/static/img/readMe/ERD.png)
+![redhomeERD](src/main/resources/static/img/readMe/redhomeERD.png)
 
 
 [https://www.erdcloud.com/d/GhGq5eWd2BFXRxwd8](https://www.erdcloud.com/d/GhGq5eWd2BFXRxwd8)
